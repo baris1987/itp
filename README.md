@@ -9,9 +9,9 @@ IT Projekt
 * Doodle-Link zur Absprache per Live-Meeting: http://doodle.com/res9nqd54uuryypy
 
 ##Namen
-* Sebastian Lutzenberger: Shaxz
-* Jürgen Hetzel: e1ght
-* Benjamin Brandt: -
-* Christopher Althaus: chris7topher
-* Niklas Schäfer: nschaefer
-* Baris Akdag: baris2887
+* Sebastian: Shaxz
+* Jürgen: e1ght
+* Benjamin: -
+* Christopher: chris7topher
+* Niklas: nschaefer
+* Baris: baris2887
