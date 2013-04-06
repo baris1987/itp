@@ -2,11 +2,12 @@ IT Projekt
 ===
 
 ##Einleitung
+Die Kurzbeschreibung von Prof. Zapf ist im Verzeichnis 'Dokumente' zu finden.
 
-* Man kann die Standard git Bibliotheken benutzen oder die vereinfachten GitHub Tools, das alles integriert hat. Download: http://windows.github.com. Das Tool gibt es auch für andere Betriebssysteme inklusive Android und iOS.
-* Eine einfache und kompakte Anleitung zu git ist unter http://rogerdudler.github.com/git-guide/index.de.html und unter Dokumente/git.html zu finden. 
-* Im Verzeichnis Dokumente ist die Kurzbeschreibung von Prof. Zapf.
-* Doodle-Link zur Absprache per Live-Meeting: http://doodle.com/res9nqd54uuryypy
+## Git
+Man kann die Standard git Bibliotheken benutzen oder die vereinfachten GitHub Tools, das alles integriert hat und etwas mehr komfort bietet. 
+Download für Windows ist zu finden unter: http://windows.github.com. Die Tools gibt es auch für andere Betriebssysteme inklusive Android und iOS.
+Eine kompakte und gute Anleitung zu Git ist auch unter http://rogerdudler.github.com/git-guide/index.de.html zu finden. 
 
 ##Namen
 * Sebastian: Shaxz
