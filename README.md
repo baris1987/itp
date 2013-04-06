@@ -1,7 +1,11 @@
 IT Projekt
 ===
 
-##Einleitung
+##Aktuelles
+* Am Montag treffen wir uns um 13.20 Uhr unten im Aufenthaltsraum, um die nächsten Schritte durchzusprechen.
+* Wir sollten möglichst zeitnah Prof. Zapf kontaktieren, so dass wir evtl. schon am Montag oder Dienstag mit ihm sprechen können.
+
+##Dokumente
 Die Kurzbeschreibung des Projekts von Prof. Zapf ist im Verzeichnis 'Dokumente' zu finden.
 
 ## Git
