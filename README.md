@@ -1,9 +1,9 @@
 IT Projekt
 ===
 
-##Aktuelles
-* Am Montag treffen wir uns um 13.20 Uhr unten im Aufenthaltsraum, um die nächsten Schritte durchzusprechen.
-* Wir sollten möglichst zeitnah Prof. Zapf kontaktieren, so dass wir evtl. schon am Montag oder Dienstag mit ihm sprechen können.
+##Dokumente
+Alle Dokumente sind im folgenden Google Docs Verzeichnis zu finden. Die Dokumente kann jeder ohne Einschränkung ändern, auch ohne Google Account.
+Link: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sharing
 
 ##Dokumente
 Die Kurzbeschreibung des Projekts von Prof. Zapf ist im Verzeichnis 'Dokumente' zu finden.
