@@ -3,7 +3,11 @@ IT Projekt
 
 ##Dokumente
 Alle Dokumente sind im folgenden Google Docs Verzeichnis zu finden. Die Dokumente kann jeder ohne Einschränkung ändern, auch ohne Google Account.
-Link: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sharing
+Link: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sharing.
+
+Aktuelle Dokumente zur Zeit sind:
+* Requirements
+* Aufgabenverteilung
 
 ##Dokumente
 Die Kurzbeschreibung des Projekts von Prof. Zapf ist im Verzeichnis 'Dokumente' zu finden.
