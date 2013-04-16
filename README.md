@@ -24,7 +24,7 @@ Eine kompakte und gute Anleitung zu Git ist auch unter http://rogerdudler.github
 ##Namen
 * Sebastian: Shaxz
 * Jürgen: e1ght
-* Benjamin: -
+* Benjamin: brandtben
 * Christopher: chris7topher
 * Niklas: nschaefer
 * Baris: baris2887
