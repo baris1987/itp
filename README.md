@@ -10,6 +10,7 @@ Aktuelle Dokumente zur Zeit sind:
 
 ##Links
 Nützliche Links für das IT Projekt sind:
+* Git Grundlagen: http://rogerdudler.github.io/git-guide/index.de.html
 * Android SDK für Windows: http://developer.android.com/sdk/index.html
 * Android Sync Adapter 1: http://developer.android.com/training/id-auth/custom_auth.html
 * Android Sync Adapter 2: http://www.techrepublic.com/blog/app-builder/breaking-down-googles-samplesyncadapter/1037
