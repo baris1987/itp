@@ -8,8 +8,12 @@ Link: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sh
 Aktuelle Dokumente zur Zeit sind:
 * Requirements
 
-##Dokumente
-Die Kurzbeschreibung des Projekts von Prof. Zapf ist im Verzeichnis 'Dokumente' zu finden.
+##Links
+Nützliche Links für das IT Projekt sind:
+* Android SDK für Windows: http://developer.android.com/sdk/index.html
+* Android Sync Adapter 1: http://developer.android.com/training/id-auth/custom_auth.html
+* Android Sync Adapter 2: http://www.techrepublic.com/blog/app-builder/breaking-down-googles-samplesyncadapter/1037
+* Android Sync Adapter 3: http://www.c99.org/2010/01/23/writing-an-android-sync-provider-part-1/
 
 ## Git
 Man kann die Standard git Bibliotheken benutzen oder die vereinfachten GitHub Tools, das alles integriert hat und etwas mehr komfort bietet. 
