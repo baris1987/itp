@@ -7,7 +7,6 @@ Link: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sh
 
 Aktuelle Dokumente zur Zeit sind:
 * Requirements
-* Aufgabenverteilung
 
 ##Dokumente
 Die Kurzbeschreibung des Projekts von Prof. Zapf ist im Verzeichnis 'Dokumente' zu finden.
