@@ -1,6 +1,6 @@
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-//
+
 @Path("message")
 public class MessageResource {
 	  @GET
