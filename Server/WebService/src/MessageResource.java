@@ -6,6 +6,6 @@ public class MessageResource {
 	  @GET
 	  @Produces(MediaType.TEXT_PLAIN)
 	  public String message() {
-	    return "RESTful WebService.";
+	    return "GET: RESTful WebService.";
 	  }
 }
