@@ -7,7 +7,7 @@ import javax.ws.rs.core.MediaType;
 
 
 @Path("device")
-public class MessageResource implements IWebServiceDevice {
+public class DeviceResource implements IWebServiceDevice {
 	  @GET
 	  @Path("register") 
 	  @Produces(MediaType.TEXT_PLAIN)
