@@ -5,11 +5,18 @@ import com.sun.net.httpserver.HttpServer;
 
 public class StartJerseyServer {
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
-		HttpServer server = HttpServerFactory.create("http://localhost/itp");
+		
+		Configuration.load(Constants.Configuration);
+		String host = Configuration.get("WebService.Host");
+		String path = Configuration.get("WebService.Path");
+		String port = Configuration.get("WebService.Port");
+		String url = "http://"+host+":"+port+"/"+path;
+		
+		HttpServer server = HttpServerFactory.create(url);
 		server.start();
 		
-		System.out.println("WebService started ...");
-
+		System.out.println("Jersey WebServer started ...");
+		System.out.println("Running on "+url);
 		//server.stop(0);
 	}
 

@@ -4,8 +4,6 @@ import com.th.nuernberg.itp.webservice.interfaces.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-
-
 @Path("device")
 public class DeviceResource implements IWebServiceDevice {
 	
