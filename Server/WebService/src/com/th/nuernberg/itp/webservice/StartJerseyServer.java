@@ -4,8 +4,6 @@ import java.io.IOException;
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.net.httpserver.HttpServer;
 
-// commit in eclipse
-
 public class StartJerseyServer {
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
 		
