@@ -1,4 +1,4 @@
-package com.th.nuernberg.itp.webservice;
+package com.th.nuernberg.itp.webservice.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Derby {
-    public static void main(String[] a) throws ClassNotFoundException, SQLException {
+    public static void ConnectionTest() throws ClassNotFoundException, SQLException {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         Properties properties = new Properties();
         properties.put("user", "itp");
