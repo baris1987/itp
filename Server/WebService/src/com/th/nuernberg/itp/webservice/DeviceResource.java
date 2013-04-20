@@ -2,36 +2,25 @@ package com.th.nuernberg.itp.webservice;
 
 import com.th.nuernberg.itp.webservice.interfaces.*;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 
 @Path("device")
-public class DeviceResource implements IWebServiceDevice {
+public class DeviceResource extends BaseResource implements IWebServiceDevice {
 	
 	  @GET
-	  @Path("echo/{text}") 
-	  @Produces(MediaType.TEXT_PLAIN)
-	  public String echo(@PathParam("text") String text) {
-		  return "echo("+text+")";
-	  }
-	
-	  @GET
-	  @Path("register") 
-	  @Produces(MediaType.TEXT_PLAIN)
-	  public String register() {
-		  return "register()";
+	  @Path("register/{id}") 
+	  public String register(@PathParam("id") String id) {
+		  return "{register: \""+id+"\"}";
 	  }
 	  
 	  @GET
-	  @Path("receive") 
-	  @Produces(MediaType.TEXT_PLAIN)
-	  public String receive() {
-		  return "receive()";
+	  @Path("receive/{id}/{data}") 
+	  public String receive(@PathParam("id") String id, @PathParam("data") byte data) {
+		  return "{receive: 0}";
 	  }
 	  
 	  @GET
-	  @Path("push") 
-	  @Produces(MediaType.TEXT_PLAIN)
-	  public String push() {
-		  return "push()";
+	  @Path("push/{id}/{enabled}") 
+	  public String push(@PathParam("id") String id, @PathParam("enabled") Boolean enabled) {
+		  return "{push: 0}";
 	  }
 }
