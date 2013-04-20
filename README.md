@@ -8,6 +8,10 @@ Link: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sh
 Aktuelle Dokumente zur Zeit sind:
 * Requirements
 
+##Meilensteine
+* **Name1**: Offen.
+* **Name2**: Offen.
+
 ##Links
 Nützliche Links für das IT Projekt sind:
 * Git Grundlagen: http://rogerdudler.github.io/git-guide/index.de.html
