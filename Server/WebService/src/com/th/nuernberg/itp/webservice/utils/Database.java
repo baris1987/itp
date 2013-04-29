@@ -4,37 +4,31 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Properties;
-
 import com.th.nuernberg.itp.webservice.interfaces.IDatabaseConfiguration;
 
 public class Database {
 
 	private Connection connection;
 	
-    public Database(IDatabaseConfiguration databaseConfiguration) throws ClassNotFoundException, SQLException, IOException {
-
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        Properties properties = new Properties();
-        properties.put("user", databaseConfiguration.getUsername());
-        properties.put("password", databaseConfiguration.getPassword());
-        
-        this.connection = DriverManager.getConnection("jdbc:derby:"+databaseConfiguration.getDatabase()+";create=true", properties);
+    public Database(IDatabaseConfiguration config) throws ClassNotFoundException, SQLException, IOException {
+        Class.forName("org.h2.Driver");  
+        this.connection = DriverManager.getConnection("jdbc:h2:"+config.getDatabase(), config.getUsername(), config.getPassword()); 
     }
     
-    protected void finalize() throws Throwable
-    {
-      this.connection.close();
-    } 
+    public void close() throws SQLException {
+    	this.connection.close();
+    }
     
-    public void execute() throws SQLException {
-    	 Statement statement = this.connection.createStatement(); 
-    	 
-    	 // NUR TEST
-         int count = statement.executeUpdate(
-           "CREATE TABLE T_DEVICE (PK_DEVICEID INT, ID VARCHAR(100), CREATEDATE DATE)");
-
-         statement.close();        
+    // NUR FÜR TESTZWECKE
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
+    	
+    	IDatabaseConfiguration dc = new DatabaseConfiguration();
+    	dc.setDatabase("./database/itp");
+    	dc.setPassword("itp2013");
+    	dc.setUsername("itp");
+    	
+    	Database d = new Database(dc);
+    	System.out.println("DONE.");
+    	d.close();
     }
 }
