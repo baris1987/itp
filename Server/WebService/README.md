@@ -14,6 +14,8 @@ Später kann man - falls notwendig - auf einen ausgereiften Application Server w
 ##Datenbank
 * Als Datenbank wird **H2** eingesetzt. Die Datenbank ist weit verbreitet und hat den Vorteil gegenüber SQLite, dass sie vollständig in Java geschrieben ist und somit
   plattformunabhängig läuft. Weitere Informationen dazu sind unter folgendem Link zu finden: http://www.h2database.com
+
 * Im WebService Eclipse-Projekt ist im Verzeichnis **utils** die Datei **h2.bat**. Mit dem Starten dieses Programms wird im
   Internet-Browser eine Webseite zur Verwaltung der Datenbank geöffnet.
+
 * Die **Datenbank-Tabellen** sind in der Datei "Datenbank" in unserem Google Drive Verzeichnis zu finden: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sharing
