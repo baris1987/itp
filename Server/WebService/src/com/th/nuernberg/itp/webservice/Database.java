@@ -27,6 +27,7 @@ public class Database {
     	dc.setPassword("itp2013");
     	dc.setUsername("itp");
     	
+    	
     	Database d = new Database(dc);
     	System.out.println("DONE.");
     	d.close();
