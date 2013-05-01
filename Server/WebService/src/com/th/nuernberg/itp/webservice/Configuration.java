@@ -1,4 +1,4 @@
-package com.th.nuernberg.itp.webservice.core;
+package com.th.nuernberg.itp.webservice;
 
 import java.io.FileReader;
 import java.io.IOException;

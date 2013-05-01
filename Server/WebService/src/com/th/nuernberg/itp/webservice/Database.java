@@ -1,4 +1,4 @@
-package com.th.nuernberg.itp.webservice.utils;
+package com.th.nuernberg.itp.webservice;
 
 import java.io.IOException;
 import java.sql.Connection;

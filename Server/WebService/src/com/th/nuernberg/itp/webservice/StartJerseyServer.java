@@ -3,7 +3,6 @@ package com.th.nuernberg.itp.webservice;
 import java.io.IOException;
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.net.httpserver.HttpServer;
-import com.th.nuernberg.itp.webservice.core.*;
 
 public class StartJerseyServer {
 	public static void main(String[] args) throws IllegalArgumentException, IOException {

@@ -1,4 +1,4 @@
-package com.th.nuernberg.itp.webservice.utils;
+package com.th.nuernberg.itp.webservice;
 import com.th.nuernberg.itp.webservice.interfaces.IDatabaseConfiguration;
 
 public class DatabaseConfiguration implements IDatabaseConfiguration {
