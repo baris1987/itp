@@ -41,6 +41,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/action_settings"
+            android:parentActivityName="com.th.nuernberg.itp.earthquakedetection.StartActivity" >
+        	
+        	<!-- Parent activity meta-data to support 4.0 and lower -->
+        	<meta-data
+            	android:name="android.support.PARENT_ACTIVITY"
+            	android:value="com.th.nuernberg.itp.earthquakedetection.StartActivity" />
+        </activity>
+        
+        
         
         <meta-data
     		android:name="com.google.android.maps.v2.API_KEY"

@@ -1,5 +1,6 @@
 package com.th.nuernberg.itp.earthquakedetection;
 
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -15,13 +16,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class DeviceMap implements LocationListener {
 
-	SupportMapFragment sMapFragment;
-	LocationManager locationManager;
+	private SupportMapFragment sMapFragment;
+	private LocationManager locationManager;
+	private SharedPreferences sharedPrefs;
 	
-	public DeviceMap(LocationManager locationManager)
+	public DeviceMap(LocationManager locationManager, SharedPreferences sharedPrefs)
 	{
 		sMapFragment = SupportMapFragment.newInstance();
 		this.locationManager = locationManager;
+		this.sharedPrefs = sharedPrefs;
 	}
 	
 	public void initMap()
@@ -30,7 +33,7 @@ public class DeviceMap implements LocationListener {
 		{
 			GoogleMap map = sMapFragment.getMap();
 			map.setMyLocationEnabled(true);
-			map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+			map.setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "0")));
 			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, (long)400, (float)1000, this);
 		}
 	}
@@ -40,7 +43,6 @@ public class DeviceMap implements LocationListener {
 		return sMapFragment;
 	}
 	
-	// Um später Devices in der Umgebung anzuzeigen (Daten von WebService)
 	public void addMarkerToMap(LatLng latlng)
 	{
 	        LatLng MarkerPos = latlng;

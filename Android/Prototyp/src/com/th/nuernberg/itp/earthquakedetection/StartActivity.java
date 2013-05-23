@@ -11,10 +11,13 @@ import com.google.android.gms.maps.model.LatLng;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -22,13 +25,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class StartActivity extends FragmentActivity implements
 		ActionBar.TabListener{
-
+	
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a
@@ -42,9 +47,8 @@ public class StartActivity extends FragmentActivity implements
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
-	SupportMapFragment sMapFragment;
-	DeviceMap deviceMap;
+	private ViewPager mViewPager;
+	private DeviceMap deviceMap;
 	
 
 	@Override
@@ -85,16 +89,41 @@ public class StartActivity extends FragmentActivity implements
 					.setTabListener(this));
 		}
 		
-		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		deviceMap = new DeviceMap(locationManager, sharedPrefs);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.start, menu);
-		return true;
+		MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.start, menu);
+        return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.action_settings:
+	        	Intent intent = new Intent();
+	            intent.setClass(StartActivity.this, SettingsActivity.class);
+	            startActivityForResult(intent, 100);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	@Override
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == 100) // true wenn Settings geschlossen wurden
+		{
+			deviceMap.initMap(); 
+		}
+	 }
+	
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
@@ -135,7 +164,6 @@ public class StartActivity extends FragmentActivity implements
 				fragment = new ChartActivity();
 			}
 			else if(position == 2) {
-				deviceMap = new DeviceMap((LocationManager) getSystemService(Context.LOCATION_SERVICE));
 				fragment = deviceMap.getSMapFragment();
 			}
 			else
