@@ -2,8 +2,18 @@ package com.th.nuernberg.itp.earthquakedetection;
 
 import java.util.Locale;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,7 +27,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class StartActivity extends FragmentActivity implements
-		ActionBar.TabListener {
+		ActionBar.TabListener{
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -33,12 +43,15 @@ public class StartActivity extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	SupportMapFragment sMapFragment;
+	DeviceMap deviceMap;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start);
-
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -71,6 +84,8 @@ public class StartActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		
+		
 	}
 
 	@Override
@@ -86,6 +101,8 @@ public class StartActivity extends FragmentActivity implements
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
+		if(tab.getPosition() == 2)
+			deviceMap.initMap();
 	}
 
 	@Override
@@ -114,9 +131,15 @@ public class StartActivity extends FragmentActivity implements
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
 			Fragment fragment;
-			if(position == 0){
+			if(position == 0) {
 				fragment = new ChartActivity();
-			}else{
+			}
+			else if(position == 2) {
+				deviceMap = new DeviceMap((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+				fragment = deviceMap.getSMapFragment();
+			}
+			else
+			{
 				fragment = new DummySectionFragment();
 				Bundle args = new Bundle();
 				args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
@@ -172,5 +195,4 @@ public class StartActivity extends FragmentActivity implements
 			return rootView;
 		}
 	}
-
 }
