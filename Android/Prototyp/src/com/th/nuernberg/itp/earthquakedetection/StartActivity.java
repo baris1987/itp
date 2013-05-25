@@ -56,6 +56,7 @@ public class StartActivity extends FragmentActivity implements
 	private ViewPager mViewPager;
 	private DeviceMap deviceMap;
 	private InfoActivity infoActivity;
+	private ChartActivity chartActivity;
 	private LocationManager locationManager;
 
 	@Override
@@ -96,14 +97,18 @@ public class StartActivity extends FragmentActivity implements
 					.setTabListener(this));
 		}
 		
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		for(String provider : locationManager.getProviders(true))
 			this.locationManager.requestLocationUpdates(provider, (long)500, (float)100, this);
 		
-		deviceMap = new DeviceMap(sharedPrefs);
+		deviceMap = new DeviceMap();
+		deviceMap.setSharedPreferences(sharedPreferences);
+		
 		infoActivity = new InfoActivity();
+		
+		chartActivity = new ChartActivity();
 	}
 
 	@Override
@@ -176,10 +181,10 @@ public class StartActivity extends FragmentActivity implements
 				fragment = infoActivity;				
 			}
 			else if(position == 1)
-				fragment = new ChartActivity();
+				fragment = chartActivity;
 			
 			else if(position == 2) 
-				fragment = deviceMap.getSMapFragment();
+				fragment = deviceMap;
 			else
 			{
 				fragment = new DummySectionFragment();

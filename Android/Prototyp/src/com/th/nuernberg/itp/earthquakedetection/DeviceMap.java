@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,23 +16,16 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class DeviceMap {
+public class DeviceMap extends SupportMapFragment {
 
-	private SupportMapFragment sMapFragment;
 	private SharedPreferences sharedPrefs;
 	private Location lastKnownLocation;
 	
-	public DeviceMap(SharedPreferences sharedPrefs)
-	{
-		sMapFragment = SupportMapFragment.newInstance();
-		this.sharedPrefs = sharedPrefs;
-	}
-	
 	public void initMap()
 	{
-		if(sMapFragment.getMap() != null)
+		if(getMap() != null)
 		{
-			GoogleMap map = sMapFragment.getMap();
+			GoogleMap map = getMap();
 			map.clear();
 			map.setMyLocationEnabled(true);
 			map.setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
@@ -50,32 +44,27 @@ public class DeviceMap {
 		}
 	}
 	
-	public SupportMapFragment getSMapFragment()
-	{
-		return sMapFragment;
-	}
-	
 	public void addMarkerToMap(LatLng latlng, String DeviceInfo)
 	{
 	        LatLng MarkerPos = latlng;
 	        MarkerOptions markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(MarkerPos);
 	        markerOptions.title(DeviceInfo);
-	        sMapFragment.getMap().addMarker(markerOptions);
+	        getMap().addMarker(markerOptions);
 	}
 	
 	public void refreshPrefsOnDeviceMap()
 	{
-		if(this.sMapFragment.getMap() != null)
-			this.sMapFragment.getMap().setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
+		if(getMap() != null)
+			getMap().setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
 	}
 	
 	public void updateCamera(Location location)
 	{
-		if(sMapFragment.getMap() != null && location != null)
+		if(getMap() != null && location != null)
 		{
 			LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 		    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
-		    sMapFragment.getMap().animateCamera(cameraUpdate);
+		    getMap().animateCamera(cameraUpdate);
 		}
 	}
 	
@@ -83,5 +72,10 @@ public class DeviceMap {
 	{
 		this.lastKnownLocation = location;
 		updateCamera(this.lastKnownLocation);
+	}
+	
+	public void setSharedPreferences(SharedPreferences sharedPreferences)
+	{
+		this.sharedPrefs = sharedPreferences;
 	}
 }
