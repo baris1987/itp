@@ -1,5 +1,7 @@
 package com.th.nuernberg.itp.earthquakedetection;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -13,6 +15,8 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -49,7 +53,6 @@ public class StartActivity extends FragmentActivity implements
 	 */
 	private ViewPager mViewPager;
 	private DeviceMap deviceMap;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -160,12 +163,15 @@ public class StartActivity extends FragmentActivity implements
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
 			Fragment fragment;
-			if(position == 0) {
+			if(position == 0) 
+				fragment = new InfoActivity();
+			
+			else if(position == 1)
 				fragment = new ChartActivity();
-			}
-			else if(position == 2) {
+			
+			else if(position == 2) 
 				fragment = deviceMap.getSMapFragment();
-			}
+			
 			else
 			{
 				fragment = new DummySectionFragment();

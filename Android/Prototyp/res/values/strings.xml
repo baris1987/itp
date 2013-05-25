@@ -3,8 +3,12 @@
 
     <string name="app_name">Earthquake</string>
     <string name="action_settings">Settings</string>
-    <string name="title_section1">Graph</string>
-    <string name="title_section2">Info</string>
+    <string name="title_section1">Info</string>
+    <string name="title_section2">Graph</string>
     <string name="title_section3">Device Map</string>
+    <string name="webserviceurl_label">WebService URL:</string>
+    <string name="connected_devices">Connected Devices:</string>
+    <string name="last_detected_earthquake_label">Last detected Earthquake:</string>
+    <string name="your_location">Your Location:</string>
 
 </resources>
