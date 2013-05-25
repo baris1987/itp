@@ -51,6 +51,11 @@ public class DeviceMap implements LocationListener {
 	        sMapFragment.getMap().addMarker(markerOptions);
 	}
 	
+	public void refreshPrefsOnDeviceMap()
+	{
+		this.sMapFragment.getMap().setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "0")));
+	}
+	
 	@Override
 	public void onLocationChanged(Location location) {
 		if(sMapFragment.getMap() != null)

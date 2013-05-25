@@ -109,18 +109,18 @@ public class StartActivity extends FragmentActivity implements
 	        case R.id.action_settings:
 	        	Intent intent = new Intent();
 	            intent.setClass(StartActivity.this, SettingsActivity.class);
-	            startActivityForResult(intent, 100);
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
-	}
-	
-	@Override
-	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(requestCode == 100) // true wenn Settings geschlossen wurden
-		{
-			deviceMap.initMap(); 
+	            startActivityForResult(intent, 100); // intent SettingsActivity, requestCode 100
+	            return true;																	 
+	        default:																			 
+	            return super.onOptionsItemSelected(item);										
+	    }																						 
+	}																							 
+																							     
+	@Override																					 
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {			 
+		if(requestCode == 100) // true wenn Settings geschlossen wurden  	
+		{						
+			deviceMap.refreshPrefsOnDeviceMap(); 											
 		}
 	 }
 	
