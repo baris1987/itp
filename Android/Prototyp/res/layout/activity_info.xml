@@ -54,5 +54,22 @@
 	        android:ems="10" 
 	        android:focusable="false" />
 
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="@dimen/padding_top"
+	        android:text="@string/location_provider_label" />
+
+	    <EditText
+	        android:id="@+id/edittext_location_provider"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:focusable="false" >
+
+	        <requestFocus />
+	    </EditText>
+
     </LinearLayout>
 </RelativeLayout>

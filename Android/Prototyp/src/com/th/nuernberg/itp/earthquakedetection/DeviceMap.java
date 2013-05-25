@@ -1,6 +1,7 @@
 package com.th.nuernberg.itp.earthquakedetection;
 
 import android.content.SharedPreferences;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,16 +15,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class DeviceMap implements LocationListener {
+public class DeviceMap {
 
 	private SupportMapFragment sMapFragment;
-	private LocationManager locationManager;
 	private SharedPreferences sharedPrefs;
+	private Location lastKnownLocation;
 	
-	public DeviceMap(LocationManager locationManager, SharedPreferences sharedPrefs)
+	public DeviceMap(SharedPreferences sharedPrefs)
 	{
 		sMapFragment = SupportMapFragment.newInstance();
-		this.locationManager = locationManager;
 		this.sharedPrefs = sharedPrefs;
 	}
 	
@@ -35,7 +35,18 @@ public class DeviceMap implements LocationListener {
 			map.clear();
 			map.setMyLocationEnabled(true);
 			map.setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
-			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, (long)400, (float)1000, this);
+			updateCamera(this.lastKnownLocation);
+			
+			// TestMarker
+			if(this.lastKnownLocation != null)
+			{
+			    double abweichung = 0.001;
+				addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() + abweichung, this.lastKnownLocation.getLongitude()), "Nexus 4");
+				addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() + 2 * abweichung, this.lastKnownLocation.getLongitude() + 4 * abweichung), "Samsung Galaxy S4");
+				addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() + 3 * abweichung, this.lastKnownLocation.getLongitude() - 2 * abweichung), "HTC One");
+				addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() - abweichung, this.lastKnownLocation.getLongitude() - 5 * abweichung), "Sony Xperia Z");
+				addMarkerToMap(new LatLng (49.458501, 11.102597), "Samsung Galaxy Note"); //FH
+			}
 		}
 	}
 	
@@ -44,54 +55,33 @@ public class DeviceMap implements LocationListener {
 		return sMapFragment;
 	}
 	
-	public void addMarkerToMap(LatLng latlng)
+	public void addMarkerToMap(LatLng latlng, String DeviceInfo)
 	{
 	        LatLng MarkerPos = latlng;
 	        MarkerOptions markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(MarkerPos);
-	        markerOptions.title("Device...");
+	        markerOptions.title(DeviceInfo);
 	        sMapFragment.getMap().addMarker(markerOptions);
 	}
 	
 	public void refreshPrefsOnDeviceMap()
 	{
-		this.sMapFragment.getMap().setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
+		if(this.sMapFragment.getMap() != null)
+			this.sMapFragment.getMap().setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
 	}
 	
-	@Override
-	public void onLocationChanged(Location location) {
-		if(sMapFragment.getMap() != null)
+	public void updateCamera(Location location)
+	{
+		if(sMapFragment.getMap() != null && location != null)
 		{
 			LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 		    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
 		    sMapFragment.getMap().animateCamera(cameraUpdate);
-		    locationManager.removeUpdates(this);
-		    
-
-			// TestMarker
-		    double abweichung = 0.001;
-			addMarkerToMap(new LatLng (location.getLatitude() + abweichung, location.getLongitude()));
-			addMarkerToMap(new LatLng (location.getLatitude() + 2 * abweichung, location.getLongitude() + 4 * abweichung));
-			addMarkerToMap(new LatLng (location.getLatitude() + 3 * abweichung, location.getLongitude() - 2 * abweichung));
-			addMarkerToMap(new LatLng (location.getLatitude() - abweichung, location.getLongitude() - 5 * abweichung));
-			addMarkerToMap(new LatLng (49.458501, 11.102597)); //FH
 		}
 	}
-
-	@Override
-	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-		
+	
+	public void setLastKnownLocation(Location location)
+	{
+		this.lastKnownLocation = location;
+		updateCamera(this.lastKnownLocation);
 	}
 }

@@ -10,5 +10,6 @@
     <string name="connected_devices">Connected Devices:</string>
     <string name="last_detected_earthquake_label">Last detected Earthquake:</string>
     <string name="your_location">Your Location:</string>
+    <string name="location_provider_label">"Location Provider: "</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.th.nuernberg.itp.earthquakedetection;
 
 import java.util.List;
+import java.util.Locale;
 
 import android.content.Context;
 import android.location.Address;
@@ -15,13 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-public class InfoActivity extends Fragment implements LocationListener {
+public class InfoActivity extends Fragment {
 
-	LocationManager locationManager;
 	Geocoder geoCoder;
 	EditText connectedDevices;
 	EditText lastEarthquake;
 	EditText yourLocation;
+	EditText locationProvider;
 	
 	public InfoActivity() {
 	}
@@ -34,53 +35,36 @@ public class InfoActivity extends Fragment implements LocationListener {
 		connectedDevices 	= (EditText) rootView.findViewById(R.id.edittext_connected_devices);
 		lastEarthquake		= (EditText) rootView.findViewById(R.id.edittext_last_earthquake);
 		yourLocation	 	= (EditText) rootView.findViewById(R.id.edittext_your_location);
+		locationProvider 	= (EditText) rootView.findViewById(R.id.edittext_location_provider);
 		
-		connectedDevices.setText("under construction...");
-		lastEarthquake.setText("under construction...");
-	
-		this.locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-		this.locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, (long)400, (float)1000, this);
 		this.geoCoder = new Geocoder(container.getContext());
 		
 		return rootView;
 	}
 
-	@Override
-	public void onLocationChanged(Location location) {
-		try {
-			List<Address> addressList = geoCoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-			String addressString = "";
+	public void setYourLocation(Location location)
+	{
+		if(location != null)
+		{
+			locationProvider.setText(location.getProvider().toUpperCase(Locale.ENGLISH));
 			
-			Address address = addressList.get(0);
-			
-			for(int i = 0; i < address.getMaxAddressLineIndex(); i++)
-			{
-				addressString += address.getAddressLine(i) + "\n"; 
-			}
-			
-			addressString = addressString.substring(0, addressString.length()-1);
-			yourLocation.setText(addressString);
+			try {
+				List<Address> addressList = geoCoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+				String addressString = "";
 				
-		} catch (Exception e) {
-			e.printStackTrace();
+				Address address = addressList.get(0);
+				
+				for(int i = 0; i < address.getMaxAddressLineIndex(); i++)
+				{
+					addressString += address.getAddressLine(i) + "\n"; 
+				}
+				
+				addressString = addressString.substring(0, addressString.length()-1);
+				yourLocation.setText(addressString);
+					
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-	}
-
-	@Override
-	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-		
 	}
 }

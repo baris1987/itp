@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
@@ -33,10 +34,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class StartActivity extends FragmentActivity implements
-		ActionBar.TabListener{
+		ActionBar.TabListener, LocationListener{
 	
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -53,6 +55,8 @@ public class StartActivity extends FragmentActivity implements
 	 */
 	private ViewPager mViewPager;
 	private DeviceMap deviceMap;
+	private InfoActivity infoActivity;
+	private LocationManager locationManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +97,13 @@ public class StartActivity extends FragmentActivity implements
 		}
 		
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		deviceMap = new DeviceMap(locationManager, sharedPrefs);
+		
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		for(String provider : locationManager.getProviders(true))
+			this.locationManager.requestLocationUpdates(provider, (long)500, (float)100, this);
+		
+		deviceMap = new DeviceMap(sharedPrefs);
+		infoActivity = new InfoActivity();
 	}
 
 	@Override
@@ -121,10 +130,9 @@ public class StartActivity extends FragmentActivity implements
 																							     
 	@Override																					 
 	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {			 
+		
 		if(requestCode == 100) // true wenn Settings geschlossen wurden  	
-		{						
 			deviceMap.refreshPrefsOnDeviceMap(); 											
-		}
 	 }
 	
 	@Override
@@ -163,9 +171,10 @@ public class StartActivity extends FragmentActivity implements
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
 			Fragment fragment;
-			if(position == 0) 
-				fragment = new InfoActivity();
-			
+			if(position == 0)
+			{
+				fragment = infoActivity;				
+			}
 			else if(position == 1)
 				fragment = new ChartActivity();
 			
@@ -227,5 +236,30 @@ public class StartActivity extends FragmentActivity implements
 					ARG_SECTION_NUMBER)));
 			return rootView;
 		}
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		
+		deviceMap.setLastKnownLocation(location);
+		infoActivity.setYourLocation(location);
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
 	}
 }
