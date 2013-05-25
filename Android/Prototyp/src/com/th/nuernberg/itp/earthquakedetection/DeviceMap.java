@@ -32,8 +32,9 @@ public class DeviceMap implements LocationListener {
 		if(sMapFragment.getMap() != null)
 		{
 			GoogleMap map = sMapFragment.getMap();
+			map.clear();
 			map.setMyLocationEnabled(true);
-			map.setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "0")));
+			map.setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
 			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, (long)400, (float)1000, this);
 		}
 	}
@@ -53,7 +54,7 @@ public class DeviceMap implements LocationListener {
 	
 	public void refreshPrefsOnDeviceMap()
 	{
-		this.sMapFragment.getMap().setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "0")));
+		this.sMapFragment.getMap().setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
 	}
 	
 	@Override

@@ -171,7 +171,6 @@ public class StartActivity extends FragmentActivity implements
 			
 			else if(position == 2) 
 				fragment = deviceMap.getSMapFragment();
-			
 			else
 			{
 				fragment = new DummySectionFragment();
