@@ -6,70 +6,77 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".StartActivity$DummySectionFragment" >
+    tools:context=".StartActivity" >
 	
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-	    <TextView
-	        android:id="@+id/connected_devices_label"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/connected_devices" />
-
-	    <EditText
-	        android:id="@+id/edittext_connected_devices"
+    <ScrollView
+	        android:id="@+id/scrollView1"
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:focusable="false" />
-
-	    <TextView
-	        android:id="@+id/last_earthquake_label"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:paddingTop="@dimen/padding_top"
-	        android:text="@string/last_detected_earthquake_label" />
-
-	    <EditText
-	        android:id="@+id/edittext_last_earthquake"
+	        android:layout_height="wrap_content" >
+	        
+	    <LinearLayout
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:ems="10" 
-	        android:focusable="false" />
-
-	    <TextView
-	        android:id="@+id/device_location_label"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:paddingTop="@dimen/padding_top"
-	        android:text="@string/your_location" />
-
-	    <EditText
-	        android:id="@+id/edittext_your_location"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:ems="10" 
-	        android:focusable="false" />
-
-	    <TextView
-	        android:id="@+id/textView1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:paddingTop="@dimen/padding_top"
-	        android:text="@string/location_provider_label" />
-
-	    <EditText
-	        android:id="@+id/edittext_location_provider"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:focusable="false" >
-
-	        <requestFocus />
-	    </EditText>
-
-    </LinearLayout>
+	        android:layout_height="match_parent"
+	        android:orientation="vertical" >
+	
+		    <TextView
+		        android:id="@+id/connected_devices_label"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/connected_devices" />
+	
+		    <EditText
+		        android:id="@+id/edittext_connected_devices"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10"
+		        android:focusable="false" />
+	
+		    <TextView
+		        android:id="@+id/last_earthquake_label"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingTop="@dimen/padding_top"
+		        android:text="@string/last_detected_earthquake_label" />
+	
+	
+		    <EditText
+		        android:id="@+id/edittext_last_earthquake"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10" 
+		        android:focusable="false" />
+	
+		    <TextView
+		        android:id="@+id/device_location_label"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingTop="@dimen/padding_top"
+		        android:text="@string/your_location" />
+	
+		    <EditText
+		        android:id="@+id/edittext_your_location"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10" 
+		        android:focusable="false" />
+	
+		    <TextView
+		        android:id="@+id/textView1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingTop="@dimen/padding_top"
+		        android:text="@string/location_provider_label" />
+	
+		    <EditText
+		        android:id="@+id/edittext_location_provider"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10"
+		        android:focusable="false" >
+	
+		        <requestFocus />
+		    </EditText>
+	
+	    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

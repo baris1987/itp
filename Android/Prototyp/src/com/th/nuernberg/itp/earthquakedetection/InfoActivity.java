@@ -44,7 +44,7 @@ public class InfoActivity extends Fragment {
 
 	public void setYourLocation(Location location)
 	{
-		if(location != null)
+		if(location != null && locationProvider != null)
 		{
 			locationProvider.setText(location.getProvider().toUpperCase(Locale.ENGLISH));
 			
