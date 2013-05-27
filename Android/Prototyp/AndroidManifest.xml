@@ -55,7 +55,7 @@
         
          <meta-data
     		android:name="com.google.android.maps.v2.API_KEY"
-   			android:value="AIzaSyA3DObzn93RGai9dbJoeAqluituW2Tl5_A"/>
+   			android:value="AIzaSyA3DObzn93RGai9dbJoeAqluituW2Tl5_A"/> <!-- Hier muss euer Key für euren jeweiligen debug.keystore rein -->
         <!--<meta-data
     		android:name="com.google.android.maps.v2.API_KEY"
    			android:value="AIzaSyAZlRZUeVsn74xzuInj3Xr-Y1suCcWomWE"/>  API Key für keystore von Niklas (für APK Export)-->
