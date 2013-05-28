@@ -1,12 +1,7 @@
 package com.th.nuernberg.itp.earthquakedetection;
 
 import android.content.SharedPreferences;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,12 +12,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class DeviceMap extends SupportMapFragment {
-
+	
+	private static DeviceMap deviceMap;
+	
 	private SharedPreferences sharedPrefs;
 	private Location lastKnownLocation;
 	
+	public DeviceMap()
+	{
+		setRetainInstance(true);
+	}
+	
 	public void initMap()
 	{
+		System.out.println(this);
+		System.out.println("getMap: " + getMap());
 		if(getMap() != null)
 		{
 			GoogleMap map = getMap();
@@ -30,7 +34,7 @@ public class DeviceMap extends SupportMapFragment {
 			map.setMyLocationEnabled(true);
 			map.setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
 			updateCamera(this.lastKnownLocation);
-			
+			System.out.println();
 			// TestMarker
 			if(this.lastKnownLocation != null)
 			{
@@ -77,5 +81,15 @@ public class DeviceMap extends SupportMapFragment {
 	public void setSharedPreferences(SharedPreferences sharedPreferences)
 	{
 		this.sharedPrefs = sharedPreferences;
+	}
+	
+	public static DeviceMap getDeviceMap()
+	{
+		return DeviceMap.deviceMap;
+	}
+	
+	public static void setDeviceMap(DeviceMap deviceMap)
+	{
+		DeviceMap.deviceMap = deviceMap;
 	}
 }

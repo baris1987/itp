@@ -20,11 +20,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ChartActivity extends Fragment implements SensorEventListener {
 
+	private static ChartActivity chartActivity;
+	private static View rootView;
 	private GraphicalView view;
 	LinearLayout chartViewHolder;
 	private TextView tvX, tvY, tvZ, tvAbs;
@@ -35,9 +38,21 @@ public class ChartActivity extends Fragment implements SensorEventListener {
 	private Sensor mAccelerometer;
 	private int x = 0;
 
+	public ChartActivity()
+	{
+		setRetainInstance(true);
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		if(ChartActivity.rootView != null)
+		{
+			((FrameLayout)rootView.getParent()).removeView(rootView);
+			return ChartActivity.rootView;
+		}
+		
 		View rootView = inflater.inflate(R.layout.activity_chart, container,
 				false);
 		dataset = new XYMultipleSeriesDataset();
@@ -54,6 +69,7 @@ public class ChartActivity extends Fragment implements SensorEventListener {
 
 		mSensorManager.registerListener(this, mAccelerometer,
 				SensorManager.SENSOR_DELAY_NORMAL);
+		ChartActivity.rootView = rootView;
 		return rootView;
 	}
 
@@ -172,5 +188,14 @@ public class ChartActivity extends Fragment implements SensorEventListener {
 		view.repaint();
 
 	}
-
+	
+	public static void setChartActivity(ChartActivity chartActivity)
+	{
+		ChartActivity.chartActivity = chartActivity;
+	}
+	
+	public static ChartActivity getChartActivity()
+	{
+		return ChartActivity.chartActivity;
+	}
 }
