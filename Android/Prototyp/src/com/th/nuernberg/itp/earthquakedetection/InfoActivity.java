@@ -18,15 +18,18 @@ import android.widget.EditText;
 
 public class InfoActivity extends Fragment {
 
-	Geocoder geoCoder;
-	EditText connectedDevices;
-	EditText lastEarthquake;
-	EditText yourLocation;
-	EditText locationProvider;
+	private static InfoActivity infoActivity;
+	
+	private Geocoder geoCoder;
+	private EditText connectedDevices;
+	private EditText lastEarthquake;
+	private EditText yourLocation;
+	private EditText locationProvider;
 	
 	public InfoActivity() {
+		setRetainInstance(true);
 	}
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
@@ -44,7 +47,7 @@ public class InfoActivity extends Fragment {
 
 	public void setYourLocation(Location location)
 	{
-		if(location != null)
+		if(location != null && locationProvider != null)
 		{
 			locationProvider.setText(location.getProvider().toUpperCase(Locale.ENGLISH));
 			
@@ -60,11 +63,20 @@ public class InfoActivity extends Fragment {
 				}
 				
 				addressString = addressString.substring(0, addressString.length()-1);
-				yourLocation.setText(addressString);
-					
+				yourLocation.setText(addressString);					
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public static InfoActivity getInfoActivity()
+	{
+		return InfoActivity.infoActivity;
+	}
+	
+	public static void setInfoActivity(InfoActivity infoActivity)
+	{
+		InfoActivity.infoActivity = infoActivity;
 	}
 }

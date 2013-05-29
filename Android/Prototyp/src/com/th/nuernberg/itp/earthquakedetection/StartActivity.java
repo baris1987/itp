@@ -1,23 +1,12 @@
 package com.th.nuernberg.itp.earthquakedetection;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
-
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -27,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,7 +24,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class StartActivity extends FragmentActivity implements
@@ -57,12 +46,15 @@ public class StartActivity extends FragmentActivity implements
 	private DeviceMap deviceMap;
 	private InfoActivity infoActivity;
 	private ChartActivity chartActivity;
-	private LocationManager locationManager;
+	private PlotActivity plotActivity;
+	private LocationManager locationManager; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start);
+		
 		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -85,7 +77,7 @@ public class StartActivity extends FragmentActivity implements
 						actionBar.setSelectedNavigationItem(position);
 					}
 				});
-
+		
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 			// Create a tab with text corresponding to the page title defined by
@@ -103,14 +95,41 @@ public class StartActivity extends FragmentActivity implements
 		for(String provider : locationManager.getProviders(true))
 			this.locationManager.requestLocationUpdates(provider, (long)500, (float)100, this);
 		
-		deviceMap = new DeviceMap();
+		if(DeviceMap.getDeviceMap() != null)
+			deviceMap = DeviceMap.getDeviceMap();
+		else
+		{
+			deviceMap = new DeviceMap();
+			DeviceMap.setDeviceMap(deviceMap);
+		}
 		deviceMap.setSharedPreferences(sharedPreferences);
 		
-		infoActivity = new InfoActivity();
+		if(PlotActivity.getPlotActivity() != null)
+			plotActivity = PlotActivity.getPlotActivity();
+		else
+		{
+			plotActivity = new PlotActivity();
+			PlotActivity.setPlotActivity(plotActivity);
+		}
 		
-		chartActivity = new ChartActivity();
+		/*if(ChartActivity.getChartActivity() != null)
+			chartActivity = ChartActivity.getChartActivity();
+		else
+		{
+			chartActivity = new ChartActivity();
+			ChartActivity.setChartActivity(chartActivity);
+		}*/
+		
+		if(InfoActivity.getInfoActivity() != null)
+			infoActivity = InfoActivity.getInfoActivity();
+		else
+		{
+			infoActivity = new InfoActivity();
+			InfoActivity.setInfoActivity(infoActivity);
+		}
 	}
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -137,7 +156,7 @@ public class StartActivity extends FragmentActivity implements
 	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {			 
 		
 		if(requestCode == 100) // true wenn Settings geschlossen wurden  	
-			deviceMap.refreshPrefsOnDeviceMap(); 											
+			deviceMap.refreshPrefsOnDeviceMap();
 	 }
 	
 	@Override
@@ -165,11 +184,16 @@ public class StartActivity extends FragmentActivity implements
 	 * one of the sections/tabs/pages.
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
+		
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
-
+		
+		@Override
+		public int getItemPosition(Object object) {
+		    return POSITION_NONE;
+		}
+		
 		@Override
 		public Fragment getItem(int position) {
 			// getItem is called to instantiate the fragment for the given page.
@@ -177,14 +201,14 @@ public class StartActivity extends FragmentActivity implements
 			// below) with the page number as its lone argument.
 			Fragment fragment;
 			if(position == 0)
-			{
-				fragment = infoActivity;				
-			}
+				fragment = infoActivity;
+			
 			else if(position == 1)
-				fragment = chartActivity;
+				fragment = plotActivity;
 			
 			else if(position == 2) 
 				fragment = deviceMap;
+			
 			else
 			{
 				fragment = new DummySectionFragment();

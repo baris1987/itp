@@ -52,12 +52,13 @@
             	android:name="android.support.PARENT_ACTIVITY"
             	android:value="com.th.nuernberg.itp.earthquakedetection.StartActivity" />
         </activity>
-        
-        
-        
+           
         <meta-data
     		android:name="com.google.android.maps.v2.API_KEY"
-   			android:value="AIzaSyDCZwSHZ7vNWaPTaymFmEMJPlwUl1QK3Pc"/>
+   			android:value="AIzaSyA3DObzn93RGai9dbJoeAqluituW2Tl5_A"/>  <!-- Hier muss euer Key für euren jeweiligen debug.keystore rein -->
+      <!-- <meta-data
+    		android:name="com.google.android.maps.v2.API_KEY"
+   			android:value="AIzaSyAZlRZUeVsn74xzuInj3Xr-Y1suCcWomWE"/> --> <!-- API Key für keystore von Niklas (für APK Export)-->
     </application>
 
 </manifest>
