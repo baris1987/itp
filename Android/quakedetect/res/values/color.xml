@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <color name="chart_x">#CD0000</color>
+        <color name="chart_y">#00CD00</color>
+        <color name="chart_z">#4876FF</color>
+        <color name="chart_abs">#FF7F24</color>
+</resources>

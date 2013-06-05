@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App Basics -->
+    <string name="app_name">QuakeDetec</string>
+    
+    <!-- Actionbar Menu -->
+    <string name="action_settings">Einstellungen</string>
+    
+    <string name="sec_1">Info</string>
+    <string name="sec_2">Graph</string>
+    <string name="sec_3">Geräteübersicht</string>
+    
+    
+    <!-- Einstellungen -->
+    <string name="set_title_map">Karte</string>
+    <string name="set_maptype">Kartenansicht</string>
+    
+    <!-- TextViews -->    
+    <string name="tv_info_webservice_url">WebService URL:</string>
+    <string name="tv_info_connected_devices">Verbundene Geräte:</string>
+    <string name="tv_info_last_earthquake">Letztes erkanntes Erdbeben:</string>
+    <string name="tv_info_location">Aktuelle Position:</string>
+    <string name="tv_info_location_provider">Ortungsdienst:</string>
+
+     <!-- Button -->   
+</resources>
