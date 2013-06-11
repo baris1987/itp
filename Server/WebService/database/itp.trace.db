@@ -1,0 +1,4 @@
+06-01 17:50:20 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "T_DEVICE2" nicht gefunden
+Table "T_DEVICE2" not found; SQL statement:
+SELECT * FROM ITP.T_DEVICE2 [42102-170]

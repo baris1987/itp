@@ -18,9 +18,6 @@ public class StartJerseyServer {
 		String port = config.get("WebService.Port");
 		String url = "http://"+host+":"+port+"/"+path;
 		
-		//Database d = Database.createInstanceByConfiguration(config);
-		//d.close();
-		
 		HttpServer server = HttpServerFactory.create(url);
 		server.start();
 		
