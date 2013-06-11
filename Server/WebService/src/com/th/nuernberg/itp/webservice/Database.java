@@ -7,23 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.th.nuernberg.itp.webservice.interfaces.IConfiguration;
+import com.th.nuernberg.itp.webservice.interfaces.IDatabase;
 import com.th.nuernberg.itp.webservice.interfaces.IDatabaseConfiguration;
 
-public class Database {
+public class Database implements IDatabase {
 
 	private Connection connection;
 	
-	public static Database createInstanceByConfiguration(IConfiguration config) throws IOException, ClassNotFoundException, SQLException {
-		IDatabaseConfiguration databaseConfig = new DatabaseConfiguration();
-		databaseConfig.setDatabase(config.get("Database.Name"));
-		databaseConfig.setPassword(config.get("Database.Password"));
-		databaseConfig.setUsername(config.get("Database.Username"));
-		
-		return new Database(databaseConfig);
-	}
-	
-    public Database(IDatabaseConfiguration config) throws ClassNotFoundException, SQLException, IOException {
+    public void Initalize(IDatabaseConfiguration config) throws ClassNotFoundException, SQLException, IOException {
         Class.forName("org.h2.Driver");  
         this.connection = DriverManager.getConnection("jdbc:h2:"+config.getDatabase(), config.getUsername(), config.getPassword()); 
     }
