@@ -2,3 +2,164 @@
 org.h2.jdbc.JdbcSQLException: Tabelle "T_DEVICE2" nicht gefunden
 Table "T_DEVICE2" not found; SQL statement:
 SELECT * FROM ITP.T_DEVICE2 [42102-170]
+07-26 20:25:12 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax Fehler in SQL Befehl "DESC[*] ITP.T_DEVICE "; erwartet "DELETE, DROP, DECLARE, DEALLOCATE, {"
+Syntax error in SQL statement "DESC[*] ITP.T_DEVICE "; expected "DELETE, DROP, DECLARE, DEALLOCATE, {"; SQL statement:
+desc ITP.T_DEVICE [42001-170]
+07-26 20:30:52 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax Fehler in SQL Befehl "DROP T_DEVICE"; erwartet "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE"
+Syntax error in SQL statement "DROP T_DEVICE"; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE"; SQL statement:
+DROP T_DEVICE [42001-170]
+07-26 20:30:58 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax Fehler in SQL Befehl "DROP ITP[*].T_DEVICE"; erwartet "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE"
+Syntax error in SQL statement "DROP ITP[*].T_DEVICE"; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE"; SQL statement:
+DROP ITP.T_DEVICE [42001-170]
+07-26 20:38:35 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "T_DEVICE" nicht gefunden
+Table "T_DEVICE" not found; SQL statement:
+DROP TABLE ITP.T_DEVICE [42102-170]
+07-26 20:39:26 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax Fehler in SQL Befehl "CREATE TABLE ITP.T_DEVICE
+( 
+	PK_DEVICEID INT PRIMARY KEY NOT NULL, 
+	IDENTIFIER INT NOT NULL, 
+	ACTIVITY DATE NOT NULL, 
+	LATITUDE DATE NOT NULL, 
+	LONGITUDE DATE NOT NULL 
+)  
+
+ALTER[*] TABLE ITP.T_DEVICE ADD CONSTRAINT IDENTIFIER_UNIQUE UNIQUE(IDENTIFIER)
+
+CREATE SEQUENCE ITP.S_DEVICE"
+Syntax error in SQL statement "CREATE TABLE ITP.T_DEVICE
+( 
+	PK_DEVICEID INT PRIMARY KEY NOT NULL, 
+	IDENTIFIER INT NOT NULL, 
+	ACTIVITY DATE NOT NULL, 
+	LATITUDE DATE NOT NULL, 
+	LONGITUDE DATE NOT NULL 
+)  
+
+ALTER[*] TABLE ITP.T_DEVICE ADD CONSTRAINT IDENTIFIER_UNIQUE UNIQUE(IDENTIFIER)
+
+CREATE SEQUENCE ITP.S_DEVICE"; SQL statement:
+CREATE TABLE ITP.T_DEVICE
+( 
+	PK_DEVICEID INT PRIMARY KEY NOT NULL, 
+	IDENTIFIER INT NOT NULL, 
+	ACTIVITY DATE NOT NULL, 
+	LATITUDE DATE NOT NULL, 
+	LONGITUDE DATE NOT NULL 
+)  
+
+ALTER TABLE ITP.T_DEVICE ADD CONSTRAINT IDENTIFIER_UNIQUE UNIQUE(IDENTIFIER)
+
+CREATE SEQUENCE ITP.S_DEVICE [42000-170]
+07-26 20:44:34 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Feld "00-B0-D0-86-BB-F7" nicht gefunden
+Column "00-B0-D0-86-BB-F7" not found; SQL statement:
+INSERT INTO ITP.T_DEVICE VALUES (NEXTVAL('ITP.S_DEVICE'), "00-B0-D0-86-BB-F7", CURRENT_DATE(), 49.456409, 11.078682) [42122-170]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:141)
+	at org.h2.command.dml.Insert.prepare(Insert.java:231)
+	at org.h2.command.Parser.prepareCommand(Parser.java:218)
+	at org.h2.engine.Session.prepareLocal(Session.java:414)
+	at org.h2.engine.Session.prepareCommand(Session.java:363)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1311)
+	at org.h2.server.web.WebApp.query(WebApp.java:1001)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:964)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:953)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+07-26 20:44:47 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Datenumwandlungsfehler beim Umwandeln von "'00-B0-D0-86-BB-F7' (T_DEVICE: IDENTIFIER INT NOT NULL)"
+Data conversion error converting "'00-B0-D0-86-BB-F7' (T_DEVICE: IDENTIFIER INT NOT NULL)"; SQL statement:
+INSERT INTO ITP.T_DEVICE VALUES (NEXTVAL('ITP.S_DEVICE'), '00-B0-D0-86-BB-F7', CURRENT_DATE(), 49.456409, 11.078682) -- (NEXTVAL('ITP.S_DEVICE'), '00-B0-D0-86-BB-F7', CURRENT_DATE(), 49.456409, 11.078682) [22018-170]
+07-26 20:45:23 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Feld "00-B0-D0-86-BB-F7" nicht gefunden
+Column "00-B0-D0-86-BB-F7" not found; SQL statement:
+INSERT INTO ITP.T_DEVICE VALUES (NEXTVAL('ITP.S_DEVICE'), "00-B0-D0-86-BB-F7", CURRENT_DATE(), 49.456409, 11.078682) [42122-170]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:141)
+	at org.h2.command.dml.Insert.prepare(Insert.java:231)
+	at org.h2.command.Parser.prepareCommand(Parser.java:218)
+	at org.h2.engine.Session.prepareLocal(Session.java:414)
+	at org.h2.engine.Session.prepareCommand(Session.java:363)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1311)
+	at org.h2.server.web.WebApp.query(WebApp.java:1001)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:964)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:953)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+07-26 20:45:29 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Feld "Test" nicht gefunden
+Column "Test" not found; SQL statement:
+INSERT INTO ITP.T_DEVICE VALUES (NEXTVAL('ITP.S_DEVICE'), "Test", CURRENT_DATE(), 49.456409, 11.078682) [42122-170]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:141)
+	at org.h2.command.dml.Insert.prepare(Insert.java:231)
+	at org.h2.command.Parser.prepareCommand(Parser.java:218)
+	at org.h2.engine.Session.prepareLocal(Session.java:414)
+	at org.h2.engine.Session.prepareCommand(Session.java:363)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1311)
+	at org.h2.server.web.WebApp.query(WebApp.java:1001)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:964)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:953)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+07-26 20:46:05 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Feld "00-B0-D0-86-BB-F7" nicht gefunden
+Column "00-B0-D0-86-BB-F7" not found; SQL statement:
+INSERT INTO ITP.T_DEVICE (PK_DEVICEID, IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE) VALUES (NEXTVAL('ITP.S_DEVICE'), "00-B0-D0-86-BB-F7", CURRENT_DATE(), 49.456409, 11.078682) [42122-170]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:141)
+	at org.h2.command.dml.Insert.prepare(Insert.java:231)
+	at org.h2.command.Parser.prepareCommand(Parser.java:218)
+	at org.h2.engine.Session.prepareLocal(Session.java:414)
+	at org.h2.engine.Session.prepareCommand(Session.java:363)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1311)
+	at org.h2.server.web.WebApp.query(WebApp.java:1001)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:964)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:953)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+07-26 20:46:51 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Datenumwandlungsfehler beim Umwandeln von "'00-B0-D0-86-BB-F7' (T_DEVICE: IDENTIFIER INT NOT NULL)"
+Data conversion error converting "'00-B0-D0-86-BB-F7' (T_DEVICE: IDENTIFIER INT NOT NULL)"; SQL statement:
+INSERT INTO ITP.T_DEVICE (PK_DEVICEID, IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE) VALUES (NEXTVAL('ITP.S_DEVICE'), '00-B0-D0-86-BB-F7', CURRENT_DATE(), 49.456409, 11.078682) -- (NEXTVAL('ITP.S_DEVICE'), '00-B0-D0-86-BB-F7', CURRENT_DATE(), 49.456409, 11.078682) [22018-170]
+07-26 20:48:37 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Datenumwandlungsfehler beim Umwandeln von "'00-B0-D0-86-BB-F7' (T_DEVICE: IDENTIFIER INT NOT NULL)"
+Data conversion error converting "'00-B0-D0-86-BB-F7' (T_DEVICE: IDENTIFIER INT NOT NULL)"; SQL statement:
+INSERT INTO ITP.T_DEVICE (PK_DEVICEID, IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE) VALUES (NEXTVAL('ITP.S_DEVICE'), '00-B0-D0-86-BB-F7', CURRENT_DATE(), 49.456409, 11.078682) -- (NEXTVAL('ITP.S_DEVICE'), '00-B0-D0-86-BB-F7', CURRENT_DATE(), 49.456409, 11.078682) [22018-170]
+07-26 20:49:35 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax Fehler in SQL Befehl "SELECT CURRENT_TIMESTAMP() FROM 1"; erwartet "identifier"
+Syntax error in SQL statement "SELECT CURRENT_TIMESTAMP() FROM 1"; expected "identifier"; SQL statement:
+SELECT CURRENT_TIMESTAMP() FROM 1 [42001-170]
+07-26 20:49:48 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Datenumwandlungsfehler beim Umwandeln von "'00-B0-D0-86-BB-F7' (T_DEVICE: IDENTIFIER INT NOT NULL)"
+Data conversion error converting "'00-B0-D0-86-BB-F7' (T_DEVICE: IDENTIFIER INT NOT NULL)"; SQL statement:
+INSERT INTO ITP.T_DEVICE (PK_DEVICEID, IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE) VALUES (NEXTVAL('ITP.S_DEVICE'), '00-B0-D0-86-BB-F7', CURRENT_TIMESTAMP(), 49.456409, 11.078682) -- (NEXTVAL('ITP.S_DEVICE'), '00-B0-D0-86-BB-F7', CURRENT_TIMESTAMP(), 49.456409, 11.078682) [22018-170]
