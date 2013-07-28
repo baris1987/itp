@@ -22,7 +22,5 @@ Später kann man - falls notwendig - auf einen ausgereiften Application Server w
 
 * Die **Datenbank-Tabellen** sind in der Datei "Database" wie gewohnt in unserem Google Drive Verzeichnis zu finden: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sharing
 
-##Implementierte Web Service Methoden
-* Registrieren eines Geräts mit MAC-Adresse, Latitude und Longitude: GET itp/device/register/ffb0d086bbf7/49.456409/11.078682
-
-* Alle registrierten Geräte ermitteln: GET itp/device/list
+##Web Service
+* Eine Dokumentation zum Web Service ist zu finden unter https://docs.google.com/document/d/12nlCI590x0oPD-HcsK96C4woCqhKLvPaGi8sBnw4bIg/edit
