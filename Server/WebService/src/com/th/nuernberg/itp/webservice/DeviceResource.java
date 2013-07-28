@@ -45,7 +45,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 	@GET
 	@Path("list")
 	public String list() {
-		// Persist device with repository
+
 		DeviceRepository repository = new DeviceRepository();
 		repository.setPersister(this.persister);
 		List<IDevice> deviceList = repository.getAllDevices();
