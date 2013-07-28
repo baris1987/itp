@@ -5,12 +5,8 @@ IT Projekt
 Alle Dokumente sind im folgenden Google Docs Verzeichnis zu finden. Die Dokumente kann jeder ohne Einschränkung ändern, auch ohne Google Account.
 Link: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sharing.
 
-Aktuelle Dokumente zur Zeit sind:
-* Requirements
-
-##Meilensteine
-* **Name1**: Offen.
-* **Name2**: Offen.
+##RESTful Web Service
+Eine Dokumentation zum Web Service ist zu finden unter https://docs.google.com/document/d/12nlCI590x0oPD-HcsK96C4woCqhKLvPaGi8sBnw4bIg/edit
 
 ##Links
 Nützliche Links für das IT Projekt sind:
@@ -24,6 +20,7 @@ Nützliche Links für das IT Projekt sind:
 Man kann die Standard git Bibliotheken benutzen oder die vereinfachten GitHub Tools, das alles integriert hat und etwas mehr komfort bietet. 
 Download für Windows ist zu finden unter: http://windows.github.com. Die Tools gibt es auch für andere Betriebssysteme inklusive Android und iOS.
 Eine kompakte und gute Anleitung zu Git ist auch unter http://rogerdudler.github.com/git-guide/index.de.html zu finden. 
+
 
 ##Namen
 * Sebastian: Shaxz
