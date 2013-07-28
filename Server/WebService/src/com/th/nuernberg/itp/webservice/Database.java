@@ -33,7 +33,7 @@ public class Database implements IDatabase {
     public ResultSet get(String command) throws SQLException {
     	Statement statement = this.connection.createStatement();
     	ResultSet result = statement.executeQuery(command);
-    	statement.close();
+    	//statement.close();
     	return result;
     }
 }
