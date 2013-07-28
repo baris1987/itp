@@ -1,11 +1,9 @@
 package com.th.nuernberg.itp.webservice;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
+import java.util.List;
 import com.th.nuernberg.itp.webservice.interfaces.*;
 import com.th.nuernberg.itp.webservice.types.Device;
-import com.th.nuernberg.itp.webservice.types.DevicePersistence;
+import com.th.nuernberg.itp.webservice.types.DeviceRepository;
 
 import javax.ws.rs.*;
 
@@ -26,7 +24,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		
 		// Validate MAC address 
 		if (!identifier.matches("^([0-9a-f]{12})$")) {
-			return "{success: false, message: \"Not a valid MAC-48 address. Only lower case and hex is allowed.\"}";
+			return JsonWebResponse.build(false, "Not a valid MAC-48 address. Only lower case and hex is allowed, e.g. 1c5d0386bbf7");
 		}
 		
 		// Create Device instance
@@ -35,23 +33,26 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		device.setLatitude(latitude);
 		device.setLongitude(longitude);
 		
-		// Create Device Persister instance
-		IDevicePersistence devicePersister = new DevicePersistence();
-		devicePersister.setPersister(this.persister);
-		devicePersister.setDevice(device);
-		
-		// Persist Device instance
-		boolean stored = devicePersister.persist();
-		
-		try {
-			this.persister.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return "{success: "+stored+", message: \"\"}";
+		// Persist device with repository
+		DeviceRepository repository = new DeviceRepository();
+		repository.setPersister(this.persister);
+		boolean success = repository.persist(device);
+		repository.destroy();
+
+		return JsonWebResponse.build(success);
 	}
+	
+	@GET
+	@Path("list")
+	public String list() {
+		// Persist device with repository
+		DeviceRepository repository = new DeviceRepository();
+		repository.setPersister(this.persister);
+		List<IDevice> deviceList = repository.getAllDevices();
+		repository.destroy();		
+		
+		return JsonWebResponse.build(true, deviceList);
+	}	
 
 	@Override
 	public String alarm() {
@@ -62,35 +63,6 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 	@Override
 	public String detect() {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@GET
-	@Path("list")
-	public String list() {
-		
-		
-		/* ONLY FOR TESTING - REFACTORING NEEDED */
-		try {
-			ResultSet rs = this.persister.get("SELECT IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE FROM ITP.T_DEVICE");
-			
-			rs.next();
-			String s = rs.getString(1) + " | " + rs.getString(2) + " | " + rs.getString(3) + " | " + rs.getString(4);
-			
-			try {
-				this.persister.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return s;
-		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		return null;
 	}
 

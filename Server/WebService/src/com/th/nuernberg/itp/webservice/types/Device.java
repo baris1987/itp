@@ -1,4 +1,5 @@
 package com.th.nuernberg.itp.webservice.types;
+
 import com.th.nuernberg.itp.webservice.interfaces.IDevice;
 
 public class Device implements IDevice {
@@ -6,6 +7,7 @@ public class Device implements IDevice {
 	private String identifier;
 	private double longitude;
 	private double latitude;
+	private String activity;
 	
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
@@ -29,5 +31,13 @@ public class Device implements IDevice {
 	
 	public double getLatitude() {
 		return this.latitude;
+	}
+
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
+
+	public String getActivity() {
+		return this.activity;
 	}
 }
