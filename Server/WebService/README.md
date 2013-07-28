@@ -21,3 +21,8 @@ Später kann man - falls notwendig - auf einen ausgereiften Application Server w
 * In der Datei **database/structure.sql** sind alle SQL Statements der Datenbank enthalten. 
 
 * Die **Datenbank-Tabellen** sind in der Datei "Database" wie gewohnt in unserem Google Drive Verzeichnis zu finden: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sharing
+
+##Implementierte Web Service Methoden
+* Registrieren eines Geräts mit MAC-Adresse, Latitude und Longitude: GET itp/device/register/ffb0d086bbf7/49.456409/11.078682
+
+* Alle registrierten Geräte ermitteln: GET itp/device/list
