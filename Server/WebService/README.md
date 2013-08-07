@@ -1,6 +1,9 @@
 RESTful WebService
 ===
 
+##Web Service
+Eine Dokumentation zum Web Service ist zu finden unter https://docs.google.com/document/d/12nlCI590x0oPD-HcsK96C4woCqhKLvPaGi8sBnw4bIg/edit
+
 ##JAX-RS
 * Um in Java WebServices entwickeln zu können wird die Standard-Bibliothek **JAX-RS** verwendet. 
 
@@ -21,3 +24,4 @@ Später kann man - falls notwendig - auf einen ausgereiften Application Server w
 * In der Datei **database/structure.sql** sind alle SQL Statements der Datenbank enthalten. 
 
 * Die **Datenbank-Tabellen** sind in der Datei "Database" wie gewohnt in unserem Google Drive Verzeichnis zu finden: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sharing
+
