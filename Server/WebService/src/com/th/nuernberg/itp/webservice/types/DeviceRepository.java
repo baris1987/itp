@@ -49,12 +49,12 @@ public class DeviceRepository implements IPersistence {
 		return true;
 	}
 
-	public List<IDevice> getAllDevices() {
+	public List<IDevice> getActiveDevices(int timeoutSeconds) {
 		
 		List<IDevice> deviceList = new ArrayList<IDevice>();
 		
 		try {
-			ResultSet results = this.persister.get("SELECT IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE FROM ITP.T_DEVICE");
+			ResultSet results = this.persister.get("SELECT IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE FROM ITP.T_DEVICE WHERE DATEDIFF('SECOND', ACTIVITY, CURRENT_TIMESTAMP()) < "+timeoutSeconds);
 
 			while (results.next()) {
 				IDevice device = new Device();

@@ -24,7 +24,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		
 		// Validate MAC address 
 		if (!identifier.matches("^([0-9a-f]{12})$")) {
-			return JsonWebResponse.build(false, "Not a valid MAC-48 address. Only lower case and hex is allowed, e.g. 1c5d0386bbf7");
+			return JsonWebResponse.build(false, "Not a valid MAC-48 address. Only lower case and hex is allowed, e.g. 1c5d0386bbf7.");
 		}
 		
 		// Create Device instance
@@ -48,7 +48,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 
 		DeviceRepository repository = new DeviceRepository();
 		repository.setPersister(this.persister);
-		List<IDevice> deviceList = repository.getAllDevices();
+		List<IDevice> deviceList = repository.getActiveDevices(Integer.parseInt(this.config.get("Application.DeviceTimeout")));
 		repository.destroy();		
 		
 		return JsonWebResponse.build(true, deviceList);
