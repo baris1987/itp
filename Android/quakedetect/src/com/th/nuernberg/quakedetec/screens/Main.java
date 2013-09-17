@@ -19,10 +19,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 
+
+
+
 public class Main extends FragmentActivity implements ActionBar.TabListener{
 
 	SectionsPagerAdapter mSectionsPagerAdapter;
-
+	private DeviceMap deviceMap;
+	
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
@@ -67,6 +71,15 @@ public class Main extends FragmentActivity implements ActionBar.TabListener{
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		
+		if(DeviceMap.getDeviceMap() != null)
+			deviceMap = DeviceMap.getDeviceMap();
+		else
+		{
+			deviceMap = new DeviceMap();
+			DeviceMap.setDeviceMap(deviceMap);
+		}
+		
 	}
 
 	
@@ -110,6 +123,13 @@ public class Main extends FragmentActivity implements ActionBar.TabListener{
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 	}
+	
+	@Override																					 
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {			 
+		
+		if(requestCode == 100) // true wenn Settings geschlossen wurden  	
+			deviceMap.refreshPrefsOnDeviceMap();
+	 }
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -139,7 +159,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener{
 				fragment = new Chart();
 			
 			else if(position == 2) 
-				fragment = new DeviceMap();
+				fragment = deviceMap;
 
 			return fragment;
 		}
