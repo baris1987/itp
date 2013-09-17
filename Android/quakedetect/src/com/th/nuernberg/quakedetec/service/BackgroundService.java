@@ -1,5 +1,6 @@
 package com.th.nuernberg.quakedetec.service;
 
+import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,8 +27,10 @@ public class BackgroundService extends Service {
 	private final IBinder binder = new BackgroundServiceBinder();
 
 	private final int heartbeatMillis = 1000*60; //jede Minute
-
 	
+	private int isAlarm = 0;
+	private int isAlarmCycle = 0;
+	private float oldAcclVal = 0;
 	private AccelerationBroadcastReceiver accelReceiver;
 	private Localizer localizer;
 	private Timer heartbeatTimer;
@@ -37,7 +40,7 @@ public class BackgroundService extends Service {
 		super.onCreate();
 
 		localizer = new Localizer(getApplicationContext());
-
+		
 		// --------- Accelerometer ------------- //
 		Intent accelStartIntent = new Intent(BackgroundService.this, Accelerometer.class);
 		startService(accelStartIntent);
@@ -102,7 +105,39 @@ public class BackgroundService extends Service {
 
 				AccelSample sample = intent.getParcelableExtra(Accelerometer.ACCEL_SAMPLE_KEY);
 				if (sample != null) {
-					//Hier muss die Auswertung stattfinden
+					
+					//Erdbeben Auswertung
+					
+					//Absolutwert berechnen
+					Float abs = Math.abs(sample.x) + Math.abs(sample.y) + Math.abs(sample.z);
+	
+					//Liegt der Absolutwert in einen gewissen Wertebereich greift die eigentliche Auswertung
+					if(abs > 14.0 || abs < 8.0)
+					{
+						//Liegt der momentanwert min +- 0,5 des alten Wertes wird isAlarm erhöht
+						if(abs < (oldAcclVal - 0.5) || abs > (oldAcclVal + 0.5))
+						{
+							isAlarm++;
+							oldAcclVal = abs;
+						}
+					}
+					
+					//Nach 100 wird geschaut wieviele Ausschläge es gegeben hat
+					if(isAlarmCycle % 100 == 0)
+					{
+						Log.e(TAG, "AlarmCount " + String.valueOf(isAlarm));
+						//Ist die Summe höher als 30 wird ein Alarm ausgegeben
+						if(isAlarm > 30)
+						{
+							Log.e(TAG, "EARTHQUAKE!");
+							//Hier müsste man den Alarm auslösen
+						}
+						isAlarmCycle = 0;
+						isAlarm = 0;
+					}
+					isAlarmCycle++;
+										
+			//		Log.d(TAG, "Acceleration Broadcast received " + String.valueOf(abs));
 				}
 			}
 		}
