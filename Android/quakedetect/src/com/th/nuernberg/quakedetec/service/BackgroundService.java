@@ -17,6 +17,7 @@ import android.location.Location;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 
 public class BackgroundService extends Service {
@@ -111,25 +112,23 @@ public class BackgroundService extends Service {
 					//Absolutwert berechnen
 					Float abs = Math.abs(sample.x) + Math.abs(sample.y) + Math.abs(sample.z);
 	
-					//Liegt der Absolutwert in einen gewissen Wertebereich greift die eigentliche Auswertung
-					if(abs > 14.0 || abs < 8.0)
+					
+					//Liegt der momentanwert min +- 1.0 des alten Wertes wird isAlarm erhöht
+					if(abs < (oldAcclVal - 1) || abs > (oldAcclVal + 1))
 					{
-						//Liegt der momentanwert min +- 0,5 des alten Wertes wird isAlarm erhöht
-						if(abs < (oldAcclVal - 0.5) || abs > (oldAcclVal + 0.5))
-						{
-							isAlarm++;
-							oldAcclVal = abs;
-						}
+						isAlarm++;
+						oldAcclVal = abs;
 					}
 					
 					//Nach 100 wird geschaut wieviele Ausschläge es gegeben hat
 					if(isAlarmCycle % 100 == 0)
 					{
 						Log.e(TAG, "AlarmCount " + String.valueOf(isAlarm));
-						//Ist die Summe höher als 30 wird ein Alarm ausgegeben
-						if(isAlarm > 30)
+						//Ist die Summe höher als 50 wird ein Alarm ausgegeben
+						if(isAlarm > 50)
 						{
 							Log.e(TAG, "EARTHQUAKE!");
+							
 							//Hier müsste man den Alarm auslösen
 						}
 						isAlarmCycle = 0;
