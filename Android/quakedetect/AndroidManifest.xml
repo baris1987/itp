@@ -42,6 +42,11 @@
         <service android:name=".acceleration.Accelerometer">
         </service>
         <service android:name="com.th.nuernberg.quakedetec.service.BackgroundService"></service>
+        <receiver android:name="com.th.nuernberg.quakedetec.receiver.BootCompletedReceiver">
+            <intent-filter>
+                	<action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
    			
     </application>
 
