@@ -21,7 +21,7 @@ public class DeviceRepository implements IPersistence {
 	public boolean persist(IDevice device) {
 		try {
 			this.persister.execute("INSERT INTO ITP.T_DEVICE (PK_DEVICEID, IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE) " +
-					  			   "VALUES (NEXTVAL('ITP.S_DEVICE'), '"+device.getIdentifier()+"', CURRENT_TIMESTAMP(), "+device.getLatitude()+", "+device.getLongitude()+");");
+					  			   "VALUES (NEXTVAL('ITP.S_DEVICE'), '"+device.getIdentifier()+"', '"+device.getActivity()+"', "+device.getLatitude()+", "+device.getLongitude()+");");
 			return true;
 			
 		} catch (SQLException e) {
@@ -29,7 +29,7 @@ public class DeviceRepository implements IPersistence {
 		}
 		
 		try {
-			this.persister.execute("UPDATE ITP.T_DEVICE SET ACTIVITY = CURRENT_TIMESTAMP(), LATITUDE = "+device.getLatitude()+", LONGITUDE = "+device.getLongitude()+" WHERE IDENTIFIER = '"+device.getIdentifier()+"' ");
+			this.persister.execute("UPDATE ITP.T_DEVICE SET ACTIVITY = '"+device.getActivity()+"', LATITUDE = "+device.getLatitude()+", LONGITUDE = "+device.getLongitude()+" WHERE IDENTIFIER = '"+device.getIdentifier()+"' ");
 			return true;
 			
 		} catch (SQLException e) {
@@ -47,6 +47,28 @@ public class DeviceRepository implements IPersistence {
 		}
 		
 		return true;
+	}
+	
+	public IDevice getDevice(String identifier) {
+		IDevice device = new Device();
+		device.setIdentifier("");
+		
+		try {
+			ResultSet results = this.persister.get("SELECT ACTIVITY, LATITUDE, LONGITUDE FROM ITP.T_DEVICE WHERE IDENTIFIER = '"+identifier+"'");
+			
+			if (results.next()) 
+			{
+				device.setIdentifier(identifier);
+				device.setActivity(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(results.getTimestamp(1)));
+				device.setLatitude(results.getDouble(2));
+				device.setLongitude(results.getDouble(3));
+			}
+		
+		} catch (SQLException e) {
+			return device;
+		}
+		
+		return device;
 	}
 
 	public List<IDevice> getActiveDevices(int timeoutSeconds) {

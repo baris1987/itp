@@ -5,17 +5,11 @@ public interface IWebServiceDevice {
 	String register(String identifier, double latitude, double longitude);
 	
 	// Device sends an alarm
-	String alarm();
-	
-	// Detect all devices
-	String detect();
+	String alarm(String identifier, double latitude, double longitude, int level);
 	
 	// List all connected devices
 	String list();
 	
-	// Notify all devices
-	String warn();
-	
-	// Get device meta inforamtion
-	String meta();
+	// Get device meta information
+	String meta(String identifier);
 }
