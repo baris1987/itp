@@ -29,6 +29,8 @@ public class DeviceMap extends SupportMapFragment {
 	
 	private SharedPreferences sharedPrefs;
 	private Location lastKnownLocation;
+	
+	private boolean initialized = false;
 		
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,27 +83,35 @@ public class DeviceMap extends SupportMapFragment {
 	
 	public void initMap()
 	{
+		
 		System.out.println(this);
 		System.out.println("getMap: " + getMap());
-		if(getMap() != null)
+		System.out.println("isInitalized: " + initialized);
+		if(!initialized)
 		{
-			GoogleMap map = getMap();
-			map.clear();
-			map.setMyLocationEnabled(true);
-			map.setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
-			updateCamera(this.lastKnownLocation);
-			System.out.println();
-			// TestMarker
-			if(this.lastKnownLocation != null)
+			if(getMap() != null)
 			{
-			    double abweichung = 0.001;
-				addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() + abweichung, this.lastKnownLocation.getLongitude()), "Nexus 4");
-				addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() + 2 * abweichung, this.lastKnownLocation.getLongitude() + 4 * abweichung), "Samsung Galaxy S4");
-				addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() + 3 * abweichung, this.lastKnownLocation.getLongitude() - 2 * abweichung), "HTC One");
-				addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() - abweichung, this.lastKnownLocation.getLongitude() - 5 * abweichung), "Sony Xperia Z");
-				addMarkerToMap(new LatLng (49.458501, 11.102597), "Samsung Galaxy Note"); //FH
+				GoogleMap map = getMap();
+				map.clear();
+				map.setMyLocationEnabled(true);
+				map.setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
+				
+				updateCamera(this.lastKnownLocation);
+				
+				// TestMarker
+				if(this.lastKnownLocation != null)
+				{
+				    double abweichung = 0.001;
+					addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() + abweichung, this.lastKnownLocation.getLongitude()), "Nexus 4");
+					addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() + 2 * abweichung, this.lastKnownLocation.getLongitude() + 4 * abweichung), "Samsung Galaxy S4");
+					addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() + 3 * abweichung, this.lastKnownLocation.getLongitude() - 2 * abweichung), "HTC One");
+					addMarkerToMap(new LatLng (this.lastKnownLocation.getLatitude() - abweichung, this.lastKnownLocation.getLongitude() - 5 * abweichung), "Sony Xperia Z");
+					addMarkerToMap(new LatLng (49.458501, 11.102597), "Samsung Galaxy Note"); //FH
+				}
 			}
+			initialized = true;
 		}
+		
 	}
 	
 	public void addMarkerToMap(LatLng latlng, String DeviceInfo)
@@ -110,12 +120,6 @@ public class DeviceMap extends SupportMapFragment {
 	        MarkerOptions markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(MarkerPos);
 	        markerOptions.title(DeviceInfo);
 	        getMap().addMarker(markerOptions);
-	}
-	
-	public void refreshPrefsOnDeviceMap()
-	{
-		if(getMap() != null)
-			getMap().setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
 	}
 	
 	public void updateCamera(Location location)
@@ -134,10 +138,9 @@ public class DeviceMap extends SupportMapFragment {
 		updateCamera(this.lastKnownLocation);
 	}
 	
-	
-	public void setSharedPreferences(SharedPreferences sharedPreferences)
+	public boolean isInitialized()
 	{
-		this.sharedPrefs = sharedPreferences;
+		return this.initialized;
 	}
 	
 	public static DeviceMap getDeviceMap()

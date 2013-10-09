@@ -1,24 +1,39 @@
 package com.th.nuernberg.quakedetec.location;
 
+import java.util.prefs.PreferenceChangeEvent;
+import java.util.prefs.PreferenceChangeListener;
+
 import com.th.nuernberg.quakedetec.screens.DeviceMap;
 import com.th.nuernberg.quakedetec.screens.Info;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class Localizer implements LocationListener{
+public class Localizer implements LocationListener {
 	private static String TAG = "Localizer";
 	private LocationManager locationManager;
 	private Location locationFromLastSignal;
-
+	private SharedPreferences sharedPrefs;
+	private long locationUpdateInterval;
+	private float locationUpdateRadius;
+	private static Localizer localizer;
+	
 	public Localizer(Context context) {
 		final String serviceString = Context.LOCATION_SERVICE;
-
+		
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+		locationUpdateInterval = Long.parseLong(sharedPrefs.getString("locationupdates_interval", "1000"));
+		locationUpdateRadius 	= Float.parseFloat(sharedPrefs.getString("locationupdates_radius", "5"));
+		
+				
 		locationManager = (LocationManager) context.getSystemService(serviceString);
 
 		if (locationManager == null) {
@@ -26,9 +41,10 @@ public class Localizer implements LocationListener{
 		}
 		else
 		{
-			for(String provider : locationManager.getProviders(true))
-				this.locationManager.requestLocationUpdates(provider, (long)10000, (float)50, this); // Locationupdates 10 Sekunden, 50m
+			this.refreshLocationUpdateRequests();
 		}
+		
+		localizer = this;
 	}
 
 	public Location getLocation(Criteria criteria) throws SecurityException,
@@ -84,5 +100,28 @@ public class Localizer implements LocationListener{
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void changeUpdateIntervall(long intervalMS)
+	{
+		locationUpdateInterval = intervalMS;
+		refreshLocationUpdateRequests();
+	}
+	
+	public void changeUpdateRadius(float meter)
+	{
+		locationUpdateRadius = meter;
+		refreshLocationUpdateRequests();		
+	}
+	
+	public void refreshLocationUpdateRequests()
+	{
+		for(String provider : locationManager.getProviders(true))
+			this.locationManager.requestLocationUpdates(provider, locationUpdateInterval, locationUpdateRadius, this); // Locationupdates 10 Sekunden, 50m
+	}
+	
+	public static Localizer getLocalizer()
+	{
+		return localizer;
 	}
 }

@@ -9,6 +9,7 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -40,6 +41,7 @@ public class Main extends FragmentActivity implements
 	private DeviceMap deviceMap;
 	private Info info;
 	private Chart chart;
+	private OnSharedPreferenceChangeListener prefChangeListener;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,14 @@ public class Main extends FragmentActivity implements
 		
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		
+		prefChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+			  public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+				 Settings.setSettings(prefs, key);
+			  }
+		};
+
+		sharedPreferences.registerOnSharedPreferenceChangeListener(prefChangeListener);
+		
 		if(DeviceMap.getDeviceMap() != null)
 			deviceMap = DeviceMap.getDeviceMap();
 		else
@@ -92,7 +102,6 @@ public class Main extends FragmentActivity implements
 			deviceMap = new DeviceMap();
 			DeviceMap.setDeviceMap(deviceMap);
 		}
-		deviceMap.setSharedPreferences(sharedPreferences);
 		
 		if(Chart.getChart() != null)
 			chart = Chart.getChart();
@@ -132,13 +141,7 @@ public class Main extends FragmentActivity implements
 	        default:																			 
 	            return super.onOptionsItemSelected(item);										
 	    }																						 
-	}																							 
-																							     
-	@Override																					 
-	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {			 
-		if(requestCode == 100) // true wenn Settings geschlossen wurden  
-			deviceMap.refreshPrefsOnDeviceMap();
-	 }
+	}																							
 	
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
@@ -147,7 +150,8 @@ public class Main extends FragmentActivity implements
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
 		if(tab.getPosition() == 2)
-			deviceMap.initMap();
+			if(!deviceMap.isInitialized())
+				deviceMap.initMap();
 	}
 
 	@Override

@@ -15,6 +15,11 @@
     <!-- Einstellungen -->
     <string name="set_title_map">Karte</string>
     <string name="set_maptype">Kartenansicht</string>
+    <string name="set_title_location">Standort</string>
+    <string name="set_location_update_intervall">Aktualisierungsinterval</string>
+    <string name="set_location_update_radius">Aktualisierungsradius</string>
+    <string name="set_title_accelerometer">Beschleunigungssensor</string>
+    <string name="set_accelerometer_rate">Sensorabtastrate</string>
     
     <!-- TextViews -->    
     <string name="tv_info_webservice_url">WebService URL:</string>

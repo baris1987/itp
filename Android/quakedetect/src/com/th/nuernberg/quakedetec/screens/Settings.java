@@ -1,8 +1,13 @@
 package com.th.nuernberg.quakedetec.screens;
 
 import com.th.nuernberg.quakedetec.R;
+import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
+import com.th.nuernberg.quakedetec.location.Localizer;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.view.MenuItem;
@@ -39,6 +44,43 @@ public class Settings extends Activity {
 	        super.onCreate(savedInstanceState);
 	        addPreferencesFromResource(R.xml.preferences);
 	    }
+	}
+	
+	public static void setSettings(SharedPreferences prefs, String key)
+	{
+		System.out.println("setSettings: " + key);
+		if(key.equals("map_type"))
+		{
+			if(DeviceMap.getDeviceMap() != null)
+			{
+				if(DeviceMap.getDeviceMap().getMap() != null)
+				{
+					int maptype = Integer.parseInt(prefs.getString("map_type", "1"));
+					System.out.println("Deviemapupdate: " + maptype);
+					DeviceMap.getDeviceMap().getMap().setMapType(maptype);
+				}
+			}
+		}
+		
+		else if(key.equals("locationupdates_interval"))
+		{
+			long locationUpdateInterval = Long.parseLong(prefs.getString("locationupdates_interval", "1000"));
+			System.out.println("interval: " + locationUpdateInterval);
+			Localizer.getLocalizer().changeUpdateIntervall(locationUpdateInterval);
+		}
+		
+		else if(key.equals("locationupdates_radius"))
+		{
+			float locationUpdateRadius = Float.parseFloat(prefs.getString("locationupdates_radius", "5"));
+			System.out.println("radiusupdate: " + locationUpdateRadius);
+			Localizer.getLocalizer().changeUpdateRadius(locationUpdateRadius);
+		}
+		
+		else if(key.equals("accelerometer_rate"))
+		{
+			Integer accelRate = Integer.parseInt(prefs.getString("accelerometer_rate", "0"));			
+			Accelerometer.getAccelerometer().setNewSensorRate(accelRate);
+		}
 	}
 }
 
