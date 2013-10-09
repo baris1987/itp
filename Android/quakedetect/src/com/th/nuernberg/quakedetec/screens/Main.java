@@ -5,10 +5,12 @@ import java.util.Locale;
 import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.service.BackgroundService;
 
-import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -18,27 +20,36 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-
-
-
-
-public class Main extends FragmentActivity implements ActionBar.TabListener{
-
-	SectionsPagerAdapter mSectionsPagerAdapter;
-	private DeviceMap deviceMap;
+public class Main extends FragmentActivity implements
+		ActionBar.TabListener {
 	
+	/**
+	 * The {@link android.support.v4.view.PagerAdapter} that will provide
+	 * fragments for each of the sections. We use a
+	 * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which
+	 * will keep every loaded fragment in memory. If this becomes too memory
+	 * intensive, it may be best to switch to a
+	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+	 */
+	SectionsPagerAdapter mSectionsPagerAdapter;
+
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	private ViewPager mViewPager;
+	private DeviceMap deviceMap;
+	private Info info;
+	private Chart chart;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
 		Intent service = new Intent(this,BackgroundService.class);
 		this.startService(service);
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -48,7 +59,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener{
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) this.findViewById(R.id.pager);
+		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
@@ -72,6 +83,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener{
 					.setTabListener(this));
 		}
 		
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		
 		if(DeviceMap.getDeviceMap() != null)
 			deviceMap = DeviceMap.getDeviceMap();
 		else
@@ -79,7 +92,23 @@ public class Main extends FragmentActivity implements ActionBar.TabListener{
 			deviceMap = new DeviceMap();
 			DeviceMap.setDeviceMap(deviceMap);
 		}
+		deviceMap.setSharedPreferences(sharedPreferences);
 		
+		if(Chart.getChart() != null)
+			chart = Chart.getChart();
+		else
+		{
+			chart = new Chart();
+			Chart.setChart(chart);
+		}
+		
+		if(Info.getInfo() != null)
+			info = Info.getInfo();
+		else
+		{
+			info = new Info();
+			Info.setInfoActivity(info);
+		}
 	}
 
 	
@@ -90,7 +119,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener{
         menuInflater.inflate(R.menu.main, menu);
         return true;
 	}
-
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -105,13 +133,21 @@ public class Main extends FragmentActivity implements ActionBar.TabListener{
 	            return super.onOptionsItemSelected(item);										
 	    }																						 
 	}																							 
-
+																							     
+	@Override																					 
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {			 
+		if(requestCode == 100) // true wenn Settings geschlossen wurden  
+			deviceMap.refreshPrefsOnDeviceMap();
+	 }
+	
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
+		if(tab.getPosition() == 2)
+			deviceMap.initMap();
 	}
 
 	@Override
@@ -123,13 +159,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener{
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 	}
-	
-	@Override																					 
-	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {			 
-		
-		if(requestCode == 100) // true wenn Settings geschlossen wurden  	
-			deviceMap.refreshPrefsOnDeviceMap();
-	 }
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -151,21 +180,26 @@ public class Main extends FragmentActivity implements ActionBar.TabListener{
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = null;
+			Fragment fragment;
 			if(position == 0)
-				fragment = new Info();
+				fragment = info;
 			
 			else if(position == 1)
-				fragment = new Chart();
+				fragment = chart;
 			
 			else if(position == 2) 
 				fragment = deviceMap;
-
+			
+			else
+			{
+				fragment = info;
+			}
 			return fragment;
 		}
 
 		@Override
 		public int getCount() {
+			// Show 3 total pages.
 			return 3;
 		}
 

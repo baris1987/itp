@@ -24,7 +24,7 @@ import android.widget.EditText;
 
 public class Info extends Fragment {
 
-	private static Info infoActivity;
+	private static Info info;
 
 	private Geocoder geoCoder;
 	private Location location = null;
@@ -100,8 +100,7 @@ public class Info extends Fragment {
 		if (location == null)
 			location = mService.getLocation();
 		if (locationProvider != null && location != null) {
-			locationProvider.setText(location.getProvider().toUpperCase(
-					Locale.ENGLISH));
+			locationProvider.setText(location.getProvider().toUpperCase(Locale.ENGLISH));
 
 			try {
 				List<Address> addressList = geoCoder.getFromLocation(
@@ -123,11 +122,11 @@ public class Info extends Fragment {
 		}
 	}
 
-	public static Info getInfoActivity() {
-		return Info.infoActivity;
+	public static Info getInfo() {
+		return Info.info;
 	}
 
-	public static void setInfoActivity(Info infoActivity) {
-		Info.infoActivity = infoActivity;
+	public static void setInfoActivity(Info info) {
+		Info.info = info;
 	}
 }

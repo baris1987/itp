@@ -128,6 +128,12 @@ public class DeviceMap extends SupportMapFragment {
 		}
 	}
 	
+	public void setLastKnownLocation(Location location)
+	{
+		this.lastKnownLocation = location;
+		updateCamera(this.lastKnownLocation);
+	}
+	
 	
 	public void setSharedPreferences(SharedPreferences sharedPreferences)
 	{

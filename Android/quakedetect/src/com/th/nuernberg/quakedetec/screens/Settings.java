@@ -21,7 +21,7 @@ public class Settings extends Activity {
 	 }
 	
 	
-	// action for backbutton ---> navigates to parentactivity (StartActivity)
+	// action for backbutton ---> navigates to parentactivity (Main)
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {

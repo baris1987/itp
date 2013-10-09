@@ -1,12 +1,17 @@
 package com.th.nuernberg.quakedetec.location;
 
+import com.th.nuernberg.quakedetec.screens.DeviceMap;
+import com.th.nuernberg.quakedetec.screens.Info;
+
 import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.util.Log;
 
-public class Localizer {
+public class Localizer implements LocationListener{
 	private static String TAG = "Localizer";
 	private LocationManager locationManager;
 
@@ -51,5 +56,31 @@ public class Localizer {
 			e.printStackTrace();
 		}
 		return location;
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		if(DeviceMap.getDeviceMap() != null)
+			DeviceMap.getDeviceMap().setLastKnownLocation(location);
+		if(Info.getInfo() != null)
+			Info.getInfo().setLocationInfo();		
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
 	}
 }
