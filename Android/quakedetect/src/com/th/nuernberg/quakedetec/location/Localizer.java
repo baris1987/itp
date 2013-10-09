@@ -33,7 +33,6 @@ public class Localizer implements LocationListener {
 		locationUpdateInterval = Long.parseLong(sharedPrefs.getString("locationupdates_interval", "1000"));
 		locationUpdateRadius 	= Float.parseFloat(sharedPrefs.getString("locationupdates_radius", "5"));
 		
-				
 		locationManager = (LocationManager) context.getSystemService(serviceString);
 
 		if (locationManager == null) {
@@ -77,7 +76,6 @@ public class Localizer implements LocationListener {
 	@Override
 	public void onLocationChanged(Location location) {
 		this.locationFromLastSignal = location;
-		System.out.println("loc changed");
 		if(DeviceMap.getDeviceMap() != null)
 			DeviceMap.getDeviceMap().setLastKnownLocation(location);
 		if(Info.getInfo() != null)

@@ -83,10 +83,6 @@ public class DeviceMap extends SupportMapFragment {
 	
 	public void initMap()
 	{
-		
-		System.out.println(this);
-		System.out.println("getMap: " + getMap());
-		System.out.println("isInitalized: " + initialized);
 		if(!initialized)
 		{
 			if(getMap() != null)
@@ -111,7 +107,6 @@ public class DeviceMap extends SupportMapFragment {
 			}
 			initialized = true;
 		}
-		
 	}
 	
 	public void addMarkerToMap(LatLng latlng, String DeviceInfo)
