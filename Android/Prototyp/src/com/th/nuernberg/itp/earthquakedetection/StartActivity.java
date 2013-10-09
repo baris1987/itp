@@ -144,7 +144,7 @@ public class StartActivity extends FragmentActivity implements
 	    switch (item.getItemId()) {
 	        case R.id.action_settings:
 	        	Intent intent = new Intent();
-	            intent.setClass(StartActivity.this, SettingsActivity.class);
+	            intent.setClass(StartActivity.this, Settings.class);
 	            startActivityForResult(intent, 100); // intent SettingsActivity, requestCode 100
 	            return true;																	 
 	        default:																			 

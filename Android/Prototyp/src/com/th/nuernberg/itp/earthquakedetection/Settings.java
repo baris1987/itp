@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 // Activity for SettingsFragment
 
-public class SettingsActivity extends Activity {
+public class Settings extends Activity {
 
 	@Override
 	 protected void onCreate(Bundle savedInstanceState) {

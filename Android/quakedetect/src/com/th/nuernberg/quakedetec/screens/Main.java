@@ -40,7 +40,7 @@ public class Main extends FragmentActivity implements
 	private DeviceMap deviceMap;
 	private Info info;
 	private Chart chart;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
