@@ -97,8 +97,9 @@ public class Info extends Fragment {
 	}
 
 	public void setLocationInfo() {
-		if (location == null)
-			location = mService.getLocation();
+		
+		location = mService.getLocation();
+				
 		if (locationProvider != null && location != null) {
 			locationProvider.setText(location.getProvider().toUpperCase(Locale.ENGLISH));
 

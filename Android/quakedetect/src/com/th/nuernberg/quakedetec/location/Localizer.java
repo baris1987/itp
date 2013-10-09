@@ -14,6 +14,7 @@ import android.util.Log;
 public class Localizer implements LocationListener{
 	private static String TAG = "Localizer";
 	private LocationManager locationManager;
+	private Location locationFromLastSignal;
 
 	public Localizer(Context context) {
 		final String serviceString = Context.LOCATION_SERVICE;
@@ -22,6 +23,11 @@ public class Localizer implements LocationListener{
 
 		if (locationManager == null) {
 			System.err.println("Error could not create locationManager");
+		}
+		else
+		{
+			for(String provider : locationManager.getProviders(true))
+				this.locationManager.requestLocationUpdates(provider, (long)10000, (float)50, this); // Locationupdates 10 Sekunden, 50m
 		}
 	}
 
@@ -36,14 +42,8 @@ public class Localizer implements LocationListener{
 	}
 
 	public Location getLocation() {
-		Location location = null;
-
+		Location location = this.locationFromLastSignal;
 		try {
-			location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-			if (location == null) {
-				location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-			}
-
 			if (location != null) {
 				Log.v(TAG, "lat: "	+ Double.toString(location.getLatitude())
 						+ ", lon: "	+ Double.toString(location.getLongitude())
@@ -60,10 +60,12 @@ public class Localizer implements LocationListener{
 
 	@Override
 	public void onLocationChanged(Location location) {
+		this.locationFromLastSignal = location;
+		System.out.println("loc changed");
 		if(DeviceMap.getDeviceMap() != null)
 			DeviceMap.getDeviceMap().setLastKnownLocation(location);
 		if(Info.getInfo() != null)
-			Info.getInfo().setLocationInfo();		
+			Info.getInfo().setLocationInfo();	
 	}
 
 	@Override
