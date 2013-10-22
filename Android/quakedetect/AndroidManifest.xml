@@ -15,7 +15,16 @@
      Google Maps Android API v2, but are recommended. -->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-		
+	<!-- The following permissions are required from GCM -->
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>	
+	<uses-permission android:name="android.permission.INTERNET"/>	
+	<uses-permission android:name="android.permission.GET_ACCOUNTS"/>	
+	<uses-permission android:name="android.permission.WAKE_LOCK"/>	
+	
+	<permission android:name="com.th.nuernberg.quakedetec.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />	
+	<uses-permission android:name="com.th.nuernberg.quakedetec.permission.C2D_MESSAGE"/>	
+	
 	<uses-feature
         android:glEsVersion="0x00020000"
         android:required="true"/>
@@ -39,14 +48,26 @@
         <meta-data
     		android:name="com.google.android.maps.v2.API_KEY"
    			android:value="AIzaSyA85JbEiHbAm_MVmaVo5MTLZxOXL0cPhCE"/>  <!-- Hier muss euer Key für euren jeweiligen debug.keystore rein -->
-        <service android:name=".acceleration.Accelerometer">
-        </service>
+        
+        <!-- Services -->
+        <service android:name=".acceleration.Accelerometer"></service>
         <service android:name="com.th.nuernberg.quakedetec.service.BackgroundService"></service>
+        
+        <!-- Receiver -->
         <receiver android:name="com.th.nuernberg.quakedetec.receiver.BootCompletedReceiver">
             <intent-filter>
                 	<action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name="com.th.nuernberg.quakedetec.receiver.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <category android:name="com.th.nuernberg.quakedetec"/>
+            </intent-filter>
+        </receiver>
+        
    			
     </application>
 
