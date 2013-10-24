@@ -49,6 +49,8 @@ public class Settings extends Activity {
 	public static void setSettings(SharedPreferences prefs, String key)
 	{
 		System.out.println("setSettings: " + key);
+		
+		//DeviceMap Maptype
 		if(key.equals("map_type"))
 		{
 			if(DeviceMap.getDeviceMap() != null)
@@ -62,6 +64,7 @@ public class Settings extends Activity {
 			}
 		}
 		
+		//LocationManager Aktualisiserungsinterval
 		else if(key.equals("locationupdates_interval"))
 		{
 			long locationUpdateInterval = Long.parseLong(prefs.getString("locationupdates_interval", "1000"));
@@ -69,6 +72,7 @@ public class Settings extends Activity {
 			Localizer.getLocalizer().changeUpdateIntervall(locationUpdateInterval);
 		}
 		
+		//LocationManager Aktualisierungsradius
 		else if(key.equals("locationupdates_radius"))
 		{
 			float locationUpdateRadius = Float.parseFloat(prefs.getString("locationupdates_radius", "5"));
@@ -76,6 +80,7 @@ public class Settings extends Activity {
 			Localizer.getLocalizer().changeUpdateRadius(locationUpdateRadius);
 		}
 		
+		// Beschleunigungssensor Abtastrate
 		else if(key.equals("accelerometer_rate"))
 		{
 			Integer accelRate = Integer.parseInt(prefs.getString("accelerometer_rate", "0"));			
