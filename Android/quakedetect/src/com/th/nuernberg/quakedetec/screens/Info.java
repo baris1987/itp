@@ -98,6 +98,9 @@ public class Info extends Fragment {
 
 	public void setLocationInfo() {
 		
+		if(mService == null)
+			return;
+		
 		location = mService.getLocation();
 				
 		if (locationProvider != null && location != null) {
