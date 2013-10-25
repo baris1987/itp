@@ -1,15 +1,21 @@
 package com.th.nuernberg.quakedetec.screens;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
 import com.th.nuernberg.quakedetec.location.Localizer;
+import com.th.nuernberg.quakedetec.service.NotificationsService;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 
@@ -80,6 +86,26 @@ public class Settings extends Activity {
 		{
 			Integer accelRate = Integer.parseInt(prefs.getString("accelerometer_rate", "0"));			
 			Accelerometer.getAccelerometer().setNewSensorRate(accelRate);
+		}
+		
+		// Notification Settings
+		else if(key.equals("notification_sound") || key.equals("notification_vibrate") || key.equals("notification_led"))
+		{
+			boolean sound = prefs.getBoolean("notification_sound", true);	
+			boolean vibration = prefs.getBoolean("notification_vibrate", true);	
+			boolean led = prefs.getBoolean("notification_led", true);	
+			
+			NotificationsService.setNotificationSettings(sound, vibration, led);
+		}
+	}
+	
+	public static void updateAll(Context context)
+	{
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+		Map<String, ?> prefsMap = sharedPrefs.getAll();
+		
+		for (Entry<String, ?> entry : prefsMap.entrySet()) {
+		    Settings.setSettings(sharedPrefs, entry.getKey());
 		}
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.th.nuernberg.quakedetec.R;
+import com.th.nuernberg.quakedetec.location.Localizer;
 import com.th.nuernberg.quakedetec.service.BackgroundService;
 import com.th.nuernberg.quakedetec.service.BackgroundService.BackgroundServiceBinder;
 
@@ -84,6 +85,8 @@ public class Info extends Fragment {
 		Intent intent = new Intent(this.getActivity(), BackgroundService.class);
 		this.getActivity().bindService(intent, mConnection,	Context.BIND_AUTO_CREATE);
 		super.onStart();
+		if(Localizer.getLocalizer() != null)
+			Localizer.getLocalizer().checkProviderEnabled();
 	}
 
 	@Override

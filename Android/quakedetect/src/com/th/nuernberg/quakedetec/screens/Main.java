@@ -2,9 +2,6 @@ package com.th.nuernberg.quakedetec.screens;
 
 import java.util.Locale;
 
-import com.th.nuernberg.quakedetec.R;
-import com.th.nuernberg.quakedetec.service.BackgroundService;
-
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -20,6 +17,10 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.th.nuernberg.quakedetec.R;
+import com.th.nuernberg.quakedetec.location.Localizer;
+import com.th.nuernberg.quakedetec.service.BackgroundService;
 
 public class Main extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -42,6 +43,8 @@ public class Main extends FragmentActivity implements
 	private Info info;
 	private Chart chart;
 	private OnSharedPreferenceChangeListener prefChangeListener;
+	private static boolean appIsVisible = false;
+	private static Fragment currentFragment;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +121,33 @@ public class Main extends FragmentActivity implements
 			info = new Info();
 			Info.setInfoActivity(info);
 		}
+		
+		currentFragment = info;
 	}
 
+	@Override
+	protected void onStart() {
+	    super.onStart();
+	    appIsVisible = true;
+	    
+	    if(currentFragment.equals(info))
+	    	currentFragment = info;
+	    else if(currentFragment.equals(chart))
+	    	currentFragment = chart;
+	    else if(currentFragment.equals(deviceMap))
+	    	currentFragment = deviceMap;
+	    
+	    if(Localizer.getLocalizer() != null)
+	    	Localizer.getLocalizer().checkProviderEnabled();
+	}
+	
+	@Override
+	protected void onStop() {
+	    super.onStop();
+	    appIsVisible = false;
+	    if(Localizer.getLocalizer() != null)
+	    	Localizer.getLocalizer().checkProviderEnabled();
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -149,9 +177,17 @@ public class Main extends FragmentActivity implements
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
-		if(tab.getPosition() == 2)
+		
+		if(tab.getPosition() == 0)
+			currentFragment = info;
+		else if(tab.getPosition() == 1)
+			currentFragment = chart;
+		else if(tab.getPosition() == 2)
+		{
+			currentFragment = deviceMap;
 			if(!deviceMap.isInitialized())
 				deviceMap.initMap();
+		}
 	}
 
 	@Override
@@ -162,6 +198,16 @@ public class Main extends FragmentActivity implements
 	@Override
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
+	}
+	
+	public static boolean appIsVisible()
+	{
+		return appIsVisible;
+	}
+	
+	public static Fragment getCurrentFragment()
+	{
+		return currentFragment;
 	}
 
 	/**

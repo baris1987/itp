@@ -1,6 +1,8 @@
 package com.th.nuernberg.quakedetec.service;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,6 +19,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -25,6 +28,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.th.nuernberg.quakedetec.acceleration.AccelSample;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
 import com.th.nuernberg.quakedetec.location.Localizer;
+import com.th.nuernberg.quakedetec.screens.Settings;
 
 public class BackgroundService extends Service {
 	private static final String TAG = "QuakeDetecService";
@@ -61,7 +65,7 @@ public class BackgroundService extends Service {
 		// GSM
 
 		context = getApplicationContext();
-
+		
 		// Check device for Play Services APK. If check succeeds, proceed with
 		// GCM registration.
 		if (checkPlayServices()) {
@@ -109,7 +113,10 @@ public class BackgroundService extends Service {
 				}
 			}
 		}, heartbeatMillis, heartbeatMillis);
-
+		
+		// Settings initialisieren
+		Settings.updateAll(context);
+		
 		// Hier muss die Kommunikation mit dem C2DM (Google Push Meldungen)
 		// regestriert werden
 	}

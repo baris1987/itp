@@ -84,14 +84,12 @@ public class Localizer implements LocationListener {
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) == false && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) == false)
-			NotificationsService.sendLocationProviderDisabledNotification(context);		
+		checkProviderEnabled();	
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
-			NotificationsService.dismissLocationProviderDisabledNotification(context);
+		checkProviderEnabled();
 	}
 
 	@Override
@@ -116,6 +114,20 @@ public class Localizer implements LocationListener {
 	{
 		this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, locationUpdateInterval, locationUpdateRadius, this);
 		this.locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, locationUpdateInterval, locationUpdateRadius, this);
+	}
+	
+	public boolean checkProviderEnabled()
+	{
+		if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+		{
+			NotificationsService.dismissLocationProviderDisabledNotification(context);
+			return true;
+		}
+		else
+		{
+			NotificationsService.sendLocationProviderDisabledNotification(context);
+			return false;
+		}
 	}
 	
 	public static Localizer getLocalizer()
