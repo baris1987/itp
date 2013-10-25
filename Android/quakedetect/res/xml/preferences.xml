@@ -9,7 +9,7 @@
 	    <ListPreference
 	        android:key="map_type"
 	        android:entries="@array/mapType"
-	        android:defaultValue="0"
+	        android:defaultValue="1"
             android:entryValues="@array/mapTypeValues"
 	        android:title="@string/set_maptype" />
 	</PreferenceCategory>
@@ -20,14 +20,14 @@
 	    <ListPreference 
             android:key="locationupdates_interval"
             android:title="@string/set_location_update_intervall"
-            android:defaultValue="1000" 
+            android:defaultValue="30000" 
             android:entries="@array/locationUpdateInterval"
             android:entryValues="@array/locationUpdateIntervalValues"
         /> 
         <ListPreference 
             android:key="locationupdates_radius"
             android:title="@string/set_location_update_radius"
-            android:defaultValue="5" 
+            android:defaultValue="50" 
             android:entries="@array/locationUpdateRadius"
             android:entryValues="@array/locationUpdateRadiusValues"
         /> 
@@ -40,9 +40,36 @@
 	    <ListPreference 
             android:key="accelerometer_rate"
             android:title="@string/set_accelerometer_rate"
-            android:defaultValue="0" 
+            android:defaultValue="2" 
             android:entries="@array/accelerometerRate"
             android:entryValues="@array/accelerometerRateValues"
         />  
 	</PreferenceCategory>
+	
+	<PreferenceCategory
+        android:title="@string/notification_title"
+        android:key="notifications">
+	   
+	    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="notification_sound"
+            android:summary="@string/notification_sound_summary"
+            android:title="@string/notification_sound_title" >
+        </CheckBoxPreference>
+        
+	    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="notification_vibrate"
+            android:summary="@string/notification_vibrate_summary"
+            android:title="@string/notification_vibrate_title" >
+        </CheckBoxPreference>
+        
+	    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="notification_led"
+            android:summary="@string/notification_led_summary"
+            android:title="@string/notification_led_title" >
+        </CheckBoxPreference>
+	</PreferenceCategory>
+	
 </PreferenceScreen>

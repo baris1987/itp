@@ -20,6 +20,14 @@
     <string name="set_location_update_radius">Aktualisierungsradius</string>
     <string name="set_title_accelerometer">Beschleunigungssensor</string>
     <string name="set_accelerometer_rate">Sensorabtastrate</string>
+    <string name="notification_title">Benachrichtigungseinstellungen</string>
+    <string name="notification_sound_title">Ton</string>
+    <string name="notification_sound_summary">Ton bei Benachrichtigungen</string>
+    <string name="notification_vibrate_title">Vibration</string>
+    <string name="notification_vibrate_summary">Vibration bei Benachrichtigungen</string>
+    <string name="notification_led_title">LED</string>
+    <string name="notification_led_summary">Leuchtende LED bei Benachrichtigungen</string>
+    
     
     <!-- TextViews -->    
     <string name="tv_info_webservice_url">WebService URL:</string>

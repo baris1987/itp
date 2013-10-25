@@ -1,17 +1,9 @@
 package com.th.nuernberg.quakedetec.service;
 
 import java.io.IOException;
-import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.th.nuernberg.quakedetec.acceleration.AccelSample;
-import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
-import com.th.nuernberg.quakedetec.location.Localizer;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -26,6 +18,13 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.th.nuernberg.quakedetec.acceleration.AccelSample;
+import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
+import com.th.nuernberg.quakedetec.location.Localizer;
 
 public class BackgroundService extends Service {
 	private static final String TAG = "QuakeDetecService";
@@ -78,16 +77,16 @@ public class BackgroundService extends Service {
 
 		// END GSM
 		localizer = new Localizer(getApplicationContext());
-
+		
 		// --------- Accelerometer ------------- //
 		Intent accelStartIntent = new Intent(BackgroundService.this,
 				Accelerometer.class);
 		startService(accelStartIntent);
 
 		// regestriert den Broadcast Receiver vom Beschleunigungssensor
-		IntentFilter filter = new IntentFilter(Accelerometer.ACCEL_SAMPLE);
+		IntentFilter accelFilter = new IntentFilter(Accelerometer.ACCEL_SAMPLE);
 		accelReceiver = new AccelerationBroadcastReceiver();
-		registerReceiver(accelReceiver, filter);
+		registerReceiver(accelReceiver, accelFilter);
 
 		Location location = localizer.getLocation();
 		double lat = 0.0;
@@ -96,6 +95,7 @@ public class BackgroundService extends Service {
 			lat = location.getLatitude();
 			lon = location.getLongitude();
 		}
+		
 		// Geräte beim Server regestrieren mit Positionsangabe
 
 		heartbeatTimer = new Timer("heartbeatTimer");
@@ -112,7 +112,6 @@ public class BackgroundService extends Service {
 
 		// Hier muss die Kommunikation mit dem C2DM (Google Push Meldungen)
 		// regestriert werden
-
 	}
 
 	/**
@@ -319,7 +318,7 @@ public class BackgroundService extends Service {
 			}
 		}
 	}
-
+	
 	@Override
 	public IBinder onBind(Intent intent) {
 		return binder;
@@ -334,5 +333,4 @@ public class BackgroundService extends Service {
 	public Location getLocation() {
 		return localizer.getLocation();
 	}
-
 }

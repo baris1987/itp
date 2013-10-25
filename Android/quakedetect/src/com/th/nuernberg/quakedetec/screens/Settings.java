@@ -47,9 +47,7 @@ public class Settings extends Activity {
 	}
 	
 	public static void setSettings(SharedPreferences prefs, String key)
-	{
-		System.out.println("setSettings: " + key);
-		
+	{		
 		//DeviceMap Maptype
 		if(key.equals("map_type"))
 		{
@@ -58,7 +56,6 @@ public class Settings extends Activity {
 				if(DeviceMap.getDeviceMap().getMap() != null)
 				{
 					int maptype = Integer.parseInt(prefs.getString("map_type", "1"));
-					System.out.println("Deviemapupdate: " + maptype);
 					DeviceMap.getDeviceMap().getMap().setMapType(maptype);
 				}
 			}
@@ -67,16 +64,14 @@ public class Settings extends Activity {
 		//LocationManager Aktualisiserungsinterval
 		else if(key.equals("locationupdates_interval"))
 		{
-			long locationUpdateInterval = Long.parseLong(prefs.getString("locationupdates_interval", "1000"));
-			System.out.println("interval: " + locationUpdateInterval);
+			long locationUpdateInterval = Long.parseLong(prefs.getString("locationupdates_interval", "30000"));
 			Localizer.getLocalizer().changeUpdateIntervall(locationUpdateInterval);
 		}
 		
 		//LocationManager Aktualisierungsradius
 		else if(key.equals("locationupdates_radius"))
 		{
-			float locationUpdateRadius = Float.parseFloat(prefs.getString("locationupdates_radius", "5"));
-			System.out.println("radiusupdate: " + locationUpdateRadius);
+			float locationUpdateRadius = Float.parseFloat(prefs.getString("locationupdates_radius", "50"));
 			Localizer.getLocalizer().changeUpdateRadius(locationUpdateRadius);
 		}
 		

@@ -1,23 +1,23 @@
 package com.th.nuernberg.quakedetec.location;
 
-import java.util.prefs.PreferenceChangeEvent;
-import java.util.prefs.PreferenceChangeListener;
-
-import com.th.nuernberg.quakedetec.screens.DeviceMap;
-import com.th.nuernberg.quakedetec.screens.Info;
-
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class Localizer implements LocationListener {
+import com.th.nuernberg.quakedetec.screens.DeviceMap;
+import com.th.nuernberg.quakedetec.screens.Info;
+import com.th.nuernberg.quakedetec.service.NotificationsService;
+
+public class Localizer extends Service implements LocationListener {
 	private static String TAG = "Localizer";
 	private LocationManager locationManager;
 	private Location locationFromLastSignal;
@@ -25,16 +25,17 @@ public class Localizer implements LocationListener {
 	private long locationUpdateInterval;
 	private float locationUpdateRadius;
 	private static Localizer localizer;
+	private Context context;
 	
 	public Localizer(Context context) {
 		final String serviceString = Context.LOCATION_SERVICE;
-		
+		this.context = context;
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-		locationUpdateInterval = Long.parseLong(sharedPrefs.getString("locationupdates_interval", "1000"));
-		locationUpdateRadius 	= Float.parseFloat(sharedPrefs.getString("locationupdates_radius", "5"));
+		locationUpdateInterval  = Long.parseLong(sharedPrefs.getString("locationupdates_interval", "30000"));
+		locationUpdateRadius 	= Float.parseFloat(sharedPrefs.getString("locationupdates_radius", "50"));
 		
-		locationManager = (LocationManager) context.getSystemService(serviceString);
-
+		locationManager 	= (LocationManager) context.getSystemService(serviceString);
+		
 		if (locationManager == null) {
 			System.err.println("Error could not create locationManager");
 		}
@@ -50,8 +51,9 @@ public class Localizer implements LocationListener {
 			IllegalArgumentException {
 		String bestProvider = locationManager.getBestProvider(criteria, true);
 		if (bestProvider == null) {
-			System.err.println("no location providers. Did you enable them?");
+			// Keine Location
 		}
+		
 		Location location = locationManager.getLastKnownLocation(bestProvider);
 		return location;
 	}
@@ -70,6 +72,7 @@ public class Localizer implements LocationListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return location;
 	}
 
@@ -84,14 +87,14 @@ public class Localizer implements LocationListener {
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-		
+		if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) == false && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) == false)
+			NotificationsService.sendLocationProviderDisabledNotification(context);		
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-		
+		if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+			NotificationsService.dismissLocationProviderDisabledNotification(context);
 	}
 
 	@Override
@@ -114,8 +117,8 @@ public class Localizer implements LocationListener {
 	
 	public void refreshLocationUpdateRequests()
 	{
-		for(String provider : locationManager.getProviders(true))
-			this.locationManager.requestLocationUpdates(provider, locationUpdateInterval, locationUpdateRadius, this); // Locationupdates 10 Sekunden, 50m
+		this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, locationUpdateInterval, locationUpdateRadius, this);
+		this.locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, locationUpdateInterval, locationUpdateRadius, this);
 	}
 	
 	public static Localizer getLocalizer()
