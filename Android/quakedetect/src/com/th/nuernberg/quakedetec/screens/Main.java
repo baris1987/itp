@@ -121,7 +121,6 @@ public class Main extends FragmentActivity implements
 			info = new Info();
 			Info.setInfoActivity(info);
 		}
-		
 		currentFragment = info;
 	}
 
@@ -130,6 +129,8 @@ public class Main extends FragmentActivity implements
 	    super.onStart();
 	    appIsVisible = true;
 	    
+	    // schreibt in die statische Variable currentFragment das Fragment, 
+	    // welches gerade angezeigt wird
 	    if(currentFragment.equals(info))
 	    	currentFragment = info;
 	    else if(currentFragment.equals(chart))
@@ -137,6 +138,8 @@ public class Main extends FragmentActivity implements
 	    else if(currentFragment.equals(deviceMap))
 	    	currentFragment = deviceMap;
 	    
+	    // nicht besonders clean, aber momentan leider noch notwendig,
+	    // da bei manchen Starts der App die onStarts der verschiedenen Klassen zeitlich varieren
 	    if(Localizer.getLocalizer() != null)
 	    	Localizer.getLocalizer().checkProviderEnabled();
 	}
@@ -145,6 +148,8 @@ public class Main extends FragmentActivity implements
 	protected void onStop() {
 	    super.onStop();
 	    appIsVisible = false;
+	    
+	    // Nochmal testen, ob benštigt
 	    if(Localizer.getLocalizer() != null)
 	    	Localizer.getLocalizer().checkProviderEnabled();
 	}
@@ -178,6 +183,8 @@ public class Main extends FragmentActivity implements
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
 		
+		// Beim Swipe durch die App, wird das neu angezeigte Fragment
+		// in currentFragment geschrieben
 		if(tab.getPosition() == 0)
 			currentFragment = info;
 		else if(tab.getPosition() == 1)

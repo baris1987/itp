@@ -94,11 +94,15 @@ public class Settings extends Activity {
 			boolean sound = prefs.getBoolean("notification_sound", true);	
 			boolean vibration = prefs.getBoolean("notification_vibrate", true);	
 			boolean led = prefs.getBoolean("notification_led", true);	
-			
+
 			NotificationsService.setNotificationSettings(sound, vibration, led);
 		}
 	}
 	
+	// alle App Settings werden durchlaufen und gesetzt
+	// Aufruf beim Start im BackgroundService
+	// (evtl. setSettings und updateAll Methoden entfernen und Ÿber onStart, onStop, usw. in den jeweiligen Klassen regeln
+	// um cleaneren code zu erzeugen)
 	public static void updateAll(Context context)
 	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);

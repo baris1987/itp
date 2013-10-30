@@ -26,13 +26,7 @@ public class NotificationsService extends Application{
 		private static boolean ledActivated			= true;
 		private static AlertDialog alertDialog;
 			
-		public NotificationsService(Context context)
-		{
-			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-			soundActivated 		= sharedPrefs.getBoolean("notification_sound", true);	
-			vibrationActivated 	= sharedPrefs.getBoolean("notification_vibrate", true);	
-			vibrationActivated	= sharedPrefs.getBoolean("notification_led", true);	
-		}
+		private NotificationsService(Context context) {}
 		
 		public static void sendLocationProviderDisabledNotification(Context context)
 		{
@@ -69,6 +63,7 @@ public class NotificationsService extends Application{
 			else 
 				isAlertShown = alertDialog.isShowing();
 			
+			// AlertDialog, wenn App geöffnet ist und noch kein Alertdialog offen ist
 			if(Main.appIsVisible() && Main.getCurrentFragment() != null && isAlertShown == false)
 			{
 				if(Main.getCurrentFragment().getActivity() != null)
@@ -100,7 +95,7 @@ public class NotificationsService extends Application{
 			}
 		}
 	
-		
+		// entfernt AlertDialog und Notification für deaktivierte LocationProvider
 		public static void dismissLocationProviderDisabledNotification(Context context)
 		{
 			((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(0);
@@ -108,6 +103,9 @@ public class NotificationsService extends Application{
 				alertDialog.cancel();
 		}
 		
+		// setzt NotificationSettings 
+		// (evtl. nochmal umschreiben, da ausschließliche Verwendung dieser Methode nicht zur Speicherung der SharedPrefs führt
+		// dadurch Missverständnisse möglich)
 		public static void setNotificationSettings(boolean sound, boolean vibration, boolean led)
 		{
 			soundActivated 		= sound;

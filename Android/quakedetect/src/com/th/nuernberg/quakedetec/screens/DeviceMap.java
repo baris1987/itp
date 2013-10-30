@@ -109,6 +109,7 @@ public class DeviceMap extends SupportMapFragment {
 		}
 	}
 	
+	// fügt Marker für andere Geräte in der Umgebung hinzu
 	public void addMarkerToMap(LatLng latlng, String DeviceInfo)
 	{
 	        LatLng MarkerPos = latlng;

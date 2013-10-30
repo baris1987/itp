@@ -30,7 +30,6 @@ public class Localizer implements LocationListener {
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 		locationUpdateInterval  = Long.parseLong(sharedPrefs.getString("locationupdates_interval", "30000"));
 		locationUpdateRadius 	= Float.parseFloat(sharedPrefs.getString("locationupdates_radius", "50"));
-		
 		locationManager 	= (LocationManager) context.getSystemService(serviceString);
 		
 		if (locationManager == null) {
