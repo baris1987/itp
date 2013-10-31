@@ -760,3 +760,109 @@ CHECK  (level < 4) [90045-170]
 	at org.h2.server.web.WebThread.process(WebThread.java:166)
 	at org.h2.server.web.WebThread.run(WebThread.java:93)
 	at java.lang.Thread.run(Unknown Source)
+10-31 18:39:24 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "TEST" nicht gefunden
+Table "TEST" not found; SQL statement:
+ALTER TABLE TEST ALTER COLUMN IDENTIFIER VARCHAR(55) [42102-170]
+10-31 18:39:49 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax Fehler in SQL Befehl "DESC[*] ITP.T_DEVICE"; erwartet "DELETE, DROP, DECLARE, DEALLOCATE, {"
+Syntax error in SQL statement "DESC[*] ITP.T_DEVICE"; expected "DELETE, DROP, DECLARE, DEALLOCATE, {"; SQL statement:
+DESC ITP.T_DEVICE [42001-170]
+10-31 18:40:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Wert zu gross / lang für Feld "IDENTIFIER VARCHAR(55) NOT NULL": "'APA91bGn8BTixyaOUTo_296LeE6xXL3S8PW1oDr0wyGhp8cKTadibajflRul52P-kTclJiSOROa8a72L_moznYk-5ihaGnyEylF06eqX9_oDIFjJmtgxYvMZG4kiwBd... (183)"
+Value too long for column "IDENTIFIER VARCHAR(55) NOT NULL": "'APA91bGn8BTixyaOUTo_296LeE6xXL3S8PW1oDr0wyGhp8cKTadibajflRul52P-kTclJiSOROa8a72L_moznYk-5ihaGnyEylF06eqX9_oDIFjJmtgxYvMZG4kiwBd... (183)"; SQL statement:
+UPDATE "ITP"."T_DEVICE" SET "PK_DEVICEID"=? ,"IDENTIFIER"=? ,"ACTIVITY"=? ,"LATITUDE"=? ,"LONGITUDE"=?  WHERE "PK_DEVICEID"=? [22001-170]
+10-31 18:40:19 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Wert zu gross / lang für Feld "IDENTIFIER VARCHAR(55) NOT NULL": "'APA91bGn8BTixyaOUTo_296LeE6xXL3S8PW1oDr0wyGhp8cKTadibajflRul52P-kTclJiSOROa8a72L_moznYk-5ihaGnyEylF06eqX9_oDIFjJmtgxYvMZG4kiwBd... (183)"
+Value too long for column "IDENTIFIER VARCHAR(55) NOT NULL": "'APA91bGn8BTixyaOUTo_296LeE6xXL3S8PW1oDr0wyGhp8cKTadibajflRul52P-kTclJiSOROa8a72L_moznYk-5ihaGnyEylF06eqX9_oDIFjJmtgxYvMZG4kiwBd... (183)"; SQL statement:
+UPDATE "ITP"."T_DEVICE" SET "PK_DEVICEID"=? ,"IDENTIFIER"=? ,"ACTIVITY"=? ,"LATITUDE"=? ,"LONGITUDE"=?  WHERE "PK_DEVICEID"=? [22001-170]
+10-31 19:48:41 jdbc[5]: null
+org.h2.message.DbException: Die Datenbank-Verbindung wurde nicht explizit geschlossen (jetzt in der Müllabfuhr)
+The connection was not closed by the application and is garbage collected [90018-170]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.message.DbException.get(DbException.java:135)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:175)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:120)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:93)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at com.th.nuernberg.itp.webservice.Database.Initalize(Database.java:19)
+	at com.th.nuernberg.itp.webservice.BaseResource.createDatabaseInstance(BaseResource.java:36)
+	at com.th.nuernberg.itp.webservice.DeviceResource.<init>(DeviceResource.java:22)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.sun.jersey.server.spi.component.ResourceComponentConstructor._construct(ResourceComponentConstructor.java:191)
+	at com.sun.jersey.server.spi.component.ResourceComponentConstructor.construct(ResourceComponentConstructor.java:179)
+	at com.sun.jersey.server.impl.resource.PerRequestFactory$PerRequest._getInstance(PerRequestFactory.java:182)
+	at com.sun.jersey.server.impl.resource.PerRequestFactory$AbstractPerRequest.getInstance(PerRequestFactory.java:144)
+	at com.sun.jersey.server.impl.application.WebApplicationContext.getResource(WebApplicationContext.java:238)
+	at com.sun.jersey.server.impl.uri.rules.ResourceClassRule.accept(ResourceClassRule.java:83)
+	at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147)
+	at com.sun.jersey.server.impl.uri.rules.RootResourceClassesRule.accept(RootResourceClassesRule.java:84)
+	at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1469)
+	at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1400)
+	at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1349)
+	at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1339)
+	at com.sun.jersey.server.impl.container.httpserver.HttpHandlerContainer.handle(HttpHandlerContainer.java:191)
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Unknown Source)
+	at sun.net.httpserver.AuthFilter.doFilter(Unknown Source)
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Unknown Source)
+	at sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(Unknown Source)
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Unknown Source)
+	at sun.net.httpserver.ServerImpl$Exchange.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: Die Datenbank-Verbindung wurde nicht explizit geschlossen (jetzt in der Müllabfuhr)
+The connection was not closed by the application and is garbage collected [90018-170]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 38 more
+10-31 19:48:41 jdbc[5]: null
+org.h2.message.DbException: Die Datenbank-Verbindung wurde nicht explizit geschlossen (jetzt in der Müllabfuhr)
+The connection was not closed by the application and is garbage collected [90018-170]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.message.DbException.get(DbException.java:135)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:175)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:120)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:93)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at com.th.nuernberg.itp.webservice.Database.Initalize(Database.java:19)
+	at com.th.nuernberg.itp.webservice.BaseResource.createDatabaseInstance(BaseResource.java:36)
+	at com.th.nuernberg.itp.webservice.DeviceResource.<init>(DeviceResource.java:22)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.sun.jersey.server.spi.component.ResourceComponentConstructor._construct(ResourceComponentConstructor.java:191)
+	at com.sun.jersey.server.spi.component.ResourceComponentConstructor.construct(ResourceComponentConstructor.java:179)
+	at com.sun.jersey.server.impl.resource.PerRequestFactory$PerRequest._getInstance(PerRequestFactory.java:182)
+	at com.sun.jersey.server.impl.resource.PerRequestFactory$AbstractPerRequest.getInstance(PerRequestFactory.java:144)
+	at com.sun.jersey.server.impl.application.WebApplicationContext.getResource(WebApplicationContext.java:238)
+	at com.sun.jersey.server.impl.uri.rules.ResourceClassRule.accept(ResourceClassRule.java:83)
+	at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147)
+	at com.sun.jersey.server.impl.uri.rules.RootResourceClassesRule.accept(RootResourceClassesRule.java:84)
+	at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1469)
+	at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1400)
+	at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1349)
+	at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1339)
+	at com.sun.jersey.server.impl.container.httpserver.HttpHandlerContainer.handle(HttpHandlerContainer.java:191)
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Unknown Source)
+	at sun.net.httpserver.AuthFilter.doFilter(Unknown Source)
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Unknown Source)
+	at sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(Unknown Source)
+	at com.sun.net.httpserver.Filter$Chain.doFilter(Unknown Source)
+	at sun.net.httpserver.ServerImpl$Exchange.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: Die Datenbank-Verbindung wurde nicht explizit geschlossen (jetzt in der Müllabfuhr)
+The connection was not closed by the application and is garbage collected [90018-170]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 38 more

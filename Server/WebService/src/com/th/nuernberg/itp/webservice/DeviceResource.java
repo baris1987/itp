@@ -28,8 +28,8 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 	public String register(@PathParam("identifier") String identifier, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
 		
 		// Validate MAC address 
-		if (!identifier.matches("^([0-9a-f]{12})$")) {
-			return JsonWebResponse.build(false, "Not a valid MAC-48 address. Only lower case and hex is allowed, e.g. 1c5d0386bbf7.");
+		if (!identifier.matches("^([0-9a-zA-Z_-]+)$") || identifier.length() > 255 || identifier.length() < 16) {
+			return JsonWebResponse.build(false, "Invalid identifier: Only characters, numbers, dashes and underscores are allowed. Minimum length is 16, maximum length is 255, e.g. G1cZ5_dA0386-T0f7.");
 		}
 		
 		String activityDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(Calendar.getInstance().getTime());
@@ -62,8 +62,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		return JsonWebResponse.build(true, deviceList);
 	}	
 
-	// POST
-	@GET
+	@POST
 	@Path("alarm/{identifier}/{latitude}/{longitude}/{level}")
 	public String alarm(@PathParam("identifier") String identifier, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude, @PathParam("level") int level) {
 		
