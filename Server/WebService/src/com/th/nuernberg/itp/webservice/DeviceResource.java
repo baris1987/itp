@@ -16,14 +16,16 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 
 	private final IConfiguration config;
 	private final IDatabase persister;
+	private final ILogging console;
 	
 	public DeviceResource() {
 		this.config = this.createConfigurationInstance(Constants.Configuration);
 		this.persister = this.createDatabaseInstance(this.config);
+		this.console = new Logging();
+		this.console.enable(Boolean.parseBoolean(this.config.get("Application.Logging")));
 	}
 
-	// POST
-	@GET
+	@PUT
 	@Path("register/{identifier}/{latitude}/{longitude}")
 	public String register(@PathParam("identifier") String identifier, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
 		
@@ -47,6 +49,8 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		boolean success = repository.persist(device);
 		repository.destroy();
 
+		this.console.write("METHOD", "Register",  identifier, latitude, longitude);
+		
 		return JsonWebResponse.build(success);
 	}
 	
@@ -59,10 +63,11 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		List<IDevice> deviceList = repository.getActiveDevices(Integer.parseInt(this.config.get("Application.DeviceTimeout")));
 		repository.destroy();		
 		
+		this.console.write("METHOD", "List", deviceList.size());
 		return JsonWebResponse.build(true, deviceList);
 	}	
 
-	@POST
+	@PUT
 	@Path("alarm/{identifier}/{latitude}/{longitude}/{level}")
 	public String alarm(@PathParam("identifier") String identifier, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude, @PathParam("level") int level) {
 		
@@ -82,6 +87,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		
 		repository.destroy();	
 		
+		this.console.write("METHOD", "Alarm", success);
 		return JsonWebResponse.build(success);
 	}
 	
@@ -101,6 +107,14 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 			success = true;
 		}
 		
+		this.console.write("METHOD", "Meta", device.getIdentifier(), device.getActivity(), device.getLatitude(), device.getLongitude());
 		return JsonWebResponse.build(success, device);
+	}
+	
+	@GET
+	@Path("play")
+	public String play() {
+		GoogleCloudMessaging cloud = new GoogleCloudMessaging();
+		return cloud.send();
 	}
 }
