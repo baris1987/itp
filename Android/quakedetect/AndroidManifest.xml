@@ -56,7 +56,9 @@
         <service android:name="com.th.nuernberg.quakedetec.service.BackgroundService"></service>
         
         <!-- Receiver -->
-        <receiver android:name="com.th.nuernberg.quakedetec.receiver.BootCompletedReceiver">
+        <receiver android:name="com.th.nuernberg.quakedetec.receiver.BootCompletedReceiver"
+            android:enabled="true" 
+             android:exported="false">
             <intent-filter>
                 	<action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

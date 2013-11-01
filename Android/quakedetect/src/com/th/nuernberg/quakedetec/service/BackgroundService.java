@@ -30,6 +30,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -71,7 +72,7 @@ public class BackgroundService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
+		Toast.makeText(this, "QuakeDetect Service Started", Toast.LENGTH_SHORT).show();
 		// GSM
 
 		context = getApplicationContext();
@@ -315,9 +316,10 @@ public class BackgroundService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		Log.d(TAG, "QuakeDetect Service started");
 		return super.onStartCommand(intent, flags, startId);
 	}
-
+   
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
