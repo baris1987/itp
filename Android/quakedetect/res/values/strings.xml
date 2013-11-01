@@ -27,6 +27,10 @@
     <string name="notification_vibrate_summary">Vibration bei Benachrichtigungen</string>
     <string name="notification_led_title">LED</string>
     <string name="notification_led_summary">Leuchtende LED bei Benachrichtigungen</string>
+    <string name="set_titel_server">Servereinstellungen</string>
+    <string name="set_server_url">Server Adresse</string>
+    <string name="set_server_port">Server Port</string>
+    
     
     
     <!-- TextViews -->    

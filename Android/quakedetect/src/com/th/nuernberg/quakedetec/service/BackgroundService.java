@@ -1,11 +1,20 @@
 package com.th.nuernberg.quakedetec.service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -56,8 +65,9 @@ public class BackgroundService extends Service {
 	private AtomicInteger msgId = new AtomicInteger();
 	private Context context;
 	private String regid;
+
 	// END GSM
-	
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -65,7 +75,7 @@ public class BackgroundService extends Service {
 		// GSM
 
 		context = getApplicationContext();
-		
+
 		// Check device for Play Services APK. If check succeeds, proceed with
 		// GCM registration.
 		if (checkPlayServices()) {
@@ -75,13 +85,14 @@ public class BackgroundService extends Service {
 			if (regid.isEmpty()) {
 				registerInBackground();
 			}
+
 		} else {
 			Log.i(TAG, "No valid Google Play Services APK found.");
 		}
 
 		// END GSM
 		localizer = new Localizer(getApplicationContext());
-		
+
 		// --------- Accelerometer ------------- //
 		Intent accelStartIntent = new Intent(BackgroundService.this,
 				Accelerometer.class);
@@ -91,15 +102,8 @@ public class BackgroundService extends Service {
 		IntentFilter accelFilter = new IntentFilter(Accelerometer.ACCEL_SAMPLE);
 		accelReceiver = new AccelerationBroadcastReceiver();
 		registerReceiver(accelReceiver, accelFilter);
+		sendPosition2Server();
 
-		Location location = localizer.getLocation();
-		double lat = 0.0;
-		double lon = 0.0;
-		if (location != null) {
-			lat = location.getLatitude();
-			lon = location.getLongitude();
-		}
-		
 		// Geräte beim Server regestrieren mit Positionsangabe
 
 		heartbeatTimer = new Timer("heartbeatTimer");
@@ -107,18 +111,65 @@ public class BackgroundService extends Service {
 			public void run() {
 				Location location = localizer.getLocation();
 				if (location != null) {
-					// Heartbeat beim Server mit aktueller Position
+					sendPosition2Server();
 				} else {
 					Log.d(TAG, "No location fix -> Heartbeat not send");
 				}
 			}
 		}, heartbeatMillis, heartbeatMillis);
-		
+
 		// Settings initialisieren
 		Settings.updateAll(context);
-		
+
 		// Hier muss die Kommunikation mit dem C2DM (Google Push Meldungen)
 		// regestriert werden
+	}
+
+	private void sendPosition2Server() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+
+					double lat = 0;
+					double lon = 0;
+					Location location = localizer.getLocation();
+					if (location != null) {
+						lat = location.getLatitude();
+						lon = location.getLongitude();
+					}
+					final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+					String serverUrl = prefs.getString("server_url", "");
+					String serverPort = prefs.getString("server_port", "8088");
+
+					String requestUrl = String.format("http://%s:%s/itp/device/register/%s/%s/%s", serverUrl, serverPort, regid, lat, lon);
+					Log.d(TAG, "Start server request: " + requestUrl);
+					HttpClient client = new DefaultHttpClient();
+					HttpGet request = new HttpGet();
+					request.setURI(new URI(requestUrl));
+					HttpResponse response = client.execute(request);
+					int status = response.getStatusLine().getStatusCode();
+					if (status != 200) {
+						Log.d(TAG, "Server request faild: "	+ String.valueOf(status));
+						return;
+					}
+					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+					StringBuffer sb = new StringBuffer("");
+					String l = "";
+					String nl = System.getProperty("line.separator");
+					while ((l = in.readLine()) != null) {
+						sb.append(l + nl);
+					}
+					in.close();
+					String data = sb.toString();
+					if (!data.contains("\"success\":true"))
+						Log.d(TAG, "Server request failed: " + data);
+					Log.d(TAG, "Server request OK: " + data);
+				} catch (Exception e) {
+					Log.d(TAG, "Server request failed: " + e.getMessage());
+				}
+			}
+		}).start();
 	}
 
 	/**
@@ -325,7 +376,7 @@ public class BackgroundService extends Service {
 			}
 		}
 	}
-	
+
 	@Override
 	public IBinder onBind(Intent intent) {
 		return binder;

@@ -84,8 +84,9 @@ public class Settings extends Activity {
 		// Beschleunigungssensor Abtastrate
 		else if(key.equals("accelerometer_rate"))
 		{
-			Integer accelRate = Integer.parseInt(prefs.getString("accelerometer_rate", "0"));			
-			Accelerometer.getAccelerometer().setNewSensorRate(accelRate);
+			Integer accelRate = Integer.parseInt(prefs.getString("accelerometer_rate", "2"));
+			if(Accelerometer.getAccelerometer() != null)
+				Accelerometer.getAccelerometer().setNewSensorRate(accelRate);
 		}
 		
 		// Notification Settings
