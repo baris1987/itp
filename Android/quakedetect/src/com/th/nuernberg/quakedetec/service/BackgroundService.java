@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Service;
@@ -146,7 +147,7 @@ public class BackgroundService extends Service {
 					String requestUrl = String.format("http://%s:%s/itp/device/register/%s/%s/%s", serverUrl, serverPort, regid, lat, lon);
 					Log.d(TAG, "Start server request: " + requestUrl);
 					HttpClient client = new DefaultHttpClient();
-					HttpGet request = new HttpGet();
+					HttpPut request = new HttpPut();
 					request.setURI(new URI(requestUrl));
 					HttpResponse response = client.execute(request);
 					int status = response.getStatusLine().getStatusCode();
