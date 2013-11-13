@@ -111,13 +111,13 @@ public class Localizer implements LocationListener {
 	
 	public void refreshLocationUpdateRequests()
 	{
-		this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, locationUpdateInterval, locationUpdateRadius, this);
+	//	this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, locationUpdateInterval, locationUpdateRadius, this);
 		this.locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, locationUpdateInterval, locationUpdateRadius, this);
 	}
 	
 	public boolean checkProviderEnabled()
-	{
-		if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+	{//locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || 
+		if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
 		{
 			NotificationsService.dismissLocationProviderDisabledNotification(context);
 			return true;
