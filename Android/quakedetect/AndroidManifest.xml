@@ -71,5 +71,6 @@
                 <category android:name="com.th.nuernberg.quakedetec"/>
             </intent-filter>
         </receiver>
+        <service android:name=".service.GcmIntentService"></service>
     </application>
 </manifest>
