@@ -41,7 +41,6 @@ public class Main extends FragmentActivity implements
 	private ViewPager mViewPager;
 	private DeviceMap deviceMap;
 	private Info info;
-	private Chart chart;
 	private OnSharedPreferenceChangeListener prefChangeListener;
 	private static boolean appIsVisible = false;
 	private static Fragment currentFragment;
@@ -105,15 +104,6 @@ public class Main extends FragmentActivity implements
 			deviceMap = new DeviceMap();
 			DeviceMap.setDeviceMap(deviceMap);
 		}
-		
-		if(Chart.getChart() != null)
-			chart = Chart.getChart();
-		else
-		{
-			chart = new Chart();
-			Chart.setChart(chart);
-		}
-		
 		if(Info.getInfo() != null)
 			info = Info.getInfo();
 		else
@@ -133,8 +123,6 @@ public class Main extends FragmentActivity implements
 	    // welches gerade angezeigt wird
 	    if(currentFragment.equals(info))
 	    	currentFragment = info;
-	    else if(currentFragment.equals(chart))
-	    	currentFragment = chart;
 	    else if(currentFragment.equals(deviceMap))
 	    	currentFragment = deviceMap;
 	    
@@ -188,8 +176,6 @@ public class Main extends FragmentActivity implements
 		if(tab.getPosition() == 0)
 			currentFragment = info;
 		else if(tab.getPosition() == 1)
-			currentFragment = chart;
-		else if(tab.getPosition() == 2)
 		{
 			currentFragment = deviceMap;
 			if(!deviceMap.isInitialized())
@@ -242,9 +228,6 @@ public class Main extends FragmentActivity implements
 				fragment = info;
 			
 			else if(position == 1)
-				fragment = chart;
-			
-			else if(position == 2) 
 				fragment = deviceMap;
 			
 			else
@@ -256,8 +239,8 @@ public class Main extends FragmentActivity implements
 
 		@Override
 		public int getCount() {
-			// Show 3 total pages.
-			return 3;
+			// Show 2s total pages.
+			return 2;
 		}
 
 		@Override
@@ -268,8 +251,6 @@ public class Main extends FragmentActivity implements
 				return getString(R.string.sec_1).toUpperCase(l);
 			case 1:
 				return getString(R.string.sec_2).toUpperCase(l);
-			case 2:
-				return getString(R.string.sec_3).toUpperCase(l);
 			}
 			return null;
 		}

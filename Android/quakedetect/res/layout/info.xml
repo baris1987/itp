@@ -1,118 +1,134 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".StartActivity" >
 
-    <ScrollView
-        android:id="@+id/scrollView1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp" >
+
+            <TextView
+                android:id="@+id/connected_devices_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_info_accelerometer" />
+
+            <LinearLayout
+                android:id="@+id/chart"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+            </LinearLayout>
+     
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/connected_devices_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_info_connected_devices" />
+
+            <TextView
+                android:id="@+id/txt_connected_devices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/connected_devices_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_info_connected_devices" />
-
-                <TextView
-                    android:id="@+id/txt_connected_devices"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/txt_info_color" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/last_earthquake_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/padding_top"
-                    android:text="@string/tv_info_last_earthquake" />
-
-                <TextView
-                    android:id="@+id/txt_last_earthquake"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/txt_info_color" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/device_location_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/padding_top"
-                    android:text="@string/tv_info_location" />
-
-                <TextView
-                    android:id="@+id/txt_your_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/txt_info_color" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/padding_top"
-                    android:text="@string/tv_info_location_provider" />
-
-                <TextView
-                    android:id="@+id/txt_location_provider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="5dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/txt_info_color" />
-
-            </LinearLayout>
-
-            <requestFocus />
-
-            
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:text="n.a."
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/txt_info_color" />
         </LinearLayout>
-    </ScrollView>
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/last_earthquake_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_top"
+                android:text="@string/tv_info_last_earthquake" />
+
+            <TextView
+                android:id="@+id/txt_last_earthquake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:text="n.a."
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/txt_info_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/device_location_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_top"
+                android:text="@string/tv_info_location" />
+
+            <TextView
+                android:id="@+id/txt_your_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:text="n.a."
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/txt_info_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_top"
+                android:text="@string/tv_info_location_provider" />
+
+            <TextView
+                android:id="@+id/txt_location_provider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:text="n.a."
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/txt_info_color" />
+        </LinearLayout>
+
+        <requestFocus />
+    </LinearLayout>
+
+</ScrollView>

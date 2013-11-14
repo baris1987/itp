@@ -8,8 +8,7 @@
     <string name="action_settings">Einstellungen</string>
     
     <string name="sec_1">Info</string>
-    <string name="sec_2">Graph</string>
-    <string name="sec_3">Geräteübersicht</string>
+    <string name="sec_2">Geräteübersicht</string>
     
     
     <!-- Einstellungen -->
@@ -39,6 +38,7 @@
     <string name="tv_info_last_earthquake">Letztes erkanntes Erdbeben:</string>
     <string name="tv_info_location">Aktuelle Position:</string>
     <string name="tv_info_location_provider">Ortungsdienst:</string>
+    <string name="tv_info_accelerometer">Beschleunigungssensor:</string>
 
      <!-- Button -->   
 </resources>
