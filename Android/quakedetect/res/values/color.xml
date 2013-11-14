@@ -4,4 +4,5 @@
         <color name="chart_y">#00CD00</color>
         <color name="chart_z">#4876FF</color>
         <color name="chart_abs">#FF7F24</color>
+        <color name="txt_info_color">#7A8B8B</color>
 </resources>

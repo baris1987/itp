@@ -7,76 +7,112 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".StartActivity" >
-	
+
     <ScrollView
-	        android:id="@+id/scrollView1"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content" >
-	        
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:orientation="vertical" >
-	
-		    <TextView
-		        android:id="@+id/connected_devices_label"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/tv_info_connected_devices" />
-	
-		    <EditText
-		        android:id="@+id/edittext_connected_devices"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:ems="10"
-		        android:focusable="false" />
-	
-		    <TextView
-		        android:id="@+id/last_earthquake_label"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:paddingTop="@dimen/padding_top"
-		        android:text="@string/tv_info_last_earthquake" />
-	
-	
-		    <EditText
-		        android:id="@+id/edittext_last_earthquake"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:ems="10" 
-		        android:focusable="false" />
-	
-		    <TextView
-		        android:id="@+id/device_location_label"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:paddingTop="@dimen/padding_top"
-		        android:text="@string/tv_info_location" />
-	
-		    <EditText
-		        android:id="@+id/edittext_your_location"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:ems="10" 
-		        android:focusable="false" />
-	
-		    <TextView
-		        android:id="@+id/textView1"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:paddingTop="@dimen/padding_top"
-		        android:text="@string/tv_info_location_provider" />
-	
-		    <EditText
-		        android:id="@+id/edittext_location_provider"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:ems="10"
-		        android:focusable="false" >
-	
-		        <requestFocus />
-		    </EditText>
-	
-	    </LinearLayout>
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/connected_devices_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_info_connected_devices" />
+
+                <TextView
+                    android:id="@+id/txt_connected_devices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/txt_info_color" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/last_earthquake_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_top"
+                    android:text="@string/tv_info_last_earthquake" />
+
+                <TextView
+                    android:id="@+id/txt_last_earthquake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/txt_info_color" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/device_location_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_top"
+                    android:text="@string/tv_info_location" />
+
+                <TextView
+                    android:id="@+id/txt_your_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/txt_info_color" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_top"
+                    android:text="@string/tv_info_location_provider" />
+
+                <TextView
+                    android:id="@+id/txt_location_provider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/txt_info_color" />
+
+            </LinearLayout>
+
+            <requestFocus />
+
+            
+        </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>

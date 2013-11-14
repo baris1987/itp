@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class Info extends Fragment {
 
@@ -29,10 +30,10 @@ public class Info extends Fragment {
 
 	private Geocoder geoCoder;
 	private Location location = null;
-	private EditText connectedDevices;
-	private EditText lastEarthquake;
-	private EditText yourLocation;
-	private EditText locationProvider;
+	private TextView connectedDevices;
+	private TextView lastEarthquake;
+	private TextView yourLocation;
+	private TextView locationProvider;
 
 	BackgroundService mService;
 	boolean mBound = false;
@@ -66,14 +67,14 @@ public class Info extends Fragment {
 
 		View rootView = inflater.inflate(R.layout.info, container, false);
 
-		connectedDevices = (EditText) rootView
-				.findViewById(R.id.edittext_connected_devices);
-		lastEarthquake = (EditText) rootView
-				.findViewById(R.id.edittext_last_earthquake);
-		yourLocation = (EditText) rootView
-				.findViewById(R.id.edittext_your_location);
-		locationProvider = (EditText) rootView
-				.findViewById(R.id.edittext_location_provider);
+		connectedDevices = (TextView) rootView
+				.findViewById(R.id.txt_connected_devices);
+		lastEarthquake = (TextView) rootView
+				.findViewById(R.id.txt_last_earthquake);
+		yourLocation = (TextView) rootView
+				.findViewById(R.id.txt_your_location);
+		locationProvider = (TextView) rootView
+				.findViewById(R.id.txt_location_provider);
 
 		this.geoCoder = new Geocoder(container.getContext());
 		//setLocationInfo();
