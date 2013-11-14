@@ -6,10 +6,12 @@ import java.util.Map.Entry;
 import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
 import com.th.nuernberg.quakedetec.location.Localizer;
+import com.th.nuernberg.quakedetec.service.BackgroundService;
 import com.th.nuernberg.quakedetec.service.NotificationsService;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -70,15 +72,10 @@ public class Settings extends Activity {
 		//LocationManager Aktualisiserungsinterval
 		else if(key.equals("locationupdates_interval"))
 		{
-			long locationUpdateInterval = Long.parseLong(prefs.getString("locationupdates_interval", "30000"));
-			Localizer.getLocalizer().changeUpdateIntervall(locationUpdateInterval);
-		}
-		
-		//LocationManager Aktualisierungsradius
-		else if(key.equals("locationupdates_radius"))
-		{
-			float locationUpdateRadius = Float.parseFloat(prefs.getString("locationupdates_radius", "50"));
-			Localizer.getLocalizer().changeUpdateRadius(locationUpdateRadius);
+			
+			int locationUpdateInterval = (int) Long.parseLong(prefs.getString("locationupdates_interval", "120000"));
+			System.out.println("changeLocationUpdateInterval: " + locationUpdateInterval);
+			BackgroundService.changeLocationUpdateTimerInterval(locationUpdateInterval);
 		}
 		
 		// Beschleunigungssensor Abtastrate

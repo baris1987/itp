@@ -1,13 +1,15 @@
 package com.th.nuernberg.quakedetec.location;
 
+import java.util.Date;
+
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import com.th.nuernberg.quakedetec.screens.DeviceMap;
@@ -18,29 +20,25 @@ public class Localizer implements LocationListener {
 	private static String TAG = "Localizer";
 	private LocationManager locationManager;
 	private Location locationFromLastSignal;
-	private SharedPreferences sharedPrefs;
-	private long locationUpdateInterval;
-	private float locationUpdateRadius;
 	private static Localizer localizer;
 	private Context context;
+	final boolean gpsLocationReceived = false;
 	
 	public Localizer(Context context) {
 		final String serviceString = Context.LOCATION_SERVICE;
 		this.context = context;
-		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-		locationUpdateInterval  = Long.parseLong(sharedPrefs.getString("locationupdates_interval", "30000"));
-		locationUpdateRadius 	= Float.parseFloat(sharedPrefs.getString("locationupdates_radius", "50"));
+		
 		locationManager 	= (LocationManager) context.getSystemService(serviceString);
+		
+		localizer = this;
 		
 		if (locationManager == null) {
 			System.err.println("Error could not create locationManager");
 		}
 		else
 		{
-			this.refreshLocationUpdateRequests();
+			this.fetchLocation();
 		}
-		
-		localizer = this;
 	}
 
 	public Location getLocation(Criteria criteria) throws SecurityException,
@@ -74,11 +72,38 @@ public class Localizer implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
-		this.locationFromLastSignal = location;
+			
+		if(locationFromLastSignal != null)
+		{
+			System.out.println("onLocationChanged: " + location.getProvider());
+			System.out.println("Accuracy location: " + location.getAccuracy() + "  <-->  Accuracy lastSignal: " + locationFromLastSignal.getAccuracy());
+			System.out.println("locationFromLastSignal.getTime: " + new Date(locationFromLastSignal.getTime()) + "  <-->  location.getTime: " + new Date(location.getTime()));
+			
+			// Wenn locationFromLastSignal mehr als 30 Sekunden Šlter ist, als die gerade gefundene Location wird sie mit der neuen ersetzt
+			if(locationFromLastSignal.getTime() < (location.getTime() - 21000))
+			{
+				this.locationFromLastSignal = location;
+				System.out.println("im getTime if locationFromLastSignal gesetzt");
+			}
+			else
+			{
+				// Wenn Genauigkeit von location besser als locationFromLastSignal
+				if(location.getAccuracy() < locationFromLastSignal.getAccuracy())
+				{
+					this.locationFromLastSignal = location;
+					System.out.println("im Accuracy if locationFromLastSignal gesetzt");
+				}
+			}
+		}
+		else
+			this.locationFromLastSignal = location;
+		
+		//this.locationFromLastSignal = location;
+		
 		if(DeviceMap.getDeviceMap() != null)
-			DeviceMap.getDeviceMap().setLastKnownLocation(location);
+			DeviceMap.getDeviceMap().setLastKnownLocation(locationFromLastSignal);
 		if(Info.getInfo() != null)
-			Info.getInfo().setLocationInfo();	
+			Info.getInfo().setLocationInfo();
 	}
 
 	@Override
@@ -97,27 +122,22 @@ public class Localizer implements LocationListener {
 		
 	}
 	
-	public void changeUpdateIntervall(long intervalMS)
+	public void fetchLocation()
 	{
-		locationUpdateInterval = intervalMS;
-		refreshLocationUpdateRequests();
-	}
-	
-	public void changeUpdateRadius(float meter)
-	{
-		locationUpdateRadius = meter;
-		refreshLocationUpdateRequests();		
-	}
-	
-	public void refreshLocationUpdateRequests()
-	{
-	//	this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, locationUpdateInterval, locationUpdateRadius, this);
-		this.locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, locationUpdateInterval, locationUpdateRadius, this);
+		Looper myLooper = Looper.getMainLooper();
+        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, myLooper);
+        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, myLooper);
+	    final Handler myHandler = new Handler(myLooper);
+	    myHandler.postDelayed(new Runnable() {
+	         public void run() {
+	             locationManager.removeUpdates(localizer);
+	         }
+	    }, 20000);
 	}
 	
 	public boolean checkProviderEnabled()
-	{//locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || 
-		if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+	{	 
+		if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
 		{
 			NotificationsService.dismissLocationProviderDisabledNotification(context);
 			return true;

@@ -14,33 +14,20 @@
     </string-array>
     
     <string-array name="locationUpdateInterval">
-        <item name="1000">1 Sekunde</item>
-        <item name="5000">5 Sekunden</item>
-        <item name="10000">10 Sekunden</item>
         <item name="30000">30 Sekunden</item>
+        <item name="60000">1 Minute</item>
         <item name="120000">2 Minuten</item>
+        <item name="300000">5 Minuten</item>
+        <item name="600000">10 Minuten</item>
+        <item name="1800000">30 Minuten</item>
     </string-array>
     <string-array name="locationUpdateIntervalValues">
-        <item name="1000">1000</item>
-        <item name="5000">5000</item>
-        <item name="10000">10000</item>
         <item name="30000">30000</item>
+        <item name="60000">60000</item>
         <item name="120000">120000</item>
-    </string-array>
-    
-    <string-array name="locationUpdateRadius">
-        <item name="5">5 Meter</item>
-        <item name="10">10 Meter</item>
-        <item name="50">50 Meter</item>
-        <item name="100">100 Meter</item>
-        <item name="1000">1 Kilometer</item>
-    </string-array>
-    <string-array name="locationUpdateRadiusValues">
-        <item name="5">5</item>
-        <item name="10">10</item>
-        <item name="50">50</item>
-        <item name="100">100</item>
-        <item name="1000">1000</item>
+        <item name="300000">300000</item>
+        <item name="600000">600000</item>
+        <item name="1800000">1800000</item>
     </string-array>
     
     <string-array name="accelerometerRate">

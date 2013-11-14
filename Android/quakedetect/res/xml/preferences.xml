@@ -20,17 +20,18 @@
 	    <ListPreference 
             android:key="locationupdates_interval"
             android:title="@string/set_location_update_intervall"
-            android:defaultValue="30000" 
+            android:defaultValue="120000" 
             android:entries="@array/locationUpdateInterval"
             android:entryValues="@array/locationUpdateIntervalValues"
+            android:summary="@string/set_location_update_intervall_summary"
         /> 
-        <ListPreference 
+        <!-- <ListPreference 
             android:key="locationupdates_radius"
             android:title="@string/set_location_update_radius"
             android:defaultValue="50" 
             android:entries="@array/locationUpdateRadius"
             android:entryValues="@array/locationUpdateRadiusValues"
-        /> 
+        /> -->
 	</PreferenceCategory>
 	
 	<PreferenceCategory

@@ -17,6 +17,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import sun.util.logging.resources.logging;
+
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -29,6 +31,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -36,6 +39,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.sun.org.apache.xml.internal.utils.StopParseException;
 import com.th.nuernberg.quakedetec.acceleration.AccelSample;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
 import com.th.nuernberg.quakedetec.location.Localizer;
@@ -49,6 +53,7 @@ public class BackgroundService extends Service {
 	private final IBinder binder = new BackgroundServiceBinder();
 
 	private final int heartbeatMillis = 1000 * 60; // jede Minute
+	private static int locationUpdateRequestsMillis = 1000 * 60; // alle 10 sek
 
 	private int isAlarm = 0;
 	private int isAlarmCycle = 0;
@@ -56,6 +61,8 @@ public class BackgroundService extends Service {
 	private AccelerationBroadcastReceiver accelReceiver;
 	private Localizer localizer;
 	private Timer heartbeatTimer;
+	private static Timer locationUpdateTimer;
+	private static TimerTask locationUpdateTimerTask;
 
 	// GCM
 	public static final String EXTRA_MESSAGE = "message";
@@ -120,6 +127,19 @@ public class BackgroundService extends Service {
 			}
 		}, heartbeatMillis, heartbeatMillis);
 
+		locationUpdateTimer = new Timer("locationUpdateTimer");
+		locationUpdateTimerTask = new TimerTask() {
+			public void run() {
+				Log.d(TAG, "run location timer");
+		        localizer.fetchLocation();
+			}
+		};
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		locationUpdateRequestsMillis = (int) Long.parseLong(sharedPrefs.getString("locationupdates_interval", "30000"));
+		locationUpdateTimer.scheduleAtFixedRate(locationUpdateTimerTask, 0, locationUpdateRequestsMillis);	
+		
+		
 		// Settings initialisieren
 		Settings.updateAll(context);
 
@@ -393,5 +413,21 @@ public class BackgroundService extends Service {
 
 	public Location getLocation() {
 		return localizer.getLocation();
+	}
+	
+	public static void changeLocationUpdateTimerInterval(int milliseconds)
+	{
+		locationUpdateRequestsMillis = milliseconds;
+		locationUpdateTimer.cancel();
+		locationUpdateTimerTask.cancel();
+		
+		locationUpdateTimer = new Timer("locationUpdateTimer");
+		locationUpdateTimerTask = new TimerTask() {
+			public void run() {
+				Log.d(TAG, "run location timer");
+		        Localizer.getLocalizer().fetchLocation();
+			}
+		};
+		locationUpdateTimer.scheduleAtFixedRate(locationUpdateTimerTask, 0, locationUpdateRequestsMillis);	
 	}
 }

@@ -17,7 +17,7 @@
     <string name="set_maptype">Kartenansicht</string>
     <string name="set_title_location">Standort</string>
     <string name="set_location_update_intervall">Aktualisierungsinterval</string>
-    <string name="set_location_update_radius">Aktualisierungsradius</string>
+    <string name="set_location_update_intervall_summary">Je kürzer das Interval, desto genauer die Standortdaten. \nBei zu hohem Akkuverbrauch sollte das Interval länger gewählt werden</string>
     <string name="set_title_accelerometer">Beschleunigungssensor</string>
     <string name="set_accelerometer_rate">Sensorabtastrate</string>
     <string name="notification_title">Benachrichtigungseinstellungen</string>
