@@ -4,20 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
-
-import sun.util.logging.resources.logging;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -31,7 +25,6 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
-import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -39,7 +32,6 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.sun.org.apache.xml.internal.utils.StopParseException;
 import com.th.nuernberg.quakedetec.acceleration.AccelSample;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
 import com.th.nuernberg.quakedetec.location.Localizer;
