@@ -132,7 +132,7 @@ public class Localizer implements LocationListener {
 		         public void run() {
 		             locationManager.removeUpdates(localizer);
 		         }
-		    }, 60000);
+		    }, 30000);
 		}
 	}
 	
