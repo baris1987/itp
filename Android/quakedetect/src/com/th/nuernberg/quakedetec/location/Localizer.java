@@ -72,33 +72,21 @@ public class Localizer implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
-			
-		if(locationFromLastSignal != null)
+
+		if(location != null)
 		{
 			System.out.println("onLocationChanged: " + location.getProvider());
-			System.out.println("Accuracy location: " + location.getAccuracy() + "  <-->  Accuracy lastSignal: " + locationFromLastSignal.getAccuracy());
-			System.out.println("locationFromLastSignal.getTime: " + new Date(locationFromLastSignal.getTime()) + "  <-->  location.getTime: " + new Date(location.getTime()));
-			
-			// Wenn locationFromLastSignal mehr als 30 Sekunden Šlter ist, als die gerade gefundene Location wird sie mit der neuen ersetzt
-			if(locationFromLastSignal.getTime() < (location.getTime() - 21000))
-			{
-				this.locationFromLastSignal = location;
-				System.out.println("im getTime if locationFromLastSignal gesetzt");
-			}
-			else
-			{
-				// Wenn Genauigkeit von location besser als locationFromLastSignal
-				if(location.getAccuracy() < locationFromLastSignal.getAccuracy())
-				{
-					this.locationFromLastSignal = location;
-					System.out.println("im Accuracy if locationFromLastSignal gesetzt");
-				}
-			}
+			System.out.println("Accuaracy location: " + location.getAccuracy());
 		}
-		else
-			this.locationFromLastSignal = location;
 		
-		//this.locationFromLastSignal = location;
+		// Wenn Genauigkeit von location schlechter als 500 Meter
+		if(location.getAccuracy() > 500)
+		{
+			locationManager.removeUpdates(this);
+			locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
+		}
+		
+		this.locationFromLastSignal = location;
 		
 		if(DeviceMap.getDeviceMap() != null)
 			DeviceMap.getDeviceMap().setLastKnownLocation(locationFromLastSignal);
@@ -124,15 +112,17 @@ public class Localizer implements LocationListener {
 	
 	public void fetchLocation()
 	{
-		Looper myLooper = Looper.getMainLooper();
-        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, myLooper);
-        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, myLooper);
-	    final Handler myHandler = new Handler(myLooper);
-	    myHandler.postDelayed(new Runnable() {
-	         public void run() {
-	             locationManager.removeUpdates(localizer);
-	         }
-	    }, 20000);
+		if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+		{
+			Looper myLooper = Looper.getMainLooper();
+	        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, myLooper);
+		    final Handler myHandler = new Handler(myLooper);
+		    myHandler.postDelayed(new Runnable() {
+		         public void run() {
+		             locationManager.removeUpdates(localizer);
+		         }
+		    }, 20000);
+		}
 	}
 	
 	public boolean checkProviderEnabled()
