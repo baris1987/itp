@@ -108,7 +108,7 @@ public class Info extends Fragment {
 		location = mService.getLocation();
 				
 		if (locationProvider != null && location != null) {
-			locationProvider.setText(location.getProvider().toUpperCase(Locale.ENGLISH) + " (Accuracy: " + location.getAccuracy() + ")");
+			locationProvider.setText(location.getProvider().toUpperCase(Locale.ENGLISH) + " (Accuracy: " + location.getAccuracy() + "m)");
 
 			try {
 				List<Address> addressList = geoCoder.getFromLocation(

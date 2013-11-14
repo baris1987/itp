@@ -80,7 +80,7 @@ public class Localizer implements LocationListener {
 		}
 		
 		// Wenn Genauigkeit von location schlechter als 500 Meter
-		if(location.getAccuracy() > 500)
+		if(location.getAccuracy() > 500 && location.getProvider().equals(LocationManager.NETWORK_PROVIDER))
 		{
 			locationManager.removeUpdates(this);
 			locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
@@ -122,6 +122,17 @@ public class Localizer implements LocationListener {
 		             locationManager.removeUpdates(localizer);
 		         }
 		    }, 20000);
+		}
+		else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) 
+		{
+			Looper myLooper = Looper.getMainLooper();
+			locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, myLooper);
+		    final Handler myHandler = new Handler(myLooper);
+		    myHandler.postDelayed(new Runnable() {
+		         public void run() {
+		             locationManager.removeUpdates(localizer);
+		         }
+		    }, 60000);
 		}
 	}
 	
