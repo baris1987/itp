@@ -193,6 +193,54 @@ public class BackgroundService extends Service {
 			}
 		}).start();
 	}
+	
+	private void sendAlarmToServer()
+	{
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					double lat = 0;
+					double lon = 0;
+					Location location = localizer.getLocation();
+					if (location != null) {
+						lat = location.getLatitude();
+						lon = location.getLongitude();
+					}
+					final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+					String serverUrl = prefs.getString("server_url", "");
+					String serverPort = prefs.getString("server_port", "8088");
+					String requestUrl = String.format("http://%s:%s/itp/device/alarm/%s/%s/%s/%s", serverUrl, serverPort, regid, lat, lon, 1);
+					Log.d(TAG, "Start server request: " + requestUrl);
+					HttpClient client = new DefaultHttpClient();
+					HttpPut request = new HttpPut();
+					request.setURI(new URI(requestUrl));
+					HttpResponse response = client.execute(request);
+					int status = response.getStatusLine().getStatusCode();
+					if (status != 200) {
+						Log.d(TAG, "Server request failed: "	+ String.valueOf(status));
+						return;
+					}
+					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+					StringBuffer sb = new StringBuffer("");
+					String l = "";
+					String nl = System.getProperty("line.separator");
+					while ((l = in.readLine()) != null) {
+						sb.append(l + nl);
+					}
+					in.close();
+					String data = sb.toString();
+					if (!data.contains("\"success\":true"))
+						Log.d(TAG, "Server request failed: " + data);
+					Log.d(TAG, "Server request OK: " + data);
+				} catch (Exception e) {
+					Log.d(TAG, "Exception: Server request failed: " + e.getMessage());
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+	
 
 	/**
 	 * Check the device to make sure it has the Google Play Services APK. If it
@@ -385,8 +433,7 @@ public class BackgroundService extends Service {
 						// Ist die Summe höher als 50 wird ein Alarm ausgegeben
 						if (isAlarm > 50) {
 							Log.e(TAG, "EARTHQUAKE!");
-
-							// Hier müsste man den Alarm auslösen
+							sendAlarmToServer();							
 						}
 						isAlarmCycle = 0;
 						isAlarm = 0;
