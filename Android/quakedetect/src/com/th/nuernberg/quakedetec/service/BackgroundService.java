@@ -419,7 +419,7 @@ public class BackgroundService extends Service {
 					// Absolutwert berechnen
 					Float abs = Math.abs(sample.x) + Math.abs(sample.y)
 							+ Math.abs(sample.z);
-
+					
 					// Liegt der momentanwert min +- 1.0 des alten Wertes wird
 					// isAlarm erhöht
 					if (abs < (oldAcclVal - 1) || abs > (oldAcclVal + 1)) {
@@ -431,7 +431,7 @@ public class BackgroundService extends Service {
 					if (isAlarmCycle % 100 == 0) {
 						Log.e(TAG, "AlarmCount " + String.valueOf(isAlarm));
 						// Ist die Summe höher als 50 wird ein Alarm ausgegeben
-						if (isAlarm > 50) {
+						if (isAlarm > 60) {
 							Log.e(TAG, "EARTHQUAKE!");
 							sendAlarmToServer();							
 						}
