@@ -420,7 +420,7 @@ public class BackgroundService extends Service {
 					}
 
 					// Nach 100 wird geschaut wieviele Ausschläge es gegeben hat
-					if (isAlarmCycle % 100 == 0) {
+					if (isAlarmCycle == 100) {
 						Log.e(TAG, "AlarmCount " + String.valueOf(isAlarm));
 						// Ist die Summe höher als 50 wird ein Alarm ausgegeben
 						if (isAlarm > 60) {
@@ -432,7 +432,7 @@ public class BackgroundService extends Service {
 					}
 					isAlarmCycle++;
 
-					// Log.d(TAG, "Acceleration Broadcast received " +
+//					Log.d(TAG, "Acceleration Broadcast received " + String.valueOf(isAlarmCycle));
 					// String.valueOf(abs));
 				}
 			}
