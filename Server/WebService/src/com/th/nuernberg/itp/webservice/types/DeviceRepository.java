@@ -70,6 +70,41 @@ public class DeviceRepository implements IPersistence {
 		
 		return device;
 	}
+	
+	public List<IDevice> getAroundDevices(int maxDistanceKm, int timeoutSeconds, double latitude, double longitude) {
+		List<IDevice> deviceList = new ArrayList<IDevice>();
+		
+		try {
+			ResultSet results = this.persister.get("SELECT identifier, ( 6371 * acos(cos(Radians("+latitude+")) * cos(radians(latitude)) * " +
+													                                   "cos(radians(longitude) - radians("+longitude+")) +  " +
+													                              "sin(Radians("+latitude+")) * sin(radians(latitude))) ) AS  " +
+													       "distance " +
+													"FROM   (SELECT pk_deviceid,  " +
+													               "identifier  " +
+													        "FROM   itp.t_device  " +
+													        "WHERE  Datediff('SECOND', activity, CURRENT_TIMESTAMP()) < "+timeoutSeconds+")  " +
+													       "t_active_device,  " +
+													       "itp.t_notification  " +
+													"WHERE  t_active_device.pk_deviceid = t_notification.fk_deviceid  " +
+													"GROUP BY identifier, latitude, longitude " +
+													"HAVING distance < "+maxDistanceKm);
+
+			while (results.next()) {
+				IDevice device = new Device();
+				device.setIdentifier(results.getString(1));
+				device.setActivity(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(results.getTimestamp(2)));
+				device.setLatitude(results.getDouble(3));
+				device.setLongitude(results.getDouble(4));
+				
+				deviceList.add(device);
+			}
+		
+		} catch (SQLException e) {
+			return deviceList;
+		}
+		
+		return deviceList;
+	}
 
 	public List<IDevice> getActiveDevices(int timeoutSeconds) {
 		

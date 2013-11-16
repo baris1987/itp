@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import com.th.nuernberg.itp.webservice.interfaces.*;
+import com.th.nuernberg.itp.webservice.types.AnalyticData;
 import com.th.nuernberg.itp.webservice.types.AndroidDevice;
 import com.th.nuernberg.itp.webservice.types.Device;
 import com.th.nuernberg.itp.webservice.types.DeviceRepository;
@@ -114,8 +115,8 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 	}
 	
 	@GET
-	@Path("analyze")
-	public String analyze() {
+	@Path("broadcast/{message}/{latitude}/{longitude}")
+	public String broadcast(@PathParam("message") String message, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
 		
 		IGoogleCloudMessagingConfiguration config = new GoogleCloudMessagingConfiguration();
 		config.setApiUrl(this.config.get("CloudMessaging.Api"));
@@ -123,23 +124,30 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		
 		DeviceRepository repository = new DeviceRepository();
 		repository.setPersister(this.persister);
-		IAndroidDevice[] deviceList = repository.getActiveDevices(Integer.parseInt(this.config.get("Application.DeviceTimeout"))).toArray(new AndroidDevice[0]);
-		repository.destroy();		
-		
-		//AndroidDevice device = new AndroidDevice();
-		//device.setIdentifier("APA91bGG1nTq4ltHc39IC5SNDO4vhYdn83W0pia7_NvlIh1XEFRyBmi_5rPp4e1Xuol1mfhnu5pKlL-NEVDzAEu-I0e1rOqftfCaREL7EQBeJa0y43u3RP5aWqDXEx0ltqnRzHTXNt8smDiSn2VJLF1ScL-e1M7Z0jLWE5uRga0_spKbi4sL7Zo");
-		
 
-		IGoogleCloudMessagingNotification notification = new GoogleCloudMessagingNotification();
-		notification.setAndroidDevices(deviceList);
-		notification.setMessage("Test Notification.");
+		int maxDistance = Integer.parseInt(this.config.get("Application.MaxDistance"));
+		int minDevices = Integer.parseInt(this.config.get("Application.MinDevices"));
+		int timeoutSeconds = Integer.parseInt(this.config.get("Application.DeviceTimeout"));
 		
-		IGoogleCloudMessaging messaging = new GoogleCloudMessaging();
-		messaging.setMessagingConfiguration(config);
+		IAndroidDevice[] deviceList = repository.getAroundDevices(maxDistance, timeoutSeconds, latitude, longitude).toArray(new AndroidDevice[0]);
+		repository.destroy();
 		
-		messaging.send(notification);
+		boolean success = (deviceList.length >= minDevices);
+		IAnalyticData analyticData = new AnalyticData();
+		analyticData.setDevices(deviceList.length);
+
+		if (success) {
+			IGoogleCloudMessagingNotification notification = new GoogleCloudMessagingNotification();
+			notification.setAndroidDevices(deviceList);
+			notification.setMessage(message);
+			
+			IGoogleCloudMessaging messaging = new GoogleCloudMessaging();
+			messaging.setMessagingConfiguration(config);
+			
+			messaging.send(notification);
+		}
 		
-		
-		return "";
+		this.console.write("METHOD", "broadcast", success, message, latitude, longitude);
+		return JsonWebResponse.build(success, analyticData);
 	}
 }

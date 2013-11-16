@@ -1,5 +1,7 @@
 package com.th.nuernberg.itp.webservice.interfaces;
 
+import javax.ws.rs.PathParam;
+
 public interface IWebServiceDevice {
 	// Register device (also usable as heart beat)
 	String register(String identifier, double latitude, double longitude);
@@ -12,4 +14,7 @@ public interface IWebServiceDevice {
 	
 	// Get device meta information
 	String meta(String identifier);
+	
+	// Detect earth quake and send broadcast
+	String broadcast(String message, double latitude, double longitude);
 }
