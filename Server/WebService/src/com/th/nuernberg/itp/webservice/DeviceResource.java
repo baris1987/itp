@@ -118,15 +118,20 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 	public String analyze() {
 		
 		IGoogleCloudMessagingConfiguration config = new GoogleCloudMessagingConfiguration();
-		config.setApiUrl("https://android.googleapis.com/gcm/send");
-		config.setAuthorizationKey("AIzaSyAfSY3J-yW4R2AOdI4UEHpyfFqhSvTFQS8");
+		config.setApiUrl(this.config.get("CloudMessaging.Api"));
+		config.setAuthorizationKey(this.config.get("CloudMessaging.Authorization"));
 		
-		AndroidDevice device = new AndroidDevice();
-		device.setDeviceIdentifier("APA91bGG1nTq4ltHc39IC5SNDO4vhYdn83W0pia7_NvlIh1XEFRyBmi_5rPp4e1Xuol1mfhnu5pKlL-NEVDzAEu-I0e1rOqftfCaREL7EQBeJa0y43u3RP5aWqDXEx0ltqnRzHTXNt8smDiSn2VJLF1ScL-e1M7Z0jLWE5uRga0_spKbi4sL7Zo");
+		DeviceRepository repository = new DeviceRepository();
+		repository.setPersister(this.persister);
+		IAndroidDevice[] deviceList = repository.getActiveDevices(Integer.parseInt(this.config.get("Application.DeviceTimeout"))).toArray(new AndroidDevice[0]);
+		repository.destroy();		
+		
+		//AndroidDevice device = new AndroidDevice();
+		//device.setIdentifier("APA91bGG1nTq4ltHc39IC5SNDO4vhYdn83W0pia7_NvlIh1XEFRyBmi_5rPp4e1Xuol1mfhnu5pKlL-NEVDzAEu-I0e1rOqftfCaREL7EQBeJa0y43u3RP5aWqDXEx0ltqnRzHTXNt8smDiSn2VJLF1ScL-e1M7Z0jLWE5uRga0_spKbi4sL7Zo");
 		
 
 		IGoogleCloudMessagingNotification notification = new GoogleCloudMessagingNotification();
-		notification.setAndroidDevices(new AndroidDevice[] { device });
+		notification.setAndroidDevices(deviceList);
 		notification.setMessage("Test Notification.");
 		
 		IGoogleCloudMessaging messaging = new GoogleCloudMessaging();
