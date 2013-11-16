@@ -2,68 +2,72 @@ package com.th.nuernberg.itp.webservice;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import com.th.nuernberg.itp.webservice.interfaces.IMessaging;
+import com.th.nuernberg.itp.webservice.interfaces.IAndroidDevice;
+import com.th.nuernberg.itp.webservice.interfaces.IGoogleCloudMessaging;
+import com.th.nuernberg.itp.webservice.interfaces.IGoogleCloudMessagingConfiguration;
+import com.th.nuernberg.itp.webservice.interfaces.IGoogleCloudMessagingNotification;
 
+public class GoogleCloudMessaging implements IGoogleCloudMessaging {
 
-/*
- * { "data": {
-    "score": "5x1",
-    "time": "15:10"
-  },
-  "registration_ids": ["4", "8", "15", "16", "23", "42"]
-}
- * */
-
-
-
-public class GoogleCloudMessaging implements IMessaging {
+	private IGoogleCloudMessagingConfiguration configuration;
 	
-	public String send() {
+	public void setMessagingConfiguration(IGoogleCloudMessagingConfiguration configuration) {
+		this.configuration = configuration;
+	}
+	
+	public IGoogleCloudMessagingConfiguration getMessagingConfiguration() {
+		return this.configuration;
+	}
+	
+	public void send(IGoogleCloudMessagingNotification notification) {
 		
-		String rawData = "{\"registration_ids\":[\"APA91bGG1nTq4ltHc39IC5SNDO4vhYdn83W0pia7_NvlIh1XEFRyBmi_5rPp4e1Xuol1mfhnu5pKlL-NEVDzAEu-I0e1rOqftfCaREL7EQBeJa0y43u3RP5aWqDXEx0ltqnRzHTXNt8smDiSn2VJLF1ScL-e1M7Z0jLWE5uRga0_spKbi4sL7Zo\"],\"data\":{\"message\":\"Test Notification\"}}";
+		IAndroidDevice[] androidDevices = notification.getAndroidDevices();
+		String message = notification.getMessage();
+		
+		StringBuilder rawData = new StringBuilder();
+		Json json = new Json();
+		//\"APA91bGG1nTq4ltHc39IC5SNDO4vhYdn83W0pia7_NvlIh1XEFRyBmi_5rPp4e1Xuol1mfhnu5pKlL-NEVDzAEu-I0e1rOqftfCaREL7EQBeJa0y43u3RP5aWqDXEx0ltqnRzHTXNt8smDiSn2VJLF1ScL-e1M7Z0jLWE5uRga0_spKbi4sL7Zo\"
+		//String rawData = "{\"registration_ids\":[],\"data\":{\"message\":\"Test Notification\"}}";
 		 
+		String jsonIds = json.build(androidDevices);
+		rawData.append("{\"registration_ids\":"+jsonIds+",\"data\":{\"message\":\""+message+"\"}}");
+		
 		try {
-			URL url = new URL("https://android.googleapis.com/gcm/send");
+			//
+			URL url = new URL(this.configuration.getApiUrl());
 			HttpURLConnection http = (HttpURLConnection) url.openConnection();
 			http.setDoOutput(true);
-			http.setRequestMethod( "POST" );
-			http.setRequestProperty( "Content-Type", "application/json");
-			http.setRequestProperty( "Authorization", "key=AIzaSyAfSY3J-yW4R2AOdI4UEHpyfFqhSvTFQS8");
+			http.setRequestMethod("POST");
+			http.setRequestProperty("Content-Type", "application/json");
+			http.setRequestProperty("Authorization", "key="+this.configuration.getAuthorizationKey()); //
 			
-			OutputStreamWriter writer = new OutputStreamWriter( http.getOutputStream() );
-			writer.write( rawData );
+			OutputStreamWriter writer = new OutputStreamWriter(http.getOutputStream());
+			writer.write(rawData.toString());
 			writer.flush();
 
-
-			BufferedReader reader = new BufferedReader(
-			                          new InputStreamReader(http.getInputStream()) );
-
+			BufferedReader reader = new BufferedReader(new InputStreamReader(http.getInputStream()));
 			StringBuilder result = new StringBuilder();
-			for ( String line; (line = reader.readLine()) != null; )
-			{
+			
+			for (String line; (line = reader.readLine()) != null; ) {
 				result.append(line);
 			}
 
 			writer.close();
 			reader.close();
 			
-			return result.toString();
+			// result.toString();
 			
 			
 			//OutputStream output = http.getOutputStream();
 			//output.write( encodedData.getBytes() );
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
-		return "Error";
+
+		}
 	}
 	
 }

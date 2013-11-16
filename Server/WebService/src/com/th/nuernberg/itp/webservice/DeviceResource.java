@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import com.th.nuernberg.itp.webservice.interfaces.*;
+import com.th.nuernberg.itp.webservice.types.AndroidDevice;
 import com.th.nuernberg.itp.webservice.types.Device;
 import com.th.nuernberg.itp.webservice.types.DeviceRepository;
+import com.th.nuernberg.itp.webservice.types.GoogleCloudMessagingConfiguration;
 import com.th.nuernberg.itp.webservice.types.Notification;
 import com.th.nuernberg.itp.webservice.types.NotificationRepository;
 
@@ -86,7 +88,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		boolean success = repository.persist(notification);
 		
 		repository.destroy();	
-		
+
 		this.console.write("METHOD", "Alarm", success);
 		return JsonWebResponse.build(success);
 	}
@@ -112,9 +114,27 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 	}
 	
 	@GET
-	@Path("play")
-	public String play() {
-		GoogleCloudMessaging cloud = new GoogleCloudMessaging();
-		return cloud.send();
+	@Path("analyze")
+	public String analyze() {
+		
+		IGoogleCloudMessagingConfiguration config = new GoogleCloudMessagingConfiguration();
+		config.setApiUrl("https://android.googleapis.com/gcm/send");
+		config.setAuthorizationKey("AIzaSyAfSY3J-yW4R2AOdI4UEHpyfFqhSvTFQS8");
+		
+		AndroidDevice device = new AndroidDevice();
+		device.setDeviceIdentifier("APA91bGG1nTq4ltHc39IC5SNDO4vhYdn83W0pia7_NvlIh1XEFRyBmi_5rPp4e1Xuol1mfhnu5pKlL-NEVDzAEu-I0e1rOqftfCaREL7EQBeJa0y43u3RP5aWqDXEx0ltqnRzHTXNt8smDiSn2VJLF1ScL-e1M7Z0jLWE5uRga0_spKbi4sL7Zo");
+		
+
+		IGoogleCloudMessagingNotification notification = new GoogleCloudMessagingNotification();
+		notification.setAndroidDevices(new AndroidDevice[] { device });
+		notification.setMessage("Test Notification.");
+		
+		IGoogleCloudMessaging messaging = new GoogleCloudMessaging();
+		messaging.setMessagingConfiguration(config);
+		
+		messaging.send(notification);
+		
+		
+		return "";
 	}
 }
