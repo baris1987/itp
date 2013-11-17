@@ -49,7 +49,7 @@ public class BackgroundService extends Service {
 
 	private int isAlarm = 0;
 	private int isAlarmCycle = 0;
-	private float oldAcclVal = 0;
+	private boolean accelGreaterZero = true;
 	private AccelerationBroadcastReceiver accelReceiver;
 	private Localizer localizer;
 	private Timer heartbeatTimer;
@@ -72,7 +72,8 @@ public class BackgroundService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Toast.makeText(this, "QuakeDetect Service Started", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "QuakeDetect Service Started", Toast.LENGTH_SHORT)
+				.show();
 		// GSM
 
 		context = getApplicationContext();
@@ -123,15 +124,17 @@ public class BackgroundService extends Service {
 		locationUpdateTimerTask = new TimerTask() {
 			public void run() {
 				Log.d(TAG, "run location timer");
-		        localizer.fetchLocation();
+				localizer.fetchLocation();
 			}
 		};
-		
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		locationUpdateRequestsMillis = (int) Long.parseLong(sharedPrefs.getString("locationupdates_interval", "30000"));
-		locationUpdateTimer.scheduleAtFixedRate(locationUpdateTimerTask, 0, locationUpdateRequestsMillis);	
-		
-		
+
+		SharedPreferences sharedPrefs = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
+		locationUpdateRequestsMillis = (int) Long.parseLong(sharedPrefs
+				.getString("locationupdates_interval", "30000"));
+		locationUpdateTimer.scheduleAtFixedRate(locationUpdateTimerTask, 0,
+				locationUpdateRequestsMillis);
+
 		// Settings initialisieren
 		Settings.updateAll(context);
 
@@ -152,11 +155,14 @@ public class BackgroundService extends Service {
 						lat = location.getLatitude();
 						lon = location.getLongitude();
 					}
-					final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+					final SharedPreferences prefs = PreferenceManager
+							.getDefaultSharedPreferences(context);
 					String serverUrl = prefs.getString("server_url", "");
 					String serverPort = prefs.getString("server_port", "8088");
 
-					String requestUrl = String.format("http://%s:%s/itp/device/register/%s/%s/%s", serverUrl, serverPort, regid, lat, lon);
+					String requestUrl = String.format(
+							"http://%s:%s/itp/device/register/%s/%s/%s",
+							serverUrl, serverPort, regid, lat, lon);
 					Log.d(TAG, "Start server request: " + requestUrl);
 					HttpClient client = new DefaultHttpClient();
 					HttpPut request = new HttpPut();
@@ -164,10 +170,14 @@ public class BackgroundService extends Service {
 					HttpResponse response = client.execute(request);
 					int status = response.getStatusLine().getStatusCode();
 					if (status != 200) {
-						Log.d(TAG, "Server request faild: "	+ String.valueOf(status));
+						Log.d(TAG,
+								"Server request faild: "
+										+ String.valueOf(status));
 						return;
 					}
-					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+					BufferedReader in = new BufferedReader(
+							new InputStreamReader(response.getEntity()
+									.getContent()));
 					StringBuffer sb = new StringBuffer("");
 					String l = "";
 					String nl = System.getProperty("line.separator");
@@ -185,9 +195,8 @@ public class BackgroundService extends Service {
 			}
 		}).start();
 	}
-	
-	private void sendAlarmToServer()
-	{
+
+	private void sendAlarmToServer() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -199,10 +208,13 @@ public class BackgroundService extends Service {
 						lat = location.getLatitude();
 						lon = location.getLongitude();
 					}
-					final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+					final SharedPreferences prefs = PreferenceManager
+							.getDefaultSharedPreferences(context);
 					String serverUrl = prefs.getString("server_url", "");
 					String serverPort = prefs.getString("server_port", "8088");
-					String requestUrl = String.format("http://%s:%s/itp/device/alarm/%s/%s/%s/%s", serverUrl, serverPort, regid, lat, lon, 1);
+					String requestUrl = String.format(
+							"http://%s:%s/itp/device/alarm/%s/%s/%s/%s",
+							serverUrl, serverPort, regid, lat, lon, 1);
 					Log.d(TAG, "Start server request: " + requestUrl);
 					HttpClient client = new DefaultHttpClient();
 					HttpPut request = new HttpPut();
@@ -210,10 +222,14 @@ public class BackgroundService extends Service {
 					HttpResponse response = client.execute(request);
 					int status = response.getStatusLine().getStatusCode();
 					if (status != 200) {
-						Log.d(TAG, "Server request failed: "	+ String.valueOf(status));
+						Log.d(TAG,
+								"Server request failed: "
+										+ String.valueOf(status));
 						return;
 					}
-					BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+					BufferedReader in = new BufferedReader(
+							new InputStreamReader(response.getEntity()
+									.getContent()));
 					StringBuffer sb = new StringBuffer("");
 					String l = "";
 					String nl = System.getProperty("line.separator");
@@ -226,13 +242,14 @@ public class BackgroundService extends Service {
 						Log.d(TAG, "Server request failed: " + data);
 					Log.d(TAG, "Server request OK: " + data);
 				} catch (Exception e) {
-					Log.d(TAG, "Exception: Server request failed: " + e.getMessage());
+					Log.d(TAG,
+							"Exception: Server request failed: "
+									+ e.getMessage());
 					e.printStackTrace();
 				}
 			}
 		}).start();
 	}
-	
 
 	/**
 	 * Check the device to make sure it has the Google Play Services APK. If it
@@ -380,7 +397,7 @@ public class BackgroundService extends Service {
 		Log.d(TAG, "QuakeDetect Service started");
 		return super.onStartCommand(intent, flags, startId);
 	}
-   
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -402,38 +419,28 @@ public class BackgroundService extends Service {
 
 			if (intent.getAction().equals(Accelerometer.ACCEL_SAMPLE)) {
 
-				AccelSample sample = intent
-						.getParcelableExtra(Accelerometer.ACCEL_SAMPLE_KEY);
+				AccelSample sample = intent.getParcelableExtra(Accelerometer.ACCEL_SAMPLE_KEY);
 				if (sample != null) {
 
 					// Erdbeben Auswertung
-
-					// Absolutwert berechnen
-					Float abs = Math.abs(sample.x) + Math.abs(sample.y)
-							+ Math.abs(sample.z);
-					
-					// Liegt der momentanwert min +- 1.0 des alten Wertes wird
-					// isAlarm erhöht
-					if (abs < (oldAcclVal - 1) || abs > (oldAcclVal + 1)) {
+					if (sample.abs < -0.5 && accelGreaterZero) {
 						isAlarm++;
-						oldAcclVal = abs;
-					}
-
+						accelGreaterZero = false;
+					} else if (sample.abs > 0.5)
+						accelGreaterZero = true;
 					// Nach 100 wird geschaut wieviele Ausschläge es gegeben hat
 					if (isAlarmCycle == 100) {
-						Log.e(TAG, "AlarmCount " + String.valueOf(isAlarm));
-						// Ist die Summe höher als 50 wird ein Alarm ausgegeben
-						if (isAlarm > 60) {
-							Log.e(TAG, "EARTHQUAKE!");
-							sendAlarmToServer();							
+						Log.e(TAG + "_ALARM",
+								"AlarmCount " + String.valueOf(isAlarm));
+						// Ist die Summe höher als 20 wird ein Alarm ausgegeben
+						if (isAlarm > 20) {
+							Log.e(TAG + "_ALARM", "EARTHQUAKE!");
+							sendAlarmToServer();
 						}
 						isAlarmCycle = 0;
 						isAlarm = 0;
 					}
 					isAlarmCycle++;
-
-//					Log.d(TAG, "Acceleration Broadcast received " + String.valueOf(isAlarmCycle));
-					// String.valueOf(abs));
 				}
 			}
 		}
@@ -453,20 +460,20 @@ public class BackgroundService extends Service {
 	public Location getLocation() {
 		return localizer.getLocation();
 	}
-	
-	public static void changeLocationUpdateTimerInterval(int milliseconds)
-	{
+
+	public static void changeLocationUpdateTimerInterval(int milliseconds) {
 		locationUpdateRequestsMillis = milliseconds;
 		locationUpdateTimer.cancel();
 		locationUpdateTimerTask.cancel();
-		
+
 		locationUpdateTimer = new Timer("locationUpdateTimer");
 		locationUpdateTimerTask = new TimerTask() {
 			public void run() {
 				Log.d(TAG, "run location timer");
-		        Localizer.getLocalizer().fetchLocation();
+				Localizer.getLocalizer().fetchLocation();
 			}
 		};
-		locationUpdateTimer.scheduleAtFixedRate(locationUpdateTimerTask, 0, locationUpdateRequestsMillis);	
+		locationUpdateTimer.scheduleAtFixedRate(locationUpdateTimerTask, 0,
+				locationUpdateRequestsMillis);
 	}
 }

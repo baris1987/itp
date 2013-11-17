@@ -112,64 +112,8 @@ public class Info extends Fragment {
 
 		this.geoCoder = new Geocoder(container.getContext());
 		// setLocationInfo();
-		initLayout(rootView);
+		initChartView(rootView);
 		return rootView;
-	}
-
-	@Override
-	public void onResume() {
-		IntentFilter filter = new IntentFilter(Accelerometer.ACCEL_SAMPLE);
-		this.getActivity().registerReceiver(accelReceiver, filter);
-		super.onResume();
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
-
-	private void initLayout(View rootView) {
-		chartViewHolder = (LinearLayout) rootView.findViewById(R.id.chart);
-		view = ChartFactory.getTimeChartView(this.getActivity(), dataset,
-				renderer, "");
-		view.refreshDrawableState();
-		view.repaint();
-		chartViewHolder.addView(view);
-	}
-
-	private XYMultipleSeriesRenderer getRenderer() {
-		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-
-		renderer.setApplyBackgroundColor(true);
-		renderer.setBackgroundColor(Color.TRANSPARENT);
-		renderer.setMarginsColor(Color.argb(0x00, 0xff, 0x00, 0x00));
-		renderer.setClickEnabled(false);
-		renderer.setExternalZoomEnabled(false);
-		renderer.setPanEnabled(false, false);
-		renderer.setYAxisMin(0, 0);
-		renderer.setYAxisMax(50, 0);
-		renderer.setAntialiasing(true);
-		renderer.setShowLegend(false);
-		renderer.setYAxisAlign(Align.LEFT, 0);
-		renderer.setAxesColor(Color.BLACK);
-
-		return renderer;
-	}
-
-	private void getXYSeriesRenderer() {
-		// Abs axis
-		XYSeriesRenderer r = new XYSeriesRenderer();
-		r.setPointStyle(PointStyle.POINT);
-		r.setColor(getResources().getColor(R.color.chart_abs));
-		r.setLineWidth(5);
-		renderer.addSeriesRenderer(r);
-	}
-
-	private XYSeries[] getXYSeries() {
-		XYSeries[] series = new XYSeries[1];
-		series[0] = new XYSeries("Abs");
-		dataset.addSeries(series[0]);
-		return series;
 	}
 
 	@Override
@@ -194,6 +138,62 @@ public class Info extends Fragment {
 			this.getActivity().unbindService(mConnection);
 			mBound = false;
 		}
+	}
+	
+	@Override
+	public void onResume() {
+		IntentFilter filter = new IntentFilter(Accelerometer.ACCEL_SAMPLE);
+		this.getActivity().registerReceiver(accelReceiver, filter);
+		super.onResume();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+
+	private void initChartView(View rootView) {
+		chartViewHolder = (LinearLayout) rootView.findViewById(R.id.chart);
+		view = ChartFactory.getTimeChartView(this.getActivity(), dataset,
+				renderer, "");
+		view.refreshDrawableState();
+		view.repaint();
+		chartViewHolder.addView(view);
+	}
+
+	private XYMultipleSeriesRenderer getRenderer() {
+		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+
+		renderer.setApplyBackgroundColor(true);
+		renderer.setBackgroundColor(Color.TRANSPARENT);
+		renderer.setMarginsColor(Color.argb(0x00, 0xff, 0x00, 0x00));
+		renderer.setClickEnabled(false);
+		renderer.setExternalZoomEnabled(false);
+		renderer.setPanEnabled(false, false);
+		renderer.setYAxisMin(-10, 0);
+		renderer.setYAxisMax(15, 0);
+		renderer.setAntialiasing(true);
+		renderer.setShowLegend(false);
+		renderer.setYAxisAlign(Align.LEFT, 0);
+		renderer.setAxesColor(Color.BLACK);
+
+		return renderer;
+	}
+
+	private void getXYSeriesRenderer() {
+		// Abs axis
+		XYSeriesRenderer r = new XYSeriesRenderer();
+		r.setPointStyle(PointStyle.POINT);
+		r.setColor(getResources().getColor(R.color.chart_abs));
+		r.setLineWidth(5);
+		renderer.addSeriesRenderer(r);
+	}
+
+	private XYSeries[] getXYSeries() {
+		XYSeries[] series = new XYSeries[1];
+		series[0] = new XYSeries("Abs");
+		dataset.addSeries(series[0]);
+		return series;
 	}
 
 	public void setLocationInfo() {
@@ -236,20 +236,17 @@ public class Info extends Fragment {
 
 				AccelSample sample = intent
 						.getParcelableExtra(Accelerometer.ACCEL_SAMPLE_KEY);
-				if (sample != null) {
-
-					float abs = Math.abs(sample.x) + Math.abs(sample.y)
-							+ Math.abs(sample.z);
-
+				if (sample != null) 
+				
 					if (xySeries[0].getItemCount() > SAMPLE_SIZE) {
 						xySeries[0].remove(0);
 					}
-					xySeries[0].add(x, abs);
+					xySeries[0].add(x, sample.abs);
 					x++;
 					view.repaint();
 				}
 			}
-		}
+		
 	}
 
 	public static Info getInfo() {
