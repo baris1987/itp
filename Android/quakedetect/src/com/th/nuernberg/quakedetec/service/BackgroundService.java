@@ -50,6 +50,7 @@ public class BackgroundService extends Service {
 	private int isAlarm = 0;
 	private int isAlarmCycle = 0;
 	private boolean accelGreaterZero = true;
+	private long alarmCycleTime = System.currentTimeMillis();
 	private AccelerationBroadcastReceiver accelReceiver;
 	private Localizer localizer;
 	private Timer heartbeatTimer;
@@ -429,14 +430,19 @@ public class BackgroundService extends Service {
 					} else if (sample.abs > 0.5)
 						accelGreaterZero = true;
 					// Nach 100 wird geschaut wieviele Ausschläge es gegeben hat
-					if (isAlarmCycle == 100) {
-						Log.e(TAG + "_ALARM",
-								"AlarmCount " + String.valueOf(isAlarm));
-						// Ist die Summe höher als 20 wird ein Alarm ausgegeben
-						if (isAlarm > 20) {
+					if (System.currentTimeMillis() - alarmCycleTime > 5000) {
+						double alarmRatio = (double)isAlarm/(double)isAlarmCycle * 100.0;
+						Log.e(TAG + "_ALARM", "AlarmCount " + String.valueOf(isAlarm) + "/" + String.valueOf(isAlarmCycle) + "=" + String.valueOf(alarmRatio));
+						// Ist die Prozentuale Anzahl höher als 15 wird ein Alarm ausgegeben
+						if(isAlarmCycle < 50)
+							alarmRatio = alarmRatio/1.5;
+						if(isAlarmCycle > 150)
+							alarmRatio = alarmRatio*1.5;
+						if (alarmRatio > 15) {
 							Log.e(TAG + "_ALARM", "EARTHQUAKE!");
 							sendAlarmToServer();
 						}
+						alarmCycleTime = System.currentTimeMillis();
 						isAlarmCycle = 0;
 						isAlarm = 0;
 					}
