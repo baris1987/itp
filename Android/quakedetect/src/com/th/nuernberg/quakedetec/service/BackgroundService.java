@@ -435,10 +435,10 @@ public class BackgroundService extends Service {
 						Log.e(TAG + "_ALARM", "AlarmCount " + String.valueOf(isAlarm) + "/" + String.valueOf(isAlarmCycle) + "=" + String.valueOf(alarmRatio));
 						// Ist die Prozentuale Anzahl höher als 15 wird ein Alarm ausgegeben
 						if(isAlarmCycle < 50)
-							alarmRatio = alarmRatio/1.5;
+							alarmRatio = alarmRatio/2;
 						if(isAlarmCycle > 150)
-							alarmRatio = alarmRatio*1.5;
-						if (alarmRatio > 15) {
+							alarmRatio = alarmRatio*2;
+						if (alarmRatio > 20) {
 							Log.e(TAG + "_ALARM", "EARTHQUAKE!");
 							Toast.makeText(getApplicationContext(), "Earthquake", Toast.LENGTH_SHORT).show();
 							sendAlarmToServer();

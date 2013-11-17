@@ -79,8 +79,8 @@ public class Localizer implements LocationListener {
 			System.out.println("Accuaracy location: " + location.getAccuracy());
 		}
 		
-		// Wenn Genauigkeit von location schlechter als 500 Meter
-		if(location.getAccuracy() > 500 && location.getProvider().equals(LocationManager.NETWORK_PROVIDER))
+		// Wenn Genauigkeit von location schlechter als 3000 Meter
+		if(location.getAccuracy() > 3000 && location.getProvider().equals(LocationManager.NETWORK_PROVIDER))
 		{
 			locationManager.removeUpdates(this);
 			locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
