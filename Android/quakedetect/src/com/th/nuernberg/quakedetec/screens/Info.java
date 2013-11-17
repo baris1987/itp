@@ -139,7 +139,7 @@ public class Info extends Fragment {
 			mBound = false;
 		}
 	}
-	
+
 	@Override
 	public void onResume() {
 		IntentFilter filter = new IntentFilter(Accelerometer.ACCEL_SAMPLE);
@@ -236,8 +236,7 @@ public class Info extends Fragment {
 
 				AccelSample sample = intent
 						.getParcelableExtra(Accelerometer.ACCEL_SAMPLE_KEY);
-				if (sample != null) 
-				
+				if (sample != null) {
 					if (xySeries[0].getItemCount() > SAMPLE_SIZE) {
 						xySeries[0].remove(0);
 					}
@@ -246,7 +245,7 @@ public class Info extends Fragment {
 					view.repaint();
 				}
 			}
-		
+		}
 	}
 
 	public static Info getInfo() {
