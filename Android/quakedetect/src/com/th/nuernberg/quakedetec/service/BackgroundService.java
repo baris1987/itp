@@ -440,6 +440,7 @@ public class BackgroundService extends Service {
 							alarmRatio = alarmRatio*1.5;
 						if (alarmRatio > 15) {
 							Log.e(TAG + "_ALARM", "EARTHQUAKE!");
+							Toast.makeText(getApplicationContext(), "Earthquake", Toast.LENGTH_SHORT).show();
 							sendAlarmToServer();
 						}
 						alarmCycleTime = System.currentTimeMillis();
