@@ -1,0 +1,31 @@
+11-17 14:39:43.799: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:39:50.484: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:39:57.164: E/QuakeDetecService(2281): AlarmCount 38
+11-17 14:40:03.849: E/QuakeDetecService(2281): AlarmCount 33
+11-17 14:40:10.524: E/QuakeDetecService(2281): AlarmCount 41
+11-17 14:40:17.209: E/QuakeDetecService(2281): AlarmCount 40
+11-17 14:40:23.884: E/QuakeDetecService(2281): AlarmCount 20
+11-17 14:40:30.569: E/QuakeDetecService(2281): AlarmCount 19
+11-17 14:40:37.254: E/QuakeDetecService(2281): AlarmCount 47
+11-17 14:40:43.934: E/QuakeDetecService(2281): AlarmCount 44
+11-17 14:40:50.614: E/QuakeDetecService(2281): AlarmCount 3
+11-17 14:40:57.294: E/QuakeDetecService(2281): AlarmCount 29
+11-17 14:41:01.539: W/IInputConnectionWrapper(2281): getSelectedText on inactive InputConnection
+11-17 14:41:01.559: W/IInputConnectionWrapper(2281): setComposingText on inactive InputConnection
+11-17 14:41:01.559: W/IInputConnectionWrapper(2281): getExtractedText on inactive InputConnection
+11-17 14:41:02.019: W/IInputConnectionWrapper(2281): showStatusIcon on inactive InputConnection
+11-17 14:41:04.014: E/QuakeDetecService(2281): AlarmCount 10
+11-17 14:41:10.674: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:41:17.364: E/QuakeDetecService(2281): AlarmCount 1
+11-17 14:41:24.044: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:41:30.734: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:41:37.424: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:41:44.149: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:41:50.804: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:41:57.489: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:42:04.179: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:42:10.869: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:42:17.554: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:42:24.239: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:42:30.929: E/QuakeDetecService(2281): AlarmCount 0
+11-17 14:42:37.624: E/QuakeDetecService(2281): AlarmCount 0
