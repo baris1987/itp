@@ -5,11 +5,11 @@ import java.util.Calendar;
 
 import com.th.nuernberg.itp.webservice.interfaces.ILogging;
 
-public class Logging implements ILogging {
+public class ConsoleLogging implements ILogging {
 
 	private boolean enabled;
 	
-	public Logging() {
+	public ConsoleLogging() {
 		this.enabled = true;
 	}
 	

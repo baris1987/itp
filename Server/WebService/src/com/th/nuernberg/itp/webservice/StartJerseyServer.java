@@ -11,7 +11,7 @@ import com.th.nuernberg.itp.webservice.interfaces.ILogging;
 public class StartJerseyServer {
 	public static void main(String[] args) throws IllegalArgumentException, IOException, ClassNotFoundException, SQLException {
 		
-		ILogging console = new Logging();
+		ILogging console = new ConsoleLogging();
 		
 		IConfiguration config = new FileConfiguration();
 		config.load(Constants.Configuration);

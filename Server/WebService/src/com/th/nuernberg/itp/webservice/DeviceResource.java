@@ -1,5 +1,10 @@
 package com.th.nuernberg.itp.webservice;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -19,13 +24,13 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 
 	private final IConfiguration config;
 	private final IDatabase persister;
-	private final ILogging console;
+	private final ILogging log;
 	
 	public DeviceResource() {
 		this.config = this.createConfigurationInstance(Constants.Configuration);
 		this.persister = this.createDatabaseInstance(this.config);
-		this.console = new Logging();
-		this.console.enable(Boolean.parseBoolean(this.config.get("Application.Logging")));
+		this.log = new FileLogging(this.config.get("Application.LoggingFile"));
+		this.log.enable(Boolean.parseBoolean(this.config.get("Application.Logging")));
 	}
 
 	@PUT
@@ -52,7 +57,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		boolean success = repository.persist(device);
 		repository.destroy();
 
-		this.console.write("METHOD", "Register",  identifier, latitude, longitude);
+		this.log.write("METHOD", "Register",  identifier, latitude, longitude);
 		
 		return JsonWebResponse.build(success);
 	}
@@ -66,7 +71,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		List<IDevice> deviceList = repository.getActiveDevices(Integer.parseInt(this.config.get("Application.DeviceTimeout")));
 		repository.destroy();		
 		
-		this.console.write("METHOD", "List", deviceList.size());
+		this.log.write("METHOD", "List", deviceList.size());
 		return JsonWebResponse.build(true, deviceList);
 	}	
 
@@ -90,7 +95,10 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		
 		repository.destroy();	
 
-		this.console.write("METHOD", "Alarm", success);
+		this.log.write("METHOD", "Alarm", success);
+		
+		broadcast("Earth quake detected.", latitude, longitude);
+		
 		return JsonWebResponse.build(success);
 	}
 	
@@ -110,11 +118,11 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 			success = true;
 		}
 		
-		this.console.write("METHOD", "Meta", device.getIdentifier(), device.getActivity(), device.getLatitude(), device.getLongitude());
+		this.log.write("METHOD", "Meta", device.getIdentifier(), device.getActivity(), device.getLatitude(), device.getLongitude());
 		return JsonWebResponse.build(success, device);
 	}
 	
-	@GET
+	@POST
 	@Path("broadcast/{message}/{latitude}/{longitude}")
 	public String broadcast(@PathParam("message") String message, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
 		
@@ -147,7 +155,29 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 			messaging.send(notification);
 		}
 		
-		this.console.write("METHOD", "broadcast", success, message, latitude, longitude);
+		this.log.write("METHOD", "broadcast", success, message, latitude, longitude);
 		return JsonWebResponse.build(success, analyticData);
+	}
+	
+	@GET
+	@Path("debug")
+	public String debug() {
+		try {
+		   BufferedReader br = new BufferedReader(new FileReader(this.config.get("Application.LoggingFile")));
+		    
+	        StringBuilder sb = new StringBuilder();
+	        String line = br.readLine();
+
+	        while (line != null) {
+	            sb.append(line);
+	            sb.append("\n");
+	            line = br.readLine();
+	        }
+	        br.close();
+	        return sb.toString();
+		} 
+		catch (Exception e) {
+			return e.getMessage();
+		}
 	}
 }

@@ -1,7 +1,5 @@
 package com.th.nuernberg.itp.webservice.interfaces;
 
-import javax.ws.rs.PathParam;
-
 public interface IWebServiceDevice {
 	// Register device (also usable as heart beat)
 	String register(String identifier, double latitude, double longitude);
