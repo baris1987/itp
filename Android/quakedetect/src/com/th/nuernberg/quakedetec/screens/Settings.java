@@ -18,21 +18,31 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 
 // Activity for SettingsFragment
 
 public class Settings extends Activity {
-
+	private static final String TAG = "QuakeDetecService";
 	@Override
 	 protected void onCreate(Bundle savedInstanceState) {
 	  // TODO Auto-generated method stub
 	  super.onCreate(savedInstanceState);
 	  getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
 	  getActionBar().setDisplayHomeAsUpEnabled(true); // adds Backbutton to the ActionBar
-	 }
+	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.settings_options_menu, menu);
+        return true;
+	}
 	
 	// action for backbutton ---> navigates to parentactivity (Main)
 	@Override
@@ -42,6 +52,11 @@ public class Settings extends Activity {
 	    case android.R.id.home:
 	        finish();
 	        return true;
+	    // Respond to the action bar`s Settings button
+        case R.id.reset_settings:
+        	Log.d(TAG, "Einstellung zurücksetzen gedrückt!");
+        	resetPreferencesToDefault(this);
+            return true;	
 	    }
 	    return super.onOptionsItemSelected(item);
 	}
@@ -109,6 +124,28 @@ public class Settings extends Activity {
 		for (Entry<String, ?> entry : prefsMap.entrySet()) {
 		    Settings.setSettings(sharedPrefs, entry.getKey());
 		}
+	}
+	
+	// Funktion, die Einstellungen auf die Standardwerte setzt
+	public void resetPreferencesToDefault(Context context)
+	{
+		SharedPreferences defaultPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = defaultPreferences.edit();
+		editor.clear();
+		editor.commit();
+		restartThis();
+	}
+	
+	// Hilfsfunktion für resetPreferencesToDefault
+	// Workaround von http://www.devlog.en.alt-area.org/?p=1209 um das Display zu
+	// refreshen, ohne werden zwar die Werte auf die Standardwerte gesetzt,
+	// man müsste aber erst in eine andere Activity, bevor man in Settings eine
+	// Auswirkung erkennt
+	private void restartThis() {
+	    finish();
+	    overridePendingTransition(0, 0);
+	    startActivity(getIntent());
+	    overridePendingTransition(0, 0);
 	}
 }
 

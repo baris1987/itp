@@ -151,7 +151,7 @@ public class Main extends FragmentActivity implements
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) { 
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	        case R.id.action_settings:
