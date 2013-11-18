@@ -429,16 +429,15 @@ public class BackgroundService extends Service {
 						accelGreaterZero = false;
 					} else if (sample.abs > 0.5)
 						accelGreaterZero = true;
-					// Nach 100 wird geschaut wieviele Ausschläge es gegeben hat
+					// Alle 5s wird eine Auswertung gemacht
 					if (System.currentTimeMillis() - alarmCycleTime > 5000) {
-						double alarmRatio = (double)isAlarm/(double)isAlarmCycle * 100.0;
-						Log.e(TAG + "_ALARM", "AlarmCount " + String.valueOf(isAlarm) + "/" + String.valueOf(isAlarmCycle) + "=" + String.valueOf(alarmRatio));
-						// Ist die Prozentuale Anzahl höher als 15 wird ein Alarm ausgegeben
-						if(isAlarmCycle < 50)
-							alarmRatio = alarmRatio/2;
-						if(isAlarmCycle > 150)
-							alarmRatio = alarmRatio*2;
-						if (alarmRatio > 20) {
+						double alarmRatio = 0;
+						if(isAlarm != 0)
+							alarmRatio = (double)isAlarm/(double)isAlarmCycle * 100.0;
+
+						Log.e(TAG + "_ALARM", "AlarmCount " + String.valueOf(isAlarm) + "/" + String.valueOf(isAlarmCycle) + "->" + String.valueOf(alarmRatio));
+						
+						if (alarmRatio > 15) {
 							Log.e(TAG + "_ALARM", "EARTHQUAKE!");
 							Toast.makeText(getApplicationContext(), "Earthquake", Toast.LENGTH_SHORT).show();
 							sendAlarmToServer();
