@@ -2,9 +2,6 @@ package com.th.nuernberg.itp.webservice;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -57,7 +54,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		boolean success = repository.persist(device);
 		repository.destroy();
 
-		this.log.write("METHOD", "Register",  identifier, latitude, longitude);
+		this.log.write("METHOD", "Register",  success, identifier, latitude, longitude);
 		
 		return JsonWebResponse.build(success);
 	}
@@ -71,7 +68,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		List<IDevice> deviceList = repository.getActiveDevices(Integer.parseInt(this.config.get("Application.DeviceTimeout")));
 		repository.destroy();		
 		
-		this.log.write("METHOD", "List", deviceList.size());
+		this.log.write("METHOD", "List", true, deviceList.size());
 		return JsonWebResponse.build(true, deviceList);
 	}	
 
@@ -163,21 +160,21 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 	@Path("debug")
 	public String debug() {
 		try {
-		   BufferedReader br = new BufferedReader(new FileReader(this.config.get("Application.LoggingFile")));
+		   BufferedReader bufferedReader = new BufferedReader(new FileReader(this.config.get("Application.LoggingFile")));
 		    
-	        StringBuilder sb = new StringBuilder();
-	        String line = br.readLine();
+	        StringBuilder debugMessagesBuilder = new StringBuilder();
+	        String line = bufferedReader.readLine();
 
 	        while (line != null) {
-	            sb.append(line);
-	            sb.append("\n");
-	            line = br.readLine();
+	            debugMessagesBuilder.append(line);
+	            debugMessagesBuilder.append("\n");
+	            line = bufferedReader.readLine();
 	        }
-	        br.close();
-	        return sb.toString();
+	        bufferedReader.close();
+	        return debugMessagesBuilder.toString();
 		} 
 		catch (Exception e) {
-			return e.getMessage();
+			return "Exception: " + e.getMessage();
 		}
 	}
 }
