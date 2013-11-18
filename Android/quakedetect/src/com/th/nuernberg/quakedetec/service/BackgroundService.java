@@ -171,9 +171,7 @@ public class BackgroundService extends Service {
 					HttpResponse response = client.execute(request);
 					int status = response.getStatusLine().getStatusCode();
 					if (status != 200) {
-						Log.d(TAG,
-								"Server request faild: "
-										+ String.valueOf(status));
+						Log.d(TAG, "Server request faild: " + String.valueOf(status));
 						return;
 					}
 					BufferedReader in = new BufferedReader(
@@ -187,9 +185,10 @@ public class BackgroundService extends Service {
 					}
 					in.close();
 					String data = sb.toString();
-					if (!data.contains("\"success\":true"))
+					if (data.contains("\"success\":true"))
+						Log.d(TAG, "Server request OK: " + data);
+					else
 						Log.d(TAG, "Server request failed: " + data);
-					Log.d(TAG, "Server request OK: " + data);
 				} catch (Exception e) {
 					Log.d(TAG, "Server request failed: " + e.getMessage());
 				}
@@ -239,9 +238,10 @@ public class BackgroundService extends Service {
 					}
 					in.close();
 					String data = sb.toString();
-					if (!data.contains("\"success\":true"))
+					if (data.contains("\"success\":true"))
+						Log.d(TAG, "Server request OK: " + data);
+					else
 						Log.d(TAG, "Server request failed: " + data);
-					Log.d(TAG, "Server request OK: " + data);
 				} catch (Exception e) {
 					Log.d(TAG,
 							"Exception: Server request failed: "
@@ -419,10 +419,12 @@ public class BackgroundService extends Service {
 						double alarmRatio = 0;
 						if(isAlarm != 0)
 							alarmRatio = (double)isAlarm/(double)isAlarmCycle * 100.0;
-
+						//Abhaengig von der Frequenz der Alarmauswertung wird die Anzahl der Alarme bewertet	
+						double alarmFrequRel = isAlarmCycle * 0.01 + 0.5;
+							alarmRatio = alarmRatio * alarmFrequRel;
 						Log.e(TAG + "_ALARM", "AlarmCount " + String.valueOf(isAlarm) + "/" + String.valueOf(isAlarmCycle) + "->" + String.valueOf(alarmRatio));
 						
-						if (alarmRatio > 20) {
+						if (alarmRatio > 25) {
 							Log.e(TAG + "_ALARM", "EARTHQUAKE!");
 							Toast.makeText(getApplicationContext(), "Earthquake", Toast.LENGTH_SHORT).show();
 							sendAlarmToServer();
