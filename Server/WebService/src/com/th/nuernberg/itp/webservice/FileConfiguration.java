@@ -13,7 +13,7 @@ public class FileConfiguration implements IConfiguration {
 	
 	public void load(String source) throws FileNotFoundException, IOException {
 		this.properties = new Properties();
-		properties.load(new FileReader(source));
+		this.properties.load(FileConfiguration.class.getResourceAsStream(source));
 	}
 	
 	public String get(String key) {
