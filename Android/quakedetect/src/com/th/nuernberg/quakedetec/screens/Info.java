@@ -172,6 +172,8 @@ public class Info extends Fragment {
 		renderer.setPanEnabled(false, false);
 		renderer.setYAxisMin(-10, 0);
 		renderer.setYAxisMax(15, 0);
+		renderer.setPanEnabled(false, false);
+		renderer.setZoomEnabled(false, false);
 		renderer.setAntialiasing(true);
 		renderer.setShowLegend(false);
 		renderer.setYAxisAlign(Align.LEFT, 0);

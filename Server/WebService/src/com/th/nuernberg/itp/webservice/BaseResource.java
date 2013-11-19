@@ -19,10 +19,10 @@ public abstract class BaseResource implements IWebService {
 		try {
 			config.load(file);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		return config;
@@ -35,13 +35,13 @@ public abstract class BaseResource implements IWebService {
 		try {
 			database.Initalize(databaseConfig);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		return database;
