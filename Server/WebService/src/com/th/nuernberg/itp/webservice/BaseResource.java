@@ -1,10 +1,6 @@
 package com.th.nuernberg.itp.webservice;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Random;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -18,13 +14,9 @@ public abstract class BaseResource implements IWebService {
 		IConfiguration config = new FileConfiguration();
 		try {
 			config.load(file);
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
+		} 
 		return config;
 	}
 	
@@ -34,15 +26,8 @@ public abstract class BaseResource implements IWebService {
 		IDatabase database = new Database();
 		try {
 			database.Initalize(databaseConfig);
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			e.printStackTrace();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
 		}
 		return database;
 	}
