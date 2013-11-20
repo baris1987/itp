@@ -15,4 +15,7 @@ public interface IWebServiceDevice {
 	
 	// Detect earth quake and send broadcast
 	String broadcast(String message, double latitude, double longitude);
+	
+	// Statistics 
+	String stats();
 }

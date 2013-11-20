@@ -100,6 +100,12 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 	}
 	
 	@GET
+	@Path("stats")
+	public String stats() {
+		return JsonWebResponse.build(true);
+	}
+	
+	@GET
 	@Path("meta/{identifier}")
 	public String meta(@PathParam("identifier") String identifier) {
 		
