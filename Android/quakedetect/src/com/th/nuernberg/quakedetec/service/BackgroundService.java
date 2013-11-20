@@ -440,10 +440,10 @@ public class BackgroundService extends Service {
 								//Abhaengig von der Frequenz der Alarmauswertung wird die Anzahl der Alarme bewertet	
 								double alarmFrequRel = isAlarmCycle * 0.01 + 0.5;
 									alarmRatio = alarmRatio * alarmFrequRel;
-								Log.e(TAG + "_ALARM", "AlarmCount " + String.valueOf(isAlarm) + "/" + String.valueOf(isAlarmCycle) + "->" + String.valueOf(alarmRatio));
+							//	Log.e(TAG + "_ALARM", "AlarmCount " + String.valueOf(isAlarm) + "/" + String.valueOf(isAlarmCycle) + "->" + String.valueOf(alarmRatio));
 								
 								if (alarmRatio > 25) {
-									Log.e(TAG + "_ALARM", "EARTHQUAKE!");
+								//	Log.e(TAG + "_ALARM", "EARTHQUAKE!");
 									Toast.makeText(getApplicationContext(), "Earthquake", Toast.LENGTH_SHORT).show();
 									sendAlarmToServer();
 								}
