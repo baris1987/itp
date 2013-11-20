@@ -23,7 +23,6 @@ public class ConnectionChangeReceiver extends BroadcastReceiver
 		  BackgroundService backgroundService = BackgroundService.getBackgroundService();
 		  if ( activeNetInfo != null )
 		  {
-			 System.out.println("runningTimer: " + runningTimer);
 			  	if(activeNetInfo.isConnected() && runningTimer == false)
 			  	{
 			  		backgroundService.startLocationUpdateTimerOrChangeIfNeeded();

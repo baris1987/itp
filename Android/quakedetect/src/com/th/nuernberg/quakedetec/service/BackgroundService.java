@@ -173,14 +173,14 @@ public class BackgroundService extends Service {
 					String requestUrl = String.format(
 							"http://%s:%s/itp/device/register/%s/%s/%s",
 							serverUrl, serverPort, regid, lat, lon);
-					//Log.d(TAG, "Start server request: " + requestUrl);
+					Log.d(TAG, "Start server request: " + requestUrl);
 					HttpClient client = new DefaultHttpClient();
 					HttpPut request = new HttpPut();
 					request.setURI(new URI(requestUrl));
 					HttpResponse response = client.execute(request);
 					int status = response.getStatusLine().getStatusCode();
 					if (status != 200) {
-						//Log.d(TAG, "Server request faild: " + String.valueOf(status));
+						Log.d(TAG, "Server request faild: " + String.valueOf(status));
 						return;
 					}
 					BufferedReader in = new BufferedReader(
@@ -194,12 +194,13 @@ public class BackgroundService extends Service {
 					}
 					in.close();
 					String data = sb.toString();
-					if (data.contains("\"success\":true"));
-						//Log.d(TAG, "Server request OK: " + data);
-					//else
-						//Log.d(TAG, "Server request failed: " + data);
+					if (data.contains("\"success\":true"))
+						Log.d(TAG, "Server request OK: " + data);
+					else 
+						Log.d(TAG, "Server request failed: " + data);
+					
 				} catch (Exception e) {
-					//Log.d(TAG, "Server request failed: " + e.getMessage());
+					Log.d(TAG, "Server request failed: " + e.getMessage());
 				}
 			}
 		}).start();
@@ -344,7 +345,7 @@ public class BackgroundService extends Service {
 					sendRegistrationIdToBackend();
 					storeRegistrationId(context, regid);
 				} catch (IOException ex) {
-					msg = "Error :" + ex.getMessage();
+					msg = "Error: " + ex.getMessage();
 				}
 				return msg;
 			}

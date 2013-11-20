@@ -73,10 +73,7 @@ public class Localizer implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
-		
-		if(location != null)
-			Toast.makeText(context, "Location fetched: " + location.getProvider() + "\nAccuracy: " + location.getAccuracy(), Toast.LENGTH_SHORT).show();
-		
+
 		// Wenn Genauigkeit von location schlechter als 3500 Meter
 		if(location.getAccuracy() > 3500 && location.getProvider().equals(LocationManager.NETWORK_PROVIDER))
 		{
