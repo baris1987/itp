@@ -83,7 +83,7 @@ public class Settings extends Activity {
 		//LocationManager Aktualisiserungsinterval
 		else if(key.equals("locationupdates_interval"))
 		{
-			int locationUpdateInterval = (int) Long.parseLong(prefs.getString("locationupdates_interval", "120000"));
+			int locationUpdateInterval = (int) Long.parseLong(prefs.getString("locationupdates_interval", "300000"));
 			BackgroundService.getBackgroundService().changeGpsLocationUpdateTimerInterval(locationUpdateInterval);
 		}
 		
