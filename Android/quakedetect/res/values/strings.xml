@@ -14,10 +14,10 @@
     
     <!-- Einstellungen -->
     <string name="set_title_map">Karte</string>
-    <string name="set_maptype">Kartenansicht</string>
+    <string name="set_maptype">Standardansicht</string>
     <string name="set_title_location">Standort</string>
-    <string name="set_location_update_intervall">Aktualisierungsinterval</string>
-    <string name="set_location_update_intervall_summary">Je kürzer das Interval, desto genauer die Standortdaten. \nBei zu hohem Akkuverbrauch sollte das Interval länger gewählt werden</string>
+    <string name="set_location_update_intervall">Aktualisierungsinterval für GPS</string>
+    <string name="set_location_update_intervall_summary">Je kürzer das Interval, desto genauer die Standortdaten. \nBei zu hohem Akkuverbrauch sollte das Interval länger gewählt werden.\nSie sollten auf jeden Fall in den Standorteinstellungen WLAN- und Mobilfunk-Standort aktivieren, da dieser sehr Energieeffizient ist und GPS nur genutzt wird, wenn WLAN- und Mobilfunknetz deaktiviert oder zu ungenau ist.</string>
     <string name="set_title_accelerometer">Beschleunigungssensor</string>
     <string name="set_accelerometer_rate">Sensorabtastrate</string>
     <string name="notification_title">Benachrichtigungseinstellungen</string>
@@ -40,6 +40,16 @@
     <string name="tv_info_location">Aktuelle Position:</string>
     <string name="tv_info_location_provider">Ortungsdienst:</string>
     <string name="tv_info_accelerometer">Beschleunigungssensor:</string>
-
-     <!-- Button -->   
+	
+     <!-- Button --> 
+      
+     <!-- ImageButton -->  
+     <string name="my_location_button_description">My Location Button</string>
+	 <string name="map_type_button_description">MapType Button</string> 
+	 
+	 <!-- MapTypes -->
+	 <string name="maptype_normal">Normal</string>
+	 <string name="maptype_satellite">Satellit</string>
+	 <string name="maptype_terrain">Terrain</string>
+	 <string name="maptype_hybrid">Hybrid</string>
 </resources>

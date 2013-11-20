@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 
 // Activity for SettingsFragment
@@ -76,10 +77,10 @@ public class Settings extends Activity {
 		{
 			if(DeviceMap.getDeviceMap() != null)
 			{
-				if(DeviceMap.getDeviceMap().getMap() != null)
+				if(DeviceMap.getDeviceMap().getGoogleMap() != null)
 				{
 					int maptype = Integer.parseInt(prefs.getString("map_type", "1"));
-					DeviceMap.getDeviceMap().getMap().setMapType(maptype);
+					DeviceMap.getDeviceMap().getGoogleMap().setMapType(maptype);
 				}
 			}
 		}
@@ -87,10 +88,8 @@ public class Settings extends Activity {
 		//LocationManager Aktualisiserungsinterval
 		else if(key.equals("locationupdates_interval"))
 		{
-			
 			int locationUpdateInterval = (int) Long.parseLong(prefs.getString("locationupdates_interval", "120000"));
-			System.out.println("changeLocationUpdateInterval: " + locationUpdateInterval);
-			BackgroundService.changeLocationUpdateTimerInterval(locationUpdateInterval);
+			BackgroundService.getBackgroundService().changeGpsLocationUpdateTimerInterval(locationUpdateInterval);
 		}
 		
 		// Beschleunigungssensor Abtastrate

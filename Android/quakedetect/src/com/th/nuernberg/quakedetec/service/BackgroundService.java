@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -22,9 +23,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.location.Location;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -43,9 +49,10 @@ public class BackgroundService extends Service {
 	public static final String ALARM_BC_KEY = "AlarmKey";
 
 	private final IBinder binder = new BackgroundServiceBinder();
+	private static BackgroundService backgroundService;
 
-	private final int heartbeatMillis = 1000 * 60; // jede Minute
-	private static int locationUpdateRequestsMillis = 1000 * 60; // alle 10 sek
+	private final int heartbeatMillis = 1000 * 600; // alle 10 Minuten
+	private static int locationGpsUpdateRequestsMillis = 1000 * 60; // alle 60 sek
 
 	private int isAlarm = 0;
 	private int isAlarmCycle = 0;
@@ -54,8 +61,15 @@ public class BackgroundService extends Service {
 	private AccelerationBroadcastReceiver accelReceiver;
 	private Localizer localizer;
 	private Timer heartbeatTimer;
-	private static Timer locationUpdateTimer;
-	private static TimerTask locationUpdateTimerTask;
+	private TimerTask heartBeatTimerTask;
+	
+	private Timer locationNetworkUpdateTimer;
+	private TimerTask locationNetworkUpdateTimerTask;
+	
+	private Timer locationGpsUpdateTimer;
+	private TimerTask locationGpsUpdateTimerTask; 
+	
+	private String runningLocationTimer = "none";
 
 	// GCM
 	public static final String EXTRA_MESSAGE = "message";
@@ -73,8 +87,10 @@ public class BackgroundService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Toast.makeText(this, "QuakeDetect Service Started", Toast.LENGTH_SHORT)
-				.show();
+		
+		backgroundService = this;
+		
+		Toast.makeText(this, "QuakeDetect Service Started", Toast.LENGTH_SHORT).show();
 		// GSM
 
 		context = getApplicationContext();
@@ -109,33 +125,26 @@ public class BackgroundService extends Service {
 
 		// Geräte beim Server regestrieren mit Positionsangabe
 
-		heartbeatTimer = new Timer("heartbeatTimer");
-		heartbeatTimer.scheduleAtFixedRate(new TimerTask() {
-			public void run() {
-				Location location = localizer.getLocation();
-				if (location != null) {
-					sendPosition2Server();
-				} else {
-					Log.d(TAG, "No location fix -> Heartbeat not send");
-				}
-			}
-		}, heartbeatMillis, heartbeatMillis);
-
-		locationUpdateTimer = new Timer("locationUpdateTimer");
-		locationUpdateTimerTask = new TimerTask() {
-			public void run() {
-				Log.d(TAG, "run location timer");
-				localizer.fetchLocation();
-			}
-		};
-
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(getApplicationContext());
-		locationUpdateRequestsMillis = (int) Long.parseLong(sharedPrefs
-				.getString("locationupdates_interval", "30000"));
-		locationUpdateTimer.scheduleAtFixedRate(locationUpdateTimerTask, 0,
-				locationUpdateRequestsMillis);
-
+		
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		locationGpsUpdateRequestsMillis = (int) Long.parseLong(sharedPrefs.getString("locationupdates_interval", "30000"));
+		
+		localizer.updateLocation();
+		
+		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService( Context.CONNECTIVITY_SERVICE );
+	    NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+		
+	    //Timer starten, wenn eine Internetverbindung besteht
+	    if(activeNetInfo != null)
+	    {
+	    	if(activeNetInfo.isConnected())
+	    	{
+	    		startLocationUpdateTimerOrChangeIfNeeded();
+	    		startHeartBeatTimer();
+	    	}
+	    }
+	    
 		// Settings initialisieren
 		Settings.updateAll(context);
 
@@ -164,14 +173,14 @@ public class BackgroundService extends Service {
 					String requestUrl = String.format(
 							"http://%s:%s/itp/device/register/%s/%s/%s",
 							serverUrl, serverPort, regid, lat, lon);
-					Log.d(TAG, "Start server request: " + requestUrl);
+					//Log.d(TAG, "Start server request: " + requestUrl);
 					HttpClient client = new DefaultHttpClient();
 					HttpPut request = new HttpPut();
 					request.setURI(new URI(requestUrl));
 					HttpResponse response = client.execute(request);
 					int status = response.getStatusLine().getStatusCode();
 					if (status != 200) {
-						Log.d(TAG, "Server request faild: " + String.valueOf(status));
+						//Log.d(TAG, "Server request faild: " + String.valueOf(status));
 						return;
 					}
 					BufferedReader in = new BufferedReader(
@@ -185,12 +194,12 @@ public class BackgroundService extends Service {
 					}
 					in.close();
 					String data = sb.toString();
-					if (data.contains("\"success\":true"))
-						Log.d(TAG, "Server request OK: " + data);
-					else
-						Log.d(TAG, "Server request failed: " + data);
+					if (data.contains("\"success\":true"));
+						//Log.d(TAG, "Server request OK: " + data);
+					//else
+						//Log.d(TAG, "Server request failed: " + data);
 				} catch (Exception e) {
-					Log.d(TAG, "Server request failed: " + e.getMessage());
+					//Log.d(TAG, "Server request failed: " + e.getMessage());
 				}
 			}
 		}).start();
@@ -400,42 +409,52 @@ public class BackgroundService extends Service {
 
 	private class AccelerationBroadcastReceiver extends BroadcastReceiver {
 
+		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService( Context.CONNECTIVITY_SERVICE );
+	    
+		
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			
+			NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+			if(activeNetInfo != null)
+		    {
+		    	if(activeNetInfo.isConnected())
+		    	{
+		    		if (intent.getAction().equals(Accelerometer.ACCEL_SAMPLE)) {
 
-			if (intent.getAction().equals(Accelerometer.ACCEL_SAMPLE)) {
+						AccelSample sample = intent.getParcelableExtra(Accelerometer.ACCEL_SAMPLE_KEY);
+						if (sample != null) {
 
-				AccelSample sample = intent.getParcelableExtra(Accelerometer.ACCEL_SAMPLE_KEY);
-				if (sample != null) {
-
-					// Erdbeben Auswertung
-					if (sample.abs < -0.5 && accelGreaterZero) {
-						isAlarm++;
-						accelGreaterZero = false;
-					} else if (sample.abs > 0.5)
-						accelGreaterZero = true;
-					// Alle 5s wird eine Auswertung gemacht
-					if (System.currentTimeMillis() - alarmCycleTime > 5000) {
-						double alarmRatio = 0;
-						if(isAlarm != 0)
-							alarmRatio = (double)isAlarm/(double)isAlarmCycle * 100.0;
-						//Abhaengig von der Frequenz der Alarmauswertung wird die Anzahl der Alarme bewertet	
-						double alarmFrequRel = isAlarmCycle * 0.01 + 0.5;
-							alarmRatio = alarmRatio * alarmFrequRel;
-						Log.e(TAG + "_ALARM", "AlarmCount " + String.valueOf(isAlarm) + "/" + String.valueOf(isAlarmCycle) + "->" + String.valueOf(alarmRatio));
-						
-						if (alarmRatio > 25) {
-							Log.e(TAG + "_ALARM", "EARTHQUAKE!");
-							Toast.makeText(getApplicationContext(), "Earthquake", Toast.LENGTH_SHORT).show();
-							sendAlarmToServer();
+							// Erdbeben Auswertung
+							if (sample.abs < -0.5 && accelGreaterZero) {
+								isAlarm++;
+								accelGreaterZero = false;
+							} else if (sample.abs > 0.5)
+								accelGreaterZero = true;
+							// Alle 5s wird eine Auswertung gemacht
+							if (System.currentTimeMillis() - alarmCycleTime > 5000) {
+								double alarmRatio = 0;
+								if(isAlarm != 0)
+									alarmRatio = (double)isAlarm/(double)isAlarmCycle * 100.0;
+								//Abhaengig von der Frequenz der Alarmauswertung wird die Anzahl der Alarme bewertet	
+								double alarmFrequRel = isAlarmCycle * 0.01 + 0.5;
+									alarmRatio = alarmRatio * alarmFrequRel;
+								Log.e(TAG + "_ALARM", "AlarmCount " + String.valueOf(isAlarm) + "/" + String.valueOf(isAlarmCycle) + "->" + String.valueOf(alarmRatio));
+								
+								if (alarmRatio > 25) {
+									Log.e(TAG + "_ALARM", "EARTHQUAKE!");
+									Toast.makeText(getApplicationContext(), "Earthquake", Toast.LENGTH_SHORT).show();
+									sendAlarmToServer();
+								}
+								alarmCycleTime = System.currentTimeMillis();
+								isAlarmCycle = 0;
+								isAlarm = 0;
+							}
+							isAlarmCycle++;
 						}
-						alarmCycleTime = System.currentTimeMillis();
-						isAlarmCycle = 0;
-						isAlarm = 0;
 					}
-					isAlarmCycle++;
-				}
-			}
+		    	}
+		    }
 		}
 	}
 
@@ -454,19 +473,137 @@ public class BackgroundService extends Service {
 		return localizer.getLocation();
 	}
 
-	public static void changeLocationUpdateTimerInterval(int milliseconds) {
-		locationUpdateRequestsMillis = milliseconds;
-		locationUpdateTimer.cancel();
-		locationUpdateTimerTask.cancel();
-
-		locationUpdateTimer = new Timer("locationUpdateTimer");
-		locationUpdateTimerTask = new TimerTask() {
+	public void startLocationUpdateTimerOrChangeIfNeeded()
+	{
+		ArrayList<String> enabledProvider = Localizer.getLocalizer().getEnabledProvider();
+		
+		if(enabledProvider.contains(LocationManager.NETWORK_PROVIDER))
+		{
+			if(!runningLocationTimer.equals(LocationManager.NETWORK_PROVIDER))
+			{
+				stopLocationUpdateTimer();
+				
+				locationNetworkUpdateTimer = new Timer("locationNetworkUpdateTimer");
+				locationNetworkUpdateTimerTask = new TimerTask() {
+					public void run() {
+						Log.d(TAG, "run location timer for Network");
+						startLocationUpdateTimerOrChangeIfNeeded();
+						Localizer.getLocalizer().updateLocation();
+					}
+				};
+					
+				locationNetworkUpdateTimer.scheduleAtFixedRate(locationNetworkUpdateTimerTask, 20000, 30000);
+				runningLocationTimer = LocationManager.NETWORK_PROVIDER;
+				
+				Looper myLooper = Looper.getMainLooper();
+				final Handler myHandler = new Handler(myLooper);
+			    myHandler.postDelayed(new Runnable() {
+			         public void run() {
+			        	 Toast.makeText(context, "LocationProvider: Now using NETWORK", Toast.LENGTH_SHORT).show();
+			         }
+			    }, 0);				
+			}
+		}
+		else if(enabledProvider.contains(LocationManager.GPS_PROVIDER))
+		{
+			if(!runningLocationTimer.equals(LocationManager.GPS_PROVIDER))
+			{
+				stopLocationUpdateTimer();
+								
+				locationGpsUpdateTimer = new Timer("locationGpsUpdateTimer");
+				locationGpsUpdateTimerTask = new TimerTask() {
+					public void run() {
+						Log.d(TAG, "Run location timer for GPS");
+						startLocationUpdateTimerOrChangeIfNeeded();
+						Localizer.getLocalizer().updateLocation();
+					}
+				};
+				
+				locationGpsUpdateTimer.scheduleAtFixedRate(locationGpsUpdateTimerTask, 20000, locationGpsUpdateRequestsMillis);
+				runningLocationTimer = LocationManager.GPS_PROVIDER;
+				
+				Looper myLooper = Looper.getMainLooper();
+				final Handler myHandler = new Handler(myLooper);
+			    myHandler.postDelayed(new Runnable() {
+			         public void run() {
+			        	 Toast.makeText(context, "LocationProvider: Now using GPS", Toast.LENGTH_SHORT).show();
+			         }
+			    }, 0);
+			}
+		}
+	}
+	
+	public void stopLocationUpdateTimer()
+	{
+		if(locationGpsUpdateTimer != null && locationGpsUpdateTimerTask != null)
+		{
+			locationGpsUpdateTimer.cancel();
+			locationGpsUpdateTimerTask.cancel();
+		}
+		
+		if(locationNetworkUpdateTimer != null && locationNetworkUpdateTimerTask != null)
+		{
+			locationNetworkUpdateTimer.cancel();
+			locationNetworkUpdateTimerTask.cancel();
+		}
+		
+		runningLocationTimer = "none";
+	}
+	
+	public void changeGpsLocationUpdateTimerInterval(int milliseconds) {
+		locationGpsUpdateRequestsMillis = milliseconds;
+		
+		stopLocationUpdateTimer();
+		
+		locationGpsUpdateTimer = new Timer("locationGpsUpdateTimer");
+		locationGpsUpdateTimerTask = new TimerTask() {
 			public void run() {
 				Log.d(TAG, "run location timer");
-				Localizer.getLocalizer().fetchLocation();
+				startLocationUpdateTimerOrChangeIfNeeded();
+				Localizer.getLocalizer().updateLocation();
 			}
 		};
-		locationUpdateTimer.scheduleAtFixedRate(locationUpdateTimerTask, 0,
-				locationUpdateRequestsMillis);
+		
+		startLocationUpdateTimerOrChangeIfNeeded();
+	}
+	
+	public void startHeartBeatTimer()
+	{
+		stopHeartBeatTimer();
+		
+		heartbeatTimer = new Timer("heartbeatTimer");
+		
+		heartbeatTimer = new Timer("heartbeatTimer");
+		heartBeatTimerTask = new TimerTask() {
+			public void run() {
+				Log.d(TAG, "HeartBeat!");
+				Localizer localizer = Localizer.getLocalizer();
+				localizer.fireNotificationIfAllProvidersDisabled();
+				startLocationUpdateTimerOrChangeIfNeeded();
+				
+				Location location = localizer.getLocation();
+				if (location != null) {
+					sendPosition2Server();
+				} else {
+					Log.d(TAG, "No location fix -> Heartbeat not send");
+				}
+			}
+		};
+		
+		heartbeatTimer.scheduleAtFixedRate(heartBeatTimerTask, 2000, heartbeatMillis);
+	}
+		
+		
+	public void stopHeartBeatTimer()
+	{
+		if(heartbeatTimer != null)
+			heartbeatTimer.cancel();
+		if(heartBeatTimerTask != null)
+			heartBeatTimerTask.cancel();
+	}
+	
+	public static BackgroundService getBackgroundService()
+	{
+		return backgroundService;
 	}
 }

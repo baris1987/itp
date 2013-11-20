@@ -1,6 +1,6 @@
 package com.th.nuernberg.quakedetec.location;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 import android.content.Context;
 import android.location.Criteria;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.th.nuernberg.quakedetec.screens.DeviceMap;
 import com.th.nuernberg.quakedetec.screens.Info;
@@ -37,7 +38,7 @@ public class Localizer implements LocationListener {
 		}
 		else
 		{
-			this.fetchLocation();
+			this.updateLocation();
 		}
 	}
 
@@ -72,18 +73,16 @@ public class Localizer implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
-
-		if(location != null)
-		{
-			System.out.println("onLocationChanged: " + location.getProvider());
-			System.out.println("Accuaracy location: " + location.getAccuracy());
-		}
 		
-		// Wenn Genauigkeit von location schlechter als 3000 Meter
-		if(location.getAccuracy() > 3000 && location.getProvider().equals(LocationManager.NETWORK_PROVIDER))
+		if(location != null)
+			Toast.makeText(context, "Location fetched: " + location.getProvider() + "\nAccuracy: " + location.getAccuracy(), Toast.LENGTH_SHORT).show();
+		
+		// Wenn Genauigkeit von location schlechter als 3500 Meter
+		if(location.getAccuracy() > 3500 && location.getProvider().equals(LocationManager.NETWORK_PROVIDER))
 		{
 			locationManager.removeUpdates(this);
 			locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
+			Toast.makeText(context, "Single GPS request", Toast.LENGTH_SHORT).show();
 		}
 		
 		this.locationFromLastSignal = location;
@@ -96,12 +95,12 @@ public class Localizer implements LocationListener {
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		checkProviderEnabled();	
+		fireNotificationIfAllProvidersDisabled();	
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		checkProviderEnabled();
+		fireNotificationIfAllProvidersDisabled();
 	}
 
 	@Override
@@ -110,43 +109,67 @@ public class Localizer implements LocationListener {
 		
 	}
 	
-	public void fetchLocation()
+	public void updateLocation()
 	{
-		if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+		fireNotificationIfAllProvidersDisabled();
+		ArrayList<String> enabledProvider = getEnabledProvider();
+		
+		if(enabledProvider.contains(LocationManager.NETWORK_PROVIDER))
 		{
-			Looper myLooper = Looper.getMainLooper();
-	        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, myLooper);
-		    final Handler myHandler = new Handler(myLooper);
-		    myHandler.postDelayed(new Runnable() {
-		         public void run() {
-		             locationManager.removeUpdates(localizer);
-		         }
-		    }, 20000);
+			updateNetworkLocation();
 		}
-		else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) 
+		else if(enabledProvider.contains(LocationManager.GPS_PROVIDER)) 
 		{
-			Looper myLooper = Looper.getMainLooper();
-			locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, myLooper);
-		    final Handler myHandler = new Handler(myLooper);
-		    myHandler.postDelayed(new Runnable() {
-		         public void run() {
-		             locationManager.removeUpdates(localizer);
-		         }
-		    }, 30000);
+			updateGPSLocation();
 		}
 	}
 	
-	public boolean checkProviderEnabled()
-	{	 
-		if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+	private void updateNetworkLocation()
+	{
+		Looper myLooper = Looper.getMainLooper();
+	    locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, myLooper);
+		final Handler myHandler = new Handler(myLooper);
+		myHandler.postDelayed(new Runnable() {
+			public void run() {
+				locationManager.removeUpdates(localizer);
+		    }
+		}, 20000);
+	}
+	
+	private void updateGPSLocation()
+	{
+		Looper myLooper = Looper.getMainLooper();
+		locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, myLooper);
+	    final Handler myHandler = new Handler(myLooper);
+	    myHandler.postDelayed(new Runnable() {
+	         public void run() {
+	             locationManager.removeUpdates(localizer);
+	         }
+	    }, 30000);
+	}
+	
+	public ArrayList<String> getEnabledProvider()
+	{	
+		ArrayList<String> enabledProvider = new ArrayList<String>();
+		if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+			enabledProvider.add(LocationManager.GPS_PROVIDER);
+		if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+			enabledProvider.add(LocationManager.NETWORK_PROVIDER);
+		
+		return enabledProvider;
+	}
+	
+	public void fireNotificationIfAllProvidersDisabled()
+	{
+		ArrayList<String> enabledProvider = getEnabledProvider();
+		
+		if(enabledProvider.contains(LocationManager.NETWORK_PROVIDER) || enabledProvider.contains(LocationManager.GPS_PROVIDER))
 		{
 			NotificationsService.dismissLocationProviderDisabledNotification(context);
-			return true;
 		}
 		else
 		{
 			NotificationsService.sendLocationProviderDisabledNotification(context);
-			return false;
 		}
 	}
 	

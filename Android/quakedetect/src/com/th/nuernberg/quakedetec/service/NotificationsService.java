@@ -34,7 +34,7 @@ public class NotificationsService extends Application{
 			PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, 0);
 						
 			Notification notification  = new Notification.Builder(context)
-			        .setContentTitle("Standortbestimmung deaktiviert")
+			        .setContentTitle("QuakeDetec")
 			        .setContentText("Bitte Standortbestimmung aktivieren")
 			        .setSmallIcon(R.drawable.icon)
 			        .setContentIntent(pIntent)

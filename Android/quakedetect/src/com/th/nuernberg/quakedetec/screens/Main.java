@@ -17,6 +17,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.location.Localizer;
@@ -129,7 +130,7 @@ public class Main extends FragmentActivity implements
 	    // nicht besonders clean, aber momentan leider noch notwendig,
 	    // da bei manchen Starts der App die onStarts der verschiedenen Klassen zeitlich varieren
 	    if(Localizer.getLocalizer() != null)
-	    	Localizer.getLocalizer().checkProviderEnabled();
+	    	Localizer.getLocalizer().fireNotificationIfAllProvidersDisabled();
 	}
 	
 	@Override
@@ -139,7 +140,7 @@ public class Main extends FragmentActivity implements
 	    
 	    // Nochmal testen, ob benötigt
 	    if(Localizer.getLocalizer() != null)
-	    	Localizer.getLocalizer().checkProviderEnabled();
+	    	Localizer.getLocalizer().fireNotificationIfAllProvidersDisabled();
 	}
 	
 	@Override
@@ -179,7 +180,12 @@ public class Main extends FragmentActivity implements
 		{
 			currentFragment = deviceMap;
 			if(!deviceMap.isInitialized())
-				deviceMap.initMap();
+			{
+				deviceMap.updateCameraToLastKnownLocation();
+			}
+			
+			if(DeviceMap.getDeviceMap().getLastKnownLocation() == null)
+				Toast.makeText(this, "Kein Standort verfügbar", Toast.LENGTH_LONG).show();
 		}
 	}
 

@@ -60,8 +60,8 @@ public class Info extends Fragment {
 	private AccelerationBroadcastReceiver accelReceiver;
 	private boolean isAccelRecieverUnregistered = true;
 
-	BackgroundService mService;
-	boolean mBound = false;
+	private BackgroundService mService;
+	private boolean mBound = false;
 
 	private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -102,13 +102,10 @@ public class Info extends Fragment {
 		xySeries = getXYSeries();
 		getXYSeriesRenderer();
 
-		connectedDevices = (TextView) rootView
-				.findViewById(R.id.txt_connected_devices);
-		lastEarthquake = (TextView) rootView
-				.findViewById(R.id.txt_last_earthquake);
+		connectedDevices = (TextView) rootView.findViewById(R.id.txt_connected_devices);
+		lastEarthquake = (TextView) rootView.findViewById(R.id.txt_last_earthquake);
 		yourLocation = (TextView) rootView.findViewById(R.id.txt_your_location);
-		locationProvider = (TextView) rootView
-				.findViewById(R.id.txt_location_provider);
+		locationProvider = (TextView) rootView.findViewById(R.id.txt_location_provider);
 
 		this.geoCoder = new Geocoder(container.getContext());
 		// setLocationInfo();
@@ -119,11 +116,10 @@ public class Info extends Fragment {
 	@Override
 	public void onStart() {
 		Intent intent = new Intent(this.getActivity(), BackgroundService.class);
-		this.getActivity().bindService(intent, mConnection,
-				Context.BIND_AUTO_CREATE);
+		this.getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 		super.onStart();
 		if (Localizer.getLocalizer() != null)
-			Localizer.getLocalizer().checkProviderEnabled();
+			Localizer.getLocalizer().fireNotificationIfAllProvidersDisabled();
 	}
 
 	@Override
