@@ -87,7 +87,7 @@ public class DeviceMap extends Fragment {
 			}
 		});
 		
-		/*googleMap.setInfoWindowAdapter(new InfoWindowAdapter() {
+		googleMap.setInfoWindowAdapter(new InfoWindowAdapter() {
 
 	        @Override
 	        public View getInfoWindow(Marker arg0) {
@@ -113,7 +113,7 @@ public class DeviceMap extends Fragment {
 
 	            return view;
 	        }
-	    });*/
+	    });
 		
 		return rootView;
 	}
