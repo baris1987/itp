@@ -120,6 +120,9 @@ public class Main extends FragmentActivity implements
 	    super.onStart();
 	    appIsVisible = true;
 	    
+	    if(BackgroundService.getBackgroundService() != null)
+	    	BackgroundService.getBackgroundService().startLocationUpdateTimerOrChangeIfNeeded();
+	    
 	    // schreibt in die statische Variable currentFragment das Fragment, 
 	    // welches gerade angezeigt wird
 	    if(currentFragment.equals(info))
@@ -137,6 +140,9 @@ public class Main extends FragmentActivity implements
 	protected void onStop() {
 	    super.onStop();
 	    appIsVisible = false;
+	    
+	    if(BackgroundService.getBackgroundService() != null)
+	    	BackgroundService.getBackgroundService().startLocationUpdateTimerOrChangeIfNeeded();
 	    
 	    // Nochmal testen, ob benštigt
 	    if(Localizer.getLocalizer() != null)

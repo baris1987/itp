@@ -40,6 +40,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.th.nuernberg.quakedetec.acceleration.AccelSample;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
 import com.th.nuernberg.quakedetec.location.Localizer;
+import com.th.nuernberg.quakedetec.screens.Main;
 import com.th.nuernberg.quakedetec.screens.Settings;
 
 public class BackgroundService extends Service {
@@ -64,6 +65,7 @@ public class BackgroundService extends Service {
 	
 	private Timer locationNetworkUpdateTimer;
 	private TimerTask locationNetworkUpdateTimerTask;
+	private long networkTimerMillis;
 	
 	private Timer locationGpsUpdateTimer;
 	private TimerTask locationGpsUpdateTimerTask; 
@@ -475,9 +477,29 @@ public class BackgroundService extends Service {
 	{
 		ArrayList<String> enabledProvider = Localizer.getLocalizer().getEnabledProvider();
 		
+		boolean changeNetworkTimer = false;
+		
+		//check if appIsVisible and adjust networktimer
+		if(Main.appIsVisible())
+		{
+			if(networkTimerMillis != 30000)
+			{
+				networkTimerMillis = 30000;
+				changeNetworkTimer = true;
+			}
+		}
+		else
+		{
+			if(networkTimerMillis != 60000 * 5)
+			{
+				networkTimerMillis = 60000 * 5; // 5 Minuten
+				changeNetworkTimer = true;
+			}
+		}
+		
 		if(enabledProvider.contains(LocationManager.NETWORK_PROVIDER))
 		{
-			if(!runningLocationTimer.equals(LocationManager.NETWORK_PROVIDER))
+			if(!runningLocationTimer.equals(LocationManager.NETWORK_PROVIDER) || changeNetworkTimer)
 			{
 				stopLocationUpdateTimer();
 				
@@ -489,15 +511,16 @@ public class BackgroundService extends Service {
 						Localizer.getLocalizer().updateLocation();
 					}
 				};
-					
-				locationNetworkUpdateTimer.scheduleAtFixedRate(locationNetworkUpdateTimerTask, 20000, 30000);
+				
+				locationNetworkUpdateTimer.scheduleAtFixedRate(locationNetworkUpdateTimerTask, 20000, networkTimerMillis);
 				runningLocationTimer = LocationManager.NETWORK_PROVIDER;
 				
+				final long millis = networkTimerMillis;
 				Looper myLooper = Looper.getMainLooper();
 				final Handler myHandler = new Handler(myLooper);
 			    myHandler.postDelayed(new Runnable() {
 			         public void run() {
-			        	 Toast.makeText(context, "LocationProvider: Now using NETWORK", Toast.LENGTH_SHORT).show();
+			        	 Toast.makeText(context, "LocationProvider: Now using NETWORK\nInterval: " + millis, Toast.LENGTH_SHORT).show();
 			         }
 			    }, 0);				
 			}
