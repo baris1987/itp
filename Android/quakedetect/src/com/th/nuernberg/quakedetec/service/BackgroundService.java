@@ -51,8 +51,8 @@ public class BackgroundService extends Service {
 	private final IBinder binder = new BackgroundServiceBinder();
 	private static BackgroundService backgroundService;
 
-	private final int heartbeatMillis = (1000 * 600) - 30000; // alle 9:30 Minuten (+30s für updateLocation)
-	private static int locationGpsUpdateRequestsMillis = 1000 * 60; // alle 60 sek
+	private final int heartbeatMillis = 1000 * 600; // alle 10 Minuten
+	private static int locationGpsUpdateRequestsMillis = 1000 * 60; // jede Minute
 
 	private int isAlarm = 0;
 	private int isAlarmCycle = 0;
@@ -600,6 +600,7 @@ public class BackgroundService extends Service {
 			public void run() {
 				
 				localizer.updateLocation();
+				Log.d(TAG, "Locationupdate for HeartBeatTimer");
 				
 				//heartbeat um 30s verzögern um updateLocation abzuwarten
 				Looper myLooper = Looper.getMainLooper();
