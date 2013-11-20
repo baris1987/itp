@@ -7,7 +7,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -75,10 +74,8 @@ public class BackgroundService extends Service {
 	public static final String EXTRA_MESSAGE = "message";
 	public static final String PROPERTY_REG_ID = "registration_id";
 	private static final String PROPERTY_APP_VERSION = "appVersion";
-	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	private static final String SENDER_ID = "569992207546";
 	private GoogleCloudMessaging gcm;
-	private AtomicInteger msgId = new AtomicInteger();
 	private Context context;
 	private String regid;
 
