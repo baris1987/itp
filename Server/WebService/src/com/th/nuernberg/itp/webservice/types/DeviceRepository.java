@@ -25,7 +25,7 @@ public class DeviceRepository implements IPersistence {
 			return true;
 			
 		} catch (SQLException e) {
-			
+			System.out.println(e.getMessage());
 		}
 		
 		try {
@@ -33,7 +33,7 @@ public class DeviceRepository implements IPersistence {
 			return true;
 			
 		} catch (SQLException e) {
-			
+			System.out.println(e.getMessage());
 		}
 		
 		return false;

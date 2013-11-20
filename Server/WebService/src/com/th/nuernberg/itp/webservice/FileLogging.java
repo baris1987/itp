@@ -24,10 +24,15 @@ public class FileLogging implements ILogging {
 			
 			File file = new File(this.logFile);
 	
-			if(!file.exists()){
-					file.createNewFile();
+			if (!file.exists()){
+				file.createNewFile();
 			}
-	
+			
+			if (file.length() > 1024*200) {
+				file.delete(); 
+				file.createNewFile();
+			}
+
 			FileWriter fileWritter = new FileWriter(file.getName(), true);
 	        BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
 	        bufferWritter.write("\n" + message);

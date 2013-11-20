@@ -50,7 +50,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		
 		// Persist device with repository
 		DeviceRepository repository = new DeviceRepository();
-		repository.setPersister(this.persister);
+		repository.setPersister(this.persister);		
 		boolean success = repository.persist(device);
 		repository.destroy();
 

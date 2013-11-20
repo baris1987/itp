@@ -5,16 +5,12 @@ import java.util.Map.Entry;
 
 import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
-import com.th.nuernberg.quakedetec.location.Localizer;
 import com.th.nuernberg.quakedetec.service.BackgroundService;
 import com.th.nuernberg.quakedetec.service.NotificationsService;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
