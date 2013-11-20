@@ -51,7 +51,7 @@ public class BackgroundService extends Service {
 	private final IBinder binder = new BackgroundServiceBinder();
 	private static BackgroundService backgroundService;
 
-	private final int heartbeatMillis = 1000 * 600; // alle 10 Minuten
+	private final int heartbeatMillis = (1000 * 600) - 30000; // alle 9:30 Minuten (+30s fŸr updateLocation)
 	private static int locationGpsUpdateRequestsMillis = 1000 * 60; // alle 60 sek
 
 	private int isAlarm = 0;
@@ -515,12 +515,13 @@ public class BackgroundService extends Service {
 				locationNetworkUpdateTimer.scheduleAtFixedRate(locationNetworkUpdateTimerTask, 20000, networkTimerMillis);
 				runningLocationTimer = LocationManager.NETWORK_PROVIDER;
 				
-				final long millis = networkTimerMillis;
+				final long millis = networkTimerMillis / 1000;
+				
 				Looper myLooper = Looper.getMainLooper();
 				final Handler myHandler = new Handler(myLooper);
 			    myHandler.postDelayed(new Runnable() {
 			         public void run() {
-			        	 Toast.makeText(context, "LocationProvider: Now using NETWORK\nInterval: " + millis, Toast.LENGTH_SHORT).show();
+			        	 Toast.makeText(context, "LocationProvider: Now using NETWORK\nInterval: " + millis + "s", Toast.LENGTH_SHORT).show();
 			         }
 			    }, 0);				
 			}
@@ -597,17 +598,27 @@ public class BackgroundService extends Service {
 		heartbeatTimer = new Timer("heartbeatTimer");
 		heartBeatTimerTask = new TimerTask() {
 			public void run() {
-				Log.d(TAG, "HeartBeat!");
-				Localizer localizer = Localizer.getLocalizer();
-				localizer.fireNotificationIfAllProvidersDisabled();
-				startLocationUpdateTimerOrChangeIfNeeded();
 				
-				Location location = localizer.getLocation();
-				if (location != null) {
-					sendPosition2Server();
-				} else {
-					Log.d(TAG, "No location fix -> Heartbeat not send");
-				}
+				localizer.updateLocation();
+				
+				//heartbeat um 30s verzšgern um updateLocation abzuwarten
+				Looper myLooper = Looper.getMainLooper();
+				final Handler myHandler = new Handler(myLooper);
+			    myHandler.postDelayed(new Runnable() {
+			         public void run() {
+			        	Log.d(TAG, "HeartBeat!");
+						Localizer localizer = Localizer.getLocalizer();
+						localizer.fireNotificationIfAllProvidersDisabled();
+						startLocationUpdateTimerOrChangeIfNeeded();
+						
+						Location location = localizer.getLocation();
+						if (location != null) {
+							sendPosition2Server();
+						} else {
+							Log.d(TAG, "No location fix -> Heartbeat not send");
+						}
+			         }
+			    }, 30000);
 			}
 		};
 		
