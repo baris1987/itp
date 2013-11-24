@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.acceleration.AccelSample;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
 import com.th.nuernberg.quakedetec.location.Localizer;
@@ -88,6 +89,9 @@ public class BackgroundService extends Service {
 		super.onCreate();
 		
 		backgroundService = this;
+		
+		//Settings defaultwerte initialisieren
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		
 		Toast.makeText(this, "QuakeDetect Service Started", Toast.LENGTH_SHORT).show();
 		// GSM

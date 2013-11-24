@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.location.Address;
@@ -31,6 +32,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -149,6 +151,15 @@ public class Info extends Fragment {
 	}
 
 	private void initChartView(View rootView) {
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		String theme = sharedPrefs.getString("application_theme", String.valueOf(R.style.AppThemeHoloLightDarkActionBar));
+		renderer.setShowLabels(false);
+		if(theme.equals(String.valueOf(R.style.AppThemeHoloDark)))
+			renderer.setAxesColor(Color.WHITE);
+		else
+			renderer.setAxesColor(Color.BLACK);
+		
 		chartViewHolder = (LinearLayout) rootView.findViewById(R.id.chart);
 		view = ChartFactory.getTimeChartView(this.getActivity(), dataset,
 				renderer, "");

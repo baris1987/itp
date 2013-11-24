@@ -20,6 +20,9 @@
     <string name="set_location_update_intervall_summary">Je kürzer das Interval, desto genauer die Standortdaten. \nBei zu hohem Akkuverbrauch sollte das Interval länger gewählt werden.\nSie sollten auf jeden Fall in den Standorteinstellungen WLAN- und Mobilfunk-Standort aktivieren, da dieser sehr Energieeffizient ist und GPS nur genutzt wird, wenn WLAN- und Mobilfunknetz deaktiviert oder zu ungenau ist.</string>
     <string name="set_title_accelerometer">Beschleunigungssensor</string>
     <string name="set_accelerometer_rate">Sensorabtastrate</string>
+    <string name="theme_title">Aussehen</string>
+    <string name="application_theme_title">Theme</string>
+    <string name="application_theme_summary">Änderungen werden erst nach einem Neustart wirksam.</string>
     <string name="notification_title">Benachrichtigungseinstellungen</string>
     <string name="notification_sound_title">Ton</string>
     <string name="notification_sound_summary">Ton bei Benachrichtigungen</string>
@@ -30,7 +33,8 @@
     <string name="set_titel_server">Servereinstellungen</string>
     <string name="set_server_url">Server Adresse</string>
     <string name="set_server_port">Server Port</string>
-    
+    <string name="restore_title">Zurücksetzen</string>
+    <string name="application_restore_title">Standardeinstellungen wiederherstellen</string>
     
     
     <!-- TextViews -->    

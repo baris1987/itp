@@ -3,10 +3,13 @@ package com.th.nuernberg.quakedetec.screens;
 import java.util.Locale;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -42,12 +45,17 @@ public class Main extends FragmentActivity implements
 	private ViewPager mViewPager;
 	private DeviceMap deviceMap;
 	private Info info;
-	private OnSharedPreferenceChangeListener prefChangeListener;
+	
 	private static boolean appIsVisible = false;
 	private static Fragment currentFragment;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+	
+		this.setTheme(Integer.parseInt(sharedPreferences.getString("application_theme", "2131492866")));
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
@@ -58,7 +66,8 @@ public class Main extends FragmentActivity implements
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+		
+		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -87,16 +96,6 @@ public class Main extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-		
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		
-		prefChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-			  public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-				 Settings.setSettings(prefs, key);
-			  }
-		};
-
-		sharedPreferences.registerOnSharedPreferenceChangeListener(prefChangeListener);
 		
 		if(DeviceMap.getDeviceMap() != null)
 			deviceMap = DeviceMap.getDeviceMap();
@@ -165,6 +164,7 @@ public class Main extends FragmentActivity implements
 	        	Intent intent = new Intent();
 	            intent.setClass(Main.this, Settings.class);
 	            startActivityForResult(intent, 100); // intent SettingsActivity, requestCode 100
+	            
 	            return true;																	 
 	        default:																			 
 	            return super.onOptionsItemSelected(item);										
