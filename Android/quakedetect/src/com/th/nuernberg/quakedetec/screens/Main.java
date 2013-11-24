@@ -3,14 +3,14 @@ package com.th.nuernberg.quakedetec.screens;
 import java.util.Locale;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.graphics.drawable.ColorDrawable;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -49,9 +49,11 @@ public class Main extends FragmentActivity implements
 	private static boolean appIsVisible = false;
 	private static Fragment currentFragment;
 	
+	private static Context context;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+		context = this;
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 	
@@ -112,6 +114,8 @@ public class Main extends FragmentActivity implements
 			Info.setInfoActivity(info);
 		}
 		currentFragment = info;
+		
+		System.out.println("onCreate");
 	}
 
 	@Override
@@ -190,8 +194,17 @@ public class Main extends FragmentActivity implements
 				deviceMap.updateCameraToLastKnownLocation();
 			}
 			
-			if(DeviceMap.getDeviceMap().getLastKnownLocation() == null)
-				Toast.makeText(this, "Kein Standort verfügbar", Toast.LENGTH_LONG).show();
+			Looper myLooper = Looper.getMainLooper();
+			final Handler myHandler = new Handler(myLooper);
+		    myHandler.postDelayed(new Runnable() {
+		         public void run() 
+		         {
+		        	 if(DeviceMap.getDeviceMap().getLastKnownLocation() == null)
+		        	 {
+				       	 Toast.makeText(context, "Kein Standort verfügbar", Toast.LENGTH_LONG).show();
+		        	 }
+		         }
+		    }, 2000);
 		}
 	}
 

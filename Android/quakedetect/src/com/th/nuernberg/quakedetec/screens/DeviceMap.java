@@ -59,13 +59,13 @@ public class DeviceMap extends Fragment {
 		
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	
+		System.out.println("createView");
 		DeviceMap.inflater = inflater;
 		View rootView = inflater.inflate(R.layout.devicemap, container, false);
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity().getApplicationContext());
 		supportMapFragment = (SupportMapFragment) this.getFragmentManager().findFragmentById(R.id.google_map_fragment);
 		googleMap = supportMapFragment.getMap();
-		
+		deviceMap = this;
 		ImageButton mapTypeButton = (ImageButton) rootView.findViewById(R.id.map_type_button);
 		mapTypeButton.setBackgroundResource(android.R.drawable.ic_menu_mapmode);
 		
@@ -73,7 +73,7 @@ public class DeviceMap extends Fragment {
 		{
 			public void onClick(View v)
 			{
-				DeviceMap.deviceMap.showMapTypePopup(v);
+				DeviceMap.getDeviceMap().showMapTypePopup(v);
 			}
 		});
 		
@@ -83,7 +83,7 @@ public class DeviceMap extends Fragment {
 		{
 			public void onClick(View v)
 			{
-				DeviceMap.deviceMap.updateCameraToLastKnownLocation();
+				DeviceMap.getDeviceMap().updateCameraToLastKnownLocation();
 			}
 		});
 		

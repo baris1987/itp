@@ -2,42 +2,31 @@ package com.th.nuernberg.quakedetec.screens;
 
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.prefs.PreferenceChangeListener;
 
-import com.th.nuernberg.quakedetec.R;
-import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
-import com.th.nuernberg.quakedetec.service.BackgroundService;
-import com.th.nuernberg.quakedetec.service.NotificationsService;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.Toast;
+
+import com.th.nuernberg.quakedetec.R;
+import com.th.nuernberg.quakedetec.service.BackgroundService;
+import com.th.nuernberg.quakedetec.service.NotificationsService;
 
 
 // Activity for SettingsFragment
 
 public class Settings extends PreferenceActivity {
-	private static final String TAG = "QuakeDetecService";
-	
+
 	private OnSharedPreferenceChangeListener prefChangeListener;
 	
 	private static Settings settingsObject;
