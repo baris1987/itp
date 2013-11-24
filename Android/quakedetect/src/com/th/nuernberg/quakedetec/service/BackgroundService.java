@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.internal.ac;
 import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.acceleration.AccelSample;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
@@ -72,6 +73,8 @@ public class BackgroundService extends Service {
 	private TimerTask locationGpsUpdateTimerTask; 
 	
 	private String runningLocationTimer = "none";
+
+	
 
 	// GCM
 	public static final String EXTRA_MESSAGE = "message";
@@ -134,18 +137,12 @@ public class BackgroundService extends Service {
 		locationGpsUpdateRequestsMillis = (int) Long.parseLong(sharedPrefs.getString("locationupdates_interval", "30000"));
 		
 		localizer.updateLocation();
-		
-		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService( Context.CONNECTIVITY_SERVICE );
-	    NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
-		
+	    
 	    //Timer starten, wenn eine Internetverbindung besteht
-	    if(activeNetInfo != null)
+	    if(isInetConnected())
 	    {
-	    	if(activeNetInfo.isConnected())
-	    	{
-	    		startLocationUpdateTimerOrChangeIfNeeded();
-	    		startHeartBeatTimer();
-	    	}
+	    	startLocationUpdateTimerOrChangeIfNeeded();
+	    	startHeartBeatTimer();	
 	    }
 	    
 		// Settings initialisieren
@@ -501,60 +498,64 @@ public class BackgroundService extends Service {
 			}
 		}
 		
-		if(enabledProvider.contains(LocationManager.NETWORK_PROVIDER))
+		
+		if(isInetConnected())
 		{
-			if(!runningLocationTimer.equals(LocationManager.NETWORK_PROVIDER) || changeNetworkTimer)
+			if(enabledProvider.contains(LocationManager.NETWORK_PROVIDER))
 			{
-				stopLocationUpdateTimer();
-				
-				locationNetworkUpdateTimer = new Timer("locationNetworkUpdateTimer");
-				locationNetworkUpdateTimerTask = new TimerTask() {
-					public void run() {
-						Log.d(TAG, "run location timer for Network");
-						startLocationUpdateTimerOrChangeIfNeeded();
-						Localizer.getLocalizer().updateLocation();
-					}
-				};
-				
-				locationNetworkUpdateTimer.scheduleAtFixedRate(locationNetworkUpdateTimerTask, 20000, networkTimerMillis);
-				runningLocationTimer = LocationManager.NETWORK_PROVIDER;
-				
-				final long millis = networkTimerMillis / 1000;
-				
-				Looper myLooper = Looper.getMainLooper();
-				final Handler myHandler = new Handler(myLooper);
-			    myHandler.postDelayed(new Runnable() {
-			         public void run() {
-			        	 Toast.makeText(context, "LocationProvider: Now using NETWORK\nInterval: " + millis + "s", Toast.LENGTH_SHORT).show();
-			         }
-			    }, 0);				
+				if(!runningLocationTimer.equals(LocationManager.NETWORK_PROVIDER) || changeNetworkTimer)
+				{
+					stopLocationUpdateTimer();
+					
+					locationNetworkUpdateTimer = new Timer("locationNetworkUpdateTimer");
+					locationNetworkUpdateTimerTask = new TimerTask() {
+						public void run() {
+							Log.d(TAG, "run location timer for Network");
+							startLocationUpdateTimerOrChangeIfNeeded();
+							Localizer.getLocalizer().updateLocation();
+						}
+					};
+					
+					locationNetworkUpdateTimer.scheduleAtFixedRate(locationNetworkUpdateTimerTask, 20000, networkTimerMillis);
+					runningLocationTimer = LocationManager.NETWORK_PROVIDER;
+					
+					final long millis = networkTimerMillis / 1000;
+					
+					Looper myLooper = Looper.getMainLooper();
+					final Handler myHandler = new Handler(myLooper);
+				    myHandler.postDelayed(new Runnable() {
+				         public void run() {
+				        	 Toast.makeText(context, "LocationProvider: Now using NETWORK\nInterval: " + millis + "s", Toast.LENGTH_SHORT).show();
+				         }
+				    }, 0);				
+				}
 			}
-		}
-		else if(enabledProvider.contains(LocationManager.GPS_PROVIDER))
-		{
-			if(!runningLocationTimer.equals(LocationManager.GPS_PROVIDER))
+			else if(enabledProvider.contains(LocationManager.GPS_PROVIDER))
 			{
-				stopLocationUpdateTimer();
-								
-				locationGpsUpdateTimer = new Timer("locationGpsUpdateTimer");
-				locationGpsUpdateTimerTask = new TimerTask() {
-					public void run() {
-						Log.d(TAG, "Run location timer for GPS");
-						startLocationUpdateTimerOrChangeIfNeeded();
-						Localizer.getLocalizer().updateLocation();
-					}
-				};
-				
-				locationGpsUpdateTimer.scheduleAtFixedRate(locationGpsUpdateTimerTask, 20000, locationGpsUpdateRequestsMillis);
-				runningLocationTimer = LocationManager.GPS_PROVIDER;
-				
-				Looper myLooper = Looper.getMainLooper();
-				final Handler myHandler = new Handler(myLooper);
-			    myHandler.postDelayed(new Runnable() {
-			         public void run() {
-			        	 Toast.makeText(context, "LocationProvider: Now using GPS", Toast.LENGTH_SHORT).show();
-			         }
-			    }, 0);
+				if(!runningLocationTimer.equals(LocationManager.GPS_PROVIDER))
+				{
+					stopLocationUpdateTimer();
+									
+					locationGpsUpdateTimer = new Timer("locationGpsUpdateTimer");
+					locationGpsUpdateTimerTask = new TimerTask() {
+						public void run() {
+							Log.d(TAG, "Run location timer for GPS");
+							startLocationUpdateTimerOrChangeIfNeeded();
+							Localizer.getLocalizer().updateLocation();
+						}
+					};
+					
+					locationGpsUpdateTimer.scheduleAtFixedRate(locationGpsUpdateTimerTask, 20000, locationGpsUpdateRequestsMillis);
+					runningLocationTimer = LocationManager.GPS_PROVIDER;
+					
+					Looper myLooper = Looper.getMainLooper();
+					final Handler myHandler = new Handler(myLooper);
+				    myHandler.postDelayed(new Runnable() {
+				         public void run() {
+				        	 Toast.makeText(context, "LocationProvider: Now using GPS", Toast.LENGTH_SHORT).show();
+				         }
+				    }, 0);
+				}
 			}
 		}
 	}
@@ -611,17 +612,20 @@ public class BackgroundService extends Service {
 				final Handler myHandler = new Handler(myLooper);
 			    myHandler.postDelayed(new Runnable() {
 			         public void run() {
-			        	Log.d(TAG, "HeartBeat!");
-						Localizer localizer = Localizer.getLocalizer();
-						localizer.fireNotificationIfAllProvidersDisabled();
-						startLocationUpdateTimerOrChangeIfNeeded();
-						
-						Location location = localizer.getLocation();
-						if (location != null) {
-							sendPosition2Server();
-						} else {
-							Log.d(TAG, "No location fix -> Heartbeat not send");
-						}
+			        	 if(isInetConnected())
+			        	 {
+				        	Log.d(TAG, "HeartBeat!");
+							Localizer localizer = Localizer.getLocalizer();
+							localizer.fireNotificationIfAllProvidersDisabled();
+							startLocationUpdateTimerOrChangeIfNeeded();
+							
+							Location location = localizer.getLocation();
+							if (location != null) {
+								sendPosition2Server();
+							} else {
+								Log.d(TAG, "No location fix -> Heartbeat not send");
+							}
+			        	 }
 			         }
 			    }, 30000);
 			}
@@ -637,6 +641,20 @@ public class BackgroundService extends Service {
 			heartbeatTimer.cancel();
 		if(heartBeatTimerTask != null)
 			heartBeatTimerTask.cancel();
+	}
+	
+	public boolean isInetConnected()
+	{
+		ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService( Context.CONNECTIVITY_SERVICE );
+	    NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+	    if(activeNetInfo != null)
+	    {
+	    	return activeNetInfo.isConnected();
+	    }
+	    else
+	    {
+	    	return false;
+	    }
 	}
 	
 	public static BackgroundService getBackgroundService()
