@@ -30,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 // Activity for SettingsFragment
@@ -224,6 +225,12 @@ public class Settings extends PreferenceActivity {
 		Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
+		Context context = getApplicationContext();
+		CharSequence text = "Die Einstellungen wurden auf die Standardwerte zurückgesetzt!";
+		int duration = Toast.LENGTH_SHORT;
+
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
 	}
 	
 	public static Settings getSettingsObject()
