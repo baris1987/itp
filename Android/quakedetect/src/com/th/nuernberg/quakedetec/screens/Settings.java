@@ -225,8 +225,12 @@ public class Settings extends PreferenceActivity {
 		Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
-		
-		Toast.makeText(this, "Die Einstellungen wurden auf die Standardwerte zurückgesetzt!", Toast.LENGTH_SHORT).show();
+		Context context = getApplicationContext();
+		CharSequence text = "Die Einstellungen wurden auf die Standardwerte zurückgesetzt!";
+		int duration = Toast.LENGTH_SHORT;
+
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
 	}
 	
 	public static Settings getSettingsObject()
