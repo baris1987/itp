@@ -1,6 +1,8 @@
 package com.th.nuernberg.quakedetec.location;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.content.Context;
 import android.location.Criteria;
@@ -167,6 +169,21 @@ public class Localizer implements LocationListener {
 		else
 		{
 			NotificationsService.sendLocationProviderDisabledNotification(context);
+			
+			final Timer providerDisabledTimer = new Timer("locationNetworkUpdateTimer");
+			TimerTask providerDisabledTimerTask = new TimerTask() {
+				public void run() {
+					ArrayList<String> enabledProvider = getEnabledProvider();
+					if(enabledProvider.contains(LocationManager.NETWORK_PROVIDER) || enabledProvider.contains(LocationManager.GPS_PROVIDER))
+					{
+						NotificationsService.dismissLocationProviderDisabledNotification(context);
+						providerDisabledTimer.cancel();
+						this.cancel();
+					}
+				}
+			};
+			
+			providerDisabledTimer.scheduleAtFixedRate(providerDisabledTimerTask, 0, 10000);
 		}
 	}
 	
