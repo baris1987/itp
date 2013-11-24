@@ -226,7 +226,7 @@ public class Settings extends PreferenceActivity {
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 		
-		Toast.makeText(this, "Standardardeinstellungen wiederhergestellt!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Die Einstellungen wurden auf die Standardwerte zurückgesetzt!", Toast.LENGTH_SHORT).show();
 	}
 	
 	public static Settings getSettingsObject()
