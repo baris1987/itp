@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App Basics -->
+    <string name="app_name">QuakeDetec</string>
+    
+    <!-- Actionbar Menu -->
+    <string name="action_settings">Settings</string>
+    <string name="reset_settings">Reset settings</string>
+    
+    <string name="sec_1">Info</string>
+    <string name="sec_2">Map</string>
+    
+    
+    <!-- Einstellungen -->
+    <string name="set_title_map">Map</string>
+    <string name="set_maptype">Default</string>
+    <string name="set_title_location">Location</string>
+    <string name="set_location_update_intervall">Refresh intervall for GPS</string>
+    <string name="set_location_update_intervall_summary">The shorter the intervall the better the location data. \nIf your Battery consumtion is too high, you can choose a smaller intervall.</string>
+    <string name="set_title_accelerometer">Accelerometer</string>
+    <string name="set_accelerometer_rate">Accelerometer rate</string>
+    <string name="theme_title">Style</string>
+    <string name="application_theme_title">Theme</string>
+    <string name="application_theme_summary">Changes require a restart</string>
+    <string name="notification_title">Notification settings</string>
+    <string name="notification_sound_title">Sound</string>
+    <string name="notification_sound_summary">Notification with sound</string>
+    <string name="notification_vibrate_title">Vibration</string>
+    <string name="notification_vibrate_summary">Notification with vibration</string>
+    <string name="notification_led_title">LED</string>
+    <string name="notification_led_summary">Notification with LED</string>
+    <string name="set_titel_server">Server settings</string>
+    <string name="set_server_url">Server Address</string>
+    <string name="set_server_port">Server Port</string>
+    <string name="restore_title">Reset</string>
+    <string name="application_restore_title">Restore default settings</string>
+    
+    <string name="settings_changedTheme">Theme changed!</string>
+    <string name="settings_restart">Restart!</string>
+    <string name="settings_reset">Applikation will reset!</string>
+    <string name="settings_reset_sure">Are you sure that you want to reset the default settings?\nThe applikation will require a restart after the reset.</string>
+
+    
+    <!-- TextViews -->    
+    <string name="tv_info_webservice_url">WebService URL:</string>
+    <string name="tv_info_connected_devices">Connected devices:</string>
+    <string name="tv_info_last_earthquake">Last detected earthquake:</string>
+    <string name="tv_info_location">Position:</string>
+    <string name="tv_info_location_provider">Location provider:</string>
+    <string name="tv_info_accelerometer">Accelerometer:</string>
+	
+     <!-- Button --> 
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Cancel</string>
+      
+     <!-- ImageButton -->  
+     <string name="my_location_button_description">My Location Button</string>
+	 <string name="map_type_button_description">MapType Button</string> 
+	 
+	 <!-- MapTypes -->
+	 <string name="maptype_normal">Normal</string>
+	 <string name="maptype_satellite">Satellit</string>
+	 <string name="maptype_terrain">Terrain</string>
+	 <string name="maptype_hybrid">Hybrid</string>
+	 
+	 <!-- Toast -->
+	  <string name="toast_noLocation">No location available</string>
+	  <string name="toast_resetSettings">Restored default settings!</string>
+</resources>

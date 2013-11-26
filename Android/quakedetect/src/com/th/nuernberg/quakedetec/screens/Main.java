@@ -7,7 +7,6 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -201,7 +200,7 @@ public class Main extends FragmentActivity implements
 		         {
 		        	 if(DeviceMap.getDeviceMap().getLastKnownLocation() == null)
 		        	 {
-				       	 Toast.makeText(context, "Kein Standort verfügbar", Toast.LENGTH_LONG).show();
+				       	 Toast.makeText(context, context.getResources().getString(R.string.toast_noLocation), Toast.LENGTH_LONG).show();
 		        	 }
 		         }
 		    }, 2000);

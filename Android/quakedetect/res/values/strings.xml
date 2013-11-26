@@ -36,6 +36,11 @@
     <string name="restore_title">Zurücksetzen</string>
     <string name="application_restore_title">Standardeinstellungen wiederherstellen</string>
     
+    <string name="settings_changedTheme">Das Theme wurde geändert!</string>
+    <string name="settings_restart">Neustart wird durchgeführt!</string>
+    <string name="settings_reset">Applikation wird zurückgesetzt!</string>
+    <string name="settings_reset_sure">Sind Sie sicher, dass die Einstellungen zurückgesetzt werden sollen?\nDie Applikation wird nach dem Reset automatisch neugestartet.</string>
+
     
     <!-- TextViews -->    
     <string name="tv_info_webservice_url">WebService URL:</string>
@@ -46,6 +51,8 @@
     <string name="tv_info_accelerometer">Beschleunigungssensor:</string>
 	
      <!-- Button --> 
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Abbrechen</string>
       
      <!-- ImageButton -->  
      <string name="my_location_button_description">My Location Button</string>
@@ -56,4 +63,8 @@
 	 <string name="maptype_satellite">Satellit</string>
 	 <string name="maptype_terrain">Terrain</string>
 	 <string name="maptype_hybrid">Hybrid</string>
+	 
+	 <!-- Toast -->
+	  <string name="toast_noLocation">Kein Standort verfügbar</string>
+	  <string name="toast_resetSettings">Standardardeinstellungen wiederhergestellt!</string>
 </resources>

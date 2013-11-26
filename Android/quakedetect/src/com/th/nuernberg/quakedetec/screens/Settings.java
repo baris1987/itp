@@ -51,12 +51,12 @@ public class Settings extends PreferenceActivity {
 				 {
 					 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Settings.getSettingsObject());
 					
-					 alertDialogBuilder.setTitle("Das Theme wurde geändert!");
+					 alertDialogBuilder.setTitle(getResources().getString(R.string.settings_changedTheme));
 							
 					 alertDialogBuilder
-					 	.setMessage("Neustart wird durchgeführt!")
+					 	.setMessage(getResources().getString(R.string.settings_restart))
 						.setCancelable(false)
-						.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+						.setPositiveButton(getResources().getString(R.string.btn_ok),new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) 
 							{
 								Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
@@ -105,12 +105,12 @@ public class Settings extends PreferenceActivity {
 	             public boolean onPreferenceClick(Preference preference) {
 	            	 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Settings.getSettingsObject());
 						
-					 alertDialogBuilder.setTitle("Applikation wird zurückgesetzt!");
+					 alertDialogBuilder.setTitle(getResources().getString(R.string.settings_reset));
 							
 					 alertDialogBuilder
-					 	.setMessage("Möchten Sie die Standarteinstellungen wiederherstellen? \n(Applikation wird neugestartet!)")
+					 	.setMessage(getResources().getString(R.string.settings_reset_sure))
 						.setCancelable(false)
-						.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+						.setPositiveButton(getResources().getString(R.string.btn_ok),new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) 
 							{
 								isRestore = true;
@@ -118,7 +118,7 @@ public class Settings extends PreferenceActivity {
 							}
 						});
 					 
-					 alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					 alertDialogBuilder.setNegativeButton(getResources().getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) 
 							{
 								//dialog.cancel();
@@ -195,12 +195,6 @@ public class Settings extends PreferenceActivity {
 		restartApp();																	// öffnet Settings Activity neu
 	}
 	
-	
-	// Hilfsfunktion für resetPreferencesToDefault
-	// Workaround von http://www.devlog.en.alt-area.org/?p=1209 um das Display zu
-	// refreshen, ohne werden zwar die Werte auf die Standardwerte gesetzt,
-	// man müsste aber erst in eine andere Activity, bevor man in Settings eine
-	// Auswirkung erkennt
 	public void restartThis() {
 		Intent intent = getIntent();
 		//overridePendingTransition(0, 0);
@@ -215,7 +209,7 @@ public class Settings extends PreferenceActivity {
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 		
-		Toast.makeText(this, "Standardardeinstellungen wiederhergestellt!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, this.getResources().getString(R.string.toast_resetSettings), Toast.LENGTH_SHORT).show();
 	}
 	
 	public static Settings getSettingsObject()
