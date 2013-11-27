@@ -195,8 +195,6 @@ public class DeviceMap extends Fragment {
 		Intent intent = new Intent(this.getActivity(), BackgroundService.class);
 		this.getActivity().bindService(intent, mConnection,	Context.BIND_AUTO_CREATE);
 		super.onStart();
-		System.out.println("onStart");
-		System.out.println(initialized);
 	}
 
 	@Override
@@ -207,8 +205,6 @@ public class DeviceMap extends Fragment {
 			this.getActivity().unbindService(mConnection);
 			mBound = false;
 		}
-		
-		System.out.println("onStop");
 	}
 	
 	
