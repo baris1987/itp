@@ -165,8 +165,6 @@ public class DeviceMap extends Fragment {
 		
 		googleMap.setOnCameraChangeListener(googleCameraChangeListener);
 		
-		fetchDeviceListFromServer();
-		
 		return rootView;
 	}
 	
@@ -265,7 +263,7 @@ public class DeviceMap extends Fragment {
 		return devicePosis;
 	}
 	
-	private void addDeviceMarkerToMap(ArrayList<JSONObject> deviceJSONObjects)
+	public void addDeviceMarkerToMap(ArrayList<JSONObject> deviceJSONObjects)
 	{
 		ProgressBar progressBar = (ProgressBar) DeviceMap.getDeviceMap().getActivity().findViewById(R.id.progress_bar);
 		ArrayList<LatLng> devicePostions = new ArrayList<LatLng>(deviceJSONObjects.size());
@@ -495,55 +493,5 @@ public class DeviceMap extends Fragment {
 			if(devicePosis.size() > 0)
 				new CreateAndAddMarkerTask(devicePosis, progressBar, progressStatus).execute();
 	    }
-	}
-	
-	private void fetchDeviceListFromServer()
-	{
-		if(Main.appIsVisible())
-		{
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(DeviceMap.getDeviceMap().getActivity());
-						
-						String serverUrl = prefs.getString("server_url", "");
-						String serverPort = prefs.getString("server_port", "8088");
-					
-						String requestUrl = String.format("http://%s:%s/itp/device/list/", serverUrl, serverPort);
-						
-						HttpClient client = new DefaultHttpClient();
-						HttpGet request = new HttpGet();
-						request.setURI(new URI(requestUrl));
-						HttpResponse response = client.execute(request);
-						BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-						StringBuffer sb = new StringBuffer("");
-						String l = "";
-						while ((l = in.readLine()) != null) {
-							sb.append(l);
-						}
-						in.close();
-						String data = sb.toString();
-						
-						JSONObject completeDataJSON = (JSONObject) new JSONTokener(data).nextValue();
-						String completeData = completeDataJSON.getString("data");
-						
-						JSONArray jsonArray = (JSONArray) new JSONTokener(completeData).nextValue();
-						
-						ArrayList<JSONObject> deviceJSONObjects = new ArrayList<JSONObject>(jsonArray.length());
-						
-						for(int i = 0; i < jsonArray.length(); i++)
-						{
-							JSONObject device = jsonArray.getJSONObject(i);
-							deviceJSONObjects.add(device);
-						}
-						addDeviceMarkerToMap(deviceJSONObjects);
-					} catch (Exception e)
-					{
-						e.printStackTrace();
-					}
-				}
-			}).start();
-		}
 	}
 }

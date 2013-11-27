@@ -1,6 +1,18 @@
 package com.th.nuernberg.quakedetec.screens;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.Locale;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -99,6 +111,7 @@ public class Main extends FragmentActivity implements
 					.setTabListener(this));
 		}
 		
+		
 		if(DeviceMap.getDeviceMap() != null)
 			deviceMap = DeviceMap.getDeviceMap();
 		else
@@ -114,6 +127,9 @@ public class Main extends FragmentActivity implements
 			Info.setInfoActivity(info);
 		}
 		currentFragment = info;
+		
+		appIsVisible = true;
+		fetchDeviceListFromServer();
 	}
 
 	@Override
@@ -276,6 +292,58 @@ public class Main extends FragmentActivity implements
 				return getString(R.string.sec_2).toUpperCase(l);
 			}
 			return null;
+		}
+	}
+	
+	private void fetchDeviceListFromServer()
+	{
+		if(appIsVisible)
+		{
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Main.context);
+						
+						String serverUrl = prefs.getString("server_url", "");
+						String serverPort = prefs.getString("server_port", "8088");
+					
+						String requestUrl = String.format("http://%s:%s/itp/device/list/", serverUrl, serverPort);
+						
+						HttpClient client = new DefaultHttpClient();
+						HttpGet request = new HttpGet();
+						request.setURI(new URI(requestUrl));
+						HttpResponse response = client.execute(request);
+						BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+						StringBuffer sb = new StringBuffer("");
+						String l = "";
+						while ((l = in.readLine()) != null) {
+							sb.append(l);
+						}
+						
+						in.close();
+						String data = sb.toString();
+						
+						JSONObject completeDataJSON = (JSONObject) new JSONTokener(data).nextValue();
+						String completeData = completeDataJSON.getString("data");
+						
+						JSONArray jsonArray = (JSONArray) new JSONTokener(completeData).nextValue();
+						
+						ArrayList<JSONObject> deviceJSONObjects = new ArrayList<JSONObject>(jsonArray.length());
+						
+						for(int i = 0; i < jsonArray.length(); i++)
+						{
+							JSONObject device = jsonArray.getJSONObject(i);
+							deviceJSONObjects.add(device);
+						}
+						info.setConnectedDevicesTextView(deviceJSONObjects.size());
+						deviceMap.addDeviceMarkerToMap(deviceJSONObjects);
+					} catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+				}
+			}).start();
 		}
 	}
 }

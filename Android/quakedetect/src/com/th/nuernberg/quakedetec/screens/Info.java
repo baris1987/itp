@@ -257,6 +257,18 @@ public class Info extends Fragment {
 		}
 	}
 
+	public void setConnectedDevicesTextView(int count)
+	{
+		final String strCount = String.valueOf(count);
+		this.getActivity().runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Info.getInfo().connectedDevices.setText(strCount);
+			}
+		});
+	}
+	
 	public static Info getInfo() {
 		return Info.info;
 	}
