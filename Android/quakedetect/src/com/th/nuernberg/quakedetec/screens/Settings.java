@@ -35,10 +35,11 @@ public class Settings extends PreferenceActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		this.setTheme(Integer.parseInt(sharedPreferences.getString("application_theme", String.valueOf(R.style.AppThemeHoloLightDarkActionBar))));
 		
-		super.onCreate(savedInstanceState);
 		getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
 		getActionBar().setDisplayHomeAsUpEnabled(true); // adds Backbutton to the ActionBar
 		

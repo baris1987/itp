@@ -73,6 +73,7 @@
         </CheckBoxPreference>
 	</PreferenceCategory>
 	
+	<!-- Theme setzen mit momentaner google play services library nicht möglich, daher auskommentiert
 	<PreferenceCategory
         android:title="@string/theme_title"
         android:key="theme">
@@ -85,7 +86,7 @@
             android:entryValues="@array/themesValues"
             android:summary="@string/application_theme_summary"
         />  
-	</PreferenceCategory>
+	</PreferenceCategory> -->
 	
 	<PreferenceCategory android:title="@string/set_titel_server" android:key="server">
 		<EditTextPreference android:title="@string/set_server_url" android:key="server_url" android:defaultValue="api.itpws.tk"/>

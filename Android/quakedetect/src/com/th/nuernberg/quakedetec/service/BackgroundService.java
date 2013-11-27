@@ -82,7 +82,7 @@ public class BackgroundService extends Service {
 	private static final String SENDER_ID = "569992207546";
 	private GoogleCloudMessaging gcm;
 	private Context context;
-	private String regid;
+	private static String regid;
 
 	// END GSM
 
@@ -127,7 +127,6 @@ public class BackgroundService extends Service {
 		accelReceiver = new AccelerationBroadcastReceiver();
 		registerReceiver(accelReceiver, accelFilter);
 		sendPosition2Server();
-
 		// Geräte beim Server regestrieren mit Positionsangabe
 
 		
@@ -164,14 +163,11 @@ public class BackgroundService extends Service {
 						lat = location.getLatitude();
 						lon = location.getLongitude();
 					}
-					final SharedPreferences prefs = PreferenceManager
-							.getDefaultSharedPreferences(context);
+					final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 					String serverUrl = prefs.getString("server_url", "");
 					String serverPort = prefs.getString("server_port", "8088");
 
-					String requestUrl = String.format(
-							"http://%s:%s/itp/device/register/%s/%s/%s",
-							serverUrl, serverPort, regid, lat, lon);
+					String requestUrl = String.format("http://%s:%s/itp/device/register/%s/%s/%s", serverUrl, serverPort, regid, lat, lon);
 					Log.d(TAG, "Start server request: " + requestUrl);
 					HttpClient client = new DefaultHttpClient();
 					HttpPut request = new HttpPut();
@@ -260,7 +256,7 @@ public class BackgroundService extends Service {
 			}
 		}).start();
 	}
-
+		
 	/**
 	 * Check the device to make sure it has the Google Play Services APK. If it
 	 * doesn't, display a dialog that allows users to download the APK from the
@@ -323,7 +319,12 @@ public class BackgroundService extends Service {
 		}
 		return registrationId;
 	}
-
+	
+	public static String getRegistrationId()
+	{
+		return regid;
+	}
+	
 	/**
 	 * Registers the application with GCM servers asynchronously.
 	 * <p>

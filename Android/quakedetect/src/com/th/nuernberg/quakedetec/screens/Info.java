@@ -11,13 +11,6 @@ import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-import com.th.nuernberg.quakedetec.R;
-import com.th.nuernberg.quakedetec.acceleration.AccelSample;
-import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
-import com.th.nuernberg.quakedetec.location.Localizer;
-import com.th.nuernberg.quakedetec.service.BackgroundService;
-import com.th.nuernberg.quakedetec.service.BackgroundService.BackgroundServiceBinder;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -39,6 +32,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.th.nuernberg.quakedetec.R;
+import com.th.nuernberg.quakedetec.acceleration.AccelSample;
+import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
+import com.th.nuernberg.quakedetec.location.Localizer;
+import com.th.nuernberg.quakedetec.service.BackgroundService;
+import com.th.nuernberg.quakedetec.service.BackgroundService.BackgroundServiceBinder;
 
 public class Info extends Fragment {
 

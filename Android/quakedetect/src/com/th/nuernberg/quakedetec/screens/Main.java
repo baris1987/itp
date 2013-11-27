@@ -54,11 +54,12 @@ public class Main extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		context = this;
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-	
-		this.setTheme(Integer.parseInt(sharedPreferences.getString("application_theme", "2131492866")));
 		
 		super.onCreate(savedInstanceState);
+		
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		this.setTheme(Integer.parseInt(sharedPreferences.getString("application_theme", "2131492866")));
+		
 		setContentView(R.layout.main);
 		
 		Intent service = new Intent(this,BackgroundService.class);
@@ -113,8 +114,6 @@ public class Main extends FragmentActivity implements
 			Info.setInfoActivity(info);
 		}
 		currentFragment = info;
-		
-		System.out.println("onCreate");
 	}
 
 	@Override
@@ -190,7 +189,7 @@ public class Main extends FragmentActivity implements
 			currentFragment = deviceMap;
 			if(!deviceMap.isInitialized())
 			{
-				deviceMap.updateCameraToLastKnownLocation();
+				deviceMap.updateCameraToLastKnownLocation(12);
 			}
 			
 			Looper myLooper = Looper.getMainLooper();
