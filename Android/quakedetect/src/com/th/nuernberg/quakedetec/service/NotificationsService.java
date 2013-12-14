@@ -74,7 +74,7 @@ public class NotificationsService extends Application{
 				alertDialogBuilder
 					.setMessage("Bitte aktivieren Sie die Standortbestimmung")
 					.setCancelable(false)
-					.setPositiveButton("Öffnen",new DialogInterface.OnClickListener() {
+					.setPositiveButton("…ffnen",new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,int id) {
 							// if this button is clicked, close
 							// current activity
