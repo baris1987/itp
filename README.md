@@ -2,14 +2,8 @@ IT Projekt
 ===
 
 ##Dokumente
-Alle Dokumente sind im folgenden Google Docs Verzeichnis zu finden. Die Dokumente kann jeder ohne Einschränkung ändern, auch ohne Google Account.
-Link: https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sharing.
-
-##RESTful Web Service
-Eine Dokumentation zum Web Service ist zu finden unter https://docs.google.com/document/d/12nlCI590x0oPD-HcsK96C4woCqhKLvPaGi8sBnw4bIg/edit
-
-##GMC CLoud Connection Server (XMPP)
-Eine Dokumentation zum Serverteil des GMC ist unter http://developer.android.com/google/gcm/ccs.html zu finden
+Alle Dokumente sind im folgenden Google Drive Verzeichnis zu finden. Der Zugriff wird jedem über seine E-Mail Adresse erlaubt, d. h. nur über diese E-Mail Adresse kann das Google Drive Verzeichnis aufgerufen werden.
+* https://drive.google.com/folderview?id=0B7ABUEVnTXzXNUhQZXI2anZQUjA&usp=sharing.
 
 ##Links
 Nützliche Links für das IT Projekt sind:
