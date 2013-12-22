@@ -14,8 +14,8 @@ public interface IWebServiceDevice {
 	String meta(String identifier);
 	
 	// Detect earth quake and send broadcast
-	String broadcast(String message, double latitude, double longitude);
+	String analyze(double latitude, double longitude);
 	
 	// Statistics 
-	String stats();
+	String statistics();
 }

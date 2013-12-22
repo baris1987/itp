@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.th.nuernberg.itp.webservice.interfaces.IAndroidDevice;
 import com.th.nuernberg.itp.webservice.interfaces.IDatabase;
 import com.th.nuernberg.itp.webservice.interfaces.IDevice;
 import com.th.nuernberg.itp.webservice.interfaces.IPersistence;
@@ -71,7 +72,62 @@ public class DeviceRepository implements IPersistence {
 		return device;
 	}
 	
-	public List<IDevice> getAroundDevices(int maxDistanceKm, int timeoutSeconds, double latitude, double longitude) {
+	public double getDetectionRatio(int searchDistanceKm, int hasSentAlarmSeconds, double latitude, double longitude) {
+
+		try {
+			ResultSet results = this.persister.get("  SELECT sum(CONVERT(hassentalarm, DOUBLE)) / CONVERT(count(*), DOUBLE) as ratio FROM ( " + 
+														"SELECT d.*, " + 
+														       "NVL( " + 
+														             "(SELECT CASE WHEN datediff('SECOND', activity, CURRENT_TIMESTAMP()) < "+hasSentAlarmSeconds+" THEN 1 ELSE 0 END  " + 
+														             " FROM itp.t_notification " + 
+														             " WHERE fk_deviceid = pk_deviceid " + 
+														            "  ORDER BY activity DESC LIMIT 1), 0) hassentalarm " + 
+														"FROM " + 
+														 " (SELECT pk_deviceid,  " + 
+																 " (6371 * acos(cos(radians("+longitude+")) * cos(radians(latitude)) * cos(radians(longitude) - radians("+latitude+")) + sin(radians("+longitude+")) * sin(radians(latitude)))) AS distance " + 
+														  " FROM itp.t_device " + 
+														  " GROUP BY pk_deviceid, " + 
+														           " latitude, " + 
+														           " longitude HAVING distance < "+ searchDistanceKm +
+														" ) d) t ");
+
+			results.next();
+			return Double.parseDouble(results.getString(1));
+		
+		} catch (SQLException e) {
+			return 0.0;
+		}
+	}
+	
+	public List<IAndroidDevice> getNotifyDevices(int notifyDistanceKm, int notifyTimeoutSeconds, double latitude, double longitude) {
+		List<IAndroidDevice> deviceList = new ArrayList<IAndroidDevice>();
+		
+		try {
+			ResultSet results = this.persister.get("  SELECT d.identifier, d.sendnotify FROM (SELECT pk_deviceid, " + 
+											                    "identifier, " + 
+													  "(6371 * acos(cos(radians("+longitude+")) * cos(radians(latitude)) * cos(radians(longitude) - radians("+latitude+")) + sin(radians("+longitude+")) * sin(radians(latitude)))) AS distance,  " + 
+											                  "(CASE WHEN datediff('SECOND', notification, CURRENT_TIMESTAMP()) < "+ notifyTimeoutSeconds +" THEN 1 ELSE 0 END) sendnotify " + 
+											   "FROM itp.t_device " + 
+											   "GROUP BY pk_deviceid, " + 
+											            "latitude, " + 
+											           " longitude HAVING distance < "+notifyDistanceKm + 
+											" ) d " +
+											" WHERE sendnotify = 1 ");
+
+			while (results.next()) {
+				AndroidDevice device = new AndroidDevice();
+				device.setIdentifier(results.getString(1));
+				deviceList.add(device);
+			}
+		
+		} catch (SQLException e) {
+			return deviceList;
+		}
+		
+		return deviceList;
+	}
+	
+	/*public List<IDevice> __getAroundDevices(int maxDistanceKm, int timeoutSeconds, double latitude, double longitude) {
 		List<IDevice> deviceList = new ArrayList<IDevice>();
 		
 		try {
@@ -104,7 +160,7 @@ public class DeviceRepository implements IPersistence {
 		}
 		
 		return deviceList;
-	}
+	}*/
 
 	public List<IDevice> getActiveDevices(int timeoutSeconds) {
 		

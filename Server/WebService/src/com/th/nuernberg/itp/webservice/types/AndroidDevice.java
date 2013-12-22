@@ -1,7 +1,17 @@
 package com.th.nuernberg.itp.webservice.types;
 
-import com.th.nuernberg.itp.webservice.interfaces.IDevice;
+import com.th.nuernberg.itp.webservice.interfaces.IAndroidDevice;
 
-public class AndroidDevice extends Device implements IDevice {
+public class AndroidDevice implements IAndroidDevice {
+
+	private String identifier;
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
 
 }

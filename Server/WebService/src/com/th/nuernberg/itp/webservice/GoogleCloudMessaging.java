@@ -25,7 +25,15 @@ public class GoogleCloudMessaging implements IGoogleCloudMessaging {
 	
 	public void send(IGoogleCloudMessagingNotification notification) {
 		
-		IAndroidDevice[] androidDevices = notification.getAndroidDevices();
+		IAndroidDevice[] devices = notification.getAndroidDevices();
+		String[] androidDevices = new String[devices.length];
+		
+		int n = 0;
+		for (IAndroidDevice device : devices) {
+			androidDevices[n] = device.getIdentifier();
+			n++;
+		}
+		
 		String message = notification.getMessage();
 		
 		StringBuilder rawData = new StringBuilder();

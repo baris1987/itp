@@ -6,13 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import com.th.nuernberg.itp.webservice.interfaces.*;
-import com.th.nuernberg.itp.webservice.types.AnalyticData;
 import com.th.nuernberg.itp.webservice.types.AndroidDevice;
 import com.th.nuernberg.itp.webservice.types.Device;
 import com.th.nuernberg.itp.webservice.types.DeviceRepository;
 import com.th.nuernberg.itp.webservice.types.GoogleCloudMessagingConfiguration;
 import com.th.nuernberg.itp.webservice.types.Notification;
 import com.th.nuernberg.itp.webservice.types.NotificationRepository;
+import com.th.nuernberg.itp.webservice.types.SystemStatistic;
 
 import javax.ws.rs.*;
 
@@ -94,15 +94,24 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 
 		this.log.write("METHOD", "Alarm", success);
 		
-		broadcast("Earth quake detected.", latitude, longitude);
+		analyze(latitude, longitude);
 		
 		return JsonWebResponse.build(success);
 	}
 	
 	@GET
-	@Path("stats")
-	public String stats() {
-		return JsonWebResponse.build(true);
+	@Path("statistics")
+	public String statistics() {
+		ISystemStatistic stats = new SystemStatistic();
+		
+		DeviceRepository repository = new DeviceRepository();
+		repository.setPersister(this.persister);
+		List<IDevice> deviceList = repository.getActiveDevices(Integer.parseInt(this.config.get("Application.DeviceTimeout")));
+		repository.destroy();		
+		
+		stats.setConnectedDevices(deviceList.size());
+		
+		return JsonWebResponse.build(true, stats);
 	}
 	
 	@GET
@@ -125,43 +134,6 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		return JsonWebResponse.build(success, device);
 	}
 	
-	@POST
-	@Path("broadcast/{message}/{latitude}/{longitude}")
-	public String broadcast(@PathParam("message") String message, @PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
-		
-		IGoogleCloudMessagingConfiguration config = new GoogleCloudMessagingConfiguration();
-		config.setApiUrl(this.config.get("CloudMessaging.Api"));
-		config.setAuthorizationKey(this.config.get("CloudMessaging.Authorization"));
-		
-		DeviceRepository repository = new DeviceRepository();
-		repository.setPersister(this.persister);
-
-		int maxDistance = Integer.parseInt(this.config.get("Application.MaxDistance"));
-		int minDevices = Integer.parseInt(this.config.get("Application.MinDevices"));
-		int timeoutSeconds = Integer.parseInt(this.config.get("Application.DeviceTimeout"));
-		
-		IAndroidDevice[] deviceList = repository.getAroundDevices(maxDistance, timeoutSeconds, latitude, longitude).toArray(new AndroidDevice[0]);
-		repository.destroy();
-		
-		boolean success = (deviceList.length >= minDevices);
-		IAnalyticData analyticData = new AnalyticData();
-		analyticData.setDevices(deviceList.length);
-
-		if (success) {
-			IGoogleCloudMessagingNotification notification = new GoogleCloudMessagingNotification();
-			notification.setAndroidDevices(deviceList);
-			notification.setMessage(message);
-			
-			IGoogleCloudMessaging messaging = new GoogleCloudMessaging();
-			messaging.setMessagingConfiguration(config);
-			
-			messaging.send(notification);
-		}
-		
-		this.log.write("METHOD", "broadcast", success, message, latitude, longitude);
-		return JsonWebResponse.build(success, analyticData);
-	}
-	
 	@GET
 	@Path("debug")
 	public String debug() {
@@ -182,5 +154,48 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		catch (Exception e) {
 			return "Exception: " + e.getMessage();
 		}
+	}
+	
+	@POST
+	@Path("analyze/{latitude}/{longitude}")
+	public String analyze(@PathParam("latitude") double latitude, @PathParam("longitude") double longitude) {
+		
+		int searchDistanceKm = Integer.parseInt(this.config.get("Algorithm.SearchDistance"));
+		int notifyDistanceKm = Integer.parseInt(this.config.get("Algorithm.NotifyDistance"));
+		int notifyTimeoutSeconds = Integer.parseInt(this.config.get("Algorithm.NotifyTimeout"));
+		double detectionRatio = Double.parseDouble(this.config.get("Algorithm.Ratio"));
+		String notifyMessage = this.config.get("Algorithm.NotifyText");
+		
+		boolean success = false;
+		
+		IGoogleCloudMessagingConfiguration config = new GoogleCloudMessagingConfiguration();
+		config.setApiUrl(this.config.get("CloudMessaging.Api"));
+		config.setAuthorizationKey(this.config.get("CloudMessaging.Authorization"));
+	
+		List<IAndroidDevice> deviceList = null;
+		DeviceRepository repository = new DeviceRepository();
+		repository.setPersister(this.persister);
+		double ratio = repository.getDetectionRatio(searchDistanceKm, notifyTimeoutSeconds, latitude, longitude);
+		
+		
+		if (ratio >= detectionRatio) {
+			deviceList = repository.getNotifyDevices(notifyDistanceKm, notifyTimeoutSeconds, latitude, longitude);
+			
+			IGoogleCloudMessagingNotification notification = new GoogleCloudMessagingNotification();
+			notification.setAndroidDevices(deviceList.toArray(new AndroidDevice[0]));
+			notification.setMessage(notifyMessage);
+			
+			IGoogleCloudMessaging messaging = new GoogleCloudMessaging();
+			messaging.setMessagingConfiguration(config);
+			
+			messaging.send(notification);
+			success = true;
+		}
+	
+		repository.destroy();	
+
+		this.log.write("METHOD", "algorithm", "searchDistance [km]", searchDistanceKm, "notifyDistance [km]", notifyDistanceKm, "notifyTimeout [s]", notifyTimeoutSeconds, "detectionRatio [%]", detectionRatio);
+		this.log.write("METHOD", "analyze", "current ratio", ratio, "notify devices", deviceList.size());
+		return JsonWebResponse.build(success);
 	}
 }
