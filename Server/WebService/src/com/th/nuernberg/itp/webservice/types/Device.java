@@ -8,6 +8,7 @@ public class Device implements IDevice {
 	private double longitude;
 	private double latitude;
 	private String activity;
+	private String lastNotification;
 	
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
@@ -39,5 +40,13 @@ public class Device implements IDevice {
 
 	public String getActivity() {
 		return this.activity;
+	}
+
+	public String getLastNotification() {
+		return lastNotification;
+	}
+
+	public void setLastNotification(String lastNotification) {
+		this.lastNotification = lastNotification;
 	}
 }

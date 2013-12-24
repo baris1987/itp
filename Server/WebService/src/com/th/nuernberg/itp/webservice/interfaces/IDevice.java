@@ -7,4 +7,6 @@ public interface IDevice extends IAndroidDevice {
 	public double getLongitude();
 	public double getLatitude();
 	public String getActivity();
+	public String getLastNotification();
+	public void setLastNotification(String lastNotification);
 }

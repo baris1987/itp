@@ -9,6 +9,8 @@ import com.th.nuernberg.itp.webservice.interfaces.*;
 import com.th.nuernberg.itp.webservice.types.AndroidDevice;
 import com.th.nuernberg.itp.webservice.types.Device;
 import com.th.nuernberg.itp.webservice.types.DeviceRepository;
+import com.th.nuernberg.itp.webservice.types.Earthquake;
+import com.th.nuernberg.itp.webservice.types.EarthquakeRepository;
 import com.th.nuernberg.itp.webservice.types.GoogleCloudMessagingConfiguration;
 import com.th.nuernberg.itp.webservice.types.Notification;
 import com.th.nuernberg.itp.webservice.types.NotificationRepository;
@@ -100,16 +102,26 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 	}
 	
 	@GET
-	@Path("statistics")
-	public String statistics() {
+	@Path("meta")
+	public String meta() {
+		
+		String version = this.config.get("Application.Version");
+		
 		ISystemStatistic stats = new SystemStatistic();
 		
-		DeviceRepository repository = new DeviceRepository();
-		repository.setPersister(this.persister);
-		List<IDevice> deviceList = repository.getActiveDevices(Integer.parseInt(this.config.get("Application.DeviceTimeout")));
-		repository.destroy();		
+		DeviceRepository deviceRepository = new DeviceRepository();
+		EarthquakeRepository erathquakeRepository = new EarthquakeRepository();
+		deviceRepository.setPersister(this.persister);
+		erathquakeRepository.setPersister(this.persister);
+		
+		List<IDevice> deviceList = deviceRepository.getActiveDevices(Integer.parseInt(this.config.get("Application.DeviceTimeout")));
+		List<IEarthquake> earthquakeList = erathquakeRepository.getEarthquakes(15);
+		
+		deviceRepository.destroy();		
 		
 		stats.setConnectedDevices(deviceList.size());
+		stats.setEarthquakes(earthquakeList);
+		stats.setVersion(version);
 		
 		return JsonWebResponse.build(true, stats);
 	}
@@ -167,35 +179,59 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		String notifyMessage = this.config.get("Algorithm.NotifyText");
 		
 		boolean success = false;
+		boolean updatedLastNotifications = false;
+		boolean savedEarthquake = false;
+		
 		
 		IGoogleCloudMessagingConfiguration config = new GoogleCloudMessagingConfiguration();
 		config.setApiUrl(this.config.get("CloudMessaging.Api"));
 		config.setAuthorizationKey(this.config.get("CloudMessaging.Authorization"));
 	
 		List<IAndroidDevice> deviceList = null;
-		DeviceRepository repository = new DeviceRepository();
-		repository.setPersister(this.persister);
-		double ratio = repository.getDetectionRatio(searchDistanceKm, notifyTimeoutSeconds, latitude, longitude);
+		DeviceRepository deviceRepository = new DeviceRepository();
+		EarthquakeRepository earthquakeRepository = new EarthquakeRepository();
 		
-		
+		deviceRepository.setPersister(this.persister);
+		earthquakeRepository.setPersister(this.persister);
+		double ratio = deviceRepository.getDetectionRatio(searchDistanceKm, notifyTimeoutSeconds, latitude, longitude);
+
 		if (ratio >= detectionRatio) {
-			deviceList = repository.getNotifyDevices(notifyDistanceKm, notifyTimeoutSeconds, latitude, longitude);
 			
-			IGoogleCloudMessagingNotification notification = new GoogleCloudMessagingNotification();
-			notification.setAndroidDevices(deviceList.toArray(new AndroidDevice[0]));
-			notification.setMessage(notifyMessage);
+			deviceList = deviceRepository.getNotifyDevices(notifyDistanceKm, notifyTimeoutSeconds, latitude, longitude);
 			
-			IGoogleCloudMessaging messaging = new GoogleCloudMessaging();
-			messaging.setMessagingConfiguration(config);
+			if (deviceList.size() > 0) {
+				IAndroidDevice[] devices = deviceList.toArray(new AndroidDevice[0]);
+				
+				IGoogleCloudMessagingNotification notification = new GoogleCloudMessagingNotification();
+				notification.setAndroidDevices(devices);
+				notification.setMessage(notifyMessage);
+				
+				IGoogleCloudMessaging messaging = new GoogleCloudMessaging();
+				messaging.setMessagingConfiguration(config);
+				messaging.send(notification);
+				
+				updatedLastNotifications = deviceRepository.setDeviceLastNotifications(devices, Calendar.getInstance().getTime());
+			}
 			
-			messaging.send(notification);
+			String activityDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(Calendar.getInstance().getTime());
+			Earthquake earthquake = new Earthquake();
+			earthquake.setLatitude(latitude);
+			earthquake.setLongitude(longitude);
+			earthquake.setActivity(activityDate);
+			earthquake.setRadius(searchDistanceKm);
+			earthquake.setRatio(ratio);
+			earthquake.setDevices(deviceList.size());
+			
+			savedEarthquake = earthquakeRepository.persist(earthquake);
+			
 			success = true;
+			
 		}
 	
-		repository.destroy();	
+		deviceRepository.destroy();	
 
 		this.log.write("METHOD", "algorithm", "searchDistance [km]", searchDistanceKm, "notifyDistance [km]", notifyDistanceKm, "notifyTimeout [s]", notifyTimeoutSeconds, "detectionRatio [%]", detectionRatio);
-		this.log.write("METHOD", "analyze", "current ratio", ratio, "notify devices", deviceList.size());
+		this.log.write("METHOD", "analyze", "current ratio", ratio, "notify devices", deviceList.size(), "updated notifies", updatedLastNotifications, "saved earthquake", savedEarthquake);
 		return JsonWebResponse.build(success);
 	}
 }

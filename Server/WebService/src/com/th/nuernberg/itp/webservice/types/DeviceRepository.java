@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.th.nuernberg.itp.webservice.interfaces.IAndroidDevice;
@@ -20,9 +21,20 @@ public class DeviceRepository implements IPersistence {
 	}
 
 	public boolean persist(IDevice device) {
+		
+		String notification = "";
+		
+		if (device.getLastNotification() != null) {
+			notification = "'"+device.getLastNotification()+"'";
+		}
+		else {
+			notification = " NULL ";
+		}
+		
+			
 		try {
-			this.persister.execute("INSERT INTO ITP.T_DEVICE (PK_DEVICEID, IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE) " +
-					  			   "VALUES (NEXTVAL('ITP.S_DEVICE'), '"+device.getIdentifier()+"', '"+device.getActivity()+"', "+device.getLatitude()+", "+device.getLongitude()+");");
+			this.persister.execute("INSERT INTO ITP.T_DEVICE (PK_DEVICEID, IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE, NOTIFICATION) " +
+					  			   "VALUES (NEXTVAL('ITP.S_DEVICE'), '"+device.getIdentifier()+"', '"+device.getActivity()+"', "+device.getLatitude()+", "+device.getLongitude()+", "+device.getLastNotification()+");");
 			return true;
 			
 		} catch (SQLException e) {
@@ -30,7 +42,7 @@ public class DeviceRepository implements IPersistence {
 		}
 		
 		try {
-			this.persister.execute("UPDATE ITP.T_DEVICE SET ACTIVITY = '"+device.getActivity()+"', LATITUDE = "+device.getLatitude()+", LONGITUDE = "+device.getLongitude()+" WHERE IDENTIFIER = '"+device.getIdentifier()+"' ");
+			this.persister.execute("UPDATE ITP.T_DEVICE SET ACTIVITY = '"+device.getActivity()+"', LATITUDE = "+device.getLatitude()+", LONGITUDE = "+device.getLongitude()+", NOTIFICATION = "+notification+" WHERE IDENTIFIER = '"+device.getIdentifier()+"' ");
 			return true;
 			
 		} catch (SQLException e) {
@@ -55,7 +67,7 @@ public class DeviceRepository implements IPersistence {
 		device.setIdentifier("");
 		
 		try {
-			ResultSet results = this.persister.get("SELECT ACTIVITY, LATITUDE, LONGITUDE FROM ITP.T_DEVICE WHERE IDENTIFIER = '"+identifier+"'");
+			ResultSet results = this.persister.get("SELECT ACTIVITY, LATITUDE, LONGITUDE, NOTIFICATION FROM ITP.T_DEVICE WHERE IDENTIFIER = '"+identifier+"'");
 			
 			if (results.next()) 
 			{
@@ -63,6 +75,9 @@ public class DeviceRepository implements IPersistence {
 				device.setActivity(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(results.getTimestamp(1)));
 				device.setLatitude(results.getDouble(2));
 				device.setLongitude(results.getDouble(3));
+				if (results.getString(4) != null) {
+					device.setLastNotification(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(results.getTimestamp(4)));
+				}
 			}
 		
 		} catch (SQLException e) {
@@ -92,11 +107,36 @@ public class DeviceRepository implements IPersistence {
 														" ) d) t ");
 
 			results.next();
-			return Double.parseDouble(results.getString(1));
+			double ratio = results.getDouble(1);
+			return ratio;
 		
 		} catch (SQLException e) {
 			return 0.0;
 		}
+	}
+	
+	public boolean setDeviceLastNotifications(IAndroidDevice[] devices, Date notifyDate) {
+		
+		if (devices.length == 0) {
+			return false;
+		}
+		
+		String lastNotifyDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(notifyDate);
+		StringBuilder conditions = new StringBuilder();
+		
+		for (IAndroidDevice device : devices) {
+			conditions.append("'"+device.getIdentifier()+"', ");
+		}
+
+		String update = "UPDATE itp.t_device SET notification = '"+lastNotifyDate+"' WHERE identifier IN("+conditions.substring(0, conditions.length()-1).toString()+")";
+		
+		try {
+			this.persister.execute(update);
+		} catch (SQLException e) {
+			return false;
+		}
+		
+		return false;
 	}
 	
 	public List<IAndroidDevice> getNotifyDevices(int notifyDistanceKm, int notifyTimeoutSeconds, double latitude, double longitude) {
@@ -127,47 +167,12 @@ public class DeviceRepository implements IPersistence {
 		return deviceList;
 	}
 	
-	/*public List<IDevice> __getAroundDevices(int maxDistanceKm, int timeoutSeconds, double latitude, double longitude) {
-		List<IDevice> deviceList = new ArrayList<IDevice>();
-		
-		try {
-			ResultSet results = this.persister.get("SELECT identifier, ( 6371 * acos(cos(Radians("+latitude+")) * cos(radians(latitude)) * " +
-													                                   "cos(radians(longitude) - radians("+longitude+")) +  " +
-													                              "sin(Radians("+latitude+")) * sin(radians(latitude))) ) AS  " +
-													       "distance " +
-													"FROM   (SELECT pk_deviceid,  " +
-													               "identifier  " +
-													        "FROM   itp.t_device  " +
-													        "WHERE  Datediff('SECOND', activity, CURRENT_TIMESTAMP()) < "+timeoutSeconds+")  " +
-													       "t_active_device,  " +
-													       "itp.t_notification  " +
-													"WHERE  t_active_device.pk_deviceid = t_notification.fk_deviceid  " +
-													"GROUP BY identifier, latitude, longitude " +
-													"HAVING distance < "+maxDistanceKm);
-
-			while (results.next()) {
-				IDevice device = new Device();
-				device.setIdentifier(results.getString(1));
-				device.setActivity(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(results.getTimestamp(2)));
-				device.setLatitude(results.getDouble(3));
-				device.setLongitude(results.getDouble(4));
-				
-				deviceList.add(device);
-			}
-		
-		} catch (SQLException e) {
-			return deviceList;
-		}
-		
-		return deviceList;
-	}*/
-
 	public List<IDevice> getActiveDevices(int timeoutSeconds) {
 		
 		List<IDevice> deviceList = new ArrayList<IDevice>();
 		
 		try {
-			ResultSet results = this.persister.get("SELECT IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE FROM ITP.T_DEVICE WHERE DATEDIFF('SECOND', ACTIVITY, CURRENT_TIMESTAMP()) < "+timeoutSeconds);
+			ResultSet results = this.persister.get("SELECT IDENTIFIER, ACTIVITY, LATITUDE, LONGITUDE, NOTIFICATION FROM ITP.T_DEVICE WHERE DATEDIFF('SECOND', ACTIVITY, CURRENT_TIMESTAMP()) < "+timeoutSeconds);
 
 			while (results.next()) {
 				IDevice device = new Device();
@@ -175,7 +180,9 @@ public class DeviceRepository implements IPersistence {
 				device.setActivity(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(results.getTimestamp(2)));
 				device.setLatitude(results.getDouble(3));
 				device.setLongitude(results.getDouble(4));
-				
+				if (results.getString(5) != null) {
+					device.setLastNotification(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(results.getTimestamp(5)));
+				}
 				deviceList.add(device);
 			}
 		

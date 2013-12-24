@@ -17,5 +17,5 @@ public interface IWebServiceDevice {
 	String analyze(double latitude, double longitude);
 	
 	// Statistics 
-	String statistics();
+	String meta();
 }
