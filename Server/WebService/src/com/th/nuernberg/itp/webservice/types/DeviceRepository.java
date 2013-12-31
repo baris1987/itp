@@ -111,7 +111,7 @@ public class DeviceRepository implements IPersistence {
 			return ratio;
 		
 		} catch (SQLException e) {
-			return 0.0;
+			return -1.0;
 		}
 	}
 	
@@ -128,10 +128,12 @@ public class DeviceRepository implements IPersistence {
 			conditions.append("'"+device.getIdentifier()+"', ");
 		}
 
-		String update = "UPDATE itp.t_device SET notification = '"+lastNotifyDate+"' WHERE identifier IN("+conditions.substring(0, conditions.length()-1).toString()+")";
+		String update = "UPDATE itp.t_device SET notification = '"+lastNotifyDate+"' WHERE identifier IN("+conditions.substring(0, conditions.length()-2).toString()+")";
 		
 		try {
-			this.persister.execute(update);
+			if (this.persister.execute(update) > 0) {
+				return true;
+			}
 		} catch (SQLException e) {
 			return false;
 		}
@@ -141,12 +143,12 @@ public class DeviceRepository implements IPersistence {
 	
 	public List<IAndroidDevice> getNotifyDevices(int notifyDistanceKm, int notifyTimeoutSeconds, double latitude, double longitude) {
 		List<IAndroidDevice> deviceList = new ArrayList<IAndroidDevice>();
-		
+
 		try {
 			ResultSet results = this.persister.get("  SELECT d.identifier, d.sendnotify FROM (SELECT pk_deviceid, " + 
 											                    "identifier, " + 
 													  "(6371 * acos(cos(radians("+longitude+")) * cos(radians(latitude)) * cos(radians(longitude) - radians("+latitude+")) + sin(radians("+longitude+")) * sin(radians(latitude)))) AS distance,  " + 
-											                  "(CASE WHEN datediff('SECOND', notification, CURRENT_TIMESTAMP()) < "+ notifyTimeoutSeconds +" THEN 1 ELSE 0 END) sendnotify " + 
+											                  "(CASE WHEN datediff('SECOND', notification, CURRENT_TIMESTAMP()) < "+ notifyTimeoutSeconds +"  OR notification IS NULL THEN 1 ELSE 0 END) sendnotify " + 
 											   "FROM itp.t_device " + 
 											   "GROUP BY pk_deviceid, " + 
 											            "latitude, " + 

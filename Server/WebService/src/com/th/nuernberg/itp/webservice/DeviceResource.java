@@ -92,7 +92,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		
 		boolean success = repository.persist(notification);
 		
-		repository.destroy();	
+		//repository.destroy();	
 
 		this.log.write("METHOD", "Alarm", success);
 		
