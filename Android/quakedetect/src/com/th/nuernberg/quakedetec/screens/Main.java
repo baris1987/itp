@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -28,6 +30,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -61,6 +64,9 @@ public class Main extends FragmentActivity implements
 	private static Fragment currentFragment;
 	
 	private static Context context;
+	
+	private Timer infoUpdateTimer;
+	private TimerTask infoUpdateTimerTask; 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -129,13 +135,23 @@ public class Main extends FragmentActivity implements
 		currentFragment = info;
 		
 		appIsVisible = true;
-		fetchDeviceListFromServer();
 	}
 
 	@Override
 	protected void onStart() {
 	    super.onStart();
 	    appIsVisible = true;
+	    
+	    infoUpdateTimer = new Timer("locationGpsUpdateTimer");
+		infoUpdateTimerTask = new TimerTask() {
+			public void run() {
+				fetchDeviceListFromServer();
+				fetchMetaDataForInfo();
+				System.out.println("fetchedInfoUpdates");
+			}
+		};
+	    
+	    infoUpdateTimer.scheduleAtFixedRate(infoUpdateTimerTask, 0, 120000);
 	    
 	    if(BackgroundService.getBackgroundService() != null)
 	    	BackgroundService.getBackgroundService().startLocationUpdateTimerOrChangeIfNeeded();
@@ -157,6 +173,8 @@ public class Main extends FragmentActivity implements
 	protected void onStop() {
 	    super.onStop();
 	    appIsVisible = false;
+	    
+	    infoUpdateTimer.cancel();
 	    
 	    if(BackgroundService.getBackgroundService() != null)
 	    	BackgroundService.getBackgroundService().startLocationUpdateTimerOrChangeIfNeeded();
@@ -295,7 +313,7 @@ public class Main extends FragmentActivity implements
 		}
 	}
 	
-	private void fetchDeviceListFromServer()
+	public void fetchDeviceListFromServer()
 	{
 		if(appIsVisible)
 		{
@@ -309,7 +327,7 @@ public class Main extends FragmentActivity implements
 						String serverPort = prefs.getString("server_port", "8088");
 					
 						String requestUrl = String.format("http://%s:%s/itp/device/list/", serverUrl, serverPort);
-						
+						System.out.println("requesturl: " + requestUrl);
 						HttpClient client = new DefaultHttpClient();
 						HttpGet request = new HttpGet();
 						request.setURI(new URI(requestUrl));
@@ -346,4 +364,58 @@ public class Main extends FragmentActivity implements
 			}).start();
 		}
 	}
+	
+	public void fetchMetaDataForInfo()
+	{
+		if(appIsVisible)
+		{
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Main.context);
+						
+						String serverUrl = prefs.getString("server_url", "");
+						String serverPort = prefs.getString("server_port", "8088");
+					
+						String requestUrl = String.format("http://%s:%s/itp/device/meta/", serverUrl, serverPort);
+						System.out.println("requesturl: " + requestUrl);
+						HttpClient client = new DefaultHttpClient();
+						HttpGet request = new HttpGet();
+						request.setURI(new URI(requestUrl));
+						HttpResponse response = client.execute(request);
+						BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+						StringBuffer sb = new StringBuffer("");
+						String l = "";
+						while ((l = in.readLine()) != null) {
+							sb.append(l);
+						}
+						
+						in.close();
+						String data = sb.toString();
+						
+						JSONObject completeDataJSON = (JSONObject) new JSONTokener(data).nextValue();
+												
+						JSONObject earthquakesCompleteJSON = (JSONObject)completeDataJSON.get("data");
+						String earthquakesData = earthquakesCompleteJSON.getString("earthquakes");
+						JSONArray jsonArrayEarthquakes = (JSONArray) new JSONTokener(earthquakesData).nextValue();
+						ArrayList<JSONObject> earthquakeJSONObjects = new ArrayList<JSONObject>(jsonArrayEarthquakes.length());
+
+						for(int i = 0; i < jsonArrayEarthquakes.length(); i++)
+						{
+							JSONObject device = jsonArrayEarthquakes.getJSONObject(i);
+							earthquakeJSONObjects.add(device);
+						}
+		
+						info.setLastEarthquakeTextView((JSONObject)jsonArrayEarthquakes.get(0));
+						
+					} catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+				}
+			}).start();
+		}
+	}
+	
 }

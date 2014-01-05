@@ -1,5 +1,9 @@
 package com.th.nuernberg.quakedetec.screens;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -10,7 +14,10 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -33,6 +40,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.acceleration.AccelSample;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
@@ -218,8 +226,7 @@ public class Info extends Fragment {
 					+ " (Accuracy: " + location.getAccuracy() + "m)");
 
 			try {
-				List<Address> addressList = geoCoder.getFromLocation(
-						location.getLatitude(), location.getLongitude(), 1);
+				List<Address> addressList = geoCoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 				String addressString = "";
 
 				Address address = addressList.get(0);
@@ -268,6 +275,43 @@ public class Info extends Fragment {
 			}
 		});
 	}
+	
+	public void setLastEarthquakeTextView(JSONObject lastEarthquakeJSON)
+	{
+		final String lastQuakeDate;
+		final String lastQuakeLocation;
+		
+		String tempActivity = "n.a.";
+		String tempLocality = "";
+		String tempCountryName = "";
+		
+		try {
+			tempActivity 		= lastEarthquakeJSON.getString("activity");
+			Double latitude 	= lastEarthquakeJSON.getDouble("latitude");
+			Double longitude	= lastEarthquakeJSON.getDouble("longitude");
+			List<Address> addressList = geoCoder.getFromLocation(latitude, longitude, 1);
+			tempLocality = addressList.get(0).getLocality();
+			tempCountryName = addressList.get(0).getCountryName();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		lastQuakeDate = tempActivity;
+		
+		lastQuakeLocation = tempCountryName + "/" + tempLocality;
+		
+		this.getActivity().runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Info.getInfo().lastEarthquake.setText(lastQuakeDate + "\n" + lastQuakeLocation);
+			}
+		});
+	}	
 	
 	public static Info getInfo() {
 		return Info.info;

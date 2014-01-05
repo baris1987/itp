@@ -273,8 +273,8 @@ public class DeviceMap extends Fragment {
 		{
 			try {
 				String deviceRegId 	= deviceJsonObject.getString("identifier");
-				Double latitude 	= deviceJsonObject.getDouble("latitude") + Math.random();
-				Double longitude	= deviceJsonObject.getDouble("longitude") + Math.random();
+				Double latitude 	= deviceJsonObject.getDouble("latitude");
+				Double longitude	= deviceJsonObject.getDouble("longitude");
 				
 				if(!deviceRegId.equals(myRegId) )
 				{
