@@ -1,13 +1,9 @@
 package com.th.nuernberg.quakedetec.acceleration;
 
-import java.io.Serializable;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public final class AccelSample implements Parcelable, Serializable {
-
-	private static final long serialVersionUID = 1;
+public final class AccelSample implements Parcelable {
 
 	public final float x;
 	public final float y;
