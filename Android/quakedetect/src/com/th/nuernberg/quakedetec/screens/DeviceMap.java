@@ -1,11 +1,13 @@
 package com.th.nuernberg.quakedetec.screens;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.http.HttpResponse;
@@ -32,6 +34,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -268,7 +272,7 @@ public class DeviceMap extends Fragment {
 		ProgressBar progressBar = (ProgressBar) DeviceMap.getDeviceMap().getActivity().findViewById(R.id.progress_bar);
 		ArrayList<LatLng> devicePostions = new ArrayList<LatLng>(deviceJSONObjects.size());
 		String myRegId = BackgroundService.getRegistrationId();
-		
+		System.out.println("addDeviceMarkerToMap: " + deviceJSONObjects.size());
 		for(JSONObject deviceJsonObject : deviceJSONObjects)
 		{
 			try {
@@ -276,12 +280,35 @@ public class DeviceMap extends Fragment {
 				Double latitude 	= deviceJsonObject.getDouble("latitude");
 				Double longitude	= deviceJsonObject.getDouble("longitude");
 				
+				Geocoder geoCoder;
+				geoCoder = new Geocoder(this.getActivity().getApplicationContext());
+				
+				List<Address> addressList = geoCoder.getFromLocation(latitude, longitude, 1);
+				String addressString = "";
+
+				Address address = new Address(null);
+				if(addressList.size() > 0)
+				{
+					address = addressList.get(0);
+
+					for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+						addressString += address.getAddressLine(i);
+					}
+
+					addressString = addressString.substring(0, addressString.length() - 1);
+				}
+				
+				System.out.println("Adresse Marker: " + addressString);
+				
 				if(!deviceRegId.equals(myRegId) )
 				{
 					LatLng latlng = new LatLng(latitude, longitude);
 					devicePostions.add(latlng);
 				}
 			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

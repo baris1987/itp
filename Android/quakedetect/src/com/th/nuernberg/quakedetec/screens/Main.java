@@ -154,7 +154,7 @@ public class Main extends FragmentActivity implements
 			}
 		};
 	    
-	    infoUpdateTimer.scheduleAtFixedRate(infoUpdateTimerTask, 0, 15000);
+	    infoUpdateTimer.scheduleAtFixedRate(infoUpdateTimerTask, 0, 30000);
 	    
 	    if(BackgroundService.getBackgroundService() != null)
 	    	BackgroundService.getBackgroundService().startLocationUpdateTimerOrChangeIfNeeded();
@@ -358,10 +358,19 @@ public class Main extends FragmentActivity implements
 							deviceJSONObjects.add(device);
 						}
 						info.setConnectedDevicesTextView(deviceJSONObjects.size());
-						List<Marker> markers = deviceMap.getGoogleMap().getMarkers();
-						for(Marker marker :  markers)
-							marker.remove();
-						deviceMap.addDeviceMarkerToMap(deviceJSONObjects);
+						
+						final ArrayList<JSONObject> deviceJSONObjectsFinal = new ArrayList<JSONObject>(deviceJSONObjects);
+						
+						Handler handler = new Handler(Looper.getMainLooper());
+						handler.post(new Runnable() {
+							public void run() {
+								List<Marker> markers = deviceMap.getGoogleMap().getMarkers();
+								for(Marker marker :  markers)
+									marker.remove();
+								deviceMap.addDeviceMarkerToMap(deviceJSONObjectsFinal);
+								deviceMap.changeMyPositionMarker();
+						    }
+						});
 					} catch (Exception e)
 					{
 						e.printStackTrace();
