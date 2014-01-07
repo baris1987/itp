@@ -1,9 +1,6 @@
 package com.th.nuernberg.quakedetec.screens;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -17,7 +14,6 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -40,7 +36,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.acceleration.AccelSample;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
@@ -58,6 +53,7 @@ public class Info extends Fragment {
 	private TextView lastEarthquake;
 	private TextView yourLocation;
 	private TextView locationProvider;
+	private TextView accelAbsValue;
 
 	// Chart
 	private final static int SAMPLE_SIZE = 50;
@@ -116,6 +112,7 @@ public class Info extends Fragment {
 		lastEarthquake = (TextView) rootView.findViewById(R.id.txt_last_earthquake);
 		yourLocation = (TextView) rootView.findViewById(R.id.txt_your_location);
 		locationProvider = (TextView) rootView.findViewById(R.id.txt_location_provider);
+		accelAbsValue =  (TextView) rootView.findViewById(R.id.txt_accelerometer_value);
 
 		this.geoCoder = new Geocoder(container.getContext());
 		// setLocationInfo();
@@ -257,6 +254,7 @@ public class Info extends Fragment {
 						xySeries[0].remove(0);
 					}
 					xySeries[0].add(x, sample.abs);
+					accelAbsValue.setText(String.format("%.2f m/s²", sample.abs));
 					x++;
 					view.repaint();
 				}
