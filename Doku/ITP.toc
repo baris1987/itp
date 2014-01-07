@@ -1,0 +1,6 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Teamorganisation}{4}{section.1}
+\contentsline {section}{\numberline {2}Motivation}{5}{section.2}
+\contentsline {section}{\numberline {3}System Struktur}{5}{section.3}
+\contentsline {section}{\numberline {4}Erdbebenerkennung unter Android}{5}{section.4}
+\contentsline {section}{\numberline {5}Fazit}{5}{section.5}
