@@ -87,7 +87,7 @@ public class DeviceRepository implements IPersistence {
 		return device;
 	}
 	
-	public double getDetectionRatio(int searchDistanceKm, int hasSentAlarmSeconds, double latitude, double longitude) {
+	public double getDetectionRatio(int searchDistanceKm, int deviceTimeoutSeconds, int hasSentAlarmSeconds, double latitude, double longitude) {
 
 		try {
 			String query = "  SELECT sum(CONVERT(hassentalarm, DOUBLE)) / CONVERT(count(*), DOUBLE) as ratio FROM ( " + 
@@ -101,6 +101,7 @@ public class DeviceRepository implements IPersistence {
 				 " (SELECT pk_deviceid,  " + 
 						 " (6371 * acos(cos(radians("+latitude+")) * cos(radians(latitude)) * cos(radians(longitude) - radians("+longitude+")) + sin(radians("+latitude+")) * sin(radians(latitude)))) AS distance " + 
 				  " FROM itp.t_device " + 
+				  " WHERE datediff('SECOND', activity, CURRENT_TIMESTAMP()) < "+deviceTimeoutSeconds+" " +
 				  " GROUP BY pk_deviceid, " + 
 				           " latitude, " + 
 				           " longitude HAVING distance < "+ searchDistanceKm +
@@ -145,20 +146,25 @@ public class DeviceRepository implements IPersistence {
 		return false;
 	}
 	
-	public List<IAndroidDevice> getNotifyDevices(int notifyDistanceKm, int notifyTimeoutSeconds, double latitude, double longitude) {
+	public List<IAndroidDevice> getNotifyDevices(int notifyDistanceKm, int deviceTimeoutSeconds, int notifyTimeoutSeconds, double latitude, double longitude) {
 		List<IAndroidDevice> deviceList = new ArrayList<IAndroidDevice>();
 
 		try {
-			ResultSet results = this.persister.get("  SELECT d.identifier, d.sendnotify FROM (SELECT pk_deviceid, " + 
-											                    "identifier, " + 
-													  "(6371 * acos(cos(radians("+latitude+")) * cos(radians(latitude)) * cos(radians(longitude) - radians("+longitude+")) + sin(radians("+latitude+")) * sin(radians(latitude)))) AS distance,  " + 
-											                  "(CASE WHEN datediff('SECOND', notification, CURRENT_TIMESTAMP()) < "+ notifyTimeoutSeconds +"  OR notification IS NULL THEN 1 ELSE 0 END) sendnotify " + 
-											   "FROM itp.t_device " + 
-											   "GROUP BY pk_deviceid, " + 
-											            "latitude, " + 
-											           " longitude HAVING distance < "+notifyDistanceKm + 
-											" ) d " +
-											" WHERE sendnotify = 1 ");
+			String query = "  SELECT d.identifier, d.sendnotify FROM (SELECT pk_deviceid, activity, " + 
+					                    "identifier, " + 
+							  "(6371 * acos(cos(radians("+latitude+")) * cos(radians(latitude)) * cos(radians(longitude) - radians("+longitude+")) + sin(radians("+latitude+")) * sin(radians(latitude)))) AS distance,  " + 
+					                  "(CASE WHEN datediff('SECOND', notification, CURRENT_TIMESTAMP()) < "+ notifyTimeoutSeconds +"  OR notification IS NULL THEN 1 ELSE 0 END) sendnotify " + 
+					   "FROM itp.t_device " + 
+					   "GROUP BY pk_deviceid, " + 
+					            "latitude, " + 
+					           " longitude HAVING distance < "+notifyDistanceKm + 
+					" ) d " +
+					" WHERE sendnotify = 1 " +
+					" AND datediff('SECOND', activity, CURRENT_TIMESTAMP()) < "+deviceTimeoutSeconds+" " ;
+			
+			
+			//System.out.println(query);
+			ResultSet results = this.persister.get(query);
 
 			while (results.next()) {
 				AndroidDevice device = new AndroidDevice();

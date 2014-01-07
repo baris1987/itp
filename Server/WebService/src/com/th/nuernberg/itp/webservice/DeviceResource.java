@@ -176,6 +176,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		int searchDistanceKm = Integer.parseInt(this.config.get("Algorithm.SearchDistance"));
 		int notifyDistanceKm = Integer.parseInt(this.config.get("Algorithm.NotifyDistance"));
 		int notifyTimeoutSeconds = Integer.parseInt(this.config.get("Algorithm.NotifyTimeout"));
+		int deviceTimeoutSeconds = Integer.parseInt(this.config.get("Algorithm.DeviceTimeout"));
 		double detectionRatio = Double.parseDouble(this.config.get("Algorithm.Ratio"));
 		String notifyMessage = this.config.get("Algorithm.NotifyText");
 		
@@ -194,11 +195,11 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		
 		deviceRepository.setPersister(this.persister);
 		earthquakeRepository.setPersister(this.persister);
-		double ratio = deviceRepository.getDetectionRatio(searchDistanceKm, notifyTimeoutSeconds, latitude, longitude);
+		double ratio = deviceRepository.getDetectionRatio(searchDistanceKm, deviceTimeoutSeconds, notifyTimeoutSeconds, latitude, longitude);
 
 		if (ratio >= detectionRatio) {
 			
-			deviceList = deviceRepository.getNotifyDevices(notifyDistanceKm, notifyTimeoutSeconds, latitude, longitude);
+			deviceList = deviceRepository.getNotifyDevices(notifyDistanceKm, deviceTimeoutSeconds, notifyTimeoutSeconds, latitude, longitude);
 			
 			if (deviceList.size() > 0) {
 				IAndroidDevice[] devices = deviceList.toArray(new AndroidDevice[0]);
