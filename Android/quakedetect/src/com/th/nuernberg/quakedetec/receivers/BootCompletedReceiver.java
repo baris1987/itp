@@ -1,6 +1,6 @@
-package com.th.nuernberg.quakedetec.receiver;
+package com.th.nuernberg.quakedetec.receivers;
 
-import com.th.nuernberg.quakedetec.service.BackgroundService;
+import com.th.nuernberg.quakedetec.services.BackgroundService;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

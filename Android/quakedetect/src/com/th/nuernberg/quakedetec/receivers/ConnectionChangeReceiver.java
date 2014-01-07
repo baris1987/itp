@@ -1,4 +1,4 @@
-package com.th.nuernberg.quakedetec.receiver;
+package com.th.nuernberg.quakedetec.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.th.nuernberg.quakedetec.location.Localizer;
-import com.th.nuernberg.quakedetec.service.BackgroundService;
+import com.th.nuernberg.quakedetec.services.BackgroundService;
 
 public class ConnectionChangeReceiver extends BroadcastReceiver
 {

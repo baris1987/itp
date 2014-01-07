@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.th.nuernberg.quakedetec.screens.DeviceMap;
 import com.th.nuernberg.quakedetec.screens.Info;
-import com.th.nuernberg.quakedetec.service.NotificationsService;
+import com.th.nuernberg.quakedetec.services.NotificationsService;
 
 public class Localizer implements LocationListener {
 	private static String TAG = "Localizer";

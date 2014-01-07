@@ -41,7 +41,7 @@ import android.widget.Toast;
 
 import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.location.Localizer;
-import com.th.nuernberg.quakedetec.service.BackgroundService;
+import com.th.nuernberg.quakedetec.services.BackgroundService;
 
 public class Main extends FragmentActivity implements
 		ActionBar.TabListener {

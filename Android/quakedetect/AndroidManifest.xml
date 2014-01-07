@@ -58,29 +58,29 @@
         
         <!-- Services -->
         <service android:name=".acceleration.Accelerometer"></service>
-        <service android:name="com.th.nuernberg.quakedetec.service.BackgroundService"></service>
+        <service android:name="com.th.nuernberg.quakedetec.services.BackgroundService"></service>
         
         <!-- Receiver -->
-        <receiver android:name="com.th.nuernberg.quakedetec.receiver.BootCompletedReceiver"
+        <receiver android:name="com.th.nuernberg.quakedetec.receivers.BootCompletedReceiver"
             android:enabled="true" 
              android:exported="false">
             <intent-filter>
                 	<action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.th.nuernberg.quakedetec.receiver.ConnectionChangeReceiver" android:label="NetworkConnection">
+        <receiver android:name="com.th.nuernberg.quakedetec.receivers.ConnectionChangeReceiver" android:label="NetworkConnection">
 	  		<intent-filter>
 	    		<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
 	  		</intent-filter>
 		</receiver>
         <receiver
-            android:name="com.th.nuernberg.quakedetec.receiver.GcmBroadcastReceiver"
+            android:name="com.th.nuernberg.quakedetec.receivers.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
                 <category android:name="com.th.nuernberg.quakedetec"/>
             </intent-filter>
         </receiver>
-        <service android:name=".service.GcmIntentService"></service>
+        <service android:name="com.th.nuernberg.quakedetec.services.GcmIntentService"></service>
     </application>
 </manifest>
