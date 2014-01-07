@@ -89,7 +89,7 @@
 	</PreferenceCategory> -->
 	
 	<PreferenceCategory android:title="@string/set_titel_server" android:key="server">
-		<EditTextPreference android:title="@string/set_server_url" android:key="server_url" android:defaultValue="api.itpws.tk"/>
+		<EditTextPreference android:title="@string/set_server_url" android:key="server_url" android:defaultValue="5.135.167.64"/>
 		<EditTextPreference android:title="@string/set_server_port" android:key="server_port" android:defaultValue="8088"/>
 	</PreferenceCategory>
 	

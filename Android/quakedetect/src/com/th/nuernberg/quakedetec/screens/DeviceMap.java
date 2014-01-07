@@ -222,7 +222,7 @@ public class DeviceMap extends Fragment {
 				googleMap.setMyLocationEnabled(false);
 				googleMap.getUiSettings().setCompassEnabled(false);
 				googleMap.setMapType(Integer.parseInt(sharedPrefs.getString("map_type", "1")));
-				googleMap.getUiSettings().setZoomGesturesEnabled(false);
+				googleMap.getUiSettings().setZoomGesturesEnabled(true);
 		
 				updateCameraToLastKnownLocation(12);
 					
