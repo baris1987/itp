@@ -19,8 +19,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.th.nuernberg.quakedetec.R;
-import com.th.nuernberg.quakedetec.services.BackgroundService;
-import com.th.nuernberg.quakedetec.services.NotificationsService;
+import com.th.nuernberg.quakedetec.service.BackgroundService;
+import com.th.nuernberg.quakedetec.service.NotificationsService;
 
 
 // Activity for SettingsFragment

@@ -40,8 +40,8 @@ import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.acceleration.AccelSample;
 import com.th.nuernberg.quakedetec.acceleration.Accelerometer;
 import com.th.nuernberg.quakedetec.location.Localizer;
-import com.th.nuernberg.quakedetec.services.BackgroundService;
-import com.th.nuernberg.quakedetec.services.BackgroundService.BackgroundServiceBinder;
+import com.th.nuernberg.quakedetec.service.BackgroundService;
+import com.th.nuernberg.quakedetec.service.BackgroundService.BackgroundServiceBinder;
 
 public class Info extends Fragment {
 

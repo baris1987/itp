@@ -1,4 +1,4 @@
-package com.th.nuernberg.quakedetec.services;
+package com.th.nuernberg.quakedetec.service;
 
 import com.th.nuernberg.quakedetec.R;
 import com.th.nuernberg.quakedetec.screens.Info;

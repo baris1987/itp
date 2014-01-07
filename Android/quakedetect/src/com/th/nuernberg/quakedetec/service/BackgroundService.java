@@ -1,4 +1,4 @@
-package com.th.nuernberg.quakedetec.services;
+package com.th.nuernberg.quakedetec.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;

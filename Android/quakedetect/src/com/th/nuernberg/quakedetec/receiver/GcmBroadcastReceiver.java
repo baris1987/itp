@@ -1,6 +1,6 @@
-package com.th.nuernberg.quakedetec.receivers;
+package com.th.nuernberg.quakedetec.receiver;
 
-import com.th.nuernberg.quakedetec.services.GcmIntentService;
+import com.th.nuernberg.quakedetec.service.GcmIntentService;
 
 import android.app.Activity;
 import android.content.ComponentName;

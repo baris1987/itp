@@ -1,7 +1,7 @@
-package com.th.nuernberg.quakedetec.services;
+package com.th.nuernberg.quakedetec.service;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.th.nuernberg.quakedetec.receivers.GcmBroadcastReceiver;
+import com.th.nuernberg.quakedetec.receiver.GcmBroadcastReceiver;
 
 
 import android.app.IntentService;
