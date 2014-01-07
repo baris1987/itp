@@ -106,7 +106,7 @@ public class DeviceRepository implements IPersistence {
 				           " longitude HAVING distance < "+ searchDistanceKm +
 				" ) d) t ";
 			
-			System.out.println(query);
+			//System.out.println(query);
 			
 			ResultSet results = this.persister.get(query);
 
