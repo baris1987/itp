@@ -280,35 +280,37 @@ public class DeviceMap extends Fragment {
 				Double latitude 	= deviceJsonObject.getDouble("latitude");
 				Double longitude	= deviceJsonObject.getDouble("longitude");
 				
-				Geocoder geoCoder;
-				geoCoder = new Geocoder(this.getActivity().getApplicationContext());
+				try {
 				
-				List<Address> addressList = geoCoder.getFromLocation(latitude, longitude, 1);
-				String addressString = "";
-
-				Address address = new Address(null);
-				if(addressList.size() > 0)
-				{
-					address = addressList.get(0);
-
-					for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-						addressString += address.getAddressLine(i);
+					Geocoder geoCoder;
+					geoCoder = new Geocoder(this.getActivity().getApplicationContext());
+					
+					List<Address> addressList = geoCoder.getFromLocation(latitude, longitude, 1);
+					String addressString = "";
+	
+					Address address = new Address(null);
+					if(addressList.size() > 0)
+					{
+						address = addressList.get(0);
+	
+						for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+							addressString += address.getAddressLine(i);
+						}
+	
+						addressString = addressString.substring(0, addressString.length() - 1);
 					}
-
-					addressString = addressString.substring(0, addressString.length() - 1);
+					
+					System.out.println("Adresse Marker: " + addressString);
+				} catch (Exception e)
+				{
+					System.out.println("Error Marker adress: " + e);
 				}
-				
-				System.out.println("Adresse Marker: " + addressString);
-				
 				if(!deviceRegId.equals(myRegId) )
 				{
 					LatLng latlng = new LatLng(latitude, longitude);
 					devicePostions.add(latlng);
 				}
 			} catch (JSONException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
