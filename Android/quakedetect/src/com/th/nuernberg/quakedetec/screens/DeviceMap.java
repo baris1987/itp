@@ -61,8 +61,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.th.nuernberg.quakedetec.R;
-import com.th.nuernberg.quakedetec.service.BackgroundService;
-import com.th.nuernberg.quakedetec.service.BackgroundService.BackgroundServiceBinder;
+import com.th.nuernberg.quakedetec.services.BackgroundService;
+import com.th.nuernberg.quakedetec.services.BackgroundService.BackgroundServiceBinder;
 
 public class DeviceMap extends Fragment {
 	
