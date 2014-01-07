@@ -38,7 +38,7 @@ public class DeviceRepository implements IPersistence {
 			return true;
 			
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		try {
@@ -46,7 +46,7 @@ public class DeviceRepository implements IPersistence {
 			return true;
 			
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		return false;
@@ -90,21 +90,25 @@ public class DeviceRepository implements IPersistence {
 	public double getDetectionRatio(int searchDistanceKm, int hasSentAlarmSeconds, double latitude, double longitude) {
 
 		try {
-			ResultSet results = this.persister.get("  SELECT sum(CONVERT(hassentalarm, DOUBLE)) / CONVERT(count(*), DOUBLE) as ratio FROM ( " + 
-														"SELECT d.*, " + 
-														       "NVL( " + 
-														             "(SELECT CASE WHEN datediff('SECOND', activity, CURRENT_TIMESTAMP()) < "+hasSentAlarmSeconds+" THEN 1 ELSE 0 END  " + 
-														             " FROM itp.t_notification " + 
-														             " WHERE fk_deviceid = pk_deviceid " + 
-														            "  ORDER BY activity DESC LIMIT 1), 0) hassentalarm " + 
-														"FROM " + 
-														 " (SELECT pk_deviceid,  " + 
-																 " (6371 * acos(cos(radians("+longitude+")) * cos(radians(latitude)) * cos(radians(longitude) - radians("+latitude+")) + sin(radians("+longitude+")) * sin(radians(latitude)))) AS distance " + 
-														  " FROM itp.t_device " + 
-														  " GROUP BY pk_deviceid, " + 
-														           " latitude, " + 
-														           " longitude HAVING distance < "+ searchDistanceKm +
-														" ) d) t ");
+			String query = "  SELECT sum(CONVERT(hassentalarm, DOUBLE)) / CONVERT(count(*), DOUBLE) as ratio FROM ( " + 
+					"SELECT d.*, " + 
+				       "NVL( " + 
+				             "(SELECT CASE WHEN datediff('SECOND', activity, CURRENT_TIMESTAMP()) < "+hasSentAlarmSeconds+" THEN 1 ELSE 0 END  " + 
+				             " FROM itp.t_notification " + 
+				             " WHERE fk_deviceid = pk_deviceid " + 
+				            "  ORDER BY activity DESC LIMIT 1), 0) hassentalarm " + 
+				"FROM " + 
+				 " (SELECT pk_deviceid,  " + 
+						 " (6371 * acos(cos(radians("+latitude+")) * cos(radians(latitude)) * cos(radians(longitude) - radians("+longitude+")) + sin(radians("+latitude+")) * sin(radians(latitude)))) AS distance " + 
+				  " FROM itp.t_device " + 
+				  " GROUP BY pk_deviceid, " + 
+				           " latitude, " + 
+				           " longitude HAVING distance < "+ searchDistanceKm +
+				" ) d) t ";
+			
+			System.out.println(query);
+			
+			ResultSet results = this.persister.get(query);
 
 			results.next();
 			double ratio = results.getDouble(1);
@@ -147,7 +151,7 @@ public class DeviceRepository implements IPersistence {
 		try {
 			ResultSet results = this.persister.get("  SELECT d.identifier, d.sendnotify FROM (SELECT pk_deviceid, " + 
 											                    "identifier, " + 
-													  "(6371 * acos(cos(radians("+longitude+")) * cos(radians(latitude)) * cos(radians(longitude) - radians("+latitude+")) + sin(radians("+longitude+")) * sin(radians(latitude)))) AS distance,  " + 
+													  "(6371 * acos(cos(radians("+latitude+")) * cos(radians(latitude)) * cos(radians(longitude) - radians("+longitude+")) + sin(radians("+latitude+")) * sin(radians(latitude)))) AS distance,  " + 
 											                  "(CASE WHEN datediff('SECOND', notification, CURRENT_TIMESTAMP()) < "+ notifyTimeoutSeconds +"  OR notification IS NULL THEN 1 ELSE 0 END) sendnotify " + 
 											   "FROM itp.t_device " + 
 											   "GROUP BY pk_deviceid, " + 

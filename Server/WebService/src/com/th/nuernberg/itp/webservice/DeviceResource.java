@@ -3,6 +3,7 @@ package com.th.nuernberg.itp.webservice;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import com.th.nuernberg.itp.webservice.interfaces.*;
@@ -187,7 +188,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 		config.setApiUrl(this.config.get("CloudMessaging.Api"));
 		config.setAuthorizationKey(this.config.get("CloudMessaging.Authorization"));
 	
-		List<IAndroidDevice> deviceList = null;
+		List<IAndroidDevice> deviceList = new ArrayList<IAndroidDevice>();
 		DeviceRepository deviceRepository = new DeviceRepository();
 		EarthquakeRepository earthquakeRepository = new EarthquakeRepository();
 		
@@ -228,7 +229,7 @@ public class DeviceResource extends BaseResource implements IWebServiceDevice {
 			
 		}
 	
-		deviceRepository.destroy();	
+		//deviceRepository.destroy();	
 
 		this.log.write("METHOD", "algorithm", "searchDistance [km]", searchDistanceKm, "notifyDistance [km]", notifyDistanceKm, "notifyTimeout [s]", notifyTimeoutSeconds, "detectionRatio [%]", detectionRatio);
 		this.log.write("METHOD", "analyze", "current ratio", ratio, "notify devices", deviceList.size(), "updated notifies", updatedLastNotifications, "saved earthquake", savedEarthquake);
