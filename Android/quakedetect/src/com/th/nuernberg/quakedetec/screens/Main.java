@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,6 +16,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+
+import pl.mg6.android.maps.extensions.Marker;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -151,7 +154,7 @@ public class Main extends FragmentActivity implements
 			}
 		};
 	    
-	    infoUpdateTimer.scheduleAtFixedRate(infoUpdateTimerTask, 0, 120000);
+	    infoUpdateTimer.scheduleAtFixedRate(infoUpdateTimerTask, 0, 15000);
 	    
 	    if(BackgroundService.getBackgroundService() != null)
 	    	BackgroundService.getBackgroundService().startLocationUpdateTimerOrChangeIfNeeded();
@@ -355,6 +358,9 @@ public class Main extends FragmentActivity implements
 							deviceJSONObjects.add(device);
 						}
 						info.setConnectedDevicesTextView(deviceJSONObjects.size());
+						List<Marker> markers = deviceMap.getGoogleMap().getMarkers();
+						for(Marker marker :  markers)
+							marker.remove();
 						deviceMap.addDeviceMarkerToMap(deviceJSONObjects);
 					} catch (Exception e)
 					{
