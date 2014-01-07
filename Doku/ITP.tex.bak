@@ -75,7 +75,9 @@ IT Projekt\\
 \newpage
 \input{Teamorganisation}
 \input{Motivation}
-\
+\input{SystemStruktur}
+
+\input{ErdbebenerkennungAndroid}
 \input{Fazit}
 \newpage
 \end{document}
