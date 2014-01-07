@@ -13,26 +13,26 @@
             android:entryValues="@array/mapTypeValues"
 	        android:title="@string/set_maptype" />
 	</PreferenceCategory>
-	<PreferenceCategory
+	<!-- <PreferenceCategory
         android:title="@string/set_title_location"
         android:key="location">
 	   
-	    <ListPreference 
+	   <ListPreference 
             android:key="locationupdates_interval"
             android:title="@string/set_location_update_intervall"
             android:defaultValue="300000" 
             android:entries="@array/locationUpdateInterval"
             android:entryValues="@array/locationUpdateIntervalValues"
             android:summary="@string/set_location_update_intervall_summary"
-        /> 
-        <!-- <ListPreference 
+        />
+        <ListPreference 
             android:key="locationupdates_radius"
             android:title="@string/set_location_update_radius"
             android:defaultValue="50" 
             android:entries="@array/locationUpdateRadius"
             android:entryValues="@array/locationUpdateRadiusValues"
-        /> -->
-	</PreferenceCategory>
+        /> 
+	</PreferenceCategory>  --> 
 	
 	<!-- <PreferenceCategory
         android:title="@string/set_title_accelerometer"

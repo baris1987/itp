@@ -403,21 +403,23 @@ public class DeviceMap extends Fragment {
 			myPostionMarker.remove();
 		if(myPostionCircle != null)
 			myPostionCircle.remove();
+		if(this.lastKnownLocation != null)
+		{
+			LatLng myPosition = new LatLng (this.lastKnownLocation.getLatitude(), this.lastKnownLocation.getLongitude());
 			
-		LatLng myPosition = new LatLng (this.lastKnownLocation.getLatitude(), this.lastKnownLocation.getLongitude());
-		
-		MarkerOptions markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).position(myPosition);
-		markerOptions.title("myPosition");
-		CircleOptions circleOptions = new CircleOptions();
-		circleOptions.center(myPosition);
-		circleOptions.radius(lastKnownLocation.getAccuracy());
-		circleOptions.fillColor(0x40007FFF);
-		circleOptions.strokeColor(0x50007FFF);
-		circleOptions.strokeWidth(2);
-		
-		myPostionMarker = googleMap.addMarker(markerOptions);
-		myPostionMarker.setClusterGroup(-1);
-		myPostionCircle = googleMap.addCircle(circleOptions);
+			MarkerOptions markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).position(myPosition);
+			markerOptions.title("myPosition");
+			CircleOptions circleOptions = new CircleOptions();
+			circleOptions.center(myPosition);
+			circleOptions.radius(lastKnownLocation.getAccuracy());
+			circleOptions.fillColor(0x40007FFF);
+			circleOptions.strokeColor(0x50007FFF);
+			circleOptions.strokeWidth(2);
+			
+			myPostionMarker = googleMap.addMarker(markerOptions);
+			myPostionMarker.setClusterGroup(-1);
+			myPostionCircle = googleMap.addCircle(circleOptions);
+		}
 	}
 	
 	public boolean isInitialized()

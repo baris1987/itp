@@ -485,7 +485,7 @@ public class BackgroundService extends Service {
 		{
 			if(networkTimerMillis != 30000)
 			{
-				networkTimerMillis = 30000;
+				networkTimerMillis = 30000; // 30 Sekunden
 				changeNetworkTimer = true;
 			}
 		}
