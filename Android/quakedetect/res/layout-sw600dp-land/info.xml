@@ -23,14 +23,28 @@
             android:paddingBottom="20dp"
             android:weightSum="1" >
 
-            <TextView
-                android:id="@+id/accelerometer_titel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="30dp"
-                android:paddingLeft="50dp"
-                android:text="@string/tv_info_accelerometer"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="@string/tv_info_accelerometer"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/txt_accelerometer_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textColor="@color/chart_abs"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/chart"
@@ -65,7 +79,8 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="50dp"
                     android:text="@string/tv_info_connected_devices"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="25dp" />
 
                 <TextView
                     android:id="@+id/txt_connected_devices"
@@ -94,7 +109,8 @@
                     android:paddingRight="50dp"
                     android:paddingTop="@dimen/padding_top"
                     android:text="@string/tv_info_last_earthquake"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="25dp" />
 
                 <TextView
                     android:id="@+id/txt_last_earthquake"
@@ -123,7 +139,8 @@
                     android:paddingRight="50dp"
                     android:paddingTop="@dimen/padding_top"
                     android:text="@string/tv_info_location"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="25dp" />
 
                 <TextView
                     android:id="@+id/txt_your_location"
@@ -152,7 +169,8 @@
                     android:paddingRight="50dp"
                     android:paddingTop="@dimen/padding_top"
                     android:text="@string/tv_info_location_provider"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="25dp" />
 
                 <TextView
                     android:id="@+id/txt_location_provider"
