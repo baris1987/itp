@@ -1,7 +1,8 @@
 \BOOKMARK [1][-]{section.1}{Teamorganisation}{}% 1
 \BOOKMARK [1][-]{section.2}{Motivation}{}% 2
 \BOOKMARK [1][-]{section.3}{System Struktur}{}% 3
-\BOOKMARK [1][-]{section.4}{Erdbebenerkennung unter Android}{}% 4
-\BOOKMARK [2][-]{subsection.4.1}{Abfragen der Sensordaten unter Android}{section.4}% 5
-\BOOKMARK [2][-]{subsection.4.2}{Erdbebenauswertung}{section.4}% 6
-\BOOKMARK [1][-]{section.5}{Fazit}{}% 7
+\BOOKMARK [1][-]{section.4}{RESTful WebService}{}% 4
+\BOOKMARK [1][-]{section.5}{Erdbebenerkennung unter Android}{}% 5
+\BOOKMARK [2][-]{subsection.5.1}{Abfragen der Sensordaten unter Android}{section.5}% 6
+\BOOKMARK [2][-]{subsection.5.2}{Erdbebenauswertung}{section.5}% 7
+\BOOKMARK [1][-]{section.6}{Fazit}{}% 8
