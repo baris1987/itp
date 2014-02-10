@@ -13,39 +13,6 @@
             android:entryValues="@array/mapTypeValues"
 	        android:title="@string/set_maptype" />
 	</PreferenceCategory>
-	<!-- <PreferenceCategory
-        android:title="@string/set_title_location"
-        android:key="location">
-	   
-	   <ListPreference 
-            android:key="locationupdates_interval"
-            android:title="@string/set_location_update_intervall"
-            android:defaultValue="300000" 
-            android:entries="@array/locationUpdateInterval"
-            android:entryValues="@array/locationUpdateIntervalValues"
-            android:summary="@string/set_location_update_intervall_summary"
-        />
-        <ListPreference 
-            android:key="locationupdates_radius"
-            android:title="@string/set_location_update_radius"
-            android:defaultValue="50" 
-            android:entries="@array/locationUpdateRadius"
-            android:entryValues="@array/locationUpdateRadiusValues"
-        /> 
-	</PreferenceCategory>  --> 
-	
-	<!-- <PreferenceCategory
-        android:title="@string/set_title_accelerometer"
-        android:key="accelerometer">
-	   
-	    <ListPreference 
-            android:key="accelerometer_rate"
-            android:title="@string/set_accelerometer_rate"
-            android:defaultValue="1" 
-            android:entries="@array/accelerometerRate"
-            android:entryValues="@array/accelerometerRateValues"
-        />  
-	</PreferenceCategory> -->
 	
 	<PreferenceCategory
         android:title="@string/notification_title"
@@ -72,22 +39,7 @@
             android:title="@string/notification_led_title" >
         </CheckBoxPreference>
 	</PreferenceCategory>
-	
-	<!-- Theme setzen mit momentaner google play services library nicht möglich, daher auskommentiert
-	<PreferenceCategory
-        android:title="@string/theme_title"
-        android:key="theme">
-	   
-	    <ListPreference 
-            android:key="application_theme"
-            android:title="@string/application_theme_title"
-            android:defaultValue="2131492866" 
-            android:entries="@array/themes"
-            android:entryValues="@array/themesValues"
-            android:summary="@string/application_theme_summary"
-        />  
-	</PreferenceCategory> -->
-	
+
 	<PreferenceCategory android:title="@string/set_titel_server" android:key="server">
 		<EditTextPreference android:title="@string/set_server_url" android:key="server_url" android:defaultValue="5.135.167.64"/>
 		<EditTextPreference android:title="@string/set_server_port" android:key="server_port" android:defaultValue="8088"/>

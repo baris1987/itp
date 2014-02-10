@@ -7,6 +7,9 @@
 \usepackage[ngerman]{babel}
 \usepackage{here} 
 \usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{floatflt}
+\usepackage{float}
 \graphicspath{{./images/} }
 \usepackage[hang]{footmisc}
 \linespread{1.5}
@@ -15,6 +18,7 @@
 \definecolor{red}{rgb}{1.0, 0.03, 0.0}
 \definecolor{green}{rgb}{0.0, 0.65, 0.31}
 \usepackage{hyperref}
+\usepackage{caption}
 \lstset{
 	  basicstyle=\ttfamily,
 	  breaklines=true,
@@ -80,9 +84,18 @@ IT Projekt\\
 \input{Teamorganisation}
 \input{Motivation}
 \input{SystemStruktur}
+\newpage
 \input{WebService}
+\newpage
+\input{UserInterface}
+\newpage
 \input{ErdbebenerkennungAndroid}
+\newpage
+\input{Lokalisierung}
+\newpage
+\input{Ausblick}
 \input{Fazit}
 \newpage
+\listoffigures
 \end{document}
 

@@ -1,0 +1,152 @@
+\section[User Interface (Niklas Schäfer)]{User Interface\begin{tiny} (Niklas Schäfer)\end{tiny}}
+Das User Interface der App besteht aus drei Bereichen:
+
+\begin{itemize}
+     \item Info
+     \item Device Map
+     \item Settings
+\end{itemize}
+
+In der App wurde ein \textit{ViewPager} implementiert, mit welchem es möglich ist der App Fragmente hinzuzufügen, die über Tabs im oberen Bereich der App oder per Wischgesten zu erreichen sind. In den ViewPager wurden ein \textit{Info Screen} und eine \textit{Device Map} integriert. Desweiteren können über einen Button im oberen rechten Bereich die Einstellungen der App geöffnet werden.
+
+\subsection{Info}
+\begin{wrapfigure}{r}{50mm}
+\includegraphics[width=50mm]{/info_screen.png}
+\caption[User Interface: Info]{Info}
+\end{wrapfigure}
+Die App bietet unter dem Tab Info eine Übersicht über die wichtigsten Daten.
+Im oberen Bereich befindet sich ein Graph, der die Daten des Beschleunigunssensors darstellt. 
+Dabei zeigt er nicht alle Achsen an, die der Beschleunigunssensor ausliest, sondern nur einen Durchschnittswert aller Achsen. Für die Entscheidung nur einen Graph anzuzeigen, sprechen zwei Gründe.
+Zum Einen ist ein kontinuierliches Neuzeichnen sehr leistungshungrig, sodass die App auf einem performanceschwachen Gerät ruckeln würde, wenn mehrere Graphen kontinuierlich gezeichnet werden müssten. Zum Anderen kann es für einen Nutzer verwirrend sein, wenn mehrere stark schwankende Graphen dargestellt werden würden. Somit ist ein einzelner Graph eine ansprechendere, übersichtlichere und leistungsschonendere Lösung.
+Weiterhin kann der Nutzer die Anzahl der momentan verbundenen Geräte ablesen, was gleichzeitig auf die Zuverlässigkeit der Erdbebenerkennung schließen lässt (Stichwort: Mehrheitsentscheid).
+Darunter befinden sich Informationen zum letzten erfassten Erdbeben, wie Datum, Uhrzeit und Land/Stadt des letzten Bebens.
+Unter dem letzten Beben befindet sich die aktuelle Position in Form einer vollständigen Addresse.
+Außerdem wird im unteren Bereich des Screens der momentan genutzte Ortungsdienst und die momentane Genauigkeit des erfassten Standorts angezeigt. (Weitere Informationen zum Ortungsdienst, siehe Kapitel Lokalisierung) 
+
+\newpage
+\subsection{Device Map}
+Da die Quakedetec App durch Mehrheitsentscheidung darauf schließt, ob ein übersendeter Alarm wirklich aus einem Beben resultiert, ist die App natürlich umso verlässlicher, desto mehr Geräte sich in der eigenen Umgebung befinden, die ebenfalls die App nutzen. Daher besitzt die App eine Google Map in der der eigene Standort und sämtliche anderen Nutzer angezeigt werden. Dadurch kann sich der Nutzer einen Überblick verschaffen, ob sich in der eigenen Umgebung weitere Nutzer befinden und die App somit in diesem Gebiet verlässlich arbeitet.
+
+\subsubsection{Google Map hinzufügen}
+Um eine Google Map in einem Android Projekt zu verwenden, muss man dem Projekt zuerst die \textit{Google Play Service SDK} hinzufügen. Dazu installiert man das SDK, fügt es als Android Application dem Workspace hinzu und referenziert dieses Projekt als Android Library im eigenen App Projekt. Außerdem muss noch folgender Eintrag im \textit{AndroidManifest.xml} vorgenommen werden:
+
+\begin{lstlisting}[caption={Google Map AndroidManifest.xml Eintrag},label=lst:MapInsertManifest]
+<meta-data
+    android:name="com.google.android.gms.version"
+    android:value="@integer/google_play_services_version" />
+\end{lstlisting}
+
+Um eine Google Map in einem App Projekt nutzen zu können, benötigt man einen Google Maps API Key. Um diesen zu generieren, ist es notwendig ein API Projekt in der Google API Console anzulegen. Die genaue Vorgehensweise hierzu ist in der Google Maps Dokumentation zu finden. Mit Hilfe dieses Projekts, kann man einen Google Map API Key generieren, indem man dort einen neuen Android Key anlegt und den eigenen SHA-1 Fingerprint des eigenen Android Zertifikats und durch Semikolon getrennt \textit{com.example.android.mapexample} hinzufügt.
+
+\begin{lstlisting}[caption={Android API Key},label=lst:AndroidApiKey, basicstyle=\small]
+BB:0D:AC:74:D3:21:E1:43:67:71:9B:62:91:AF:A1:66:6E:44:5D:75;com.example.android.mapexample
+\end{lstlisting}
+
+Den Fingerprint kann man mit folgendem Befehl in der Shell unter Linux ausgeben lassen: 
+
+\begin{lstlisting}[caption={Fingerprint Ausgabe},label=lst:FingerprintOutput]
+keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{/fingerprint.png}
+\caption{SHA-1 Fingerprint}
+\label{fig:fingerprint}
+\end{figure}
+
+Hat man einen Android Key nach dieser Vorgehensweise angelegt, bekommt man einen Google Maps API Key.
+
+\begin{lstlisting}[caption={Google Map API Key},label=lst:MapApiKey]
+AIzaSyBdVl-cTICSwYKrZ95SuvNw7dbMuDt1KG0
+\end{lstlisting}
+
+Dieser muss der App \textit{AndroidManifest.xml} hinzugefügt werden.
+
+\begin{lstlisting}[caption={Google Map API Key hinzufügen},label=lst:MapApiKeyInsert]
+<meta-data
+    android:name="com.google.android.maps.v2.API_KEY"
+    android:value="AIzaSyBdVl-cTICSwYKrZ95SuvNw7dbMuDt1KG0"/>
+\end{lstlisting}
+
+Der letzte Schritt besteht darin ein \textit{SupportMapFragment} der entsprechenden Android Activity hinzuzufügen und die Map wird dargestellt.
+
+\begin{lstlisting}[caption={SupportMapFragment hinzufügen},label=lst:SupportMapFragmentInsert]
+<?xml version="1.0" encoding="utf-8"?>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/map"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:name="com.google.android.gms.maps.SupportMapFragment"/>
+\end{lstlisting}
+\newpage
+\subsubsection{User Interface}
+
+\begin{wrapfigure}{r}{40mm}
+\vspace{-5mm}
+\includegraphics[width=40mm]{/devicemap_overview_1.png}
+\vspace{-10mm}
+\caption[User Interface: Device Map]{Map}
+\vspace{-10mm}
+\end{wrapfigure}
+
+Die Google Map ist im Tab \textit{Karte} zu finden. Sobald man den Tab öffnet, wird die Ansicht auf die eigene Position gesetzt. Die eigene Position wird durch einen blauen Marker dargestellt. Tippt man diesen Marker an, öffnet sich ein Kontextmenü, welches die letzte Positionsaktualisierung und die Genauigkeit des Standortorts anzeigt.
+Auf der Map gibt es drei User Interface Elemente. Im rechten oberen Abschnitt befindet sich ein Button, der die Kamera zur eigenen Position führt. Wenn sich der Nutzer per Touchgesten durch die Map bewegt hat, kann er sich mit Hilfe dieses Buttons zurück zu seiner Position navigieren lassen. Am rechten unteren Rand hat der Benutzer die Möglichkeit in die Map hinein und heraus zu zoomen. 
+\par\bigskip\bigskip
+\begin{wrapfigure}{l}{40mm}
+\centering
+\vspace{-10mm}
+   \includegraphics[width=40mm]{/devicemap_maptypes.png} 
+\vspace{-10mm}
+\caption[User Interface: Map Types]{Map Types}
+\vspace{-20mm}
+\end{wrapfigure}
+
+Am linken oberen Rand ist ein Button zu finden, der die Möglichkeit bietet, die Ansicht der Karte zu ändern. Man kann zwischen \textit{Normal}, \textit{Satellit}, \textit{Terrain} und \textit{Hybrid} wählen. 
+Der Button für den Zoom ist in der Google Map API enthalten. Die Buttons für die Ansicht und den eigenen Standort wurden eigenständig als Layout über die Google Map gelegt. Dies ist notwendig, da es in der API keine Funktion gibt eine Möglichkeit für den Ansichtswechsel darzustellen. Die Funktion die Kamera auf den eigenen Standort zu bewegen, ist zwar enthalten, hat aber ungewünschte Nebeneffekte. 
+\par\bigskip\bigskip\bigskip\bigskip
+
+Um diese Funktion zu aktivieren, gibt es folgenden Methodenaufruf in der API: 
+
+\begin{lstlisting}[caption={},label=lst:setMyLocationEnabled]
+	googleMap.setMyLocationEnabled(true);
+\end{lstlisting}
+
+Dieser Aufruf bewirkt allerdings nicht nur, dass ein Button sichtbar wird, der die Kamera auf den eigenen Standort bewegt, sondern auch, dass die Google Map eigenständig Positionsdaten über die Smartphone Sensoren abruft. Zum einen steigt dadurch der Akkuverbrauch, weil die Map auf alle verfügbaren Sensoren kontinuierlich zugreift und außerdem hätte man dann zwei unterschiedliche Standorte. Zum einen den, den die App selbst abruft und zum anderen den den die Google Map abruft. Somit würde in der Google Map ein anderer Standort angezeigt werden als der Standort, der in der Info Übersicht angezeigt wird. Um diese ungewünschten Nebeneffekte zu vermeiden, musste diese Funktion deaktiviert und neu nach den Ansprüchen der App implementiert werden.
+
+\subsubsection{Android Maps Extensions}
+
+Die Google Map API hat ein sehr starkes Performanceproblem, wenn auf der Map eine hohe Anzahl von Markern angezeigt wird. In einer Größenordnung ab ca. 100000 Markern auf der Map fängt sie sehr stark an zu Ruckeln und friert teilweise ein. Daher wurde eine Library benutzt, die der Map eine Clustering Funktion hinzufügt. Diese Library ersetzt die Google Play Services Library und kann gleichwertig genutzt werden. Clustering bedeutet, dass Marker je nach Zoom Level gebündelt oder wieder entbündelt werden. Je mehr man aus der Map herauszoomt, desto mehr Punkte werden gebündelt. Zoomt man wieder in die Map herein, werden sie wieder entbündelt. Dadurch wird immer eine kleine Anzahl an Markern dargestellt und die Performance bleibt stabil auf einem guten Niveau. Die gebündelten Punkte zeigen die Anzahl der zusammengefassten Punkte an.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{/maps_extensions_overview.png}
+\caption[User Interface: Android Maps Extensions]{Android Maps Extensions}
+\label{fig:mapsExtensions}
+\end{figure}
+
+\subsubsection{Klassendiagramm DeviceMap}
+\begin{figure}[H]
+\centering
+\includegraphics[width=85mm]{/device_map_class.png}
+\caption[User Interface: Klassendiagramm Device Map]{Klassendiagramm Device Map}
+\label{fig:deviceMapClass}
+\end{figure}
+
+\subsubsection{Zukünftige Implementierung}
+Bei der aktuellen Implementierung kommen schnell Fragen zum Datenschutz auf. Zwar werden keine Informationen über andere angezeigte Geräte herausgegeben, aber wenn sich eine geringe Anzahl an anderen Geräten in der Umgebung befinden, kann man ohne weiteres ein Bewegungsprofil erkennen. Wenn der Nutzer vielleicht sogar weiß, um wen es sich beim angezeigten Nutzer handelt (bspw. ein Freund der ebenfalls die App nutzt), ist dies Datenschutztechnisch sehr bedenklich. Daher sollen die Daten der anderen Geräte schon auf dem Server zusammengefasst werden und nur in zusammengefasster Form an die App ausgeliefert werden. Dazu soll ein gedachtes Raster über die Map gelegt werden. In jedem Rasterfeld werden alle Geräte zusammengefasst. Der zusammengefasste Punkt bekommt dann die Koordinaten, die sich im Mittelpunkt des Rasters befinden. An die App werden dann nur die gebündelten Punkte, Anzahl der Geräte jedes gebündelten Punktes und die Rastergröße weitergeleitet. Somit werden auf der Map keine genauen Punkte mehr angezeigt. Es weiterhin ein blauer durchsichtiger Kreis um die Punkte gelegt, der der Größe eines Rasterfeldes entspricht. Dadurch ist genau erkennbar, wie viele Geräte sich in einem bestimmten Gebiet befinden, ohne dass man Bewegungsprofile eines Gerätes erkennen kann. Die Berechnung der gebündelten Standortdaten wird auf dem Server in bestimmten Zeitabständen durchgeführt und gecached, was dem Datenschutz durch die zeitverzögerten Daten ebenfalls zuträglich ist. Da die Berechnung auf dem Server stattfindet, werden keine genauen Standortdaten mehr zwischen Server und App übertragen, wodurch ein abgreifen der Standortdaten aus den http-Requests ebenfalls unterbunden wird. Bei dieser Implementierung wird die Rastergröße und das Berechnungsinterval frei konfigurierbar sein.
+\subsection{Settings}
+\begin{wrapfigure}{r}{40mm}
+\vspace{-5mm}
+\includegraphics[width=40mm]{/settings_overview.png}
+\vspace{-10mm}
+\caption[User Interface: Settings]{Settings}
+\vspace{-5mm}
+\end{wrapfigure}
+Im Hauptbereich der App befindet sich in der oberen rechten Ecke ein Button über welchen die Einstellungen der App erreichbar sind. Dort kann der Nutzer Einstellungen der App vornehmen.
+Er hat beispielsweise die Möglichkeit die Standardeinstellung für den Map Type der Device Map zu ändern. Man kann wählen zwischen den Typen \textit{Normal}, \textit{Terrain}, \textit{Hybrid} und \textit{Satellite}. Weiterhin gibt es die Möglichkeit die Notifications anzupassen. Es können jeweils Ton, Vibration und LED aktiviert/deaktiviert werden. Diese Einstellung wirkt sich auf sämtliche Notifications aus, die mit der App in Verbindung stehen, z.B. Erdbebenwarnung, deaktivierte Standortbestimmung.
+In der aktuellen Version befinden sich noch Einstellungen für den Server (IP und Port). Diese dienen dem Debugging und werden entfernt sobald die App veröffentlicht wird.
+Der letzte Punkt \textit{Zurücksetzen} bietet dem Nutzer die Möglichkeit, die gesetzten Einstellungen wieder auf die Standardeinstellungen zurückzusetzen.
+
+
+
