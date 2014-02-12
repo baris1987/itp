@@ -3,23 +3,25 @@
 \contentsline {figure}{\numberline {2}{\ignorespaces Struktur des Projektes\relax }}{6}{figure.caption.4}
 \contentsline {figure}{\numberline {3}{\ignorespaces User Interface: Info}}{9}{figure.caption.5}
 \contentsline {figure}{\numberline {4}{\ignorespaces SHA-1 Fingerprint\relax }}{11}{figure.caption.6}
-\contentsline {figure}{\numberline {5}{\ignorespaces User Interface: Device Map}}{12}{figure.caption.7}
-\contentsline {figure}{\numberline {6}{\ignorespaces User Interface: Map Types}}{12}{figure.caption.8}
-\contentsline {figure}{\numberline {7}{\ignorespaces User Interface: Android Maps Extensions}}{13}{figure.caption.9}
-\contentsline {figure}{\numberline {8}{\ignorespaces User Interface: Klassendiagramm Device Map}}{13}{figure.caption.10}
-\contentsline {figure}{\numberline {9}{\ignorespaces User Interface: Settings}}{14}{figure.caption.11}
-\contentsline {figure}{\numberline {10}{\ignorespaces Beschleunigungssignal nach der Zusammenfassung\relax }}{18}{figure.caption.12}
-\contentsline {figure}{\numberline {11}{\ignorespaces Beschleunigungssignal mit Schwellwerten\relax }}{18}{figure.caption.13}
-\contentsline {figure}{\numberline {12}{\ignorespaces Beschleunigungssignal mit Nulldurchl\IeC {\"a}ufen analysiert\relax }}{19}{figure.caption.14}
-\contentsline {figure}{\numberline {13}{\ignorespaces Lokalisierung: Lokalisierung mit NETWORK Provider}}{23}{figure.caption.15}
-\contentsline {figure}{\numberline {14}{\ignorespaces Lokalisierung: User Interface bei Nutzung des NETWORK Providers}}{24}{figure.caption.16}
-\contentsline {figure}{\numberline {15}{\ignorespaces Lokalisierung: Timing-Advance Verfahren}}{25}{figure.caption.17}
-\contentsline {figure}{\numberline {16}{\ignorespaces Lokalisierung: NETWORK Provider in der Praxis}}{25}{figure.caption.18}
-\contentsline {figure}{\numberline {17}{\ignorespaces Lokalisierung: GPS 2 Satelliten}}{26}{figure.caption.19}
-\contentsline {figure}{\numberline {18}{\ignorespaces Lokalisierung: GPS 3 Satelliten}}{26}{figure.caption.20}
-\contentsline {figure}{\numberline {19}{\ignorespaces Lokalisierung: App Permissions}}{27}{figure.caption.21}
-\contentsline {figure}{\numberline {20}{\ignorespaces Lokalisierung: Update Interval}}{30}{figure.caption.22}
-\contentsline {figure}{\numberline {21}{\ignorespaces Lokalisierung: Test auf der Autobahn}}{31}{figure.caption.23}
-\contentsline {figure}{\numberline {22}{\ignorespaces Lokalisierung: Notification in der App}}{32}{figure.caption.24}
-\contentsline {figure}{\numberline {23}{\ignorespaces Lokalisierung: Notification bei geschlossener App}}{32}{figure.caption.24}
-\contentsline {figure}{\numberline {24}{\ignorespaces Lokalisierung: Localizer\relax }}{33}{figure.caption.25}
+\contentsline {figure}{\numberline {5}{\ignorespaces Google API Console nach erfolgreicher API Key Generierung\relax }}{11}{figure.caption.7}
+\contentsline {figure}{\numberline {6}{\ignorespaces Google Maps API Service aktivieren\relax }}{11}{figure.caption.8}
+\contentsline {figure}{\numberline {7}{\ignorespaces User Interface: Device Map}}{12}{figure.caption.9}
+\contentsline {figure}{\numberline {8}{\ignorespaces User Interface: Map Types}}{12}{figure.caption.10}
+\contentsline {figure}{\numberline {9}{\ignorespaces User Interface: Android Maps Extensions}}{14}{figure.caption.11}
+\contentsline {figure}{\numberline {10}{\ignorespaces User Interface: Klassendiagramm Device Map}}{14}{figure.caption.12}
+\contentsline {figure}{\numberline {11}{\ignorespaces User Interface: Settings}}{15}{figure.caption.13}
+\contentsline {figure}{\numberline {12}{\ignorespaces Beschleunigungssignal nach der Zusammenfassung\relax }}{19}{figure.caption.14}
+\contentsline {figure}{\numberline {13}{\ignorespaces Beschleunigungssignal mit Schwellwerten\relax }}{19}{figure.caption.15}
+\contentsline {figure}{\numberline {14}{\ignorespaces Beschleunigungssignal mit Nulldurchl\IeC {\"a}ufen analysiert\relax }}{20}{figure.caption.16}
+\contentsline {figure}{\numberline {15}{\ignorespaces Lokalisierung: Lokalisierung mit NETWORK Provider}}{24}{figure.caption.17}
+\contentsline {figure}{\numberline {16}{\ignorespaces Lokalisierung: User Interface bei Nutzung des NETWORK Providers}}{25}{figure.caption.18}
+\contentsline {figure}{\numberline {17}{\ignorespaces Lokalisierung: Timing-Advance Verfahren}}{26}{figure.caption.19}
+\contentsline {figure}{\numberline {18}{\ignorespaces Lokalisierung: NETWORK Provider in der Praxis}}{26}{figure.caption.20}
+\contentsline {figure}{\numberline {19}{\ignorespaces Lokalisierung: GPS 2 Satelliten}}{27}{figure.caption.21}
+\contentsline {figure}{\numberline {20}{\ignorespaces Lokalisierung: GPS 3 Satelliten}}{27}{figure.caption.22}
+\contentsline {figure}{\numberline {21}{\ignorespaces Lokalisierung: App Permissions}}{28}{figure.caption.23}
+\contentsline {figure}{\numberline {22}{\ignorespaces Lokalisierung: Update Interval}}{31}{figure.caption.24}
+\contentsline {figure}{\numberline {23}{\ignorespaces Lokalisierung: Test auf der Autobahn}}{32}{figure.caption.25}
+\contentsline {figure}{\numberline {24}{\ignorespaces Lokalisierung: Notification in der App}}{33}{figure.caption.26}
+\contentsline {figure}{\numberline {25}{\ignorespaces Lokalisierung: Notification bei geschlossener App}}{33}{figure.caption.26}
+\contentsline {figure}{\numberline {26}{\ignorespaces Lokalisierung: Localizer\relax }}{34}{figure.caption.27}
