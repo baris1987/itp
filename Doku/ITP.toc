@@ -26,5 +26,9 @@
 \contentsline {subsubsection}{\numberline {7.4.1}Erste Umsetzung und Probleme}{31}{subsubsection.7.4.1}
 \contentsline {subsubsection}{\numberline {7.4.2}Finale Umsetzung}{32}{subsubsection.7.4.2}
 \contentsline {subsubsection}{\numberline {7.4.3}Klassendiagramm Localizer}{34}{subsubsection.7.4.3}
-\contentsline {section}{\numberline {8}Ausblick}{35}{section.8}
-\contentsline {section}{\numberline {9}Fazit}{35}{section.9}
+\contentsline {section}{\numberline {8}Kommunikation}{35}{section.8}
+\contentsline {section}{\numberline {9}Testing}{39}{section.9}
+\contentsline {subsection}{\numberline {9.1}L\IeC {\"o}sungsans\IeC {\"a}tze}{39}{subsection.9.1}
+\contentsline {subsection}{\numberline {9.2}Durchf\IeC {\"u}hrung}{39}{subsection.9.2}
+\contentsline {section}{\numberline {10}Ausblick}{44}{section.10}
+\contentsline {section}{\numberline {11}Fazit}{44}{section.11}
