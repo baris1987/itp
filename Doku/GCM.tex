@@ -14,7 +14,7 @@ Hier eine Auflistung der Hauptfunktionen von GCM:
 \end{itemize}
 
 \subsubsection*{Architektur}
-Die Architektur von Google Cloud Messaging  teilt sich in drei Bereiche auf der erste sind die GCM Connection Server die die Nachrichten von den Servern des Entwicklers annehmen und dieses an die Android App des Benutzers schicken. Der zweite Bereich ist der Server des Entwicklers der die Nachrichten für die Benutzer Apps an die Connection Server sendet und als dritten Bereich natürlich die Benutzer-App die sich zum Empfang von GCM Nachrichten bei GCM Registrieren muss um eine eindeutige ID zu erhalten und dadurch nur für sie bestimmte  Nachrichten zu erhalten.\\
+Die Architektur von Google Cloud Messaging  teilt sich in drei Bereiche auf. Der erste sind die GCM Connection Server die die Nachrichten von den Servern des Entwicklers annehmen und diese an die Android App des Benutzers schicken. Der zweite Bereich ist der Server des Entwicklers der die Nachrichten für die Benutzer Apps an die Connection Server sendet und als dritter Bereich natürlich die Benutzer-App die sich zum Empfang von GCM Nachrichten bei GCM Registrieren muss um eine eindeutige ID zu erhalten und dadurch nur für sie bestimmte  Nachrichten erhält.\\
 
 \begin{figure}[H]
 \centering
@@ -54,7 +54,7 @@ Das Empfangen von Nachrichten in der App läuft über das Packet GcmIntentServic
 \end{lstlisting}
 
 \subsubsection*{Server}
-Der Server sendet \ref{ServerSeGCM} eine Benachrichtigungen an die GCM Server diese Leiten die Nachricht an die betroffenen Geräte-IDs weiter. Dies wird über einen REST-Methodenaufruf durchgeführt. Dieser wird an die Adresse https://android.googleapis.com/gcm/send gesendet die Nachricht ist mit einem Authorisationskey ausgestattet damit nur Nachrichten vom richtigen Server gesendet werden können 
+Der Server sendet \ref{ServerSeGCM} eine Benachrichtigung an die GCM Server diese Leiten die Nachricht an die betroffenen Geräte-IDs weiter. Dies wird über einen REST-Methodenaufruf durchgeführt. Dieser wird an die Adresse https://android.googleapis.com/gcm/send gesendet die Nachricht ist mit einem Authorisationskey ausgestattet damit nur Nachrichten vom richtigen Server gesendet werden können 
 
 \begin{lstlisting}[caption={Senden von Nachrichten vom Server},label=lst:ServerSeGCM]
 
