@@ -2,34 +2,45 @@
 \contentsline {section}{\numberline {1}Teamorganisation}{5}{section.1}
 \contentsline {section}{\numberline {2}Motivation (Christopher Althaus)}{6}{section.2}
 \contentsline {section}{\numberline {3}System Struktur (Christopher Althaus)}{7}{section.3}
-\contentsline {section}{\numberline {4}RESTful WebService (Baris Akdag)}{9}{section.4}
-\contentsline {section}{\numberline {5}User Interface (Niklas Sch\IeC {\"a}fer)}{10}{section.5}
-\contentsline {subsection}{\numberline {5.1}Info}{10}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Device Map}{11}{subsection.5.2}
-\contentsline {subsubsection}{\numberline {5.2.1}Google Map in ein Projekt integrieren}{11}{subsubsection.5.2.1}
-\contentsline {subsubsection}{\numberline {5.2.2}User Interface}{13}{subsubsection.5.2.2}
-\contentsline {subsubsection}{\numberline {5.2.3}Android Maps Extensions}{14}{subsubsection.5.2.3}
-\contentsline {subsubsection}{\numberline {5.2.4}AsyncTask Marker hinzuf\IeC {\"u}gen}{15}{subsubsection.5.2.4}
-\contentsline {subsubsection}{\numberline {5.2.5}Klassendiagramm DeviceMap}{17}{subsubsection.5.2.5}
-\contentsline {subsubsection}{\numberline {5.2.6}Zuk\IeC {\"u}nftige Implementierung}{18}{subsubsection.5.2.6}
-\contentsline {subsection}{\numberline {5.3}Settings}{18}{subsection.5.3}
-\contentsline {section}{\numberline {6}Erdbebenerkennung unter Android (Christopher Althaus)}{19}{section.6}
-\contentsline {subsection}{\numberline {6.1}Abfragen der Sensordaten unter Android}{19}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Erdbebenauswertung}{21}{subsection.6.2}
-\contentsline {section}{\numberline {7}Lokalisierung (Niklas Sch\IeC {\"a}fer)}{26}{section.7}
-\contentsline {subsection}{\numberline {7.1}Einleitung}{26}{subsection.7.1}
-\contentsline {subsection}{\numberline {7.2}Location Provider des Android-Systems}{26}{subsection.7.2}
-\contentsline {subsubsection}{\numberline {7.2.1}PASSIVE}{26}{subsubsection.7.2.1}
-\contentsline {subsubsection}{\numberline {7.2.2}NETWORK}{27}{subsubsection.7.2.2}
-\contentsline {subsubsection}{\numberline {7.2.3}Global Positioning System}{29}{subsubsection.7.2.3}
-\contentsline {subsection}{\numberline {7.3}Positionsbestimmung in Android}{31}{subsection.7.3}
-\contentsline {subsection}{\numberline {7.4}Umsetzung der Quakedetec App}{34}{subsection.7.4}
-\contentsline {subsubsection}{\numberline {7.4.1}Erste Umsetzung und Probleme}{34}{subsubsection.7.4.1}
-\contentsline {subsubsection}{\numberline {7.4.2}Finale Umsetzung}{35}{subsubsection.7.4.2}
-\contentsline {subsubsection}{\numberline {7.4.3}Klassendiagramm Localizer}{38}{subsubsection.7.4.3}
-\contentsline {section}{\numberline {8}Kommunikation (Benjamin Brandt)}{39}{section.8}
-\contentsline {section}{\numberline {9}Testing (Benjamin Brandt)}{43}{section.9}
-\contentsline {subsection}{\numberline {9.1}L\IeC {\"o}sungsans\IeC {\"a}tze}{43}{subsection.9.1}
-\contentsline {subsection}{\numberline {9.2}Durchf\IeC {\"u}hrung}{43}{subsection.9.2}
-\contentsline {section}{\numberline {10}Ausblick}{48}{section.10}
-\contentsline {section}{\numberline {11}Fazit}{48}{section.11}
+\contentsline {section}{\numberline {4}Die Architektur der Applikation(J\IeC {\"u}rgen Hetzel)}{9}{section.4}
+\contentsline {subsection}{\numberline {4.1}Der Back Stack einer Task}{9}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Der Lebenszyklus einer Activity}{10}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Layouts}{10}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Die Android-Projektstruktur}{12}{subsection.4.4}
+\contentsline {section}{\numberline {5}Die Architektur der Applikation(J\IeC {\"u}rgen Hetzel)}{13}{section.5}
+\contentsline {subsection}{\numberline {5.1}Das Paket acceleration}{13}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Das Paket location}{13}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Die Klassen von receivers}{13}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Die Klassen von services}{14}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}Die Klassen von screens}{15}{subsection.5.5}
+\contentsline {section}{\numberline {6}RESTful WebService (Baris Akdag)}{17}{section.6}
+\contentsline {section}{\numberline {7}User Interface (Niklas Sch\IeC {\"a}fer)}{18}{section.7}
+\contentsline {subsection}{\numberline {7.1}Info}{18}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Device Map}{19}{subsection.7.2}
+\contentsline {subsubsection}{\numberline {7.2.1}Google Map in ein Projekt integrieren}{19}{subsubsection.7.2.1}
+\contentsline {subsubsection}{\numberline {7.2.2}User Interface}{21}{subsubsection.7.2.2}
+\contentsline {subsubsection}{\numberline {7.2.3}Android Maps Extensions}{22}{subsubsection.7.2.3}
+\contentsline {subsubsection}{\numberline {7.2.4}AsyncTask Marker hinzuf\IeC {\"u}gen}{23}{subsubsection.7.2.4}
+\contentsline {subsubsection}{\numberline {7.2.5}Klassendiagramm DeviceMap}{25}{subsubsection.7.2.5}
+\contentsline {subsubsection}{\numberline {7.2.6}Zuk\IeC {\"u}nftige Implementierung}{26}{subsubsection.7.2.6}
+\contentsline {subsection}{\numberline {7.3}Settings}{26}{subsection.7.3}
+\contentsline {section}{\numberline {8}Erdbebenerkennung unter Android (Christopher Althaus)}{27}{section.8}
+\contentsline {subsection}{\numberline {8.1}Abfragen der Sensordaten unter Android}{27}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}Erdbebenauswertung}{29}{subsection.8.2}
+\contentsline {section}{\numberline {9}Lokalisierung (Niklas Sch\IeC {\"a}fer)}{34}{section.9}
+\contentsline {subsection}{\numberline {9.1}Einleitung}{34}{subsection.9.1}
+\contentsline {subsection}{\numberline {9.2}Location Provider des Android-Systems}{34}{subsection.9.2}
+\contentsline {subsubsection}{\numberline {9.2.1}PASSIVE}{34}{subsubsection.9.2.1}
+\contentsline {subsubsection}{\numberline {9.2.2}NETWORK}{35}{subsubsection.9.2.2}
+\contentsline {subsubsection}{\numberline {9.2.3}Global Positioning System}{37}{subsubsection.9.2.3}
+\contentsline {subsection}{\numberline {9.3}Positionsbestimmung in Android}{39}{subsection.9.3}
+\contentsline {subsection}{\numberline {9.4}Umsetzung der Quakedetec App}{42}{subsection.9.4}
+\contentsline {subsubsection}{\numberline {9.4.1}Erste Umsetzung und Probleme}{42}{subsubsection.9.4.1}
+\contentsline {subsubsection}{\numberline {9.4.2}Finale Umsetzung}{43}{subsubsection.9.4.2}
+\contentsline {subsubsection}{\numberline {9.4.3}Klassendiagramm Localizer}{46}{subsubsection.9.4.3}
+\contentsline {section}{\numberline {10}Kommunikation (Benjamin Brandt)}{47}{section.10}
+\contentsline {section}{\numberline {11}Testing (Benjamin Brandt)}{51}{section.11}
+\contentsline {subsection}{\numberline {11.1}L\IeC {\"o}sungsans\IeC {\"a}tze}{51}{subsection.11.1}
+\contentsline {subsection}{\numberline {11.2}Durchf\IeC {\"u}hrung}{51}{subsection.11.2}
+\contentsline {section}{\numberline {12}Ausblick}{56}{section.12}
+\contentsline {section}{\numberline {13}Fazit}{56}{section.13}

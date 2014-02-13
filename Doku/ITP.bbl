@@ -1,0 +1,39 @@
+\begin{thebibliography}{4}
+% this bibliography was produced with the style dinat.bst v2.5
+\makeatletter
+\newcommand{\dinatlabel}[1]%
+{\ifNAT@numbers\else\NAT@biblabelnum{#1}\hspace{2\labelsep}\fi}
+\makeatother
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax\def\url#1{\texttt{#1}}\fi
+
+\bibitem[Android(2014{\natexlab{a}})]{ADevActivity}
+\dinatlabel{Android 2014{\natexlab{a}}} \textsc{Android}:
+\newblock \emph{Android Developers - Activity}.
+\newblock 2014. --
+\newblock URL
+  \url{http://developer.android.com/reference/android/app/Activity.html}. --
+  Zugriffsdatum: 09.02.2014
+
+\bibitem[Android(2014{\natexlab{b}})]{ADevLayout}
+\dinatlabel{Android 2014{\natexlab{b}}} \textsc{Android}:
+\newblock \emph{Android Developers - Layouts}.
+\newblock 2014. --
+\newblock URL
+  \url{http://developer.android.com/guide/topics/ui/declaring-layout.html}. --
+  Zugriffsdatum: 09.02.2014
+
+\bibitem[Android(2014{\natexlab{c}})]{ADevBackstack}
+\dinatlabel{Android 2014{\natexlab{c}}} \textsc{Android}:
+\newblock \emph{Android Developers - Tasks and Backstack}.
+\newblock 2014. --
+\newblock URL
+  \url{http://developer.android.com/guide/practices/screens_support.html}. --
+  Zugriffsdatum: 09.02.2014
+
+\bibitem[Koller(2012)]{AppsProg}
+\dinatlabel{Koller 2012} \textsc{Koller}, Dr.~D.:
+\newblock \emph{Android-Apps programmieren}.
+\newblock FRANZIS, 2012
+
+\end{thebibliography}

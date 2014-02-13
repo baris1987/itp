@@ -19,6 +19,7 @@
 \definecolor{green}{rgb}{0.0, 0.65, 0.31}
 \usepackage{hyperref}
 \usepackage{caption}
+\usepackage[numbers]{natbib} % Wird für Zitierstil dinat benötigt; square ist für Zitation in eckigen Klammern und numbers für Zitation mit Nummern
 \lstset{
 	  basicstyle=\ttfamily,
 	  breaklines=true,
@@ -85,6 +86,9 @@ IT Projekt\\
 \input{Motivation}
 \input{SystemStruktur}
 \newpage
+%\input{Android-Grundlagen}
+%\input{Architektur}
+\newpage
 \input{WebService}
 \newpage
 \input{UserInterface}
@@ -100,6 +104,9 @@ IT Projekt\\
 \input{Ausblick}
 \input{Fazit}
 \newpage
+\bibliographystyle{dinat} 
+\setcitestyle{square}
+\bibliography{references}
 \listoffigures
 \end{document}
 
