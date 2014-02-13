@@ -2,33 +2,53 @@
 \BOOKMARK [1][-]{section.2}{Motivation \(Christopher Althaus\)}{}% 2
 \BOOKMARK [1][-]{section.3}{System Struktur \(Christopher Althaus\)}{}% 3
 \BOOKMARK [1][-]{section.4}{RESTful WebService \(Baris Akdag\)}{}% 4
-\BOOKMARK [1][-]{section.5}{User Interface \(Niklas Sch\344fer\)}{}% 5
-\BOOKMARK [2][-]{subsection.5.1}{Info}{section.5}% 6
-\BOOKMARK [2][-]{subsection.5.2}{Device Map}{section.5}% 7
-\BOOKMARK [3][-]{subsubsection.5.2.1}{Google Map in ein Projekt integrieren}{subsection.5.2}% 8
-\BOOKMARK [3][-]{subsubsection.5.2.2}{User Interface}{subsection.5.2}% 9
-\BOOKMARK [3][-]{subsubsection.5.2.3}{Android Maps Extensions}{subsection.5.2}% 10
-\BOOKMARK [3][-]{subsubsection.5.2.4}{AsyncTask Marker hinzuf\374gen}{subsection.5.2}% 11
-\BOOKMARK [3][-]{subsubsection.5.2.5}{Klassendiagramm DeviceMap}{subsection.5.2}% 12
-\BOOKMARK [3][-]{subsubsection.5.2.6}{Zuk\374nftige Implementierung}{subsection.5.2}% 13
-\BOOKMARK [2][-]{subsection.5.3}{Settings}{section.5}% 14
-\BOOKMARK [1][-]{section.6}{Erdbebenerkennung unter Android \(Christopher Althaus\)}{}% 15
-\BOOKMARK [2][-]{subsection.6.1}{Abfragen der Sensordaten unter Android}{section.6}% 16
-\BOOKMARK [2][-]{subsection.6.2}{Erdbebenauswertung}{section.6}% 17
-\BOOKMARK [1][-]{section.7}{Lokalisierung \(Niklas Sch\344fer\)}{}% 18
-\BOOKMARK [2][-]{subsection.7.1}{Einleitung}{section.7}% 19
-\BOOKMARK [2][-]{subsection.7.2}{Location Provider des Android-Systems}{section.7}% 20
-\BOOKMARK [3][-]{subsubsection.7.2.1}{PASSIVE}{subsection.7.2}% 21
-\BOOKMARK [3][-]{subsubsection.7.2.2}{NETWORK}{subsection.7.2}% 22
-\BOOKMARK [3][-]{subsubsection.7.2.3}{Global Positioning System}{subsection.7.2}% 23
-\BOOKMARK [2][-]{subsection.7.3}{Positionsbestimmung in Android}{section.7}% 24
-\BOOKMARK [2][-]{subsection.7.4}{Umsetzung der Quakedetec App}{section.7}% 25
-\BOOKMARK [3][-]{subsubsection.7.4.1}{Erste Umsetzung und Probleme}{subsection.7.4}% 26
-\BOOKMARK [3][-]{subsubsection.7.4.2}{Finale Umsetzung}{subsection.7.4}% 27
-\BOOKMARK [3][-]{subsubsection.7.4.3}{Klassendiagramm Localizer}{subsection.7.4}% 28
-\BOOKMARK [1][-]{section.8}{Kommunikation \(Benjamin Brandt\)}{}% 29
-\BOOKMARK [1][-]{section.9}{Testing \(Benjamin Brandt\)}{}% 30
-\BOOKMARK [2][-]{subsection.9.1}{L\366sungsans\344tze}{section.9}% 31
-\BOOKMARK [2][-]{subsection.9.2}{Durchf\374hrung}{section.9}% 32
-\BOOKMARK [1][-]{section.10}{Ausblick}{}% 33
-\BOOKMARK [1][-]{section.11}{Fazit}{}% 34
+\BOOKMARK [2][-]{subsection.4.1}{Kommunikation}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Grundlagen}{section.4}% 6
+\BOOKMARK [3][-]{subsubsection.4.2.1}{GET}{subsection.4.2}% 7
+\BOOKMARK [3][-]{subsubsection.4.2.2}{POST}{subsection.4.2}% 8
+\BOOKMARK [3][-]{subsubsection.4.2.3}{PUT}{subsection.4.2}% 9
+\BOOKMARK [3][-]{subsubsection.4.2.4}{DELETE}{subsection.4.2}% 10
+\BOOKMARK [2][-]{subsection.4.3}{Technologien}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.4}{Funktionalit\344ten}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.5}{Datenbank}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.6}{Implementierung}{section.4}% 14
+\BOOKMARK [3][-]{subsubsection.4.6.1}{Struktur}{subsection.4.6}% 15
+\BOOKMARK [3][-]{subsubsection.4.6.2}{Konfiguration}{subsection.4.6}% 16
+\BOOKMARK [3][-]{subsubsection.4.6.3}{Webserver}{subsection.4.6}% 17
+\BOOKMARK [3][-]{subsubsection.4.6.4}{WebService}{subsection.4.6}% 18
+\BOOKMARK [2][-]{subsection.4.7}{Erdbebenerkennung}{section.4}% 19
+\BOOKMARK [3][-]{subsubsection.4.7.1}{Unterscheidung}{subsection.4.7}% 20
+\BOOKMARK [3][-]{subsubsection.4.7.2}{Distanzberechnung}{subsection.4.7}% 21
+\BOOKMARK [3][-]{subsubsection.4.7.3}{Algorithmus}{subsection.4.7}% 22
+\BOOKMARK [2][-]{subsection.4.8}{Benachrichtigung}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.9}{Produktiveinsatz}{section.4}% 24
+\BOOKMARK [1][-]{section.5}{User Interface \(Niklas Sch\344fer\)}{}% 25
+\BOOKMARK [2][-]{subsection.5.1}{Info}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.2}{Device Map}{section.5}% 27
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Google Map in ein Projekt integrieren}{subsection.5.2}% 28
+\BOOKMARK [3][-]{subsubsection.5.2.2}{User Interface}{subsection.5.2}% 29
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Android Maps Extensions}{subsection.5.2}% 30
+\BOOKMARK [3][-]{subsubsection.5.2.4}{AsyncTask Marker hinzuf\374gen}{subsection.5.2}% 31
+\BOOKMARK [3][-]{subsubsection.5.2.5}{Klassendiagramm DeviceMap}{subsection.5.2}% 32
+\BOOKMARK [3][-]{subsubsection.5.2.6}{Zuk\374nftige Implementierung}{subsection.5.2}% 33
+\BOOKMARK [2][-]{subsection.5.3}{Settings}{section.5}% 34
+\BOOKMARK [1][-]{section.6}{Erdbebenerkennung unter Android \(Christopher Althaus\)}{}% 35
+\BOOKMARK [2][-]{subsection.6.1}{Abfragen der Sensordaten unter Android}{section.6}% 36
+\BOOKMARK [2][-]{subsection.6.2}{Erdbebenauswertung}{section.6}% 37
+\BOOKMARK [1][-]{section.7}{Lokalisierung \(Niklas Sch\344fer\)}{}% 38
+\BOOKMARK [2][-]{subsection.7.1}{Einleitung}{section.7}% 39
+\BOOKMARK [2][-]{subsection.7.2}{Location Provider des Android-Systems}{section.7}% 40
+\BOOKMARK [3][-]{subsubsection.7.2.1}{PASSIVE}{subsection.7.2}% 41
+\BOOKMARK [3][-]{subsubsection.7.2.2}{NETWORK}{subsection.7.2}% 42
+\BOOKMARK [3][-]{subsubsection.7.2.3}{Global Positioning System}{subsection.7.2}% 43
+\BOOKMARK [2][-]{subsection.7.3}{Positionsbestimmung in Android}{section.7}% 44
+\BOOKMARK [2][-]{subsection.7.4}{Umsetzung der Quakedetec App}{section.7}% 45
+\BOOKMARK [3][-]{subsubsection.7.4.1}{Erste Umsetzung und Probleme}{subsection.7.4}% 46
+\BOOKMARK [3][-]{subsubsection.7.4.2}{Finale Umsetzung}{subsection.7.4}% 47
+\BOOKMARK [3][-]{subsubsection.7.4.3}{Klassendiagramm Localizer}{subsection.7.4}% 48
+\BOOKMARK [1][-]{section.8}{Kommunikation \(Benjamin Brandt\)}{}% 49
+\BOOKMARK [1][-]{section.9}{Testing \(Benjamin Brandt\)}{}% 50
+\BOOKMARK [2][-]{subsection.9.1}{L\366sungsans\344tze}{section.9}% 51
+\BOOKMARK [2][-]{subsection.9.2}{Durchf\374hrung}{section.9}% 52
+\BOOKMARK [1][-]{section.10}{Ausblick}{}% 53
+\BOOKMARK [1][-]{section.11}{Fazit}{}% 54
