@@ -1,4 +1,6 @@
 \section[User Interface (Niklas Schäfer)]{User Interface\begin{tiny} (Niklas Schäfer)\end{tiny}}
+\nocite{ADevUI}
+
 Das User Interface der App besteht aus drei Bereichen:
 
 \begin{itemize}
@@ -7,7 +9,7 @@ Das User Interface der App besteht aus drei Bereichen:
      \item Settings
 \end{itemize}
 
-In der App wurde ein \textit{ViewPager} implementiert, mit welchem es möglich ist, der App Fragmente hinzuzufügen, die über Tabs im oberen Bereich der App oder per Wischgesten zu erreichen sind. In den ViewPager wurden ein \textit{Info Screen} und eine \textit{Device Map} integriert. Desweiteren können über einen Button im oberen rechten Bereich die Einstellungen der App geöffnet werden.
+In der App wurde ein \textit{ViewPager} implementiert, mit welchem es möglich ist, der App \textit{Fragments} (Views) hinzuzufügen, die über Tabs im oberen Bereich der App oder per Wischgesten zu erreichen sind. In den ViewPager wurden ein \textit{Info Screen} und eine \textit{Device Map} integriert. Desweiteren können über einen Button im oberen rechten Bereich die Einstellungen der App geöffnet werden.
 
 \subsection{Info}
 \begin{wrapfigure}{r}{50mm}
@@ -25,6 +27,7 @@ Außerdem wird im unteren Bereich des Screens der aktuell genutzte Ortungsdienst
 
 \newpage
 \subsection{Device Map}
+\nocite{GoogleMapsAPI}
 Da die Quakedetec App durch Mehrheitsentscheid darauf schließt, ob ein übersendeter Alarm wirklich aus einem Beben resultiert, ist die App umso verlässlicher, je mehr Geräte sich in der eigenen Umgebung befinden, die ebenfalls die App nutzen. Daher besitzt die App eine Google Map, in der der eigene Standort und und der der anderern Nutzer angezeigt wird. Dadurch kann sich der Nutzer einen Überblick verschaffen, ob sich in der eigenen Umgebung weitere Nutzer befinden und kann daraus schließen, ob in seinem Gebiet die App zuverlässig arbeitet.
 
 \subsubsection{Google Map in ein Projekt integrieren}
@@ -83,7 +86,7 @@ Um die Konfiguration abzuschließen, muß der API Key noch der \textit{AndroidMa
     android:value="AIzaSyAZlRZUeVsn74xzuInj3Xr-Y1suCcWomWE"/>
 \end{lstlisting}
 \bigskip
-Der letzte Schritt um die Google Map zu implementieren besteht darin, ein \textit{SupportMapFragment} der entsprechenden \textit{Android Activity(View)} hinzuzufügen, welche die Map darstellen soll.
+Der letzte Schritt um die Google Map zu implementieren besteht darin, ein \textit{SupportMapFragment} der entsprechenden \textit{Android Activity (View)} hinzuzufügen, welche die Map darstellen soll.
 
 \begin{lstlisting}[caption={SupportMapFragment hinzufügen},label=lst:SupportMapFragmentInsert]
 <?xml version="1.0" encoding="utf-8"?>
@@ -126,7 +129,7 @@ Um diese Funktion zu aktivieren, gibt es folgenden Methodenaufruf in der API:
 	googleMap.setMyLocationEnabled(true);
 \end{lstlisting}
 
-Dieser Aufruf bewirkt allerdings nicht nur, dass ein Button sichtbar wird, der die Kamera auf den eigenen Standort bewegt, sondern auch, dass die Google Map eigenständig Positionsdaten über die Smartphone Sensoren abruft. Dadurch steigt der Akkuverbrauch stark an, weil die Map auf alle verfügbaren Location Provider kontinuierlich zugreift (GPS und NETWORK). Desweiteren hätte man dann zwei unterschiedliche Standorte, da die App einen Standort abruft und die Google Map ebenfalls einen Standort bestimmt. Somit würde gegebenenfalls in der Google Map ein anderer Standort angezeigt werden als der Standort, der in der Info Übersicht angezeigt wird. Um diese ungewünschten Nebeneffekte zu vermeiden, musste diese Funktion deaktiviert und neu nach den Ansprüchen der App implementiert werden.
+Dieser Aufruf bewirkt allerdings nicht nur, dass ein Button sichtbar wird, der die Kamera auf den eigenen Standort bewegt, sondern auch, dass die Google Map eigenständig Positionsdaten über die Smartphone Sensoren abruft. Dadurch steigt der Akkuverbrauch stark an, weil die Map auf alle verfügbaren Location Provider kontinuierlich zugreift (\textit{GPS} und \textit{NETWORK}). Desweiteren hätte man dann zwei unterschiedliche Standorte, da die App einen Standort abruft und die Google Map ebenfalls einen Standort bestimmt. Somit würde gegebenenfalls in der Google Map ein anderer Standort angezeigt werden als der Standort, der in der Info Übersicht angezeigt wird. Um diese ungewünschten Nebeneffekte zu vermeiden, musste diese Funktion deaktiviert und neu nach den Ansprüchen der App implementiert werden.
 
 \begin{lstlisting}[caption={"Kamera auf letzte bekannte Position setzen"},label=lst:updateCamera]
 	public void updateCameraToLastKnownLocation(int zoom)
@@ -212,8 +215,8 @@ Ein weiteres Problem der Google Maps API ist, dass ebenfalls das Hinzufügen von
 	}
 \end{lstlisting}
 
-Dieser \textit{AsyncTask} bringt den Vorteil, dass die Map nicht mehr einfriert, wenn eine hohe Anzahl an Markern hinzugefügt werden muss. Zwar wird immernoch der gleiche Zeitraum beansprucht, die auch die bereitgestellte Funktion \textit{addMarker(Marker marker)} aus der Google API benötigt, sodass auch mit dieser Lösung nicht alle Marker sofort dargestellt werden können. Allerdings wird dem Nutzer eine \textit{Progress Bar} angezeigt, welche im oberen Bereich unter der Tableiste sichtbar wird, solange der Vorgang aktiv ist. So kann der Nutzer nachvollziehen, ob und wann alle Standorte anderer Nutzer dargestellt werden. Außerdem ist zu beobachten, wie sich die Map während des Vorgangs mit Markern füllt, wodurch schon von Anfang an andere Nutzer auf der Map wahrgenommen werden können. Dies wäre mit der bereitgestellten Funktion aus der API auch nicht möglich, da die Map eingefroren wäre, bis der Vorgang abgeschlossen ist.
-Bei einer Anzahl von unter 10000 Markern liegt die Geschwindigkeit des Vorgangs noch unter einem für ihn wahrnehmbaren Bereich. Erst ab ca. 50000 Markern, dauert der Vorgang etwa 5-10 Sekunden. In einer zukünftigen Implementierung wird diese Größenordnung nicht mehr überschritten (siehe Kapitel \ref{subsubsec:mapFutureImpl}).
+Dieser \textit{AsyncTask} bringt den Vorteil, dass die Map nicht mehr einfriert, wenn eine hohe Anzahl an Markern hinzugefügt werden muss. Zwar wird immernoch der gleiche Zeitraum beansprucht, die auch die bereitgestellte Funktion \textit{addMarker(Marker marker)} aus der Google API benötigt, sodass auch mit dieser Lösung nicht alle Marker sofort dargestellt werden können, allerdings wird dem Nutzer eine \textit{Progress Bar} angezeigt, welche im oberen Bereich unter der Tableiste sichtbar wird, solange der Vorgang aktiv ist. So kann der Nutzer nachvollziehen, ob und wann alle Standorte anderer Nutzer dargestellt werden. Außerdem ist zu beobachten, wie sich die Map während des Vorgangs mit Markern füllt, wodurch schon von Anfang an andere Nutzer auf der Map wahrgenommen werden können. Dies wäre mit der bereitgestellten Funktion aus der API auch nicht möglich, da die Map eingefroren wäre, bis der Vorgang abgeschlossen ist.
+Bei einer Anzahl von unter 10000 Markern liegt die Geschwindigkeit des Vorgangs noch unter einem für den Nutzer wahrnehmbaren Bereich. Erst ab ca. 50000 Markern, dauert der Vorgang etwa 5-10 Sekunden. In einer zukünftigen Implementierung wird diese Größenordnung nicht mehr überschritten (siehe Kapitel \ref{subsubsec:mapFutureImpl}).
 
 \begin{figure}[H]
 \centering
@@ -231,7 +234,7 @@ Bei einer Anzahl von unter 10000 Markern liegt die Geschwindigkeit des Vorgangs 
 \end{figure}
 
 \subsubsection{Zukünftige Implementierung}\label{subsubsec:mapFutureImpl}
-Bei der aktuellen Implementierung kommen schnell Fragen zum Datenschutz auf. Zwar werden keine Informationen über andere angezeigte Geräte herausgegeben, aber wenn sich eine geringe Anzahl an anderen Geräten in der Umgebung befinden, kann ohne weiteres ein Bewegungsprofil erkannt werden. Wenn der Nutzer vielleicht sogar weiß, um wen es sich beim angezeigten Nutzer handelt (bspw. einen Freund, der ebenfalls die App nutzt), ist dies datenschutztechnisch sehr bedenklich. Daher sollen die Daten der anderen Geräte schon auf dem Server zusammengefasst werden und nur in zusammengefasster Form an die App ausgeliefert werden. Dazu soll ein gedachtes Raster über die Map gelegt werden. In jedem Rasterfeld werden alle Geräte zusammengefasst. Der zusammengefasste Punkt bekommt dann die Koordinaten, die sich im Mittelpunkt des Rasters befinden. An die App werden dann nur die gebündelten Punkte, Anzahl der Geräte jedes gebündelten Punktes und die Rastergröße weitergeleitet. Somit werden auf der Map keine genauen Punkte mehr angezeigt. Es wird weiterhin ein blauer durchsichtiger Kreis um die Punkte gelegt, der der Größe eines Rasterfeldes entspricht. Dadurch ist genau erkennbar, wie viele Geräte sich in einem bestimmten Gebiet/Raster befinden, ohne dass Bewegungsprofile eines Gerätes zu erkennen sind. Die Berechnung der gebündelten Standortdaten wird in bestimmten Zeitabständen durchgeführt und gecached, was dem Datenschutz durch die leicht zeitverzögerten Daten ebenfalls zuträglich ist. Da die Berechnung auf dem Server stattfindet, werden keine genauen Standortdaten mehr zwischen Server und App übertragen, wodurch ein Abgreifen der Standortdaten aus den http-Requests ebenfalls unterbunden wird. Bei dieser Implementierung wird die Rastergröße und das Berechnungsinterval frei konfigurierbar sein.
+Bei der aktuellen Implementierung kommen schnell Fragen zum Datenschutz auf. Zwar werden keine Informationen über andere angezeigte Geräte herausgegeben, aber wenn sich eine geringe Anzahl an anderen Geräten in der Umgebung befinden, kann ohne weiteres ein Bewegungsprofil erkannt werden. Wenn der Nutzer vielleicht sogar weiß, um wen es sich beim angezeigten Nutzer handelt (bspw. einen Freund, der ebenfalls die App nutzt), ist dies datenschutztechnisch sehr bedenklich. Daher sollen die Daten der anderen Geräte schon auf dem Server zusammengefasst werden und nur in zusammengefasster Form an die App ausgeliefert werden. Dazu soll ein gedachtes Raster über die Map gelegt werden. In jedem Rasterfeld werden alle Geräte zusammengefasst. Der zusammengefasste Punkt bekommt dann die Koordinaten, die sich im Mittelpunkt des Rasters befinden. An die App werden dann nur die gebündelten Punkte, Anzahl der Geräte jedes gebündelten Punktes und die Rastergröße weitergeleitet. Somit werden auf der Map keine genauen Punkte mehr angezeigt. Es wird weiterhin ein blauer durchsichtiger Kreis um die Punkte gelegt, der der Größe eines Rasterfeldes entspricht. Dadurch ist genau erkennbar, wie viele Geräte sich in einem bestimmten Gebiet/Raster befinden, ohne dass Bewegungsprofile eines Gerätes zu erkennen sind. Die Berechnung der gebündelten Standortdaten wird in bestimmten Zeitabständen durchgeführt und gecached, was dem Datenschutz durch die leicht zeitverzögerten Daten ebenfalls zuträglich ist. Da die Berechnung auf dem Server stattfindet, werden keine genauen Standortdaten mehr zwischen Server und App übertragen, wodurch ein Abgreifen der Standortdaten aus den http-Requests ebenfalls unterbunden wird. Bei dieser Implementierung wird die Rastergröße und das Berechnungsintervall frei konfigurierbar sein.
 \subsection{Settings}
 \begin{wrapfigure}{r}{40mm}
 \vspace{-5mm}

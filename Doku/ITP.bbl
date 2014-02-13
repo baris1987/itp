@@ -7,33 +7,35 @@
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax\def\url#1{\texttt{#1}}\fi
 
-\bibitem[Android(2014{\natexlab{a}})]{ADevActivity}
+\bibitem[Android(2014{\natexlab{a}})]{ADevSensors}
 \dinatlabel{Android 2014{\natexlab{a}}} \textsc{Android}:
-\newblock \emph{Android Developers - Activity}.
+\newblock \emph{Android Developers - Location and Sensors API}.
 \newblock 2014. --
 \newblock URL
-  \url{http://developer.android.com/reference/android/app/Activity.html}. --
+  \url{http://developer.android.com/guide/topics/sensors/index.html}. --
   Zugriffsdatum: 09.02.2014
 
-\bibitem[Android(2014{\natexlab{b}})]{ADevLayout}
+\bibitem[Android(2014{\natexlab{b}})]{ADevUI}
 \dinatlabel{Android 2014{\natexlab{b}}} \textsc{Android}:
-\newblock \emph{Android Developers - Layouts}.
+\newblock \emph{Android Developers - User Interface}.
 \newblock 2014. --
-\newblock URL
-  \url{http://developer.android.com/guide/topics/ui/declaring-layout.html}. --
+\newblock URL \url{http://developer.android.com/guide/topics/ui/index.html}. --
   Zugriffsdatum: 09.02.2014
 
-\bibitem[Android(2014{\natexlab{c}})]{ADevBackstack}
-\dinatlabel{Android 2014{\natexlab{c}}} \textsc{Android}:
-\newblock \emph{Android Developers - Tasks and Backstack}.
+\bibitem[Google(2014{\natexlab{a}})]{GoogleLocServices}
+\dinatlabel{Google 2014{\natexlab{a}}} \textsc{Google}:
+\newblock \emph{Collection of wifi data for Google location based services}.
 \newblock 2014. --
 \newblock URL
-  \url{http://developer.android.com/guide/practices/screens_support.html}. --
-  Zugriffsdatum: 09.02.2014
+  \url{http://static.googleusercontent.com/media/www.google.com/de//googleblogs/pdfs/google_submission_dpas_wifi_collection.pdf}.
+  -- Zugriffsdatum: 09.02.2014
 
-\bibitem[Koller(2012)]{AppsProg}
-\dinatlabel{Koller 2012} \textsc{Koller}, Dr.~D.:
-\newblock \emph{Android-Apps programmieren}.
-\newblock FRANZIS, 2012
+\bibitem[Google(2014{\natexlab{b}})]{GoogleMapsAPI}
+\dinatlabel{Google 2014{\natexlab{b}}} \textsc{Google}:
+\newblock \emph{Google Maps API v2}.
+\newblock 2014. --
+\newblock URL
+  \url{https://developers.google.com/maps/documentation/android/start#getting_the_google_maps_android_api_v2}.
+  -- Zugriffsdatum: 09.02.2014
 
 \end{thebibliography}
