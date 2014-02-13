@@ -72,7 +72,7 @@ Daraufhin muss in der Google API Console der Service \textit{Google Maps API v2}
 \centering
 \includegraphics[width=\textwidth]{/maps_api_service.png}
 \caption{Google Maps API Service aktivieren}
-\label{fig:fingerprint}
+\label{fig:mapsApiService}
 \end{figure} 
 \bigskip
 Um die Konfiguration abzuschließen, muß der API Key noch der \textit{AndroidManifest.xml} der App hinzugefügt werden.
@@ -140,17 +140,86 @@ Dieser Aufruf bewirkt allerdings nicht nur, dass ein Button sichtbar wird, der d
 	}
 \end{lstlisting}
 
-Die Methode aus Listing \ref{lst:updateCamera} wird ausgeführt, wenn der beschriebene Button gedrückt wird. Die Variable \textit{lastKnownLocation} hält ein Objekt vom Typ \textit{Location} und wird immer gesetzt und aktualisiert, wenn die Localizer Klasse einen neuen Standort ermittelt hat. 
+Die Methode aus Listing \ref{lst:updateCamera} wird ausgeführt, wenn der beschriebene Button gedrückt wird. Die Variable \textit{lastKnownLocation} hält ein Objekt vom Typ \textit{Location} und wird immer gesetzt und aktualisiert, wenn die App (\textit{Localizer Klasse}) einen neuen Standort ermittelt hat. 
 
 \subsubsection{Android Maps Extensions}
 
-Die Google Map API hat ein sehr starkes Performanceproblem, wenn auf der Map eine hohe Anzahl von Markern angezeigt wird. In einer Größenordnung ab ca. 100000 Markern auf der Map fängt sie sehr stark an zu ruckeln und friert teilweise ein. Daher wurde eine Library benutzt, die der Map eine Clustering Funktion hinzufügt. Diese Library ersetzt die Google Play Services Library und kann gleichwertig genutzt werden. Clustering bedeutet, dass Marker je nach Zoomlevel gebündelt oder wieder entbündelt werden. Je mehr aus der Map herauszoomt wird, desto mehr Punkte werden gebündelt. Wird wieder in die Map herein gezoomt, werden sie wieder entbündelt. Dadurch wird immer eine kleine Anzahl an Markern dargestellt und die Performance bleibt stabil auf einem guten Niveau. Gebündelte Punkte zeigen auf ihrem Label die Anzahl der zusammengefassten Punkte an.
+Die Google Map API hat ein sehr starkes Performanceproblem, wenn auf der Map eine hohe Anzahl von Markern angezeigt wird. Ab einer Größenordnung von ca. 100000 Markern fängt sie sehr stark an zu ruckeln und friert teilweise ein. Daher wurde eine Library benutzt, die der Map eine Clustering Funktion hinzufügt. Diese Library ersetzt die Google Play Services Library und kann gleichwertig genutzt werden. Clustering bedeutet, dass Marker je nach Zoomlevel gebündelt oder wieder entbündelt werden. Je mehr aus der Map herauszoomt wird, desto mehr Punkte werden gebündelt. Wird wieder in die Map herein gezoomt, werden sie wieder entbündelt. Dadurch wird immer eine kleine Anzahl an Markern dargestellt und die Performance bleibt stabil auf einem guten Niveau. Gebündelte Punkte zeigen auf ihrem Label die Anzahl der zusammengefassten Punkte an.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{/maps_extensions_overview.png}
 \caption[User Interface: Android Maps Extensions]{Android Maps Extensions}
 \label{fig:mapsExtensions}
+\end{figure}
+
+\subsubsection{AsyncTask Marker hinzufügen}
+
+Ein weiteres Problem der Google Maps API ist, dass ebenfalls das Hinzufügen von Markern auf der Map bei einer hohen Anzahl sehr lange dauern kann und für die Dauer dieses Vorgangs einfriert und unbenutzbar ist. Daher war es notwendig auch für dieses Problem eine alternative Implementierung zu entwicklen. Gelöst wurde das Problem durch einen AsyncTask, der die Marker der Map hinzufügt.
+
+\begin{lstlisting}[caption={"Asynchrones hinzufügen von Markern"},label=lst:asyncAddMarker, basicstyle=\footnotesize]
+	private class CreateAndAddMarkerTask extends AsyncTask<String, String, String> {
+
+		private ArrayList<MarkerOptions> markerOptionsList  = new ArrayList<MarkerOptions>();
+		
+		private ProgressBar progressBar;
+		private int progressStatus;
+		private ArrayList<LatLng> devicePosis;
+		
+		public CreateAndAddMarkerTask(ArrayList<LatLng> devicePosis, ProgressBar progressBar, int progressStatus)
+		{
+			this.devicePosis = devicePosis;
+			this.progressBar = progressBar;
+			this.progressStatus = progressStatus; 
+			progressBar.setVisibility(ProgressBar.VISIBLE);
+		}
+		
+		
+		
+		@Override
+		protected String doInBackground(String... params) {
+			int i = 0;
+			while(this.devicePosis.size() > 0 && i < 5000 && i < devicePosis.size())
+		    {				
+			    MarkerOptions markerOptions = new MarkerOptions()
+			    									.icon(BitmapDescriptorFactory
+			    									.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+			    									.position(devicePosis.get(i));
+			    markerOptions.title("Device");
+			    markerOptionsList.add(markerOptions);
+			    devicePosis.remove(i);
+
+			    publishProgress(""); 
+			    i++;
+		    }
+			return null;
+		}
+		
+		protected void onProgressUpdate(String... progress) {
+			
+			progressStatus++;
+			progressBar.setProgress(progressStatus);
+		}
+		
+		protected void onPostExecute(String str) {
+			for(MarkerOptions markerOptions : markerOptionsList)
+	        	googleMap.addMarker(markerOptions);
+			progressBar.setVisibility(ProgressBar.INVISIBLE);
+			this.cancel(true);
+			if(devicePosis.size() > 0)
+				new CreateAndAddMarkerTask(devicePosis, progressBar, progressStatus).execute();
+	    }
+	}
+\end{lstlisting}
+
+Dieser \textit{AsyncTask} bringt den Vorteil, dass die Map nicht mehr einfriert, wenn eine hohe Anzahl an Markern hinzugefügt werden muss. Zwar wird immernoch der gleiche Zeitraum beansprucht, die auch die bereitgestellte Funktion \textit{addMarker(Marker marker)} aus der Google API benötigt, sodass auch mit dieser Lösung nicht alle Marker sofort dargestellt werden können. Allerdings wird dem Nutzer eine \textit{Progress Bar} angezeigt, welche im oberen Bereich unter der Tableiste sichtbar wird, solange der Vorgang aktiv ist. So kann der Nutzer nachvollziehen, ob und wann alle Standorte anderer Nutzer dargestellt werden. Außerdem ist zu beobachten, wie sich die Map während des Vorgangs mit Markern füllt, wodurch schon von Anfang an andere Nutzer auf der Map wahrgenommen werden können. Dies wäre mit der bereitgestellten Funktion aus der API auch nicht möglich, da die Map eingefroren wäre, bis der Vorgang abgeschlossen ist.
+Bei einer Anzahl von unter 10000 Markern liegt die Geschwindigkeit des Vorgangs noch unter einem für ihn wahrnehmbaren Bereich. Erst ab ca. 50000 Markern, dauert der Vorgang etwa 5-10 Sekunden. In einer zukünftigen Implementierung wird diese Größenordnung nicht mehr überschritten (siehe Kapitel \ref{subsubsec:mapFutureImpl}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{/asyncTask.png}
+\caption[User Interface: Klassendiagramm Device Map]{AsyncTask Marker hinzufügen}
+\label{fig:asyncTask}
 \end{figure}
 
 \subsubsection{Klassendiagramm DeviceMap}
@@ -161,8 +230,8 @@ Die Google Map API hat ein sehr starkes Performanceproblem, wenn auf der Map ein
 \label{fig:deviceMapClass}
 \end{figure}
 
-\subsubsection{Zukünftige Implementierung}
-Bei der aktuellen Implementierung kommen schnell Fragen zum Datenschutz auf. Zwar werden keine Informationen über andere angezeigte Geräte herausgegeben, aber wenn sich eine geringe Anzahl an anderen Geräten in der Umgebung befinden, kann man ohne weiteres ein Bewegungsprofil erkennen. Wenn der Nutzer vielleicht sogar weiß, um wen es sich beim angezeigten Nutzer handelt (bspw. ein Freund der ebenfalls die App nutzt), ist dies Datenschutztechnisch sehr bedenklich. Daher sollen die Daten der anderen Geräte schon auf dem Server zusammengefasst werden und nur in zusammengefasster Form an die App ausgeliefert werden. Dazu soll ein gedachtes Raster über die Map gelegt werden. In jedem Rasterfeld werden alle Geräte zusammengefasst. Der zusammengefasste Punkt bekommt dann die Koordinaten, die sich im Mittelpunkt des Rasters befinden. An die App werden dann nur die gebündelten Punkte, Anzahl der Geräte jedes gebündelten Punktes und die Rastergröße weitergeleitet. Somit werden auf der Map keine genauen Punkte mehr angezeigt. Es weiterhin ein blauer durchsichtiger Kreis um die Punkte gelegt, der der Größe eines Rasterfeldes entspricht. Dadurch ist genau erkennbar, wie viele Geräte sich in einem bestimmten Gebiet befinden, ohne dass man Bewegungsprofile eines Gerätes erkennen kann. Die Berechnung der gebündelten Standortdaten wird auf dem Server in bestimmten Zeitabständen durchgeführt und gecached, was dem Datenschutz durch die zeitverzögerten Daten ebenfalls zuträglich ist. Da die Berechnung auf dem Server stattfindet, werden keine genauen Standortdaten mehr zwischen Server und App übertragen, wodurch ein abgreifen der Standortdaten aus den http-Requests ebenfalls unterbunden wird. Bei dieser Implementierung wird die Rastergröße und das Berechnungsinterval frei konfigurierbar sein.
+\subsubsection{Zukünftige Implementierung}\label{subsubsec:mapFutureImpl}
+Bei der aktuellen Implementierung kommen schnell Fragen zum Datenschutz auf. Zwar werden keine Informationen über andere angezeigte Geräte herausgegeben, aber wenn sich eine geringe Anzahl an anderen Geräten in der Umgebung befinden, kann ohne weiteres ein Bewegungsprofil erkannt werden. Wenn der Nutzer vielleicht sogar weiß, um wen es sich beim angezeigten Nutzer handelt (bspw. einen Freund, der ebenfalls die App nutzt), ist dies datenschutztechnisch sehr bedenklich. Daher sollen die Daten der anderen Geräte schon auf dem Server zusammengefasst werden und nur in zusammengefasster Form an die App ausgeliefert werden. Dazu soll ein gedachtes Raster über die Map gelegt werden. In jedem Rasterfeld werden alle Geräte zusammengefasst. Der zusammengefasste Punkt bekommt dann die Koordinaten, die sich im Mittelpunkt des Rasters befinden. An die App werden dann nur die gebündelten Punkte, Anzahl der Geräte jedes gebündelten Punktes und die Rastergröße weitergeleitet. Somit werden auf der Map keine genauen Punkte mehr angezeigt. Es wird weiterhin ein blauer durchsichtiger Kreis um die Punkte gelegt, der der Größe eines Rasterfeldes entspricht. Dadurch ist genau erkennbar, wie viele Geräte sich in einem bestimmten Gebiet/Raster befinden, ohne dass Bewegungsprofile eines Gerätes zu erkennen sind. Die Berechnung der gebündelten Standortdaten wird in bestimmten Zeitabständen durchgeführt und gecached, was dem Datenschutz durch die leicht zeitverzögerten Daten ebenfalls zuträglich ist. Da die Berechnung auf dem Server stattfindet, werden keine genauen Standortdaten mehr zwischen Server und App übertragen, wodurch ein Abgreifen der Standortdaten aus den http-Requests ebenfalls unterbunden wird. Bei dieser Implementierung wird die Rastergröße und das Berechnungsinterval frei konfigurierbar sein.
 \subsection{Settings}
 \begin{wrapfigure}{r}{40mm}
 \vspace{-5mm}
@@ -171,8 +240,8 @@ Bei der aktuellen Implementierung kommen schnell Fragen zum Datenschutz auf. Zwa
 \caption[User Interface: Settings]{Settings}
 \vspace{-5mm}
 \end{wrapfigure}
-Im Hauptbereich der App befindet sich in der oberen rechten Ecke ein Button über welchen die Einstellungen der App erreichbar sind. Dort kann der Nutzer Einstellungen der App vornehmen.
-Er hat beispielsweise die Möglichkeit die Standardeinstellung für den Map Type der Device Map zu ändern. Man kann wählen zwischen den Typen \textit{Normal}, \textit{Terrain}, \textit{Hybrid} und \textit{Satellite}. Weiterhin gibt es die Möglichkeit die Notifications anzupassen. Es können jeweils Ton, Vibration und LED aktiviert/deaktiviert werden. Diese Einstellung wirkt sich auf sämtliche Notifications aus, die mit der App in Verbindung stehen, z.B. Erdbebenwarnung, deaktivierte Standortbestimmung.
+Im Hauptbereich der App befindet sich in der oberen rechten Ecke ein Button, über welchen die Einstellungen der App erreichbar sind. Dort kann der Nutzer Einstellungen der App vornehmen.
+Er hat beispielsweise die Möglichkeit die Standardeinstellung für den Map Type der Device Map zu ändern. Es kann zwischen den Typen \textit{Normal}, \textit{Terrain}, \textit{Hybrid} und \textit{Satellite} gewählt werden. Weiterhin gibt es die Möglichkeit die Notifications anzupassen. Es können jeweils Ton, Vibration und LED aktiviert/deaktiviert werden. Diese Einstellung wirkt sich auf sämtliche Notifications aus, die mit der App in Verbindung stehen, z.B. Erdbebenwarnung, deaktivierte Standortbestimmung, und so weiter.
 In der aktuellen Version befinden sich noch Einstellungen für den Server (IP und Port). Diese dienen dem Debugging und werden entfernt sobald die App veröffentlicht wird.
 Der letzte Punkt \textit{Zurücksetzen} bietet dem Nutzer die Möglichkeit, die gesetzten Einstellungen wieder auf die Standardeinstellungen zurückzusetzen.
 

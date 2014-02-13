@@ -8,22 +8,23 @@
 \BOOKMARK [3][-]{subsubsection.5.2.1}{Google Map in ein Projekt integrieren}{subsection.5.2}% 8
 \BOOKMARK [3][-]{subsubsection.5.2.2}{User Interface}{subsection.5.2}% 9
 \BOOKMARK [3][-]{subsubsection.5.2.3}{Android Maps Extensions}{subsection.5.2}% 10
-\BOOKMARK [3][-]{subsubsection.5.2.4}{Klassendiagramm DeviceMap}{subsection.5.2}% 11
-\BOOKMARK [3][-]{subsubsection.5.2.5}{Zuk\374nftige Implementierung}{subsection.5.2}% 12
-\BOOKMARK [2][-]{subsection.5.3}{Settings}{section.5}% 13
-\BOOKMARK [1][-]{section.6}{Erdbebenerkennung unter Android \(Christopher Althaus\)}{}% 14
-\BOOKMARK [2][-]{subsection.6.1}{Abfragen der Sensordaten unter Android}{section.6}% 15
-\BOOKMARK [2][-]{subsection.6.2}{Erdbebenauswertung}{section.6}% 16
-\BOOKMARK [1][-]{section.7}{Lokalisierung \(Niklas Sch\344fer\)}{}% 17
-\BOOKMARK [2][-]{subsection.7.1}{Einleitung}{section.7}% 18
-\BOOKMARK [2][-]{subsection.7.2}{Location Provider des Android-Systems}{section.7}% 19
-\BOOKMARK [3][-]{subsubsection.7.2.1}{PASSIVE}{subsection.7.2}% 20
-\BOOKMARK [3][-]{subsubsection.7.2.2}{NETWORK}{subsection.7.2}% 21
-\BOOKMARK [3][-]{subsubsection.7.2.3}{Global Positioning System}{subsection.7.2}% 22
-\BOOKMARK [2][-]{subsection.7.3}{Positionsbestimmung in Android}{section.7}% 23
-\BOOKMARK [2][-]{subsection.7.4}{Umsetzung der Quakedetec App}{section.7}% 24
-\BOOKMARK [3][-]{subsubsection.7.4.1}{Erste Umsetzung und Probleme}{subsection.7.4}% 25
-\BOOKMARK [3][-]{subsubsection.7.4.2}{Finale Umsetzung}{subsection.7.4}% 26
-\BOOKMARK [3][-]{subsubsection.7.4.3}{Klassendiagramm Localizer}{subsection.7.4}% 27
-\BOOKMARK [1][-]{section.8}{Ausblick}{}% 28
-\BOOKMARK [1][-]{section.9}{Fazit}{}% 29
+\BOOKMARK [3][-]{subsubsection.5.2.4}{AsyncTask Marker hinzuf\374gen}{subsection.5.2}% 11
+\BOOKMARK [3][-]{subsubsection.5.2.5}{Klassendiagramm DeviceMap}{subsection.5.2}% 12
+\BOOKMARK [3][-]{subsubsection.5.2.6}{Zuk\374nftige Implementierung}{subsection.5.2}% 13
+\BOOKMARK [2][-]{subsection.5.3}{Settings}{section.5}% 14
+\BOOKMARK [1][-]{section.6}{Erdbebenerkennung unter Android \(Christopher Althaus\)}{}% 15
+\BOOKMARK [2][-]{subsection.6.1}{Abfragen der Sensordaten unter Android}{section.6}% 16
+\BOOKMARK [2][-]{subsection.6.2}{Erdbebenauswertung}{section.6}% 17
+\BOOKMARK [1][-]{section.7}{Lokalisierung \(Niklas Sch\344fer\)}{}% 18
+\BOOKMARK [2][-]{subsection.7.1}{Einleitung}{section.7}% 19
+\BOOKMARK [2][-]{subsection.7.2}{Location Provider des Android-Systems}{section.7}% 20
+\BOOKMARK [3][-]{subsubsection.7.2.1}{PASSIVE}{subsection.7.2}% 21
+\BOOKMARK [3][-]{subsubsection.7.2.2}{NETWORK}{subsection.7.2}% 22
+\BOOKMARK [3][-]{subsubsection.7.2.3}{Global Positioning System}{subsection.7.2}% 23
+\BOOKMARK [2][-]{subsection.7.3}{Positionsbestimmung in Android}{section.7}% 24
+\BOOKMARK [2][-]{subsection.7.4}{Umsetzung der Quakedetec App}{section.7}% 25
+\BOOKMARK [3][-]{subsubsection.7.4.1}{Erste Umsetzung und Probleme}{subsection.7.4}% 26
+\BOOKMARK [3][-]{subsubsection.7.4.2}{Finale Umsetzung}{subsection.7.4}% 27
+\BOOKMARK [3][-]{subsubsection.7.4.3}{Klassendiagramm Localizer}{subsection.7.4}% 28
+\BOOKMARK [1][-]{section.8}{Ausblick}{}% 29
+\BOOKMARK [1][-]{section.9}{Fazit}{}% 30

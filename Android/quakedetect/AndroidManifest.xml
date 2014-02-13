@@ -58,7 +58,7 @@
         
         <!-- Services -->
         <service android:name=".acceleration.Accelerometer"></service>
-        <service android:name="com.th.nuernberg.quakedetec.services.BackgroundService"></service>
+        <service android:name=".services.BackgroundService"></service>
         
         <!-- Receiver -->
         <receiver android:name="com.th.nuernberg.quakedetec.receivers.BootCompletedReceiver"
