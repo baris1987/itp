@@ -7,11 +7,11 @@
 \BOOKMARK [2][-]{subsection.4.3}{Layouts}{section.4}% 7
 \BOOKMARK [2][-]{subsection.4.4}{Die Android-Projektstruktur}{section.4}% 8
 \BOOKMARK [1][-]{section.5}{Die Architektur der Applikation\(J\374rgen Hetzel\)}{}% 9
-\BOOKMARK [2][-]{subsection.5.1}{Das Paket acceleration}{section.5}% 10
-\BOOKMARK [2][-]{subsection.5.2}{Das Paket location}{section.5}% 11
-\BOOKMARK [2][-]{subsection.5.3}{Die Klassen von receivers}{section.5}% 12
-\BOOKMARK [2][-]{subsection.5.4}{Die Klassen von services}{section.5}% 13
-\BOOKMARK [2][-]{subsection.5.5}{Die Klassen von screens}{section.5}% 14
+\BOOKMARK [2][-]{subsection.5.1}{Die Klassen des Pakets acceleration}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.2}{Die Klassen des Pakets location}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.3}{Die Klassen des Pakets receivers}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.4}{Die Klassen des Pakets services}{section.5}% 13
+\BOOKMARK [2][-]{subsection.5.5}{Die Klassen des Pakets screens}{section.5}% 14
 \BOOKMARK [1][-]{section.6}{RESTful WebService \(Baris Akdag\)}{}% 15
 \BOOKMARK [1][-]{section.7}{User Interface \(Niklas Sch\344fer\)}{}% 16
 \BOOKMARK [2][-]{subsection.7.1}{Info}{section.7}% 17

@@ -1,4 +1,4 @@
-\begin{thebibliography}{4}
+\begin{thebibliography}{8}
 % this bibliography was produced with the style dinat.bst v2.5
 \makeatletter
 \newcommand{\dinatlabel}[1]%
@@ -15,16 +15,39 @@
   \url{http://developer.android.com/reference/android/app/Activity.html}. --
   Zugriffsdatum: 09.02.2014
 
-\bibitem[Android(2014{\natexlab{b}})]{ADevLayout}
+\bibitem[Android(2014{\natexlab{b}})]{ADevAsyncTask}
 \dinatlabel{Android 2014{\natexlab{b}}} \textsc{Android}:
+\newblock \emph{Android Developers - AsyncTask}.
+\newblock 2014. --
+\newblock URL
+  \url{http://developer.android.com/reference/android/os/AsyncTask.html}. --
+  Zugriffsdatum: 12.02.2014
+
+\bibitem[Android(2014{\natexlab{c}})]{ADevIntentService}
+\dinatlabel{Android 2014{\natexlab{c}}} \textsc{Android}:
+\newblock \emph{Android Developers - IntentService}.
+\newblock 2014. --
+\newblock URL
+  \url{http://developer.android.com/reference/android/app/IntentService.html}.
+  -- Zugriffsdatum: 10.02.2014
+
+\bibitem[Android(2014{\natexlab{d}})]{ADevLayout}
+\dinatlabel{Android 2014{\natexlab{d}}} \textsc{Android}:
 \newblock \emph{Android Developers - Layouts}.
 \newblock 2014. --
 \newblock URL
   \url{http://developer.android.com/guide/topics/ui/declaring-layout.html}. --
   Zugriffsdatum: 09.02.2014
 
-\bibitem[Android(2014{\natexlab{c}})]{ADevBackstack}
-\dinatlabel{Android 2014{\natexlab{c}}} \textsc{Android}:
+\bibitem[Android(2014{\natexlab{e}})]{ADevPrefActivity}
+\dinatlabel{Android 2014{\natexlab{e}}} \textsc{Android}:
+\newblock \emph{Android Developers - Settings}.
+\newblock 2014. --
+\newblock URL \url{http://developer.android.com/guide/topics/ui/settings.html}.
+  -- Zugriffsdatum: 11.02.2014
+
+\bibitem[Android(2014{\natexlab{f}})]{ADevBackstack}
+\dinatlabel{Android 2014{\natexlab{f}}} \textsc{Android}:
 \newblock \emph{Android Developers - Tasks and Backstack}.
 \newblock 2014. --
 \newblock URL
@@ -35,5 +58,10 @@
 \dinatlabel{Koller 2012} \textsc{Koller}, Dr.~D.:
 \newblock \emph{Android-Apps programmieren}.
 \newblock FRANZIS, 2012
+
+\bibitem[K{\"u}nneth(2012)]{TKAndroid4}
+\dinatlabel{K{\"u}nneth 2012} \textsc{K{\"u}nneth}, Thomas:
+\newblock \emph{Android 4, Apps entwickeln mit dem Android SDK}.
+\newblock Galileo Computing, 2012
 
 \end{thebibliography}
