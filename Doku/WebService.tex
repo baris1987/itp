@@ -3,14 +3,14 @@
 Um die Kommunikation zwischen den Geräten zu ermöglichen, wird ein Internetdienst in Form eines \dq{}RESTful WebService\dq{} verwendet. \dq{}RESTful\dq{} steht dabei für \dq{}Representational State Transfer\dq{} und ist ein Programmierparadigma für Webanwendungen. Die Geräte können über den zentralen Dienst die Daten speichern und abfragen. Der RESTful WebService stellt alle notwendigen Funktionalitäten zur Geräteverwaltung, Erdbebenerkennung und Erdbebenwarnung zur Verfügung. 
 
 \subsection{Grundlagen}
-Bei einem \dq{}RESTful WebService\dq{} kommuniziert über das \dq{}Hypertext Transfer Protocol\dq{} (HTTP). Das hat den Vorteil, dass der Dienst programmiersprachenunabhängig integriert werden kann. Des Weiteren existieren durch den Einsatz von HTTP bereits viele fertige RESTful WebService Implementierungen, so dass diese relativ einfach in verschiedenen Applikationen benutzt werden können.
+Ein \dq{}RESTful WebService\dq{} kommuniziert über das \dq{}Hypertext Transfer Protocol\dq{} (HTTP). Das hat den Vorteil, dass der Dienst programmiersprachenunabhängig integriert werden kann. Des Weiteren existieren durch den Einsatz von HTTP bereits viele fertige RESTful WebService Implementierungen, so dass diese relativ einfach in verschiedenen Applikationen benutzt werden können.
 
 \par\bigskip
-Bei einem RESTful WebService wird mit Ressourcen gearbeitet. Die Ressourcen werden als \dq{}Uniform Resource Locator\dq{} (URL) dargestellt, dies ist umgangssprachlich eine Internetadresse der Form \dq{}http://www.name.com/pfad/ort\dq{}. Dabei ist in diesem Beispiel \dq{}/pfad/ort\dq{} die anzufragende Ressource. Es gibt verschiedene Befehle für spezifische Funktionen.
+Bei einem RESTful WebService wird mit Ressourcen gearbeitet. Die Ressourcen werden als \dq{}Uniform Resource Locator\dq{} (URL) dargestellt, das ist umgangssprachlich eine Internetadresse der Form \dq{}http://www.name.com/pfad/ort\dq{}. Dabei ist in diesem Beispiel \dq{}/pfad/ort\dq{} die anzufragende Ressource. Es gibt verschiedene Befehle für spezifische Funktionen.
 
 
 \subsubsection{GET}
-Der Befehl \textbf{GET} wird verwendet um eine angegebene Ressource vom Server anzufordern. GET weist keine Nebeneffekte auf, da es nur lesend auf die Ressource zugreift, deshalb wird GET als sicher bezeichnet. Das folgende Beispiel ruft beispielsweise die Ressource \dq{}/itp/device/g52t\dq{} auf.
+Der Befehl \textbf{GET} wird verwendet um eine angegebene Ressource vom Server anzufordern. GET weist keine Nebeneffekte auf, da es nur lesend auf die Ressource zugreift, deshalb wird GET als sicher bezeichnet. Das folgende Beispiel ruft die Ressource \dq{}/itp/device/g52t\dq{} auf.
 
 \begin{lstlisting}[caption={Beispiel HTTP GET Anfrage bei RESTful WebServices}]
 GET http://www.it-projekt.de/itp/device/g52t HTTP/1.1
@@ -29,7 +29,7 @@ Content-Type: application/json
 \subsubsection{POST}
 Um Daten auf dem Zielsystem zu verändern wird der Befehl \textbf{POST} benutzt. POST kann Nebeneffekte aufweisen, da es Daten verändert und damit auch Daten unwiderruflich zerstören kann. Der POST Befehl wird daher als unsicher bezeichnet. Im folgenden Beispiel wird in der Ressource \dq{}/itp/register/g52t/date/2014-02-10\dq{} das Datum \dq{}2014-02-10\dq{} für das Gerät \dq{}g52t\dq{} gespeichert.
 
-\begin{lstlisting}[caption={Beispiel HTTP GET Anfrage bei RESTful WebServices}]
+\begin{lstlisting}[caption={Beispiel HTTP POST Anfrage bei RESTful WebServices}]
 POST http://www.it-projekt.de/itp/register/g52t/date/2014-02-10 HTTP/1.1
 \end{lstlisting} 
 
@@ -320,7 +320,7 @@ Die Annotationen \textit{GET} und \textit{Path} definieren den RESTful Befehl so
 
 \subsection{Erdbebenerkennung}
 \subsubsection{Unterscheidung}
-Im Algorithmus der Erdbebenerkennung werden diverse Parameter berücksichtigt. Die Erkennung basiert auf den Daten in der \textit{Notification}-Tabelle. Die Tabelle enthält alle gemeldeten Erdbeben der Geräte. Der Algorithmus unterscheidet zwischen den Geräten, die einen Alarm gemeldet haben, die in der nahen Umgebung dieses gemeldeten Erdbebens (\textit{Suchradius}) und den Geräten die in ferner Umgebung des gemeldeten Erdbebens (\textit{Warnradius}) sind.
+Im Algorithmus der Erdbebenerkennung werden diverse Parameter berücksichtigt. Die Erkennung basiert auf den Daten in der \textit{Notification}-Tabelle. Die Tabelle enthält alle gemeldeten Erdbeben durch die Geräte. Der Algorithmus unterscheidet zwischen den Geräten, die einen Alarm gemeldet haben, die in der nahen Umgebung dieses gemeldeten Erdbebens (\textit{Suchradius}) und den Geräten die in ferner Umgebung des gemeldeten Erdbebens (\textit{Warnradius}) sind.
 \medskip
 \begin{figure}[H]
 \centering
@@ -357,17 +357,17 @@ Der Funktion werden zwei Geokoordinaten übergeben: \textit{latitude1} und \text
 
 \begin{enumerate} 
 \item Alle Geräte im Radius von 300 km ermitteln.
-\item Einschränke, die in letzten 15 min aktiv.
-\item Prüfen, ob die letzte Benachrichtigung älter als 10 min ist.
+\item Einschränke, die in letzten 15 Minuten aktiv.
+\item Prüfen, ob die letzte Benachrichtigung älter als 10 Minuten ist.
 \item Nach Versand letzte Benachrichtigung aktualisieren.
 \end{enumerate}
 
-Wenn der Prozentsatz in \textit{ratio} höher als ein definierter Wert in der Konfiguration ist, bspw. 66 Prozenz, wird ein Erdbeben erkannt und alle Geräte in der Nähe werden benachrichtigt. Erkannte Erdbeben werden anschließend zusätzlich in der Tabelle \textit{Earthquake} gespeichert.
+Wenn der Prozentsatz in \textit{ratio} höher als ein definierter Wert in der Konfiguration ist, bspw. 66 Prozent, wird ein Erdbeben erkannt und alle Geräte in der Nähe werden benachrichtigt. Erkannte Erdbeben werden anschließend zusätzlich in der Tabelle \textit{Earthquake} gespeichert.
 
 \subsection{Benachrichtigung}
-Die Benachrichtigung der Geräte bei einem Erdbeben wird über \textit{Google Cloud Messaging}  durchgeführt. Die Benachrichtigungen werden über einen sogenannte \textit{Push-Notifications} gesendet. Der Vorteil von Push-Notifications ist, dass das Gerät die Nachricht zugeschickt bekommt, wenn diese gesendet wurde. Dadurch muss das Gerät nicht permanent auf Nachrichten warten, sondern bekommt sie direkt zugestellt. Die Benachrichtigung eines Geräts erfolgt über die registrierte Identifikationsnummer, welche von Android bereitgestellt wird. 
+Die Benachrichtigung der Geräte bei einem Erdbeben wird über \textit{Google Cloud Messaging}  durchgeführt. Die Benachrichtigungen werden über einen sogenannte \textit{Push-Notifications} gesendet. Der Vorteil von Push-Notifications ist, dass das Gerät die Nachricht zugeschickt bekommt, wenn diese gesendet wurde. Dadurch muss das Gerät nicht permanent auf Nachrichten warten, sondern bekommt sie direkt zugestellt. Die Benachrichtigung eines Geräts erfolgt über die registrierte Identifikationsnummer, welche von Android bereitgestellt und in der Datenbank unter der Tabelle \textit{DEVICE} gespeichert wird. 
 
-Im WebService werden über den Google Cloud Messaging Dienst mit der URL \textit{android.googleapis.com/ gcm/send} die Nachrichten verschickt. Dafür wurden die Klasse \textit{GoogleCloudMessaging} und das passende Interface \textit{IGoogleCloudMessaging} implementiert. Die Klasse ermittelt baut aus allen übergebenen Identifikationsnummern eine HTTP Anfrage an das Google Cloud Messaging, so dass dieser umgehend die Nachrichten an die entsprechenden Geräte verschickt.
+Im WebService werden über den Google Cloud Messaging Dienst mit der URL \textit{android.googleapis.com/ gcm/send} die Nachrichten verschickt. Dafür wurden díe eigene Klasse \textit{GoogleCloudMessaging} und das passende Interface \textit{IGoogleCloudMessaging} implementiert, da es kaum fertige Lösungen gibt. Die Klasse baut aus allen übergebenen Identifikationsnummern eine HTTP Anfrage an das Google Cloud Messaging, so dass dieser umgehend die Nachrichten an die entsprechenden Geräte verschickt.
 
 \subsection{Produktiveinsatz}
 Der RESTful Webservice wurde zum Test auf den öffentlich erreichbaren Server mit der IP-Adresse \textbf{5.135.167.64} installiert. Dadurch kann der WebService jederzeit von der Android App benutzt werden, ohne den WebService lokal starten zu müssen. 
