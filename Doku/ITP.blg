@@ -10,6 +10,7 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: references.bib
 You've used 8 entries,
             3552 wiz_defined-function locations,
+<<<<<<< HEAD
             836 strings with 6928 characters,
 and the built_in function-call counts, 3912 in all, are:
 = -- 447
@@ -34,9 +35,36 @@ missing$ -- 4
 newline$ -- 56
 num.names$ -- 32
 pop$ -- 42
+=======
+            815 strings with 6583 characters,
+and the built_in function-call counts, 1894 in all, are:
+= -- 224
+> -- 28
+< -- 8
++ -- 18
+- -- 12
+* -- 194
+:= -- 328
+add.period$ -- 4
+call.type$ -- 4
+change.case$ -- 16
+chr.to.int$ -- 2
+cite$ -- 4
+duplicate$ -- 52
+empty$ -- 157
+format.name$ -- 24
+if$ -- 389
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 0
+newline$ -- 34
+num.names$ -- 16
+pop$ -- 16
+>>>>>>> 9fff37a9d84e8109389111524daa3c8c82a32ab3
 preamble$ -- 1
 purify$ -- 32
 quote$ -- 0
+<<<<<<< HEAD
 skip$ -- 114
 stack$ -- 0
 substring$ -- 362
@@ -45,7 +73,21 @@ text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 78
+=======
+skip$ -- 43
+stack$ -- 0
+substring$ -- 172
+swap$ -- 8
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 44
+>>>>>>> 9fff37a9d84e8109389111524daa3c8c82a32ab3
 warning$ -- 0
 while$ -- 48
 width$ -- 0
+<<<<<<< HEAD
 write$ -- 85
+=======
+write$ -- 49
+>>>>>>> 9fff37a9d84e8109389111524daa3c8c82a32ab3

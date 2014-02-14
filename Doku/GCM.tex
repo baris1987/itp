@@ -1,6 +1,6 @@
 \section[Kommunikation (Benjamin Brandt)]{Kommunikation\begin{tiny} (Benjamin Brandt)\end{tiny}}\label{sec:communication}
 Die Kommunikation der App mit dem Server läuft bei der Kommunikation der App mit dem RESTful Webservice über Http Befehle und für das Senden von Alarmnachrichten an die verschiedenen Geräte  wird Google Cloud Messaging verwendet.
-\subsection*{Google Cloud Messaging}
+\subsection{Google Cloud Messaging}
 Der Service Google Cloud Messaging (GCM) wird Entwicklern von Android Apps kostenlos von Google zur Verfügung gestellt. Er erlaubt diesen über bestehende Google Server Infrastruktur Daten an ihre Apps  und von diesen an ihren Server zu senden. Hierbei übernimmt der GCM Service alle Aufgaben die mit der Übermittlung  der Nachricht zu tun haben.\\
 
 Hier eine Auflistung der Hauptfunktionen von GCM:
@@ -12,8 +12,8 @@ Hier eine Auflistung der Hauptfunktionen von GCM:
 	\item Es gibt keine grafische Oberfläche sämtliche Aufgaben die mit der Nachricht zusammenhängen werden von der eigenen Anwendung gesteuert.
 	\item Voraussetzung ist Android 2.2 Froyo mit installiertem Playstore
 \end{itemize}
-
-\subsubsection*{Architektur}
+\newpage
+\subsubsection{Architektur}
 Die Architektur von Google Cloud Messaging  teilt sich in drei Bereiche auf. Der erste sind die GCM Connection Server die die Nachrichten von den Servern des Entwicklers annehmen und diese an die Android App des Benutzers schicken. Der zweite Bereich ist der Server des Entwicklers der die Nachrichten für die Benutzer Apps an die Connection Server sendet. Als dritter Bereich natürlich die Benutzer-App die sich zum Empfang von GCM Nachrichten bei GCM registrieren muss um eine eindeutige ID zu erhalten und dadurch nur für sie bestimmte  Nachrichten erhält.\\
 
 \begin{figure}[H]
@@ -23,8 +23,8 @@ Die Architektur von Google Cloud Messaging  teilt sich in drei Bereiche auf. Der
 \label{fig:GCMstrukutr}
 \end{figure}
 
-\subsubsection*{Android}
-Das Empfangen von Nachrichten in der App läuft über das Packet GcmIntentService.java hier werden die empfangenen Nachrichten nach ihrem Typ sortiert. Bei dem Messagetyp Send error wird der Fehler als solcher makiert ins Log geschrieben. Bei dem Messagetyp Deleted wird nach demselben Prinzip vorgegangen. Beim Typ Message wird die Prozedur NotificationsService.sendAlarmNotification aufgerufen. Hierdurch werden in Android die Notifications ausgelöst.\\
+\subsubsection{Android}
+Das Empfangen von Nachrichten in der App läuft über das Packet GcmIntentService.java hier werden die empfangenen Nachrichten nach ihrem Typ sortiert. Bei dem Messagetyp Send error wird der Fehler als solcher makiert ins Log geschrieben. Bei dem Messagetyp Deleted wird nach demselben Prinzip vorgegangen. Beim Typ Message wird die Prozedur NotificationsService.sendAlarmNotification aufgerufen. Hierdurch werden in Android die Notifications ausgelöst. Der hierzu nötige Programmcode ist unter\ref{GCMget} aufgelistet.\\
 
 \begin{lstlisting}[caption={Empfangen von GCM Nachrichten unter Android},label=lst:GCMget]
 
@@ -53,8 +53,8 @@ Das Empfangen von Nachrichten in der App läuft über das Packet GcmIntentServic
 
 \end{lstlisting}
 
-\subsubsection*{Server}
-Der Server sendet \ref{ServerSeGCM} eine Benachrichtigung an die GCM Server diese leiten die Nachricht an die betroffenen Geräte-IDs weiter. Dies wird über einen REST-Methodenaufruf durchgeführt. Dieser wird an die Adresse https://android.googleapis.com/gcm/send gesendet, die Nachricht ist mit einem Authorisationskey ausgestattet damit nur Nachrichten vom richtigen Server gesendet werden können 
+\subsubsection{Server}
+Der Server sendet eine Benachrichtigung an die GCM Server diese leiten die Nachricht an die betroffenen Geräte-IDs weiter. Dies wird über einen REST-Methodenaufruf durchgeführt. Dieser wird an die Adresse https://android.googleapis.com/gcm/send gesendet, die Nachricht ist mit einem Authorisationskey ausgestattet damit nur Nachrichten vom richtigen Server gesendet werden können. Der zugehörige Programmcode ist unter \ref{ServerSeGCM} abgebildet.
 
 \begin{lstlisting}[caption={Senden von Nachrichten vom Server},label=lst:ServerSeGCM]
 
@@ -71,7 +71,7 @@ URL url = new URL(this.configuration.getApiUrl());
 
 \end{lstlisting}
 
-Der Server empfängt \ref{lst:ServerEmGCM}, auserdem eine Bestätigung der Zustellung von den GCM Servern, diese enthält eine Zahl die koodiert ob die Nachricht angekommen und richtig interpretiert wurde. Bei Erfolg wird die Nachricht mit Code 200 bestätigt. Bei einer JSON Nachricht kann auch der Code 400 gesendet werden wenn z.B. ein anderer Datentyp als erwartet gesendet wurde. Wenn der Code 401 gesendet wird, ist die Authentifizierung am GCM Server nicht mit Erfolg abgeschlossen worden. Hiermit wird sichergestellt das Nachrichten nur vom richtigen Server gesendet werden können. 
+Der Server empfängt wie unter \ref{lst:ServerEmGCM} aufgelistet, auserdem eine Bestätigung der Zustellung von den GCM Servern, diese enthält eine Zahl die koodiert ob die Nachricht angekommen und richtig interpretiert wurde. Bei Erfolg wird die Nachricht mit Code 200 bestätigt. Bei einer JSON Nachricht kann auch der Code 400 gesendet werden wenn z.B. ein anderer Datentyp als erwartet gesendet wurde. Wenn der Code 401 gesendet wird, ist die Authentifizierung am GCM Server nicht mit Erfolg abgeschlossen worden. Hiermit wird sichergestellt das Nachrichten nur vom richtigen Server gesendet werden können. 
 
 
 \begin{lstlisting}[caption={Empfangen von Bestätigungen am Server},label=lst:ServerEmGCM]
