@@ -5,7 +5,7 @@ Um die Kommunikation zwischen den Geräten zu ermöglichen, wird ein Internetdie
 \subsection{Grundlagen}
 Bei einem \dq{}RESTful WebService\dq{} kommuniziert über das \dq{}Hypertext Transfer Protocol\dq{} (HTTP). Das hat den Vorteil, dass der Dienst programmiersprachenunabhängig integriert werden kann. Des Weiteren existieren durch den Einsatz von HTTP bereits viele fertige RESTful WebService Implementierungen, so dass diese relativ einfach in verschiedenen Applikationen benutzt werden können.
 
-\parskip 12pt
+\par\bigskip
 Bei einem RESTful WebService wird mit Ressourcen gearbeitet. Die Ressourcen werden als \dq{}Uniform Resource Locator\dq{} (URL) dargestellt, dies ist umgangssprachlich eine Internetadresse der Form \dq{}http://www.name.com/pfad/ort\dq{}. Dabei ist in diesem Beispiel \dq{}/pfad/ort\dq{} die anzufragende Ressource. Es gibt verschiedene Befehle für spezifische Funktionen.
 
 
@@ -250,7 +250,7 @@ Für die Realisierung des RESTful WebServices werden drei Tabellen benötigt. Di
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=16cm]{/ws-db.png}
+\includegraphics[width=\textwidth]{/ws-db.png}
 \caption{Datenbankschema.}
 \label{fig:WSDB}
 \end{figure}
@@ -321,10 +321,10 @@ Die Annotationen \textit{GET} und \textit{Path} definieren den RESTful Befehl so
 \subsection{Erdbebenerkennung}
 \subsubsection{Unterscheidung}
 Im Algorithmus der Erdbebenerkennung werden diverse Parameter berücksichtigt. Die Erkennung basiert auf den Daten in der \textit{Notification}-Tabelle. Die Tabelle enthält alle gemeldeten Erdbeben der Geräte. Der Algorithmus unterscheidet zwischen den Geräten, die einen Alarm gemeldet haben, die in der nahen Umgebung dieses gemeldeten Erdbebens (\textit{Suchradius}) und den Geräten die in ferner Umgebung des gemeldeten Erdbebens (\textit{Warnradius}) sind.
-
+\medskip
 \begin{figure}[H]
 \centering
-\includegraphics[width=16cm]{/ws-ee.png}
+\includegraphics[width=130mm]{/ws-ee.png}
 \caption{Erdbebenerkennung.}
 \label{fig:WSEE}
 \end{figure}
