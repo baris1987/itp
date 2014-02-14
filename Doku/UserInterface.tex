@@ -22,7 +22,7 @@ Dabei zeigt er nicht alle Achsen an, die der Beschleunigunssensor überwacht, so
 Weiterhin kann der Nutzer die Anzahl der momentan verbundenen Geräte ablesen, was gleichzeitig auf die Zuverlässigkeit der Erdbebenerkennung schließen lässt (Stichwort: \textit{Mehrheitsentscheid}).
 Darunter befinden sich Informationen zum letzten erfassten Erdbeben, wie dessen Datum, Uhrzeit und Standort.
 Unter dem letzten Beben befindet sich die aktuelle Position in Form einer vollständigen Addresse.
-Außerdem wird im unteren Bereich des Screens der aktuell genutzte Ortungsdienst und die Genauigkeit des erfassten Standorts angezeigt (Weitere Informationen zum Ortungsdienst, siehe Kapitel ~\ref{subsec:locProvider} \nameref{subsec:locProvider}).
+Außerdem wird im unteren Bereich des Screens der aktuell genutzte Ortungsdienst und die Genauigkeit des erfassten Standorts angezeigt (Weitere Informationen zum Ortungsdienst, siehe Kapitel \ref{subsec:locProvider} \nameref{subsec:locProvider}).
 \newpage
 \subsection{Device Map}
 \nocite{GoogleMapsAPI}
@@ -129,7 +129,7 @@ Um diese Funktion zu aktivieren, gibt es folgenden Methodenaufruf in der API:
 
 Dieser Aufruf bewirkt allerdings nicht nur, dass ein Button sichtbar wird, der die Kamera auf den eigenen Standort bewegt, sondern auch, dass die Google Map eigenständig Positionsdaten über die Smartphone Sensoren abruft. Dadurch steigt der Akkuverbrauch stark an, weil die Map auf alle verfügbaren Location Provider kontinuierlich zugreift (\textit{GPS} und \textit{NETWORK}). Desweiteren hätte man dann zwei unterschiedliche Standorte, da die App einen Standort abruft und die Google Map ebenfalls einen Standort bestimmt. Somit würde gegebenenfalls in der Google Map ein anderer Standort angezeigt werden als der Standort, der in der Info Übersicht angezeigt wird. Um diese ungewünschten Nebeneffekte zu vermeiden, musste diese Funktion deaktiviert und neu nach den Ansprüchen der App implementiert werden.
 
-\begin{lstlisting}[caption={"Kamera auf letzte bekannte Position setzen"},label=lst:updateCamera]
+\begin{lstlisting}[caption={Kamera auf letzte bekannte Position setzen},label=lst:updateCamera]
 	public void updateCameraToLastKnownLocation(int zoom)
 	{
 		if(this.googleMap != null && this.lastKnownLocation != null)

@@ -60,7 +60,7 @@ Sollten keine WLAN Netzwerke verfügbar oder das WLAN des Smartphones deaktivier
    \vspace{-5mm}
 \end{wrapfigure}
 Somit gibt es zwei Radien, die sich schneiden und es kann relativ genau ein Standort ermittelt werden. 
-Dieses Verfahren findet allerdings kaum Verwendung, da das Gerät dazu gezwungen werden muss die Verbindung zwischen  mehreren Mobilfunkzellen zu wechseln, um in jeder Zelle die Signallaufzeit zu messen. Dieser Vorgang führt schnell zu einem hohen Energieverbrauch. Somit wird in der Praxis eine Lokalisierung nur mit Hilfe einer einzigen Mobilfunkzelle durchgeführt. 
+Dieses Verfahren findet allerdings kaum Verwendung, da das Gerät dazu gezwungen werden muss die Verbindung zwischen  mehreren Mobilfunkzellen zu wechseln, um in jeder Zelle die Signallaufzeit zu messen. Dieser Vorgang führt schnell zu einem hohen Energieverbrauch. Somit wird in der Praxis eine Lokalisierung nur mit Hilfe einer einzigen Mobilfunkzelle durchgeführt, ohne dass eine Signallaufzeit bestimmt wird. Das führt dazu, dass alle Geräte den Standort des verbundenen Mobilfunkmasts zugewiesen bekommen. 
 Eine Mobilfunkzelle hat eine vielfach höhere Signalreichweite als ein WLAN Netzwerk. In Städten liegt man hier zwar nur bei wenigen hundert Metern, auf dem Land hingegen bei mehreren Kilometern. Somit erhält man in der Stadt meist noch Standortdaten, die auf wenige hundert Meter genau sind, auf dem Land liegt man allerdings meist bei 2 bis 4 Kilometer.
 
 \subsubsection{Global Positioning System}
@@ -105,9 +105,10 @@ Möchte ein Nutzer die App nun installieren, wird er zuerst gefragt, ob er der A
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=50mm]{/app_permissions.png}
+	\includegraphics[width=44mm]{/app_permissions.png}
 	\caption[Lokalisierung: App Permissions]{App Permissions}
 	\label{fig:appPermissions}
+	\vspace{-5mm}
 \end{figure}
 
 Um in der App auf die Location Provider zugreifen zu können, wird eine Instanz des Android \textit{LocationManagers} benötigt. Mit diesem ist es möglich auf die Location Services zuzugreifen und eine Standortbestimmung auszulösen.
@@ -153,7 +154,7 @@ LocationListener locationListener = new LocationListener() {
     public void onProviderDisabled(String provider) {}
   };
 \end{lstlisting}
-
+\bigskip
 Um Standortdaten abzufragen, gibt es zwei Möglichkeiten. 
 Eine besteht aus der kontinuierlichen Reaktion auf Standortänderungen. Das heißt, dass Standortänderungen zu jedem Zeitpunkt wahrgenommen werden.
 
