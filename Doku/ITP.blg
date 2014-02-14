@@ -8,86 +8,44 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: references.bib
-You've used 8 entries,
+You've used 12 entries,
             3552 wiz_defined-function locations,
-<<<<<<< HEAD
-            836 strings with 6928 characters,
-and the built_in function-call counts, 3912 in all, are:
-= -- 447
-> -- 56
-< -- 32
-+ -- 53
-- -- 25
-* -- 372
-:= -- 661
-add.period$ -- 8
-call.type$ -- 8
-change.case$ -- 32
-chr.to.int$ -- 3
-cite$ -- 8
-duplicate$ -- 110
-empty$ -- 349
-format.name$ -- 48
-if$ -- 816
-int.to.chr$ -- 5
+            853 strings with 7520 characters,
+and the built_in function-call counts, 5772 in all, are:
+= -- 671
+> -- 84
+< -- 40
++ -- 72
+- -- 37
+* -- 564
+:= -- 979
+add.period$ -- 12
+call.type$ -- 12
+change.case$ -- 48
+chr.to.int$ -- 4
+cite$ -- 12
+duplicate$ -- 162
+empty$ -- 505
+format.name$ -- 72
+if$ -- 1204
+int.to.chr$ -- 8
 int.to.str$ -- 1
 missing$ -- 4
-newline$ -- 56
-num.names$ -- 32
-pop$ -- 42
-=======
-            815 strings with 6583 characters,
-and the built_in function-call counts, 1894 in all, are:
-= -- 224
-> -- 28
-< -- 8
-+ -- 18
-- -- 12
-* -- 194
-:= -- 328
-add.period$ -- 4
-call.type$ -- 4
-change.case$ -- 16
-chr.to.int$ -- 2
-cite$ -- 4
-duplicate$ -- 52
-empty$ -- 157
-format.name$ -- 24
-if$ -- 389
-int.to.chr$ -- 2
-int.to.str$ -- 1
-missing$ -- 0
-newline$ -- 34
-num.names$ -- 16
-pop$ -- 16
->>>>>>> 9fff37a9d84e8109389111524daa3c8c82a32ab3
+newline$ -- 80
+num.names$ -- 48
+pop$ -- 58
 preamble$ -- 1
-purify$ -- 32
+purify$ -- 48
 quote$ -- 0
-<<<<<<< HEAD
-skip$ -- 114
+skip$ -- 157
 stack$ -- 0
-substring$ -- 362
-swap$ -- 16
-text.length$ -- 8
+substring$ -- 534
+swap$ -- 24
+text.length$ -- 12
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 78
-=======
-skip$ -- 43
-stack$ -- 0
-substring$ -- 172
-swap$ -- 8
-text.length$ -- 4
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 44
->>>>>>> 9fff37a9d84e8109389111524daa3c8c82a32ab3
+type$ -- 122
 warning$ -- 0
-while$ -- 48
+while$ -- 72
 width$ -- 0
-<<<<<<< HEAD
-write$ -- 85
-=======
-write$ -- 49
->>>>>>> 9fff37a9d84e8109389111524daa3c8c82a32ab3
+write$ -- 125

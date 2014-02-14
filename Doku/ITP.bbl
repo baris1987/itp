@@ -1,4 +1,4 @@
-\begin{thebibliography}{8}
+\begin{thebibliography}{12}
 % this bibliography was produced with the style dinat.bst v2.5
 \makeatletter
 \newcommand{\dinatlabel}[1]%
@@ -7,15 +7,14 @@
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax\def\url#1{\texttt{#1}}\fi
 
-\bibitem[Android(2014{\natexlab{a}})]{ADevSensors}
+\bibitem[Android(2014{\natexlab{a}})]{ADevActivity}
 \dinatlabel{Android 2014{\natexlab{a}}} \textsc{Android}:
-\newblock \emph{Android Developers - Location and Sensors API}.
+\newblock \emph{Android Developers - Activity}.
 \newblock 2014. --
 \newblock URL
-  \url{http://developer.android.com/guide/topics/sensors/index.html}. --
+  \url{http://developer.android.com/reference/android/app/Activity.html}. --
   Zugriffsdatum: 09.02.2014
 
-<<<<<<< HEAD
 \bibitem[Android(2014{\natexlab{b}})]{ADevAsyncTask}
 \dinatlabel{Android 2014{\natexlab{b}}} \textsc{Android}:
 \newblock \emph{Android Developers - AsyncTask}.
@@ -35,31 +34,44 @@
 \bibitem[Android(2014{\natexlab{d}})]{ADevLayout}
 \dinatlabel{Android 2014{\natexlab{d}}} \textsc{Android}:
 \newblock \emph{Android Developers - Layouts}.
-=======
-\bibitem[Android(2014{\natexlab{b}})]{ADevUI}
-\dinatlabel{Android 2014{\natexlab{b}}} \textsc{Android}:
-\newblock \emph{Android Developers - User Interface}.
->>>>>>> 9fff37a9d84e8109389111524daa3c8c82a32ab3
 \newblock 2014. --
-\newblock URL \url{http://developer.android.com/guide/topics/ui/index.html}. --
+\newblock URL
+  \url{http://developer.android.com/guide/topics/ui/declaring-layout.html}. --
   Zugriffsdatum: 09.02.2014
 
-<<<<<<< HEAD
-\bibitem[Android(2014{\natexlab{e}})]{ADevPrefActivity}
+\bibitem[Android(2014{\natexlab{e}})]{ADevSensors}
 \dinatlabel{Android 2014{\natexlab{e}}} \textsc{Android}:
+\newblock \emph{Android Developers - Location and Sensors API}.
+\newblock 2014. --
+\newblock URL
+  \url{http://developer.android.com/guide/topics/sensors/index.html}. --
+  Zugriffsdatum: 09.02.2014
+
+\bibitem[Android(2014{\natexlab{f}})]{ADevPrefActivity}
+\dinatlabel{Android 2014{\natexlab{f}}} \textsc{Android}:
 \newblock \emph{Android Developers - Settings}.
 \newblock 2014. --
 \newblock URL \url{http://developer.android.com/guide/topics/ui/settings.html}.
   -- Zugriffsdatum: 11.02.2014
 
-\bibitem[Android(2014{\natexlab{f}})]{ADevBackstack}
-\dinatlabel{Android 2014{\natexlab{f}}} \textsc{Android}:
+\bibitem[Android(2014{\natexlab{g}})]{ADevBackstack}
+\dinatlabel{Android 2014{\natexlab{g}}} \textsc{Android}:
 \newblock \emph{Android Developers - Tasks and Backstack}.
-=======
+\newblock 2014. --
+\newblock URL
+  \url{http://developer.android.com/guide/practices/screens_support.html}. --
+  Zugriffsdatum: 09.02.2014
+
+\bibitem[Android(2014{\natexlab{h}})]{ADevUI}
+\dinatlabel{Android 2014{\natexlab{h}}} \textsc{Android}:
+\newblock \emph{Android Developers - User Interface}.
+\newblock 2014. --
+\newblock URL \url{http://developer.android.com/guide/topics/ui/index.html}. --
+  Zugriffsdatum: 09.02.2014
+
 \bibitem[Google(2014{\natexlab{a}})]{GoogleLocServices}
 \dinatlabel{Google 2014{\natexlab{a}}} \textsc{Google}:
 \newblock \emph{Collection of wifi data for Google location based services}.
->>>>>>> 9fff37a9d84e8109389111524daa3c8c82a32ab3
 \newblock 2014. --
 \newblock URL
   \url{http://static.googleusercontent.com/media/www.google.com/de//googleblogs/pdfs/google_submission_dpas_wifi_collection.pdf}.
@@ -72,6 +84,11 @@
 \newblock URL
   \url{https://developers.google.com/maps/documentation/android/start#getting_the_google_maps_android_api_v2}.
   -- Zugriffsdatum: 09.02.2014
+
+\bibitem[Koller(2012)]{AppsProg}
+\dinatlabel{Koller 2012} \textsc{Koller}, Dr.~D.:
+\newblock \emph{Android-Apps programmieren}.
+\newblock FRANZIS, 2012
 
 \bibitem[K{\"u}nneth(2012)]{TKAndroid4}
 \dinatlabel{K{\"u}nneth 2012} \textsc{K{\"u}nneth}, Thomas:
