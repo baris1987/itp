@@ -26,7 +26,7 @@ Außerdem wird im unteren Bereich des Screens der aktuell genutzte Ortungsdienst
 \newpage
 \subsection{Device Map}
 \nocite{GoogleMapsAPI}
-Da die Quakedetec App durch Mehrheitsentscheid darauf schließt, ob ein übersendeter Alarm wirklich aus einem Beben resultiert, ist die App umso verlässlicher, je mehr Geräte sich in der eigenen Umgebung befinden, die ebenfalls die App nutzen. Daher besitzt die App eine Google Map, in der der eigene Standort und und der der anderern Nutzer angezeigt wird. Dadurch kann sich der Nutzer einen Überblick verschaffen, ob sich in der eigenen Umgebung weitere Nutzer befinden und kann daraus schließen, ob in seinem Gebiet die App zuverlässig arbeitet.
+Da die Quakedetec App durch Mehrheitsentscheid darauf schließt, ob ein übersendeter Alarm wirklich aus einem Beben resultiert, ist die App umso verlässlicher, je mehr Geräte sich in der eigenen Umgebung befinden, die ebenfalls die App nutzen. Daher besitzt die App eine Google Map, in der der eigene Standort und der der anderern Nutzer angezeigt wird. Dadurch kann sich der Nutzer einen Überblick verschaffen, ob sich in der eigenen Umgebung weitere Nutzer befinden und kann daraus schließen, ob in seinem Gebiet die App zuverlässig arbeitet.
 
 \subsubsection{Google Map in ein Projekt integrieren}
 Um eine Google Map in einem Android Projekt verwenden zu können, muss dem Projekt die \textit{Google Play Service SDK} hinzugefügt werden. Dazu wird das SDK installiert, als Android Application dem Workspace hinzugefügt und als Android Library im eigenen App Projekt referenziert. Außerdem muss noch folgender Eintrag im \textit{AndroidManifest.xml} vorgenommen werden:
@@ -145,7 +145,7 @@ Die Methode aus Listing \ref{lst:updateCamera} wird ausgeführt, wenn der beschr
 
 \subsubsection{Android Maps Extensions}
 
-Die Google Map API hat ein sehr starkes Performanceproblem, wenn auf der Map eine hohe Anzahl von Markern angezeigt wird. Ab einer Größenordnung von ca. 100000 Markern fängt sie sehr stark an zu ruckeln und friert teilweise ein. Daher wurde eine Library benutzt, die der Map eine Clustering Funktion hinzufügt. Diese Library ersetzt die Google Play Services Library und erweitert diese. Clustering bedeutet, dass Marker je nach Zoomlevel gebündelt oder wieder entbündelt werden. Je mehr aus der Map herauszoomt wird, desto mehr Punkte werden gebündelt. Wird wieder in die Map herein gezoomt, werden sie wieder entbündelt. Dadurch wird immer eine kleine Anzahl an Markern dargestellt und die Performance bleibt stabil auf einem guten Niveau. Gebündelte Punkte zeigen auf ihrem Label die Anzahl der zusammengefassten Punkte an.
+Die Google Map API hat ein sehr starkes Performanceproblem, wenn auf der Map eine hohe Anzahl von Markern angezeigt wird. Ab einer Größenordnung von ca. 100000 Markern fängt sie sehr stark an zu ruckeln und friert teilweise ein. Daher wurde eine Library benutzt, die der Map eine Clustering Funktion hinzufügt. Diese Library ersetzt die Google Play Services Library und erweitert diese. Clustering bedeutet, dass Marker je nach Zoomlevel gebündelt oder wieder entbündelt werden. Je mehr aus der Map herausgezoomt wird, desto mehr Punkte werden gebündelt. Wird wieder in die Map hereingezoomt, werden sie wieder entbündelt. Dadurch wird immer eine kleine Anzahl an Markern dargestellt und die Performance bleibt stabil auf einem guten Niveau. Gebündelte Punkte zeigen auf ihrem Label die Anzahl der zusammengefassten Punkte an.
 
 \begin{figure}[H]
 \centering

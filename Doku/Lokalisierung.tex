@@ -76,13 +76,13 @@ Ein \textit{GPS} Empfänger kann aus der Versandzeit einer Nachricht die Signall
    \caption[Lokalisierung: GPS 2 Satelliten]{GPS 2 Satelliten}
    \label{fig:gpsTwoSatellites}
 \end{wrapfigure}
-Ein einziger Satellit würde zu einer genauen Positionsbestimmung nicht ausreichen, da somit nur die Entfernung zu diesem einen Satelliten bekannt wäre. Werden aber mehrere Satelliten genutzt, können die Überschneidungen der Radien verwendet werden, um die Position sehr genau zu bestimmen. Mit zwei Satelliten kann theoretisch in einer zweidimensionalen Welt schon eine Position genau bestimmt werden. In Abbildung \ref{fig:gpsTwoSatellites} ist ein Beispiel mit zwei Satelliten zu sehen. Bei der Verwendung von zwei Satelliten gibt es zwei Radien, die sich in zwei Punkten schneiden. Da aber einer dieser Punkte weit im Weltall liegt, kann schnell daraus geschlossen werden, dass nur der andere Punkt Relevant und somit der gesuchte Standort ist. In der Realität wird allerdings noch ein dritter Satellit benötigt, um das sogenannte \textit{Uhrenproblem} zu lösen. Die Satellitenuhren laufen zwar dank Atomuhren absolut genau und synchron, ein \textit{GPS} Empfänger tut dies allerdings nicht. Dadurch würden die Signallaufzeiten bei zwei Satelliten ungenau berechnet werden. 
+Ein einziger Satellit würde zu einer genauen Positionsbestimmung nicht ausreichen, da somit nur die Entfernung zu diesem einen Satelliten bekannt wäre. Werden aber mehrere Satelliten genutzt, können die Überschneidungen der Radien verwendet werden, um die Position sehr genau zu bestimmen. Mit zwei Satelliten kann theoretisch in einer zweidimensionalen Welt schon eine Position genau bestimmt werden. In Abbildung \ref{fig:gpsTwoSatellites} ist ein Beispiel mit zwei Satelliten zu sehen. Bei der Verwendung von zwei Satelliten gibt es zwei Radien, die sich in zwei Punkten schneiden. Da aber einer dieser Punkte weit im Weltall liegt, kann schnell daraus geschlossen werden, dass nur der andere Punkt relevant und somit der gesuchte Standort ist. In der Realität wird allerdings noch ein dritter Satellit benötigt, um das sogenannte \textit{Uhrenproblem} zu lösen. Die Satellitenuhren laufen zwar dank Atomuhren absolut genau und synchron, ein \textit{GPS} Empfänger tut dies allerdings nicht. Dadurch würden die Signallaufzeiten bei zwei Satelliten ungenau berechnet werden. 
 
 Mit der Hilfe eines dritten Satellitens kann dieses Problem gelöst werden. 
 \begin{wrapfigure}{l}{48mm}
 	\centering
 	\includegraphics[width=48mm]{/gps_three_satellites.png}
-	\caption[Lokalisierung: GPS 3 Satelliten]{GPS 3 Satellites}
+	\caption[Lokalisierung: GPS 3 Satelliten]{GPS 3 Satelliten}
 	\label{fig:gpsThreeSatellites}
 \end{wrapfigure}
 Abbildung \ref{fig:gpsThreeSatellites} verdeutlicht die Funktionsweise. Unter der Annahme, dass die Empfängeruhr 0,5s vorgeht, bekommt man Radien die aufgrund der falsch laufenden Empfängeruhr größer ausfallen (durchgezogene Linien/Kreise). In Wirklichkeit fallen diese aber kleiner aus (gepunktete Linien/Kreise). Bei zwei Radien sind bei diesem Szenario zwei Schnittpunkte vorhanden, die eine falsche Position angeben würden, ohne dass es eine Möglichkeit gäbe den Fehler zu erkennen. Wird allerdings ein dritter Satellit zur Bestimmung herangezogen, gibt es bei einer falschen Berechnung aufgrund des Uhrenproblems keinen Schnittpunkt aller drei Radien. In diesem Fall verändert der \textit{GPS} Empfänger seine Uhrzeit so lange, bis sich alle drei Radien in einem Punkt schneiden. Somit wird die Uhrzeit des \textit{GPS} Empfängers mit der Uhrzeit der Satelliten synchronisiert. Der Schnittpunkt aller drei Radien ist dann die exakte Position.
@@ -181,7 +181,7 @@ Diese Methode aktiviert den gewünschten \textit{Location Provider} und wartet, 
    \vspace{-4mm}
    \includegraphics[width=50mm]{/locationupdates_interval_ui.png} 
    \vspace{-10mm}
-   \caption[Lokalisierung: Update Interval]{Update Interval}
+   \caption[Lokalisierung: Update Intervall]{Update Intervall}
    \vspace{-5mm}
 \end{wrapfigure}
 Anfangs wurde die App mit der \textit{requestLocationUpdates} Methode (siehe Kapitel \ref{subsec:posInAndroid}) und dem \textit{NETWORK} und \textit{GPS} Provider umgesetzt. Es wurden beide Provider kontinuierlich abgefragt und der genauere

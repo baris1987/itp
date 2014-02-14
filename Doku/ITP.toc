@@ -3,7 +3,7 @@
 \contentsline {section}{\numberline {2}Motivation (Christopher Althaus)}{7}{section.2}
 \contentsline {section}{\numberline {3}System Struktur (Christopher Althaus)}{8}{section.3}
 \contentsline {section}{\numberline {4}Die Architektur der Applikation(J\IeC {\"u}rgen Hetzel)}{10}{section.4}
-\contentsline {subsection}{\numberline {4.1}Der Back Stack einer Task}{10}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.1}Der Back Stack einer Task}{11}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Der Lebenszyklus einer Activity}{12}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Layouts}{13}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}Die Android-Projektstruktur}{15}{subsection.4.4}
