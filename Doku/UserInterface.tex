@@ -16,12 +16,11 @@ In der App wurde ein \textit{ViewPager} implementiert, mit welchem es möglich i
 \includegraphics[width=50mm]{/info_screen.png}
 \caption[User Interface: Info]{Info}
 \end{wrapfigure}
-Die App bietet unter dem Tab Info eine Übersicht über die wichtigsten Daten.
+Die App bietet unter dem Tab \textit{Info} eine Übersicht über die wichtigsten Daten.
 Im oberen Bereich befindet sich ein Graph, der die Daten des Beschleunigunssensors darstellt. 
-Dabei zeigt er nicht alle Achsen an, die der Beschleunigunssensor ausliest, sondern nur einen Durchschnittswert aller Achsen. Für die Entscheidung nur einen Graph anzuzeigen, sprechen zwei Gründe.
-Zum Einen ist ein kontinuierliches Neuzeichnen sehr leistungshungrig, sodass die App auf einem performanceschwachen Gerät ruckeln und einfrieren würde, wenn mehrere Graphen ständig neugezeichnet werden müssten. Zum Anderen kann es für einen Nutzer verwirrend sein, wenn mehrere stark schwankende Graphen dargestellt werden würden. Somit ist ein einzelner Graph eine ansprechendere, übersichtlichere und leistungsschonendere Lösung.
+Dabei zeigt er nicht alle Achsen an, die der Beschleunigunssensor überwacht, sondern nur einen Durchschnittswert aller Achsen. Für die Entscheidung nur einen Graph anzuzeigen, sprechen zwei Gründe. Zum Einen ist ein kontinuierliches Neuzeichnen sehr leistungshungrig, sodass die App auf einem performanceschwachen Gerät ruckeln und einfrieren würde, wenn mehrere Graphen ständig neugezeichnet werden müssten, zum Anderen kann es für einen Nutzer verwirrend sein, wenn mehrere stark schwankende Graphen dargestellt werden würden. Somit ist ein einzelner Graph eine ansprechendere, übersichtlichere und leistungsschonendere Lösung.
 Weiterhin kann der Nutzer die Anzahl der momentan verbundenen Geräte ablesen, was gleichzeitig auf die Zuverlässigkeit der Erdbebenerkennung schließen lässt (Stichwort: \textit{Mehrheitsentscheid}).
-Darunter befinden sich Informationen zum letzten erfassten Erdbeben, wie Datum, Uhrzeit und Land/Stadt des letzten Bebens.
+Darunter befinden sich Informationen zum letzten erfassten Erdbeben, wie dessen Datum, Uhrzeit und Standort.
 Unter dem letzten Beben befindet sich die aktuelle Position in Form einer vollständigen Addresse.
 Außerdem wird im unteren Bereich des Screens der aktuell genutzte Ortungsdienst und die Genauigkeit des erfassten Standorts angezeigt (Weitere Informationen zum Ortungsdienst, siehe Kapitel ~\ref{subsec:locProvider} \nameref{subsec:locProvider}).
 
@@ -39,7 +38,7 @@ Um eine Google Map in einem Android Projekt verwenden zu können, muss dem Proje
     android:value="@integer/google_play_services_version" />
 \end{lstlisting}
 \par\bigskip
-Weiterhin wird ein Android API Key benötigt. Um diesen zu erstellen, ist es notwendig ein API Projekt in der Google API Console anzulegen (Weitere Information dazu sind der Google Maps Dokumentation zu entnehmen). Mit Hilfe dieses API Projekts kann ein Android API Key generiert werden, indem der SHA-1 Fingerprint des eigenen Android Zertifikats und der Name des eigenen App Projekts durch Semikolon getrennt in der Google API Console eingetragen wird.
+Weiterhin wird ein \textit{Android API Key} benötigt. Um diesen zu erstellen, ist es notwendig ein API Projekt in der \textit{Google API Console} anzulegen (Weitere Information dazu sind der Google Maps Dokumentation zu entnehmen). Mit Hilfe dieses API Projekts kann ein \textit{Android API Key} generiert werden, indem der \textit{SHA-1 Fingerprint} des eigenen Android Zertifikats und der Packagename des eigenen App Projekts durch Semikolon getrennt in der \textit{Google API Console} eingetragen wird.
 \bigskip
 \begin{lstlisting}[caption={Android API Key generieren},label=lst:AndroidApiKey, basicstyle=\small]
 BB:0D:AC:74:D3:21:E1:43:67:71:9B:62:91:AF:A1:66:6E:44:5D:75;com.th.nuernberg.itp.earthquakedetection
@@ -47,7 +46,7 @@ BB:0D:AC:74:D3:21:E1:43:67:71:9B:62:91:AF:A1:66:6E:44:5D:75;com.th.nuernberg.itp
 
 \newpage
 
-Der SHA-1 Fingerprint kann mit folgendem Befehl in der Shell unter Linux ausgegeben werden: 
+Der \textit{SHA-1 Fingerprint} kann mit folgendem Befehl in der Shell unter Linux ausgegeben werden: 
 
 \begin{lstlisting}[caption={Fingerprint Ausgabe},label=lst:FingerprintOutput]
 keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
@@ -60,7 +59,7 @@ keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -sto
 \label{fig:fingerprint}
 \end{figure}
 \bigskip
-Nachdem die beschriebene Eintragung vorgenommen wurde, wird ein API Key generiert und angezeigt:
+Nachdem die beschriebene Eintragung vorgenommen wurde, wird ein \textit{API Key} generiert und angezeigt:
 
 \begin{figure}[H]
 \centering
@@ -69,7 +68,7 @@ Nachdem die beschriebene Eintragung vorgenommen wurde, wird ein API Key generier
 \label{fig:apiKeyGen}
 \end{figure}
 \bigskip
-Daraufhin muss in der Google API Console der Service \textit{Google Maps API v2} aktiviert werden.
+Daraufhin muss in der \textit{Google API Console} der Service \textit{Google Maps API v2} aktiviert werden.
 
 \begin{figure}[H]
 \centering
@@ -78,7 +77,7 @@ Daraufhin muss in der Google API Console der Service \textit{Google Maps API v2}
 \label{fig:mapsApiService}
 \end{figure} 
 \bigskip
-Um die Konfiguration abzuschließen, muß der API Key noch der \textit{AndroidManifest.xml} der App hinzugefügt werden.
+Um die Konfiguration abzuschließen, muß der \textit{API Key} noch der \textit{AndroidManifest.xml} der App hinzugefügt werden.
 
 \begin{lstlisting}[caption={Google Map API Key hinzufügen},label=lst:MapApiKeyInsert]
 <meta-data
@@ -147,7 +146,7 @@ Die Methode aus Listing \ref{lst:updateCamera} wird ausgeführt, wenn der beschr
 
 \subsubsection{Android Maps Extensions}
 
-Die Google Map API hat ein sehr starkes Performanceproblem, wenn auf der Map eine hohe Anzahl von Markern angezeigt wird. Ab einer Größenordnung von ca. 100000 Markern fängt sie sehr stark an zu ruckeln und friert teilweise ein. Daher wurde eine Library benutzt, die der Map eine Clustering Funktion hinzufügt. Diese Library ersetzt die Google Play Services Library und kann gleichwertig genutzt werden. Clustering bedeutet, dass Marker je nach Zoomlevel gebündelt oder wieder entbündelt werden. Je mehr aus der Map herauszoomt wird, desto mehr Punkte werden gebündelt. Wird wieder in die Map herein gezoomt, werden sie wieder entbündelt. Dadurch wird immer eine kleine Anzahl an Markern dargestellt und die Performance bleibt stabil auf einem guten Niveau. Gebündelte Punkte zeigen auf ihrem Label die Anzahl der zusammengefassten Punkte an.
+Die Google Map API hat ein sehr starkes Performanceproblem, wenn auf der Map eine hohe Anzahl von Markern angezeigt wird. Ab einer Größenordnung von ca. 100000 Markern fängt sie sehr stark an zu ruckeln und friert teilweise ein. Daher wurde eine Library benutzt, die der Map eine Clustering Funktion hinzufügt. Diese Library ersetzt die Google Play Services Library und erweitert diese. Clustering bedeutet, dass Marker je nach Zoomlevel gebündelt oder wieder entbündelt werden. Je mehr aus der Map herauszoomt wird, desto mehr Punkte werden gebündelt. Wird wieder in die Map herein gezoomt, werden sie wieder entbündelt. Dadurch wird immer eine kleine Anzahl an Markern dargestellt und die Performance bleibt stabil auf einem guten Niveau. Gebündelte Punkte zeigen auf ihrem Label die Anzahl der zusammengefassten Punkte an.
 
 \begin{figure}[H]
 \centering
@@ -234,7 +233,7 @@ Bei einer Anzahl von unter 10000 Markern liegt die Geschwindigkeit des Vorgangs 
 \end{figure}
 
 \subsubsection{Zukünftige Implementierung}\label{subsubsec:mapFutureImpl}
-Bei der aktuellen Implementierung kommen schnell Fragen zum Datenschutz auf. Zwar werden keine Informationen über andere angezeigte Geräte herausgegeben, aber wenn sich eine geringe Anzahl an anderen Geräten in der Umgebung befinden, kann ohne weiteres ein Bewegungsprofil erkannt werden. Wenn der Nutzer vielleicht sogar weiß, um wen es sich beim angezeigten Nutzer handelt (bspw. einen Freund, der ebenfalls die App nutzt), ist dies datenschutztechnisch sehr bedenklich. Daher sollen die Daten der anderen Geräte schon auf dem Server zusammengefasst werden und nur in zusammengefasster Form an die App ausgeliefert werden. Dazu soll ein gedachtes Raster über die Map gelegt werden. In jedem Rasterfeld werden alle Geräte zusammengefasst. Der zusammengefasste Punkt bekommt dann die Koordinaten, die sich im Mittelpunkt des Rasters befinden. An die App werden dann nur die gebündelten Punkte, Anzahl der Geräte jedes gebündelten Punktes und die Rastergröße weitergeleitet. Somit werden auf der Map keine genauen Punkte mehr angezeigt. Es wird weiterhin ein blauer durchsichtiger Kreis um die Punkte gelegt, der der Größe eines Rasterfeldes entspricht. Dadurch ist genau erkennbar, wie viele Geräte sich in einem bestimmten Gebiet/Raster befinden, ohne dass Bewegungsprofile eines Gerätes zu erkennen sind. Die Berechnung der gebündelten Standortdaten wird in bestimmten Zeitabständen durchgeführt und gecached, was dem Datenschutz durch die leicht zeitverzögerten Daten ebenfalls zuträglich ist. Da die Berechnung auf dem Server stattfindet, werden keine genauen Standortdaten mehr zwischen Server und App übertragen, wodurch ein Abgreifen der Standortdaten aus den http-Requests ebenfalls unterbunden wird. Bei dieser Implementierung wird die Rastergröße und das Berechnungsintervall frei konfigurierbar sein.
+Bei der aktuellen Implementierung kommen schnell Fragen zum Datenschutz auf. Zwar werden keine Informationen über andere angezeigte Geräte herausgegeben, aber wenn sich eine geringe Anzahl an anderen Geräten in der Umgebung befinden, kann ohne weiteres ein Bewegungsprofil erkannt werden. Wenn der Nutzer vielleicht sogar weiß, um wen es sich beim angezeigten Nutzer handelt (bspw. einen Freund, der ebenfalls die App nutzt), ist dies datenschutztechnisch sehr bedenklich. Daher sollen die Daten der anderen Geräte schon auf dem Server zusammengefasst werden und nur in zusammengefasster Form an die App ausgeliefert werden. Dazu soll ein gedachtes Raster über die Map gelegt werden. In jedem Rasterfeld werden alle Geräte zusammengefasst. Der zusammengefasste Punkt bekommt dann die Koordinaten, die sich im Mittelpunkt des Rasters befinden. An die App werden dann nur die gebündelten Punkte, Anzahl der Geräte jedes gebündelten Punktes und die Rastergröße weitergeleitet. Somit werden auf der Map keine genauen Punkte mehr angezeigt. Es wird weiterhin ein blauer durchsichtiger Kreis um die Punkte gelegt, der der Größe eines Rasterfeldes entspricht und ein Label mit der Anzahl der Geräte hinzugefügt. Dadurch ist genau erkennbar, wie viele Geräte sich in einem bestimmten Gebiet/Raster befinden, ohne dass Bewegungsprofile eines Gerätes zu erkennen sind. Die Berechnung der gebündelten Standortdaten wird in bestimmten Zeitabständen durchgeführt und gecached, was dem Datenschutz durch die leicht zeitverzögerten Daten ebenfalls zuträglich ist. Da die Berechnung auf dem Server stattfindet, werden keine genauen Standortdaten mehr zwischen Server und App übertragen, wodurch ein Abgreifen der Standortdaten aus den HTTP Nachrichten ebenfalls unterbunden wird. Bei dieser Implementierung wird die Rastergröße und das Berechnungsintervall frei konfigurierbar sein.
 \subsection{Settings}
 \begin{wrapfigure}{r}{40mm}
 \vspace{-5mm}

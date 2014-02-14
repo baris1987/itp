@@ -22,9 +22,7 @@ Somit wäre eine Erdbebenlokalisierung fehlerhaft.
 \nocite{GoogleLocServices}
 Der Location Provider \textit{NETWORK} findet Positionsdaten mit Hilfe von WLAN Netzwerken und der Mobilfunkzellen (\shorthandoff{"}"Mobilfunkmast"\shorthandon{"}). 
 Um über WLAN Netzwerke Geräte lokalisieren zu können, pflegt Google eine Datenbank, die WLAN Netzwerke mit Standortdaten verknüpft.
-Anfangs geschah dies mit Hilfe des Google Cars, welches hauptsächlich zur Datenerfassung für Google StreetView in vielen Städten unterwegs war. Hierbei erfasste dieses Fahrzeug neben den Straßenbildern auch WLAN Netze und verknüpfte deren MAC-Adresse mit den GPS Daten des Fahrzeugs.
-Natürlich sind solche Daten schnell veraltet, weshalb Google weitherin Android Smartphones nutzt, um die Daten aktuell zu halten und neue WLAN Netze in die Datenbank aufzunehmen.
-Android Smartphones übermitteln dabei ihren \textit{GPS} Standort, sobald ein solcher ermittelt wurde, zusammen mit den MAC Ids der sichtbaren WLAN Netzwerke in ihrer Umgebung an Google. Dabei wird auch die Signalstärke der WLAN Netzwerke berücksichtigt, um den Standort des WLAN Netzwerks noch genauer ermitteln zu können.
+Anfangs geschah dies mit Hilfe des Google Cars, welches hauptsächlich zur Datenerfassung für Google StreetView in vielen Städten unterwegs war. Hierbei erfasste dieses Fahrzeug neben den Straßenbildern auch WLAN Netze und verknüpfte deren MAC-Adresse mit den GPS Daten des Fahrzeugs. Natürlich sind solche Daten schnell veraltet, weshalb Google weitherin Android Smartphones nutzt, um die Daten aktuell zu halten und neue WLAN Netze in die Datenbank aufzunehmen. Android Smartphones übermitteln dabei ihren GPS Standort, sobald ein solcher ermittelt wurde, zusammen mit den MAC Ids der sichtbaren WLAN Netzwerke in ihrer Umgebung an Google. Dabei wird auch die Signalstärke der WLAN Netzwerke berücksichtigt, um den Standort des WLAN Netzwerks noch genauer ermitteln zu können.
 Um einen Standort über den \textit{NETWORK} Provider abzurufen, sendet das Smartphone einen \textit{Request} an Google. In diesem \textit{Request} sind ebenfalls die MAC Ids und Signalstärken der gerade sichtbaren WLAN Netze enthalten. Auch hier werden diese Daten und nicht nur das verbundene WLAN benötigt, um den Standort weiter präzisieren zu können. Würde man nur das verbundene WLAN übermitteln, könnte nur der Standort des einzelnen WLAN Netzes zur Ermittlung des Standorts verwendet werden. Hat dieses WLAN eine hohe Signalstärke, sodass es in einem Radius von mehreren hundert Metern empfangbar ist, wäre der Standort auch nur auf mehrere hundert Meter genau, da nicht bestimmt werden kann, wo sich das Gerät in diesem Empfangsbereich befindet. Bezieht man aber mehrere WLAN Netzwerke mit ein, kann man durch die Überschneidungen der Netze den Standort wesentlich genauer bestimmen. 
 
 \begin{figure}[H]
@@ -35,7 +33,7 @@ Um einen Standort über den \textit{NETWORK} Provider abzurufen, sendet das Smar
 \end{figure}
 
 In Abbildung \ref{fig:networkProviderfunc} ist die Funktionsweise dieser Lokalisierungstechnik skizzenhaft dargestellt. Ist am Standort allerdings nur ein WLAN Netzwerk sichtbar/verfügbar, bezieht auch hier Google die Signalstärke mit ein, wodurch auch in diesem Fall die Genauigkeit weiter verbessert werden kann.
-Wurde der Request vom Smartphone an den Google Server übergeben, werden anhand der gesendeten MAC IDs die verfügbaren Standorte der umgebenen WLAN Netze aus der Google Datenbank entnommen. Daraufhin wird ein Standort mit der beschriebenen Funktionsweise ermittelt (Überschneidungen) und an das Smartphone zurückgesendet. Die Antwort vom Google Server beinhaltet den Längen- und Breitengrad, die Genauigkeit des gelieferten Standorts und einen Zeitstempel. Die Genauigkeit dieses Verfahrens liegt erfahrungsgemäß bei 15-100m.
+Wurde der \textit{Request} vom Smartphone an den Google Server übergeben, werden anhand der gesendeten MAC IDs die verfügbaren Standorte der umgebenen WLAN Netze aus der Google Datenbank entnommen. Daraufhin wird ein Standort mit der beschriebenen Funktionsweise ermittelt (Überschneidungen) und an das Smartphone zurückgesendet. Die Antwort vom Google Server beinhaltet den Längen- und Breitengrad, die Genauigkeit des gelieferten Standorts und einen Zeitstempel. Die Genauigkeit dieses Verfahrens liegt erfahrungsgemäß bei 15-100m.
 
 \begin{figure}[H]
 \centering
@@ -54,16 +52,15 @@ Sollten keine WLAN Netzwerke verfügbar oder das WLAN des Smartphones deaktivier
 \end{figure}
 
 
-\begin{wrapfigure}{r}{43mm}
+\begin{wrapfigure}{r}{45mm}
 \centering
-   \includegraphics[width=43mm]{/network_provider_praxis.png} 
+   \includegraphics[width=45mm]{/network_provider_praxis.png} 
    \vspace{-5mm}
    \caption[Lokalisierung: NETWORK Provider in der Praxis]{Praxis}
    \vspace{-5mm}
 \end{wrapfigure}
 Somit gibt es zwei Radien, die sich schneiden und es kann relativ genau ein Standort ermittelt werden. 
 Dieses Verfahren findet allerdings kaum Verwendung, da das Gerät dazu gezwungen werden muss die Verbindung zwischen  mehreren Mobilfunkzellen zu wechseln, um in jeder Zelle die Signallaufzeit zu messen. Dieser Vorgang führt schnell zu einem hohen Energieverbrauch. Somit wird in der Praxis eine Lokalisierung nur mit Hilfe einer einzigen Mobilfunkzelle durchgeführt. 
-
 Eine Mobilfunkzelle hat eine vielfach höhere Signalreichweite als ein WLAN Netzwerk. In Städten liegt man hier zwar nur bei wenigen hundert Metern, auf dem Land hingegen bei mehreren Kilometern. Somit erhält man in der Stadt meist noch Standortdaten, die auf wenige hundert Meter genau sind, auf dem Land liegt man allerdings meist bei 2 bis 4 Kilometer.
 
 \subsubsection{Global Positioning System}
@@ -79,7 +76,7 @@ Ein \textit{GPS} Empfänger kann aus der Versandzeit einer Nachricht die Signall
    \caption[Lokalisierung: GPS 2 Satelliten]{GPS 2 Satelliten}
    \label{fig:gpsTwoSatellites}
 \end{wrapfigure}
-Ein einziger Satellit würde zu einer genauen Positionsbestimmung nicht ausreichen, da somit nur die Entfernung zu diesem einen Satelliten bekannt ist. Werden aber mehrere Satelliten genutzt, können die Überschneidungen der Radien verwendet werden, um die Position sehr genau zu bestimmen. Mit zwei Satelliten kann theoretisch in einer zweidimensionalen Welt schon eine Position genau bestimmt werden. In Abbildung \ref{fig:gpsTwoSatellites} ist ein Beispiel mit zwei Satelliten zu sehen. Bei der Verwendung von zwei Satelliten gibt es zwei Radien, die sich in zwei Punkten schneiden. Da aber einer dieser Punkte weit im Weltall liegt, kann schnell daraus geschlossen werden, dass nur der andere Punkt Relevant und somit der gesuchte Standort ist. In der Realität wird allerdings noch ein dritter Satellit benötigt, um das sogenannte \textit{Uhrenproblem} zu lösen. Die Satellitenuhren laufen zwar dank Atomuhren absolut genau und synchron, ein \textit{GPS} Empfänger tut dies allerdings nicht. Dadurch würden die Signallaufzeiten bei zwei Satelliten ungenau berechnet werden. 
+Ein einziger Satellit würde zu einer genauen Positionsbestimmung nicht ausreichen, da somit nur die Entfernung zu diesem einen Satelliten bekannt wäre. Werden aber mehrere Satelliten genutzt, können die Überschneidungen der Radien verwendet werden, um die Position sehr genau zu bestimmen. Mit zwei Satelliten kann theoretisch in einer zweidimensionalen Welt schon eine Position genau bestimmt werden. In Abbildung \ref{fig:gpsTwoSatellites} ist ein Beispiel mit zwei Satelliten zu sehen. Bei der Verwendung von zwei Satelliten gibt es zwei Radien, die sich in zwei Punkten schneiden. Da aber einer dieser Punkte weit im Weltall liegt, kann schnell daraus geschlossen werden, dass nur der andere Punkt Relevant und somit der gesuchte Standort ist. In der Realität wird allerdings noch ein dritter Satellit benötigt, um das sogenannte \textit{Uhrenproblem} zu lösen. Die Satellitenuhren laufen zwar dank Atomuhren absolut genau und synchron, ein \textit{GPS} Empfänger tut dies allerdings nicht. Dadurch würden die Signallaufzeiten bei zwei Satelliten ungenau berechnet werden. 
 
 Mit der Hilfe eines dritten Satellitens kann dieses Problem gelöst werden. 
 \begin{wrapfigure}{l}{48mm}
@@ -108,7 +105,7 @@ Möchte ein Nutzer die App nun installieren, wird er zuerst gefragt, ob er der A
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=40mm]{/app_permissions.png}
+	\includegraphics[width=50mm]{/app_permissions.png}
 	\caption[Lokalisierung: App Permissions]{App Permissions}
 	\label{fig:appPermissions}
 \end{figure}
@@ -187,10 +184,10 @@ Diese Methode aktiviert den gewünschten \textit{Location Provider} und wartet, 
    \caption[Lokalisierung: Update Interval]{Update Interval}
    \vspace{-5mm}
 \end{wrapfigure}
-Anfangs wurde die App mit der \textit{requestLocationUpdates} Methode (siehe Kapitel \ref{subsec:posInAndroid}) und dem \textit{NETWORK} und \textit{GPS} Provider umgesetzt. Es wurden beide Sensoren kontinuierlich abgefragt und der genauere
-und aktuellere Standort der beiden Location Provider wurde verwendet. Da man im Falle eines Erdbebens den Standort des Geräts benötigt um die Erdbebenposition zu bestimmen, erachteten wir es als sinnvoll, den Standort kontinuierlich zu bestimmen. Diese Möglichkeit bot die \textit{requestLocationUpdates} Methode. Allerdings fiel schnell auf, dass der Akkuverbrauch mit dieser Lösung sehr hoch und somit inakzeptabel war. Um dieses Problem zu lösen, fügten wir in der App die Einstellung für ein Aktualisierungsintervall hinzu. Über diese Einstellung stellten wir eine Möglichkeit zur Verfügung, in der \textit{requestLocationUpdates} Methode den Parameter für die Zeit zu setzen (in Kapitel \ref{subsec:posInAndroid} beschrieben). Das bot dem Nutzer die Möglichkeit das Zeitintervall zu bestimmen, welches vergangen sein muss bis ein neuer Standort ermittelt wird. Zum Zeitpunkt der Implementierung war uns nicht bewusst, dass diese Umsetzung keine Auswirkung auf den hohen Akkuverbrauch haben wird. Denn nicht wie zuerst angenommen, sinkt zwischen dem Intervall der Energieverbrauch der Location Provider, sondern er bleibt identisch, da die Location Provider trotz des Zeitintervalls durchgehend aktiv bleiben.
+Anfangs wurde die App mit der \textit{requestLocationUpdates} Methode (siehe Kapitel \ref{subsec:posInAndroid}) und dem \textit{NETWORK} und \textit{GPS} Provider umgesetzt. Es wurden beide Provider kontinuierlich abgefragt und der genauere
+und aktuellere Standort der beiden wurde verwendet. Da man im Falle eines Erdbebens den Standort des Geräts benötigt um die Erdbebenposition zu bestimmen, erachteten wir es als sinnvoll, den Standort kontinuierlich zu bestimmen. Diese Möglichkeit bot die \textit{requestLocationUpdates} Methode. Allerdings fiel schnell auf, dass der Akkuverbrauch mit dieser Lösung sehr hoch und somit inakzeptabel war. Um dieses Problem zu lösen, fügten wir in der App die Einstellung für ein Aktualisierungsintervall hinzu. Über diese Einstellung stellten wir eine Möglichkeit zur Verfügung, in der \textit{requestLocationUpdates} Methode den Parameter für die Zeit zu setzen (in Kapitel \ref{subsec:posInAndroid} beschrieben). Das bot dem Nutzer die Möglichkeit das Zeitintervall zu bestimmen, welches vergangen sein muss bis ein neuer Standort ermittelt wird. Zum Zeitpunkt der Implementierung war uns nicht bewusst, dass diese Umsetzung keine Auswirkung auf den hohen Akkuverbrauch haben wird. Denn nicht wie zuerst angenommen, sinkt zwischen dem Intervall der Energieverbrauch der Location Provider, sondern er bleibt identisch, da die Location Provider trotz des Zeitintervalls durchgehend aktiv bleiben.
 Das heißt, dass der Standort trotz des Intervalls durchgehend ermittelt wird, nur dass der Standort ausschließlich nach Verstreichen des Intervalls zurückgegeben wird.
-Als uns dies bewusst wurde, stellten wir die Lokalisierung auf Singleupdates um (\textit{requestSingleUpdate}, siehe Kapitel \ref{subsec:posInAndroid}). Diese Singleupdates wurden mit Hilfe eines Timer Threads, welcher in einem Hintergrundservice lief, ausgeführt. Nun wurde das Interval dieses Timer Threads über die Einstellung in der App geregelt. Somit war dies nun ein reales Intervall in dem die Location Provider deaktiviert werden. 
+Als uns dies bewusst wurde, stellten wir die Lokalisierung auf Singleupdates um (\textit{requestSingleUpdate}, siehe Kapitel \ref{subsec:posInAndroid}). Diese Singleupdates wurden mit Hilfe eines Timer Threads, welcher in einem Hintergrundservice lief, ausgeführt. Nun wurde das Intervall dieses Timer Threads über die Einstellung in der App geregelt. Somit war dies nun ein reales Intervall in dem die Location Provider deaktiviert werden. 
 Das brachte zwar eine Verbesserung der Akkuleistung, aber der Verbrauch war selbst bei einem 10 Minuten Intervall noch zu groß. Außerdem war diese Umsetzung nicht vereinbar mit der benötigten Aktualität der Standortdaten. Denn letztendlich kann sich ein Nutzer innerhalb von 10 Minuten schon an einem ganz anderen Standort befinden. Wurde beispielsweise eine Standortaktualisierung 9 Minuten vor einem Erdbebenalarm ausgelöst und der Benutzer war in dieser Zeit in Bewegung, sind die an den Server übermittelten Standortdaten nicht mehr aktuell und können stark von der tatsächlichen Position abweichen. Somit war diese Lösung ebenfalls inaktzeptabel und die Implementierung musste überdacht werden.
 
 \subsubsection{Finale Umsetzung}
@@ -201,7 +198,7 @@ Somit entschlossen wir uns, überwiegend auf \textit{GPS} zu verzichten und prim
    \includegraphics[width=60mm]{/test_autobahn.png} 
    \caption[Lokalisierung: Test auf der Autobahn]{Test auf der Autobahn}
 \end{wrapfigure}
-Bei Tests in Nürnberg lag die Genauigkeit zwischen 20-50m. Leider hat er den Nachteil, dass er auf dem Land sehr ungenau werden kann, da hier oft keine WLAN Netze und nur sehr wenige Mobilfunkzellen vorhanden sind. Bei durchgeführten Tests beispielsweise in einem ländlichen Raum in der Nähe Bad Hersfelds und auf Autobahnen, lagen die schlechtesten Werte bei 3400m. Laut Informationen des Geoforschungszentrums Potsdam, die wir durch E-Mail Kontakt erhielten, ist dieser Wert kein sehr großes Problem bei der Erdbebenerkennung, allerdings kommt hierbei zum tragen, dass zum Teil mehrere Benutzer in einem Senderadius eines Mobilfunkmasts genau den gleichen Standort zugeordnet bekommen können, und zwar den des Funkmasts. Das führt zu der Problematik, dass wir bei einer Erdbebenauswertung auf dem Server nicht feststellen können, ob sich die Nutzer genau am selben Standort oder weit voneinander entfernt befinden. Bei der Erdbebenauswertung mit Hilfe einer Mehrheitsentscheidung muss allerdings ausgeschlossen werden, dass sich die Nutzer nicht am gleichen Ort (z.B. in einem Radius von 100m) befinden. Denn sollten z.B. mehrere Nutzer in einem Bus unterwegs sein und aufgrund erdbebenähnlicher Bewegungen des Busses einen Erdbebenalarm an den Server senden, würde bei der Auswertung ein Erdbeben festgestellt werden. Um diesen Fall auszuschließen, wird bei der Erdbebenauswertung immer überprüft, ob sich mindestens ein Gerät der alarmauslösenden Geräte mindestens 100m von den anderen entfernt befindet. Das kann im schlechtesten Fall im ländlichen Raum bedeuten, dass ein Gerät mindestens soweit von den anderen entfernt sein muss, sodass es mit einer anderen Mobilfunkzelle verbunden ist. Das heißt bei dem von uns am schlechtest gemessenen Wert von 3400m, muss eines von den alarmauslösenden Geräten mindestens 3401m vom Funkmast entfernt sein, damit es einen anderen Standort zugewiesen bekommt und man sich bei der Auswertung sicher sein kann, dass sich die Geräte nicht am selben Standort befinden. Um zu gewährleisten, dass die Ungenauigkeit nicht zu groß wird, wurde die Lokalisierung so implementiert, dass bei einer Genauigkeit höher als 3500m der GPS Sensor aktiviert wird und über diesen ein genauer Standort abgerufen wird.
+Bei Tests in Nürnberg lag die Genauigkeit zwischen 20-50m. Leider hat er den Nachteil, dass er auf dem Land sehr ungenau werden kann, da hier oft keine WLAN Netze und nur sehr wenige Mobilfunkzellen vorhanden sind. Bei durchgeführten Tests beispielsweise in einem ländlichen Raum in der Nähe Bad Hersfelds und auf Autobahnen, lagen die schlechtesten Werte bei 3400m. Laut Informationen des Geoforschungszentrums Potsdam, die wir durch E-Mail Kontakt erhielten, ist dieser Wert kein sehr großes Problem bei der Erdbebenerkennung, allerdings kommt hierbei zum tragen, dass zum Teil mehrere Benutzer in einem Senderadius eines Mobilfunkmasts genau den gleichen Standort zugeordnet bekommen können, und zwar den des Funkmasts. Das führt zu der Problematik, dass wir bei einer Erdbebenauswertung auf dem Server nicht feststellen können, ob sich die Nutzer genau am selben Standort oder weit voneinander entfernt befinden. Bei der Erdbebenauswertung mit Hilfe einer Mehrheitsentscheidung muss allerdings ausgeschlossen werden, dass sich die Nutzer am gleichen Ort (z.B. in einem Radius von 100m) befinden. Denn sollten z.B. mehrere Nutzer in einem Bus unterwegs sein und aufgrund erdbebenähnlicher Bewegungen des Busses einen Erdbebenalarm an den Server senden, würde bei der Auswertung ein Erdbeben festgestellt werden. Um diesen Fall auszuschließen, wird bei der Erdbebenauswertung immer überprüft, ob sich mindestens ein Gerät der alarmauslösenden Geräte mindestens 100m von den anderen entfernt befindet. Das kann im schlechtesten Fall bei nicht vorhandenen WLAN Netzen im ländlichen Raum bedeuten, dass ein Gerät mindestens soweit von den anderen entfernt sein muss, sodass es mit einer anderen Mobilfunkzelle verbunden ist. Das heißt bei dem von uns am schlechtest gemessenen Wert von 3400m, muss eines von den alarmauslösenden Geräten mindestens 3401m vom Funkmast entfernt sein, damit es einen anderen Standort zugewiesen bekommt (Problematik gleicher Standorte bei Positionsbestimmung durch Mobilfunkzellen, siehe Kapitel \ref{subsec:locProvider} \textit{NETWORK}) und man sich bei der Auswertung sicher sein kann, dass sich die Geräte nicht am selben Standort befinden. Um zu gewährleisten, dass die Ungenauigkeit nicht zu groß wird, wurde die Lokalisierung so implementiert, dass bei einer Genauigkeit höher als 3500m der GPS Sensor aktiviert wird und über diesen ein genauer Standort abgerufen wird.
 Das heißt zusammenfassend, dass die App im seltenen worst-case Szenario nur Erdbeben erkennt, die weiter strahlen als 3500m, sodass Geräte in einem Radius, der größer als 3500m ist, das Beben noch wahrnehmen können.
 Die Implementierung auf diese Weise stellte den besten Kompromiss zwischen Akkuverbrauch und Genauigkeit dar, da der GPS Sensor somit nur sehr selten verwendet wird. Ebenfalls wurde Rücksprache mit dem Geoforschungszentrum Potsdam gehalten, wo uns mitgeteilt wurde, dass Erdbeben, die weniger als 3500m strahlen, so schwach sind, dass von ihnen keine Gefahr ausgeht. 
 \par\bigskip
@@ -210,7 +207,7 @@ Die Implementierung auf diese Weise stellte den besten Kompromiss zwischen Akkuv
 (Claus Milkereit, GFZ Potsdam)
 \end{quote}
 \par\bigskip
-Somit ist es unproblematisch auf eine Erdbebenerkennung zu verzichten, die auch Erdbeben mit einem Wirkungsradius von unter 3500 Metern erkennt. 
+Abgesehen davon, dass es sehr unwahrscheinlich ist, dass ein Szenario auftritt, in dem alle Beteiligten fälschlicherweise die gleiche Position zugewiesen bekommen, ist es somit unproblematisch auf eine Erdbebenerkennung zu verzichten, die in einem solchen Fall auch Erdbeben mit einem Wirkungsradius von unter 3500 Metern erkennt. 
 \newpage
 \begin{wrapfigure}{r}{50mm}
 	\centering
@@ -238,8 +235,10 @@ Um das Problem der Aktualität der Daten zu lösen, wurde die Standortabfrage fl
 \begin{tabular}{ | l | c |}
 	\hline
 	\textbf{Auslöser} & \textbf{Intervall}\\    
+	\hline
+	Unabhängige Lokalisierung (App geöffnet) & 30 Sekunden\\    
     \hline
-	Unabhängige Lokalisierung & 5 Minuten\\
+	Unabhängige Lokalisierung (App im Hintergrund) & 5 Minuten\\
 	\hline	
 	Heartbeat & 10 Minuten\\
 	\hline	
