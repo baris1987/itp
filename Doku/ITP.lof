@@ -5,8 +5,8 @@
 \contentsline {figure}{\numberline {4}{\ignorespaces Erdbebenerkennung.\relax }}{19}{figure.caption.13}
 \contentsline {figure}{\numberline {5}{\ignorespaces User Interface: Info}}{21}{figure.caption.14}
 \contentsline {figure}{\numberline {6}{\ignorespaces User Interface: SHA-1 Fingerprint}}{23}{figure.caption.15}
-\contentsline {figure}{\numberline {7}{\ignorespaces Google API Console nach erfolgreicher API Key Generierung\relax }}{23}{figure.caption.16}
-\contentsline {figure}{\numberline {8}{\ignorespaces Google Maps API Service aktivieren\relax }}{23}{figure.caption.17}
+\contentsline {figure}{\numberline {7}{\ignorespaces User Interface: Google API Console nach erfolgreicher API Key Generierung}}{23}{figure.caption.16}
+\contentsline {figure}{\numberline {8}{\ignorespaces User Interface: Google Maps API Service aktivieren}}{23}{figure.caption.17}
 \contentsline {figure}{\numberline {9}{\ignorespaces User Interface: Device Map}}{24}{figure.caption.18}
 \contentsline {figure}{\numberline {10}{\ignorespaces User Interface: Map Types}}{24}{figure.caption.19}
 \contentsline {figure}{\numberline {11}{\ignorespaces User Interface: Android Maps Extensions}}{26}{figure.caption.20}
@@ -25,12 +25,13 @@
 \contentsline {figure}{\numberline {24}{\ignorespaces Lokalisierung: App Permissions}}{42}{figure.caption.33}
 \contentsline {figure}{\numberline {25}{\ignorespaces Lokalisierung: Update Interval}}{45}{figure.caption.34}
 \contentsline {figure}{\numberline {26}{\ignorespaces Lokalisierung: Test auf der Autobahn}}{46}{figure.caption.35}
-\contentsline {figure}{\numberline {27}{\ignorespaces Lokalisierung: Notification in der App}}{48}{figure.caption.36}
-\contentsline {figure}{\numberline {28}{\ignorespaces Lokalisierung: Notification bei geschlossener App}}{48}{figure.caption.36}
-\contentsline {figure}{\numberline {29}{\ignorespaces Lokalisierung: Localizer\relax }}{49}{figure.caption.37}
-\contentsline {figure}{\numberline {30}{\ignorespaces Struktur von GCM\relax }}{51}{figure.caption.40}
-\contentsline {figure}{\numberline {31}{\ignorespaces Galaxy S\relax }}{55}{figure.caption.43}
-\contentsline {figure}{\numberline {32}{\ignorespaces Galaxy Nexus\relax }}{56}{figure.caption.44}
-\contentsline {figure}{\numberline {33}{\ignorespaces Nexus 4\relax }}{56}{figure.caption.45}
-\contentsline {figure}{\numberline {34}{\ignorespaces Acer Iconia A500\relax }}{57}{figure.caption.46}
-\contentsline {figure}{\numberline {35}{\ignorespaces Nexus 10\relax }}{57}{figure.caption.47}
+\contentsline {figure}{\numberline {27}{\ignorespaces Lokalisierung: deaktivierte Provider - Popup in der App}}{47}{figure.caption.36}
+\contentsline {figure}{\numberline {28}{\ignorespaces Lokalisierung: deaktivierte Provider - Notification bei geschlossener App}}{48}{figure.caption.37}
+\contentsline {figure}{\numberline {29}{\ignorespaces Lokalisierung: Android Standorteinstellungen}}{48}{figure.caption.37}
+\contentsline {figure}{\numberline {30}{\ignorespaces Lokalisierung: Localizer\relax }}{49}{figure.caption.38}
+\contentsline {figure}{\numberline {31}{\ignorespaces Struktur von GCM\relax }}{51}{figure.caption.39}
+\contentsline {figure}{\numberline {32}{\ignorespaces Galaxy S\relax }}{55}{figure.caption.40}
+\contentsline {figure}{\numberline {33}{\ignorespaces Galaxy Nexus\relax }}{56}{figure.caption.41}
+\contentsline {figure}{\numberline {34}{\ignorespaces Nexus 4\relax }}{56}{figure.caption.42}
+\contentsline {figure}{\numberline {35}{\ignorespaces Acer Iconia A500\relax }}{57}{figure.caption.43}
+\contentsline {figure}{\numberline {36}{\ignorespaces Nexus 10\relax }}{57}{figure.caption.44}

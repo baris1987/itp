@@ -47,8 +47,12 @@
 \BOOKMARK [3][-]{subsubsection.7.4.2}{Finale Umsetzung}{subsection.7.4}% 47
 \BOOKMARK [3][-]{subsubsection.7.4.3}{Klassendiagramm Localizer}{subsection.7.4}% 48
 \BOOKMARK [1][-]{section.8}{Kommunikation \(Benjamin Brandt\)}{}% 49
-\BOOKMARK [1][-]{section.9}{Testing \(Benjamin Brandt\)}{}% 50
-\BOOKMARK [2][-]{subsection.9.1}{L\366sungsans\344tze}{section.9}% 51
-\BOOKMARK [2][-]{subsection.9.2}{Durchf\374hrung}{section.9}% 52
-\BOOKMARK [1][-]{section.10}{Ausblick}{}% 53
-\BOOKMARK [1][-]{section.11}{Fazit}{}% 54
+\BOOKMARK [2][-]{subsection.8.1}{Google Cloud Messaging}{section.8}% 50
+\BOOKMARK [3][-]{subsubsection.8.1.1}{Architektur}{subsection.8.1}% 51
+\BOOKMARK [3][-]{subsubsection.8.1.2}{Android}{subsection.8.1}% 52
+\BOOKMARK [3][-]{subsubsection.8.1.3}{Server}{subsection.8.1}% 53
+\BOOKMARK [1][-]{section.9}{Testing \(Benjamin Brandt\)}{}% 54
+\BOOKMARK [2][-]{subsection.9.1}{L\366sungsans\344tze}{section.9}% 55
+\BOOKMARK [2][-]{subsection.9.2}{Durchf\374hrung}{section.9}% 56
+\BOOKMARK [1][-]{section.10}{Ausblick}{}% 57
+\BOOKMARK [1][-]{section.11}{Fazit}{}% 58

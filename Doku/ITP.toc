@@ -8,17 +8,17 @@
 \contentsline {subsubsection}{\numberline {4.2.1}GET}{9}{subsubsection.4.2.1}
 \contentsline {subsubsection}{\numberline {4.2.2}POST}{10}{subsubsection.4.2.2}
 \contentsline {subsubsection}{\numberline {4.2.3}PUT}{10}{subsubsection.4.2.3}
-\contentsline {subsubsection}{\numberline {4.2.4}DELETE}{11}{subsubsection.4.2.4}
+\contentsline {subsubsection}{\numberline {4.2.4}DELETE}{10}{subsubsection.4.2.4}
 \contentsline {subsection}{\numberline {4.3}Technologien}{11}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}Funktionalit\IeC {\"a}ten}{12}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Datenbank}{16}{subsection.4.5}
-\contentsline {subsection}{\numberline {4.6}Implementierung}{17}{subsection.4.6}
-\contentsline {subsubsection}{\numberline {4.6.1}Struktur}{17}{subsubsection.4.6.1}
-\contentsline {subsubsection}{\numberline {4.6.2}Konfiguration}{17}{subsubsection.4.6.2}
+\contentsline {subsection}{\numberline {4.5}Datenbank}{15}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}Implementierung}{16}{subsection.4.6}
+\contentsline {subsubsection}{\numberline {4.6.1}Struktur}{16}{subsubsection.4.6.1}
+\contentsline {subsubsection}{\numberline {4.6.2}Konfiguration}{16}{subsubsection.4.6.2}
 \contentsline {subsubsection}{\numberline {4.6.3}Webserver}{17}{subsubsection.4.6.3}
-\contentsline {subsubsection}{\numberline {4.6.4}WebService}{18}{subsubsection.4.6.4}
-\contentsline {subsection}{\numberline {4.7}Erdbebenerkennung}{19}{subsection.4.7}
-\contentsline {subsubsection}{\numberline {4.7.1}Unterscheidung}{19}{subsubsection.4.7.1}
+\contentsline {subsubsection}{\numberline {4.6.4}WebService}{17}{subsubsection.4.6.4}
+\contentsline {subsection}{\numberline {4.7}Erdbebenerkennung}{18}{subsection.4.7}
+\contentsline {subsubsection}{\numberline {4.7.1}Unterscheidung}{18}{subsubsection.4.7.1}
 \contentsline {subsubsection}{\numberline {4.7.2}Distanzberechnung}{19}{subsubsection.4.7.2}
 \contentsline {subsubsection}{\numberline {4.7.3}Algorithmus}{19}{subsubsection.4.7.3}
 \contentsline {subsection}{\numberline {4.8}Benachrichtigung}{20}{subsection.4.8}
@@ -48,6 +48,10 @@
 \contentsline {subsubsection}{\numberline {7.4.2}Finale Umsetzung}{46}{subsubsection.7.4.2}
 \contentsline {subsubsection}{\numberline {7.4.3}Klassendiagramm Localizer}{49}{subsubsection.7.4.3}
 \contentsline {section}{\numberline {8}Kommunikation (Benjamin Brandt)}{50}{section.8}
+\contentsline {subsection}{\numberline {8.1}Google Cloud Messaging}{50}{subsection.8.1}
+\contentsline {subsubsection}{\numberline {8.1.1}Architektur}{51}{subsubsection.8.1.1}
+\contentsline {subsubsection}{\numberline {8.1.2}Android}{51}{subsubsection.8.1.2}
+\contentsline {subsubsection}{\numberline {8.1.3}Server}{52}{subsubsection.8.1.3}
 \contentsline {section}{\numberline {9}Testing (Benjamin Brandt)}{54}{section.9}
 \contentsline {subsection}{\numberline {9.1}L\IeC {\"o}sungsans\IeC {\"a}tze}{54}{subsection.9.1}
 \contentsline {subsection}{\numberline {9.2}Durchf\IeC {\"u}hrung}{55}{subsection.9.2}

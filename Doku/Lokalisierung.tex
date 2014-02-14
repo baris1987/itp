@@ -138,10 +138,9 @@ Die entsprechenden Methoden des Listeners sind:
 Hat beispielsweise ein Location Provider einen neuen Standort ermittelt, wird die \textit{onLocationChanged} Methode aufgerufen, der ein \textit{Location} Objekt übergeben wird. In diesem Objekt ist der Längen- und Breitengrad, die Genauigkeit des Standortes in Metern, der Location Provider, der den Standort ermittelte, und ein Zeitstempel enthalten. 
 \\
 Wird ein Location Provider (z.B. \textit{GPS}) im System deaktiviert, wird die \textit{onProviderDisabled} (bzw. wenn aktiviert \textit{onProviderEnabled}) Methode mit dem Providernamen als Parameter aufgerufen und man kann dementsprechend in der App darauf reagieren. 
-
-\newpage
+\\
 Das vierte Ereignis auf das reagiert werden kann, ist eine Statusänderung eines Location Providers. Wenn ein Provider aus irgendeinem Grund nicht verfügbar war und wieder verfügbar wird, wird \textit{onStatusChanged} aufgerufen.
-
+\newpage
 \begin{lstlisting}[caption={LocationListener},label=lst:locationListener]
 // Define a listener that responds to location updates
 LocationListener locationListener = new LocationListener() {
@@ -208,23 +207,41 @@ Die Implementierung auf diese Weise stellte den besten Kompromiss zwischen Akkuv
 \end{quote}
 \par\bigskip
 Abgesehen davon, dass es sehr unwahrscheinlich ist, dass ein Szenario auftritt, in dem alle Beteiligten fälschlicherweise die gleiche Position zugewiesen bekommen, ist es somit unproblematisch auf eine Erdbebenerkennung zu verzichten, die in einem solchen Fall auch Erdbeben mit einem Wirkungsradius von unter 3500 Metern erkennt. 
-\newpage
+
+\par\bigskip\bigskip\bigskip
 \begin{wrapfigure}{r}{50mm}
 	\centering
-	\label{notification_localizer_app}{
-    \includegraphics[width=49mm]{/notification_localizer_app.png}}
-    \vspace*{-2mm}
-    \caption[Lokalisierung: Notification in der App]{Notifications}
-	\vspace*{5mm}
-	\label{notification_localizer_statusbar}{
-    \includegraphics[width=49mm]{/notification_localizer_statusbar.png}}
-    \vspace*{-2mm}
-    \caption[Lokalisierung: Notification bei geschlossener App]{Notifications}
+	\vspace{-15mm}
+    \includegraphics[width=49mm]{/notification_localizer_app.png}
     \vspace*{-10mm}
+    \caption[Lokalisierung: deaktivierte Provider - Popup in der App]{Popup in der App}
+    \vspace*{-30mm}
 \end{wrapfigure}
-Da die App abhängig von den Standortdaten ist und ohne Lokalisierung nutzlos ist, prüft die App, ob zumindest eine der beiden Lokalisierungsmethoden (\textit{NETWORK} oder \textit{GPS}) im Android System aktiviert ist. Ist dies nicht der Fall, wird bei geöffneter App ein Popup angezeigt, welches den Nutzer auffordert, die  Lokalisierung zu aktivieren. Tippt der Nutzer auf \shorthandoff{"}"Öffnen"\shorthandon{"}, werden die Android Systemeinstellungen für die Lokalisierung geöffnet. In der App schließt sich das Popup erst, wenn eine der beiden Lokalisierungsmethoden aktiviert wurde. 
-\par\bigskip
-Läuft die App im Hintergrund und der Nutzer deaktiviert die Lokalisierung, gibt die App eine Android Notification in der Android Statusbar aus. Diese kann vom Nutzer nicht geschlossen werden und schließt sich ebenfalls erst nach der Aktivierung einer Lokalisierungsmethode und kann nicht vom Nutzer geschlossen werden.
+
+\par
+Da die App abhängig von den Standortdaten ist und ohne Lokalisierung nutzlos ist, prüft die App, ob zumindest eine der beiden Lokalisierungsmethoden (\textit{NETWORK} oder \textit{GPS}) im Android System aktiviert ist. Ist dies nicht der Fall, wird bei geöffneter App ein Popup angezeigt, welches den Nutzer auffordert, die  Lokalisierung zu aktivieren. Tippt der Nutzer auf \shorthandoff{"}"Öffnen"\shorthandon{"}, werden die Android Systemeinstellungen für die Standortbestimmung geöffnet. In der App schließt sich das Popup erst, wenn eine der beiden Lokalisierungsmethoden aktiviert wurde. 
+\newpage
+Läuft die App im Hintergrund und der Nutzer deaktiviert die Lokalisierung, gibt die App eine Android Notification in der Android Statusbar aus. Diese kann vom Nutzer nicht geschlossen werden und schließt sich ebenfalls erst nach der Aktivierung einer Lokalisierungsmethode. Auch hier führt ein Fingerdruck auf die Notification in die Android Systemeinstellungen für die Standortbestimmung.
+
+\bigskip
+
+\begin{figure}[H]
+\hspace{15mm}
+\begin{minipage}[hbt]{5cm}
+	\centering
+	\includegraphics[width=50mm]{/notification_localizer_statusbar.png}
+	\caption[Lokalisierung: deaktivierte Provider - Notification bei geschlossener App]{Notification bei App im Hintergrund}
+	\label{Bild1}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{5cm}
+	\centering
+	\includegraphics[width=50mm]{/android_settings_standort.png}
+	\caption[Lokalisierung: Android Standorteinstellungen]{Android Systemeinstellungen Standort}
+	\label{Bild2}
+\end{minipage}
+\hspace{15mm}
+\end{figure}
 
 \par\bigskip
 Um das Problem der Aktualität der Daten zu lösen, wurde die Standortabfrage flexibel gestaltet. Ist die App geöffnet und sichtbar, wird die Standortabfrage in einem Intervall von 30s ausgeführt. Das Intervall ist bei geöffneter App kurz gewählt, damit gewährleistet wird, dass der Nutzer in der Standortanzeige und der Google Map einen relativ aktuellen Standort angezeigt bekommt. Ist die App nicht sichtbar und läuft im Hintergrund, wird eine Standortabfrage in einem Intervall von 10 Minuten ausgeführt. Diese Abfrage ist notwendig, da die App alle 10 Minuten einen Heartbeat mit dem Standort an den Server sendet. Außerdem wird ein Standort abgefragt, sobald ein Erdbeben erkannt wurde und wird mit dem Alarm an den Server gesendet. Da ein Alarm in der App zeitkritisch ist und eine Standortabfrage mit Hilfe des GPS Providers eine längere Zeit beanspruchen kann, wird zusätzlich in einem Intervall von fünf Minuten eine Standortabfrage unabhängig vom Heartbeat oder Alarm ausgeführt. Somit kann sichergestellt werden, dass ein Standort der mit einem Alarm gesendet wird, nicht älter als fünf Minuten ist, falls die Standortabfrage unmittelbar vor dem Alarm zuviel Zeit in Anspruch nimmt und nicht auf diese gewartet werden kann.
@@ -250,7 +267,7 @@ Um das Problem der Aktualität der Daten zu lösen, wurde die Standortabfrage fl
 \subsubsection{Klassendiagramm Localizer}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{/localizer_class.png}
+	\includegraphics[width=120mm]{/localizer_class.png}
 	\caption{Lokalisierung: Localizer}
 	\label{fig:localizerClass}
 \end{figure}
