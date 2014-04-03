@@ -1,0 +1,125 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[lmargin=3.0cm,rmargin=3.0cm,tmargin=3.0cm,bmargin=3.0cm,head=2cm,headsep=0.5cm]{geometry}
+\setlength\parindent{0pt}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage[ngerman]{babel}
+\usepackage{here} 
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{floatflt}
+\usepackage[singlespacing]{setspace}
+\usepackage{float}
+\graphicspath{{./images/} }
+\usepackage[hang]{footmisc}
+\linespread{1.5}
+\usepackage{listings} \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt} 
+\definecolor{code}{rgb}{0.94, 0.97, 1.0}
+\definecolor{red}{rgb}{1.0, 0.03, 0.0}
+\definecolor{green}{rgb}{0.0, 0.65, 0.31}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage[numbers]{natbib} % Wird für Zitierstil dinat benötigt; square ist für Zitation in eckigen Klammern und numbers für Zitation mit Nummern
+\lstset{
+	  basicstyle=\ttfamily,
+	  breaklines=true,
+	  numberstyle=\footnotesize,
+      numbersep=5pt,   
+	  literate={Ö}{{\"O}}1 {Ä}{{\"A}}1 {Ü}{{\"U}}1 {ß}{{\ss}}2 {ü}{{\"u}}1 {ä}{{\"a}}1 {ö}{{\"o}}1 {µ}{\textmu}1,
+      columns=fullflexible,
+      showstringspaces=false,
+      commentstyle={\color{green}},
+      keywordstyle=\color{blue},
+      stringstyle=\color{red},
+    %  numbers=none,
+      extendedchars=\true,
+      tabsize=4,
+      breaklines=true,
+      breakatwhitespace=true,
+      language=Java,
+      backgroundcolor=\color{code}} 
+
+\title{IT-Projekt}
+
+\begin{document}
+\begin{center}
+\huge
+Arbeitsverteilung
+\end{center}
+\begin{singlespace}
+\tableofcontents
+\end{singlespace}
+\section{Entwicklung Server}
+Die Serveranwendung wurde komplett von \textbf{Baris Akdag} entwickelt.
+\section{Entwicklung App}
+\begin{tabular}{ | l | p{5,5cm} |}
+	\hline
+	\textbf{Klasse} & \textbf{Entwickler}\\    
+	\hline
+	Accelerometer & Christopher Althaus\\    
+    \hline
+	AccelSample & Christopher Althaus\\
+	\hline	
+	Localizer & Niklas Schäfer\\
+	\hline	
+	BootCompletedReceiver & Jürgen Hetzel\\
+	\hline	
+	ConnectionChangeReceiver & Niklas Schäfer\\
+	\hline	
+	GcmBroadcastReceiver & Christopher Althaus\\
+	\hline
+	DeviceMap & Niklas Schäfer\\
+	\hline
+	Info & Christopher Althaus\newline Niklas Schäfer \\
+	\hline
+	Main & Christopher Althaus\newline Niklas Schäfer\\
+	\hline
+	Settings & Niklas Schäfer\\
+	\hline
+	BackgroundService & Christopher Althaus\newline Niklas Schäfer\\
+	\hline
+	GcmIntentService & Christopher Althaus\\
+	\hline
+	NotificationsService & Niklas Schäfer\\
+	\hline
+	AndroidManifest.xml und verschiedene Layout xml Files & Christopher Althaus\newline Niklas Schäfer\newline Jürgen Hetzel\\
+	\hline
+\end{tabular}
+\section{Taskzusammenfassung}
+\begin{tabular}{ | l | p{11cm} |}
+	\hline
+	\textbf{Bearbeiter} & \textbf{Aufgaben}\\    
+	\hline
+	Baris Akdag & 	\textbf{komplette Serveranwendung}
+					\newline Testing (Serveranwendung, Erdbebenerkennung)		\\
+	\hline	
+	Christopher Althaus & 	- 	Beschleunigungsensoren (Auswertung und Visualisierung)\newline 
+							- 	Erdbebenauswertung\newline - Google Cloud Messaging (inkl. Erdbebenalarm Notifications)\newline 
+							- 	Backgroundprozess (Entwicklung)\newline 
+							- 	User Interface (Tabbed Layout, Beschleunigungsensoren Graph)\newline 
+							- 	grobe Strukturierung\newline 
+							- 	Testing (Grundlegende App Funktionen, Erdbebenerkennung, Lokalisierung, Akkuverbrauch)	\\    
+    \hline
+	Niklas Schäfer & 		- 	Lokalisierung\newline 
+							- 	Device Map\newline 
+							- 	User Interface (Oberflächenelemente, Device Map, Settings)\newline 
+							- 	Backgroundprozess (Erweiterung um Intervallsteuerung und http-requests bzgl. Lokalisierung)\newline 
+							- 	Notifications (bzgl. Location Provider, Internetverbindung)\newline 
+							- 	App Settings\newline 
+							- 	Reaktion auf verschiedene Ereignisse (Location Provider Deaktivierung/Aktivierung, keine Internetverbindung, usw.)\newline 
+							- 	Kommunikation GFZ Potsdam und BGR\newline 
+							- 	Testing(Grundlegende App Funktionen, Lokalisierung, Akkuverbrauch, Erdbebenerkennung) \\
+	\hline	
+	Jürgen Hetzel & 			- 	Layout für Tablets\newline 
+							- 	Sicherstellung der Backgroundprozessaktivität\newline 
+							- 	Refactoring\newline 
+							- 	Testing (Erdbebenerkennung, User Interface)\newline 
+							- 	Recherchearbeiten \\
+	\hline	
+	Benjamin Brandt & 		- Testing (gesamtes System (sowohl Serveranwendung, als auch App)\newline 
+							- Recherchearbeiten)	\\
+	\hline	
+\end{tabular}
+\end{document}
