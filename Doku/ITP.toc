@@ -57,14 +57,14 @@
 \contentsline {subsection}{\numberline {9.4}Umsetzung der Quakedetec App}{57}{subsection.9.4}
 \contentsline {subsubsection}{\numberline {9.4.1}Erste Umsetzung und Probleme}{57}{subsubsection.9.4.1}
 \contentsline {subsubsection}{\numberline {9.4.2}Finale Umsetzung}{58}{subsubsection.9.4.2}
-\contentsline {subsubsection}{\numberline {9.4.3}Klassendiagramm Localizer}{61}{subsubsection.9.4.3}
-\contentsline {section}{\numberline {10}Kommunikation (Benjamin Brandt)}{62}{section.10}
-\contentsline {subsection}{\numberline {10.1}Google Cloud Messaging}{62}{subsection.10.1}
-\contentsline {subsubsection}{\numberline {10.1.1}Architektur}{63}{subsubsection.10.1.1}
-\contentsline {subsubsection}{\numberline {10.1.2}Android}{63}{subsubsection.10.1.2}
-\contentsline {subsubsection}{\numberline {10.1.3}Server}{64}{subsubsection.10.1.3}
-\contentsline {section}{\numberline {11}Testing (Benjamin Brandt)}{66}{section.11}
-\contentsline {subsection}{\numberline {11.1}L\IeC {\"o}sungsans\IeC {\"a}tze}{66}{subsection.11.1}
-\contentsline {subsection}{\numberline {11.2}Durchf\IeC {\"u}hrung}{67}{subsection.11.2}
-\contentsline {section}{\numberline {12}Ausblick}{71}{section.12}
-\contentsline {section}{\numberline {13}Fazit}{71}{section.13}
+\contentsline {subsubsection}{\numberline {9.4.3}Klassendiagramm Localizer}{62}{subsubsection.9.4.3}
+\contentsline {section}{\numberline {10}Kommunikation (Benjamin Brandt)}{63}{section.10}
+\contentsline {subsection}{\numberline {10.1}Google Cloud Messaging}{63}{subsection.10.1}
+\contentsline {subsubsection}{\numberline {10.1.1}Architektur}{64}{subsubsection.10.1.1}
+\contentsline {subsubsection}{\numberline {10.1.2}Android}{64}{subsubsection.10.1.2}
+\contentsline {subsubsection}{\numberline {10.1.3}Server}{65}{subsubsection.10.1.3}
+\contentsline {section}{\numberline {11}Testing (Benjamin Brandt)}{67}{section.11}
+\contentsline {subsection}{\numberline {11.1}L\IeC {\"o}sungsans\IeC {\"a}tze}{67}{subsection.11.1}
+\contentsline {subsection}{\numberline {11.2}Durchf\IeC {\"u}hrung}{68}{subsection.11.2}
+\contentsline {section}{\numberline {12}Ausblick}{72}{section.12}
+\contentsline {section}{\numberline {13}Fazit}{72}{section.13}

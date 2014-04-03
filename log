@@ -1,0 +1,274 @@
+569da42,Niklas,7 weeks ago,Doku - Endprodukt
+4cf470c,Niklas,7 weeks ago,Merge branch 'master' of https://github.com/baris2887/itp
+4e581b0,Niklas,7 weeks ago,Doku
+79f163f,baris2887,7 weeks ago,Letzte Anpassungen WebService.
+a819c59,Christopher Althaus,7 weeks ago,Meine letzten Apassungen
+fd56545,e1ght,7 weeks ago,Neu kompiliert mit Bibtex
+5f5225d,e1ght,7 weeks ago,Merge branch 'master' of https://github.com/baris2887/itp
+d84d25a,e1ght,7 weeks ago,Mein Teil der Doku
+9fff37a,Niklas,7 weeks ago,Doku - Niklas
+4869a7a,Niklas,7 weeks ago,Doku überarbeitung
+76e7a13,Niklas,7 weeks ago,Doku - Baris
+e363959,Niklas,7 weeks ago,Merge branch 'master' of https://github.com/baris2887/itp
+e4775bb,Niklas,7 weeks ago,Doku - Niklas
+2ce3b32,baris2887,7 weeks ago,RESTful WebService.
+edebef2,Niklas,7 weeks ago,Merge branch 'master' of https://github.com/baris2887/itp
+62c58eb,Niklas,7 weeks ago,Doku - Niklas
+31473d1,brandtben,7 weeks ago,Anpassungen
+59103e9,Christopher Althaus,7 weeks ago,Anpassungen
+48266e8,Niklas,7 weeks ago,ITP.tex von Jürgen
+68f7921,Niklas,7 weeks ago,Merge branch 'master' of https://github.com/baris2887/itp
+ba8220c,Niklas,7 weeks ago,Doku - Niklas
+a5226b7,e1ght,7 weeks ago,BibTex-Datei und die notwendigen Änderungen an der ITP.tex
+fddfb07,brandtben,7 weeks ago,Doku Benni
+7534792,brandtben,7 weeks ago,Doku Benni
+c964601,Niklas,7 weeks ago,Doku - Niklas
+cf773b4,Niklas,7 weeks ago,Merge branch 'master' of https://github.com/baris2887/itp
+2957a72,Niklas,7 weeks ago,Doku - Niklas + Bug fix App
+27850fc,brandtben,7 weeks ago,Doku Beni
+f36145f,brandtben,7 weeks ago,benni doku
+59172b5,brandtben,7 weeks ago,Doku Beni
+b1a3862,Niklas,7 weeks ago,Doku
+3dc9948,Niklas,7 weeks ago,Doku - Niklas
+030e56c,Niklas,7 weeks ago,Doku - Niklas
+e002f15,baris2887,10 weeks ago,WebService
+878a932,baris2887,10 weeks ago,Teamorganisation (Baris Akdag)
+2fef23f,Christopher Althaus,3 months ago,Doku erweitert
+84298f6,Christopher Althaus,3 months ago,Fehler von Refactoring verbessert
+a9aef7b,Niklas,3 months ago,APK
+9cbcf90,Christopher Althaus,3 months ago,Doku erweitert
+18d0815,e1ght,3 months ago,Refactorn der Paketnamen
+229c9ea,e1ght,3 months ago,Revert "Nur Refactoring der Paketnamen"
+3bd28c3,e1ght,3 months ago,Nur Refactoring der Paketnamen
+ec807f2,baris2887,3 months ago,Geräte Timeout in Erdbebenerkennung hinzugefügt.
+fd9f94d,baris2887,3 months ago,Breite und Längen Koordinaten korrigiert. Konfiguration angepasst.
+02f8770,baris2887,3 months ago,Erdbebenerkennung Bugfix.
+759254c,Niklas,3 months ago,- zoomgestures true + server ip geändert
+ab52515,Niklas,3 months ago,Bug fix devicemap und GPS Interval setting entfernt (hatte keine funktion mehr)
+8f0df2d,Niklas,3 months ago,- Exception fangen
+a863546,Niklas,3 months ago,Bug fix devicemap marker refresh
+0b4e4c3,Niklas,3 months ago,Bug fix timertask verbundene geräte
+fc3ddd5,Christopher Althaus,3 months ago,Fehlerkorrektur
+119de03,Christopher Althaus,3 months ago,Kleinere Anpassungen
+fb41fa2,Christopher Althaus,3 months ago,Dokumentation hinzugefügt
+ac35cba,Christopher Althaus,3 months ago,Ausgabe des Beschleunigungswertes über dem Chart
+ae0b852,Christopher Althaus,3 months ago,Serializable aus AccelSample entfernt
+40ed17a,baris2887,3 months ago,Parameter des Algorithmus angepasst.
+e878f3b,Niklas,3 months ago,Letztes Erdbeben in Info
+7535fe5,e1ght,3 months ago,Landscape Tablet Layout: chart auf 70 % vergrößert und vertikal zentriert
+130f3b0,e1ght,3 months ago,Landscape Layout info zentriert
+e0c726b,Christopher Althaus,3 months ago,APK aktuallisiert
+44e7b8e,baris2887,3 months ago,Erdbebenerkennung Fehlerbeseitigung.
+a681012,baris2887,3 months ago,Erdbeben Erkennung Fehlerbeseitigung.
+6368d2a,baris2887,3 months ago,Erdbeben werden gespeichert, Methode statistics zu meta umbenannt, letzte Notification wird gespeichert.
+23a39ba,baris2887,3 months ago,Statistiken und neue Erdbebenerkennung implementiert.
+0557047,baris2887,3 months ago,Erdbebenerkennung und Statistiken implementiert.
+4946ccd,e1ght,3 months ago,Tablet Landscape Layout für Info hinzugefügt
+daa1e9b,baris2887,4 months ago,Web Service Informationen.
+538be92,baris2887,4 months ago,Kleinere Änderungen.
+bd2d0d6,baris2887,4 months ago,Link Änderungen.
+7076ed5,Niklas,4 months ago,Api Level changed
+adf7a35,Christopher Althaus,4 months ago,Kein Neuladen mehr beim Displaywechsel
+1f54556,Christopher Althaus,4 months ago,Aufgabenverteilung gelöscht
+be55f03,Niklas,4 months ago,ConnectedDevices TextView
+a27518e,Niklas,4 months ago,project.properties angepasst
+916a8f4,Niklas,4 months ago,Google Map Update
+988f878,Christopher Althaus,4 months ago,App auf Mehrsprachigkeit hin angepasst
+2718abd,Niklas,4 months ago,Landscape Bug behoben
+b2c811c,Niklas,4 months ago,Toast gekürzt
+fba785f,Niklas,4 months ago,Revert "Toast gekürzt"
+c3e642c,Niklas,4 months ago,Revert "Toast gekürzt"
+f84d576,Niklas,4 months ago,Toast gekürzt
+94dc28b,Niklas,4 months ago,Toast gekürzt
+56638a4,Niklas,4 months ago,Bugfix Timer bei nichtbestehender Internetverbindung
+d90183f,e1ght,4 months ago,Toast für Reset Settings hinzugefügt
+e2a2407,Niklas,4 months ago,TimerTask check LocationProvider enabled
+aa9c8b1,Niklas,4 months ago,App Standardeinstellungen wiederherstellen + Theme Spielerrei (Theme Auswahl in den Settings)
+629cc6a,Christopher Althaus,4 months ago,Tab mit Karte in Karte umbenannt
+fca4d19,Niklas,4 months ago,GPS default interval geändert
+3a27e41,Niklas,4 months ago,Nachtrag HeartbeatTimer
+8e922f4,Niklas,4 months ago,Heartbeat Timer zieht nun aktuelle Location
+587c3b6,Niklas,4 months ago,Netzwerklokalisierungstimer geändert
+49c525a,Niklas,4 months ago,Auskommentierten Code wieder hinzugefügt
+afd204e,Christopher Althaus,4 months ago,Neue google play service lib hinzugefügt
+e751d1f,Niklas,4 months ago,Projektkonfigurationen
+e971c4b,Christopher Althaus,4 months ago,Projekt an neue google play service lib angepasst
+8d356da,baris2887,4 months ago,Dummy method for statistics.
+e494c87,baris2887,4 months ago,Neue Spalte für letzte Notification in der T_DEVICE Tabelle.
+3fde54e,Niklas,4 months ago,Aufgaben eingetragen
+3550b26,Niklas,4 months ago,Sysouts entfernt und Toast entfernt
+0bbddf3,Niklas,4 months ago,Merge branch 'master' of https://github.com/baris2887/itp
+c9f9ec4,Niklas,4 months ago,Großes Update
+1739bd3,baris2887,5 months ago,Changed Exeption output.
+d673d41,baris2887,5 months ago,New 0.0.3 version (max log size). Deleted database from builds folder.
+d34d0ce,baris2887,5 months ago,Implemented log file max size (200 kb)
+85db8ff,Christopher Althaus,5 months ago,Chart Prob gelöst, Notification Alarm an Settings gekoppelt
+ebebf70,Christopher Althaus,5 months ago,Aufgabenverteilung 191113
+41dd80e,baris2887,5 months ago,Added "builds" folder.
+00884ca,baris2887,5 months ago,Optimized logging.
+f140f6b,e1ght,5 months ago,Reset Settings auf Settings Button hinzugefügt
+d94f6f8,baris2887,5 months ago,Added new WebService build.
+aae5821,baris2887,5 months ago,Ready to use.
+d0fd576,Christopher Althaus,5 months ago,Fehler in HttpResponse gefixt
+e42efc2,Christopher Althaus,5 months ago,Serveradresse auf richtigen Server geändert
+657c747,Christopher Althaus,5 months ago,.jar Datei hinzugefügt
+8b22456,Christopher Althaus,5 months ago,Server in Konsole lauffähig gemacht
+856bdde,Christopher Althaus,5 months ago,Erdbebenerkennung vereinfacht
+21532a3,Christopher Althaus,5 months ago,GPS erst ab Genauigkeit < 3000
+2be2300,Christopher Althaus,5 months ago,Toast bei Erdbeben hinzugefügt
+3740a58,Christopher Althaus,5 months ago,Erdbebenerkennung Prozentual implementiert
+584f0d7,e1ght,5 months ago,log_neu.txt hinzugefügt von JH Android 4.1.2
+916e02c,Christopher Althaus,5 months ago,Erdbebenerkennung Update
+9c3100c,Christopher Althaus,5 months ago,Erdbebenerkennung auf Nulldurchläufe umgestellt
+627f516,e1ght,5 months ago,Überflüssige Modulo-Operation entfernt
+e947191,baris2887,5 months ago,Added trace.db to ignore list.
+ae87c0b,baris2887,5 months ago,Deleted trace file.
+08ca514,baris2887,5 months ago,Implemented basic earth quake detection and GCM.
+d1c7fdf,baris2887,5 months ago,Working in GCM. Not finished.
+2e3a001,baris2887,5 months ago,Continued working on GCM. Implemented basic classes.
+804f330,Christopher Althaus,5 months ago,Beschleunigungssensor Chart in Info eingefügt
+cd684a9,Niklas,5 months ago,Nachtrag Fall NETWORK disabled
+658ccef,Niklas,5 months ago,Fall, wenn NETWORK disabled behandelt
+b27c0c8,Christopher Althaus,5 months ago,Edittext auf Textview umgeändert
+f95a0eb,Niklas,5 months ago,Abfrage von GPS nur noch wenn NETWORK weniger als auf 500m genau ist
+30c79b7,Christopher Althaus,5 months ago,Unnötige Imports entfernt
+92875f5,Niklas,5 months ago,isAlarm angehoben
+7745cd4,Niklas,5 months ago,Bugfix GCM Notification + sendAlarmToServer
+8f76db1,Niklas,5 months ago,Aktualisierungsintervall der Provider implementiert
+fd92abf,Christopher Althaus,5 months ago,GCM Funktionsfähig gemacht
+95ae324,Christopher Althaus,5 months ago,Localizer auf GPS rausgeschmissen
+d298d6f,Christopher Althaus,5 months ago,Register in der App auf PUT geändert
+47dba92,baris2887,5 months ago,Logging integriert. GCM begonnen (nicht fertig).
+2d700cb,Christopher Althaus,5 months ago,Boot completed angepasst und APK hinzugefügt
+1a2e310,Christopher Althaus,5 months ago,HttpRequest für GeräteHeatbeat/Regestrierung
+3f00ad4,baris2887,5 months ago,Changed MAC address to Android identifier.
+a96c3f6,Christopher Althaus,5 months ago,Änderungen aus Livemeeting am 30.10
+7de78a6,Niklas,5 months ago,- paar kommentare
+69d1083,Niklas,5 months ago,- AlertDialog LocationProvider
+0728351,Niklas,5 months ago,- Bug fix
+32583c4,Niklas,5 months ago,Notifications + Bugfixes
+beeceb2,Niklas,5 months ago,- permisson for starting service at bootup
+d13aeb4,Christopher Althaus,5 months ago,Merge branch 'master' of https://github.com/baris2887/itp
+599d016,Christopher Althaus,5 months ago,gcm und google-play-services-lib
+beb321f,Niklas,5 months ago,- Settings.class comments
+5ba9afe,Christopher Althaus,5 months ago,GCM Clientseitig hinzugefügt
+4e9f1d1,e1ght,5 months ago,Manifest für GCM angepasst, Stub für GmcBroadcastReceiver hinzugefügt
+a2e62af,Niklas,6 months ago,sysouts entfernt
+d33fc7b,Niklas,6 months ago,Settings und Performance
+dc427ca,Niklas,6 months ago,LocationUpdates
+ccf5132,Niklas,6 months ago,- fixes
+b3eeab8,Niklas,6 months ago,Bug Fixes, Performance verbessert, LocationListener hinzugefügt
+85424bb,baris2887,6 months ago,Gerät registrieren, Liste aller verbundenen Geräte-Metadaten auslesen und Alarm schlagen implementiert.
+d381399,brandtben,6 months ago,Update README.md
+bdc778c,e1ght,6 months ago,Implementierung von BootCompletedReceiver um den BackgroundService schon während des Bootens zu starten.
+9fb23e1,Christopher Althaus,7 months ago,Verbesserung Erdbebenerkennung
+be768b1,Christopher Althaus,7 months ago,Erste Erdbebenerkennung
+71eae3a,Niklas,7 months ago,Bugfix Chart
+606a98d,Niklas,7 months ago,Bugfix DeviceMap
+6118bfc,baris2887,8 months ago,Merge branch 'master' of https://github.com/baris2887/itp
+db7cf06,baris2887,8 months ago,Implemented device timeout.
+83cc527,baris2887,8 months ago,Added Web Service documentation link.
+2fca9e4,baris2887,8 months ago,Added Web Service documentation link.
+f9c607f,baris2887,8 months ago,Added Web Service documentation link.
+c7286f5,baris2887,8 months ago,Update README.md
+597a6ca,baris2887,8 months ago,Refactoring. Register and List methods are ready.
+a89ac5c,baris2887,8 months ago,Refactoring. Register and List methods are ready.
+bfbdd3f,baris2887,8 months ago,Endgültige Web Service Methoden benannt.
+ac58ba2,baris2887,8 months ago,Update README.md
+e00386e,baris2887,8 months ago,Datenbank überarbeitet und Register implementiert.
+41c304b,baris2887,10 months ago,Datanase Connection
+f77f19a,baris2887,10 months ago,Database and Configuration optimizations.
+a6e9639,Christopher Althaus,10 months ago,Icon Bugfix
+41d5f1d,Christopher Althaus,10 months ago,Alpha App
+a1aa41c,Christopher Althaus,10 months ago,Merge branch 'master' of https://github.com/baris2887/itp
+60d9f68,Christopher Althaus,10 months ago,Projektplan
+d2548a5,Niklas,10 months ago,- changed plot_activity background to black
+5938c02,Niklas,10 months ago,- FragmentStatePagerAdapter changed back to FragmentPager Adapter
+cd5df37,Niklas,10 months ago,new Graph and Landscape Bugfixes
+1eb4718,Niklas,10 months ago,Fixed Crash on Landscape
+1d40967,Niklas,10 months ago,comment debug.keystore
+690f6af,Niklas,10 months ago,Changed API Keys
+f2dccf8,Niklas,10 months ago,Changed API Key
+c08b6e9,Niklas,10 months ago,APK zum direkt installieren
+da84443,Niklas,10 months ago,Changed Google Maps API Key
+d953a8c,Niklas,10 months ago,code cleaning
+f8e1c6c,Niklas,10 months ago,new location management
+9579034,Niklas,10 months ago,bug fix
+ab4449e,Niklas,10 months ago,Info Page + Layout Anpassung
+c669175,Niklas,10 months ago,Bug Fix + Section Names
+01a90bc,Niklas,11 months ago,Added PreferencesScreen to Settings
+7cab7d4,Niklas,11 months ago,Added GoogleMap to Prototyp (Section 3)
+9b027da,Christopher Althaus,11 months ago,Documente hinzugefügt
+819b93c,baris2887,11 months ago,Refactoring.
+57c6543,baris2887,11 months ago,Datenbank Updates.
+ac56044,baris2887,11 months ago,Refactoring.
+633588f,baris2887,11 months ago,Refactoring.
+28579ac,baris2887,11 months ago,T_DEVICE Tabelle erstellt.
+11832dc,baris2887,11 months ago,Update README.md
+a104ab4,baris2887,11 months ago,Update README.md
+7fc1ca8,baris2887,11 months ago,Update README.md
+2e7e7d7,baris2887,11 months ago,Integrierte Datenbank von Derby auf H2 geändert.
+05611f1,baris2887,11 months ago,Datenbank.
+ab9ed36,baris2887,12 months ago,Meilensteine.
+e6f016a,baris2887,12 months ago,Neue abstrakte Klasse und WebService Parameter hinzugefügt.
+9865358,baris2887,12 months ago,Neues Package.
+ea5aafb,baris2887,12 months ago,Konfiguration in Derby Klasse.
+68cc76f,baris2887,12 months ago,Test Änderungen rückgängig gemacht.
+a72176d,baris2887,12 months ago,commit in eclipse.
+6b725ae,baris2887,12 months ago,utils Package hinzugefügt.
+ffb7faa,baris2887,12 months ago,Datenbank angelegt.
+284f0c2,baris2887,12 months ago,Update .gitignore
+ced745c,Baris Akdag,12 months ago,Derby Datenbank hinzugefügt.
+38afe48,Baris Akdag,12 months ago,Added configuration and H2 database example.
+8196ecd,baris2887,12 months ago,H2 Datenbank JAR hinzugefügt.
+eee4026,baris2887,12 months ago,Beispiel mit Parametern.
+91f6f43,baris2887,12 months ago,DeviceResource hinzugefügt.
+480e10f,baris2887,12 months ago,Readme verschoben.
+3a5ea94,baris2887,12 months ago,Removed JOptionPane.
+c01135d,baris2887,12 months ago,Package und Interface hinzugefügt.
+bc34b98,baris2887,12 months ago,Update README.md
+9980633,baris2887,12 months ago,Update README.md
+1997cfb,baris2887,12 months ago,Update README.md
+5955e4b,baris2887,12 months ago,Create README.md
+b4f5d69,baris2887,12 months ago,JAX-WS implemented.
+66b3e87,Baris Akdag,12 months ago,WS
+052631f,Baris Akdag,12 months ago,WS
+f14b306,Baris Akdag,12 months ago,JAX-RS und Jersey
+29d1fdd,baris2887,12 months ago,Update README.md
+bd876d9,baris2887,12 months ago,Create README.md
+7324e67,baris2887,12 months ago,Update README.md
+54c2522,Baris Akdag,12 months ago,Changed to detault package.
+2cc1aab,Baris Akdag,12 months ago,Added Web Service project.
+3be3ec1,baris2887,12 months ago,Updated ignore list.
+68b1b8f,Baris Akdag,12 months ago,Android App folder.
+0874999,Baris Akdag,12 months ago,Removed old documents.
+fe40a70,Baris Akdag,12 months ago,Moved prototype app.
+88026c2,baris2887,12 months ago,Update .gitignore
+7639ea2,baris2887,12 months ago,Removed .apk from ignore list.
+fb105c9,baris2887,12 months ago,Update .gitignore
+7cd0428,baris2887,12 months ago,Update README.md
+311acc4,baris2887,12 months ago,Neues Dokument in Google Drive.
+cef3d90,Christopher Althaus,12 months ago,Groben Projektplan hinzugefügt
+ff4219b,Christopher Althaus,12 months ago,Chart für Beschleunigungssensor hinzugefügt
+708609c,Baris Akdag,12 months ago,AChartEngine added.
+8073936,Baris Akdag,12 months ago,Android application.
+f1d4109,baris2887,12 months ago,Dokumente
+d4c4cb8,baris2887,12 months ago,Google Drive
+b3ae9e8,baris2887,12 months ago,Update README.md
+7b36b0e,baris2887,12 months ago,Kleinere Änderungen.
+aa8ae53,baris2887,12 months ago,Kleinere Änderungen.
+8883856,Niklas,12 months ago,delete test
+66e9071,Niklas,12 months ago,sdaf
+2af968a,Niklas,12 months ago,TEST
+a492f6c,Niklas,12 months ago,Test Rückgängig
+56426a0,Niklas,12 months ago,TEST
+4bf4786,baris2887,1 year ago,Namen hinzugefügt.
+6d673dd,baris2887,1 year ago,Namen hinzugefügt.
+d3cf48e,baris2887,1 year ago,Namen hinzugefügt.
+f09e3ae,baris2887,1 year ago,Doodle Link
+bbd9d8a,baris2887,1 year ago,Notizen hinzugefügt.
+2cb8db8,baris2887,1 year ago,Notizen hinzugefügt.
+1416a0b,baris2887,1 year ago,Update README.md
+9648684,Baris Akdag,1 year ago,Dokumente Ordner.
+7a0e7ab,baris2887,1 year ago,Update README.md
+9ad4e5a,baris2887,1 year ago,Initial commit
