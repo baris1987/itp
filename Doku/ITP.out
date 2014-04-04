@@ -57,13 +57,14 @@
 \BOOKMARK [3][-]{subsubsection.9.4.1}{Erste Umsetzung und Probleme}{subsection.9.4}% 57
 \BOOKMARK [3][-]{subsubsection.9.4.2}{Finale Umsetzung}{subsection.9.4}% 58
 \BOOKMARK [3][-]{subsubsection.9.4.3}{Klassendiagramm Localizer}{subsection.9.4}% 59
-\BOOKMARK [1][-]{section.10}{Kommunikation \(Benjamin Brandt\)}{}% 60
+\BOOKMARK [1][-]{section.10}{Kommunikation \(Benjamin Brandt, Christopher Althaus\)}{}% 60
 \BOOKMARK [2][-]{subsection.10.1}{Google Cloud Messaging}{section.10}% 61
 \BOOKMARK [3][-]{subsubsection.10.1.1}{Architektur}{subsection.10.1}% 62
-\BOOKMARK [3][-]{subsubsection.10.1.2}{Android}{subsection.10.1}% 63
-\BOOKMARK [3][-]{subsubsection.10.1.3}{Server}{subsection.10.1}% 64
-\BOOKMARK [1][-]{section.11}{Testing \(Benjamin Brandt\)}{}% 65
-\BOOKMARK [2][-]{subsection.11.1}{L\366sungsans\344tze}{section.11}% 66
-\BOOKMARK [2][-]{subsection.11.2}{Durchf\374hrung}{section.11}% 67
-\BOOKMARK [1][-]{section.12}{Ausblick}{}% 68
-\BOOKMARK [1][-]{section.13}{Fazit}{}% 69
+\BOOKMARK [3][-]{subsubsection.10.1.2}{GCM Connection Servers \(Christopher Althaus\)}{subsection.10.1}% 63
+\BOOKMARK [3][-]{subsubsection.10.1.3}{Android \(Original: Benjamin Brandt, \334berarbeitet: Christopher Althaus\)}{subsection.10.1}% 64
+\BOOKMARK [3][-]{subsubsection.10.1.4}{Server}{subsection.10.1}% 65
+\BOOKMARK [1][-]{section.11}{Testing \(Benjamin Brandt\)}{}% 66
+\BOOKMARK [2][-]{subsection.11.1}{L\366sungsans\344tze}{section.11}% 67
+\BOOKMARK [2][-]{subsection.11.2}{Durchf\374hrung}{section.11}% 68
+\BOOKMARK [1][-]{section.12}{Ausblick}{}% 69
+\BOOKMARK [1][-]{section.13}{Fazit}{}% 70
