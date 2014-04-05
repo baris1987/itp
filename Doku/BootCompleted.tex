@@ -1,0 +1,28 @@
+\section[Starten des Services für die Erdbebenerkennung (Jürgen Hetzel)]{Das Starten des Services für die Erdbebenerkennung \begin{tiny} (Jürgen
+Hetzel)\end{tiny}}
+
+Der Hintergrundservice ist für die Funktion der App essentiell. Infolgedessen muss dieser dauerhaft in Betrieb sein. Um das zu gewährleisten, wird ein \emph{Broadcast Receiver} eingesetzt, der den Hintergrundservice nach erfolgreichem Boot-Vorgang mittels Intent startet. Der Hintergrundservice kann zwar durch Eliminieren des Prozesses beendet werden, wird jedoch bei Neustart des Smartphones wieder aktiviert.
+
+\begin{lstlisting}[caption={Der BootCompleted-Receiver der App},label=lst:BootCompletedReceiver]
+public class BootCompletedReceiver extends BroadcastReceiver {
+	@Override
+	public void onReceive(Context context, Intent intent) {		
+		Intent backgroundServiceIntent = new Intent(context, BackgroundService.class);
+		context.startService(backgroundServiceIntent);
+		Log.i("QuakeDetect", "Run background service");
+	}
+}
+\end{lstlisting}
+
+
+Mit Hilfe von \emph{android:enabled = "true"} wird die Instanzierung des Receivers ermöglicht. Die Eigenschaft \emph{android:exported = "false"} verhindert, dass der Receiver Nachrichten von anderen Applikationen erhält. Des Weiteren wird ein Filter eingesetzt, so dass der Receiver nur auf die Systemnachricht für erfolgreichen Boot-Vorgang reagiert.
+
+\begin{lstlisting}[caption={Anpassungen im Manifest hinsichtlich des BootCompletedReceivers},label=lst:BootCompletedManifest]
+<receiver android:name="com.th.nuernberg.quakedetec.receivers.BootCompletedReceiver"
+    android:enabled="true" 
+     android:exported="false">
+    <intent-filter>
+        	<action android:name="android.intent.action.BOOT_COMPLETED" />
+    </intent-filter>
+</receiver>
+\end{lstlisting}
