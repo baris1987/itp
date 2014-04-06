@@ -245,16 +245,16 @@ Läuft die App im Hintergrund und der Nutzer deaktiviert die Lokalisierung, gibt
 \end{figure}
 
 \par\bigskip
-Um den Akkuverbrauch weiter zu minimieren, wird die Lokalisierung komplett deaktiviert, sobald auf dem Smartphone kein Internet mehr zur Verfügung steht. Da bei nicht vorhandener Internetverbindung keine Kommunikation mit dem Server stattfinden kann, können ohnehin keine Daten zur Auswertung an den Server übertragen werden. Somit kann auch keine Erdbebenerkennung stattfinden, sodass man in diesem Fall auf eine Lokalisierung verzichten und so der Akku geschont werden kann.
+Um den Akkuverbrauch weiter zu minimieren, wird die Lokalisierung komplett deaktiviert, sobald auf dem Smartphone kein Internet mehr zur Verfügung steht. Da bei nicht vorhandener Internetverbindung keine Kommunikation mit dem Server stattfinden kann, können ohnehin keine Daten zur Auswertung an den Server übertragen werden. Somit kann auch keine Erdbebenerkennung durchgeführt werden, sodass man in diesem Fall auf eine Lokalisierung verzichten und so der Akku geschont werden kann.
 Die Klasse \textit{ConnectionChangeReceiver} empfängt Broadcasts des Android Systems, welche auch im Falle einer Statusänderung des Networks ausgelöst werden. Mit Hilfe der folgenden Zeilen kann festgestellt werden, ob eine Internetverbindung besteht.
-\begin{lstlisting}[caption={ConnectionChangeReceiver},label=lst:requestLocationUpdates, basicstyle=\small]
+\begin{lstlisting}[caption={ConnectionChangeReceiver},label=lst:networkInfo, basicstyle=\small]
 ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
 \end{lstlisting}
 Dementsprechend kann auf Statusänderungen des Networks reagiert werden und die Lokalisierung gestoppt bzw. gestartet werden.
 \par\medskip
 Um das Problem der Aktualität der Daten zu lösen, wurde die Standortabfrage flexibel gestaltet. Ist die App geöffnet und sichtbar, wird die Standortabfrage in einem Intervall von 30s ausgeführt. Das Intervall ist bei geöffneter App kurz gewählt, damit gewährleistet wird, dass der Nutzer in der Standortanzeige und der Google Map einen relativ aktuellen Standort angezeigt bekommt. Ist die App nicht sichtbar und läuft im Hintergrund, wird eine Standortabfrage in einem Intervall von 10 Minuten ausgeführt. Diese Abfrage ist notwendig, da die App alle 10 Minuten einen Heartbeat mit dem Standort an den Server sendet. Außerdem wird ein Standort abgefragt, sobald ein Erdbeben erkannt wurde und wird mit dem Alarm an den Server gesendet. Da ein Alarm in der App zeitkritisch ist und eine Standortabfrage mit Hilfe des GPS Providers eine längere Zeit beanspruchen kann, wird zusätzlich in einem Intervall von fünf Minuten eine Standortabfrage unabhängig vom Heartbeat oder Alarm ausgeführt. Somit kann sichergestellt werden, dass ein Standort der mit einem Alarm gesendet wird, nicht älter als fünf Minuten ist, falls die Standortabfrage unmittelbar vor dem Alarm zuviel Zeit in Anspruch nimmt und nicht auf diese gewartet werden kann.
-\newpage
+
 \textbf{Zusammenfassung der Lokalisierungsintervalle:}
 \\
 \begin{center}

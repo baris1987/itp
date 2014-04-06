@@ -1,74 +1,74 @@
 \select@language {ngerman}
-\contentsline {section}{\numberline {1}Teamorganisation}{6}{section.1}
-\contentsline {section}{\numberline {2}Motivation (Christopher Althaus)}{7}{section.2}
-\contentsline {section}{\numberline {3}System Struktur (Christopher Althaus)}{8}{section.3}
-\contentsline {section}{\numberline {4}Die Architektur der Applikation(J\IeC {\"u}rgen Hetzel)}{10}{section.4}
-\contentsline {subsection}{\numberline {4.1}Der Back Stack einer Task}{11}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Der Lebenszyklus einer Activity}{12}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Layouts}{13}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Die Android-Projektstruktur}{15}{subsection.4.4}
-\contentsline {section}{\numberline {5}Die Architektur der Applikation(J\IeC {\"u}rgen Hetzel)}{16}{section.5}
-\contentsline {subsection}{\numberline {5.1}Die Klassen des Pakets acceleration}{16}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Die Klassen des Pakets location}{17}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Die Klassen des Pakets receivers}{17}{subsection.5.3}
-\contentsline {subsection}{\numberline {5.4}Die Klassen des Pakets services}{18}{subsection.5.4}
-\contentsline {subsection}{\numberline {5.5}Die Klassen des Pakets screens}{19}{subsection.5.5}
-\contentsline {section}{\numberline {6}RESTful WebService (Baris Akdag)}{21}{section.6}
-\contentsline {subsection}{\numberline {6.1}Kommunikation}{21}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Grundlagen}{21}{subsection.6.2}
-\contentsline {subsubsection}{\numberline {6.2.1}GET}{21}{subsubsection.6.2.1}
-\contentsline {subsubsection}{\numberline {6.2.2}POST}{22}{subsubsection.6.2.2}
-\contentsline {subsubsection}{\numberline {6.2.3}PUT}{22}{subsubsection.6.2.3}
-\contentsline {subsubsection}{\numberline {6.2.4}DELETE}{22}{subsubsection.6.2.4}
-\contentsline {subsection}{\numberline {6.3}Technologien}{23}{subsection.6.3}
-\contentsline {subsection}{\numberline {6.4}Funktionalit\IeC {\"a}ten}{24}{subsection.6.4}
-\contentsline {subsection}{\numberline {6.5}Datenbank}{27}{subsection.6.5}
-\contentsline {subsection}{\numberline {6.6}Implementierung}{28}{subsection.6.6}
-\contentsline {subsubsection}{\numberline {6.6.1}Struktur}{28}{subsubsection.6.6.1}
-\contentsline {subsubsection}{\numberline {6.6.2}Konfiguration}{28}{subsubsection.6.6.2}
-\contentsline {subsubsection}{\numberline {6.6.3}Webserver}{29}{subsubsection.6.6.3}
-\contentsline {subsubsection}{\numberline {6.6.4}WebService}{29}{subsubsection.6.6.4}
-\contentsline {subsection}{\numberline {6.7}Erdbebenerkennung}{30}{subsection.6.7}
-\contentsline {subsubsection}{\numberline {6.7.1}Unterscheidung}{30}{subsubsection.6.7.1}
-\contentsline {subsubsection}{\numberline {6.7.2}Distanzberechnung}{31}{subsubsection.6.7.2}
-\contentsline {subsubsection}{\numberline {6.7.3}Algorithmus}{31}{subsubsection.6.7.3}
-\contentsline {subsection}{\numberline {6.8}Benachrichtigung}{32}{subsection.6.8}
-\contentsline {subsection}{\numberline {6.9}Produktiveinsatz}{32}{subsection.6.9}
-\contentsline {section}{\numberline {7}User Interface (Niklas Sch\IeC {\"a}fer)}{33}{section.7}
-\contentsline {subsection}{\numberline {7.1}Info}{33}{subsection.7.1}
-\contentsline {subsection}{\numberline {7.2}Device Map}{34}{subsection.7.2}
-\contentsline {subsubsection}{\numberline {7.2.1}Google Map in ein Projekt integrieren}{34}{subsubsection.7.2.1}
-\contentsline {subsubsection}{\numberline {7.2.2}User Interface}{36}{subsubsection.7.2.2}
-\contentsline {subsubsection}{\numberline {7.2.3}Android Maps Extensions}{37}{subsubsection.7.2.3}
-\contentsline {subsubsection}{\numberline {7.2.4}AsyncTask Marker hinzuf\IeC {\"u}gen}{38}{subsubsection.7.2.4}
-\contentsline {subsubsection}{\numberline {7.2.5}Klassendiagramm DeviceMap}{40}{subsubsection.7.2.5}
-\contentsline {subsubsection}{\numberline {7.2.6}Zuk\IeC {\"u}nftige Implementierung}{41}{subsubsection.7.2.6}
-\contentsline {subsection}{\numberline {7.3}Settings}{41}{subsection.7.3}
-\contentsline {section}{\numberline {8}Zur\IeC {\"u}cksetzen der Einstellungen (J\IeC {\"u}rgen Hetzel)}{42}{section.8}
-\contentsline {section}{\numberline {9}Das Tablet-Layout (J\IeC {\"u}rgen Hetzel)}{44}{section.9}
-\contentsline {section}{\numberline {10}Erdbebenerkennung unter Android (Christopher Althaus)}{46}{section.10}
-\contentsline {subsection}{\numberline {10.1}Abfragen der Sensordaten unter Android}{46}{subsection.10.1}
-\contentsline {subsection}{\numberline {10.2}Erdbebenauswertung}{48}{subsection.10.2}
-\contentsline {section}{\numberline {11}Starten des Services f\IeC {\"u}r die Erdbebenerkennung (J\IeC {\"u}rgen Hetzel)}{53}{section.11}
-\contentsline {section}{\numberline {12}Lokalisierung (Niklas Sch\IeC {\"a}fer)}{54}{section.12}
-\contentsline {subsection}{\numberline {12.1}Einleitung}{54}{subsection.12.1}
-\contentsline {subsection}{\numberline {12.2}Location Provider des Android-Systems}{54}{subsection.12.2}
-\contentsline {subsubsection}{\numberline {12.2.1}PASSIVE}{54}{subsubsection.12.2.1}
-\contentsline {subsubsection}{\numberline {12.2.2}NETWORK}{55}{subsubsection.12.2.2}
-\contentsline {subsubsection}{\numberline {12.2.3}Global Positioning System}{57}{subsubsection.12.2.3}
-\contentsline {subsection}{\numberline {12.3}Positionsbestimmung in Android}{59}{subsection.12.3}
-\contentsline {subsection}{\numberline {12.4}Umsetzung der Quakedetec App}{62}{subsection.12.4}
-\contentsline {subsubsection}{\numberline {12.4.1}Erste Umsetzung und Probleme}{62}{subsubsection.12.4.1}
-\contentsline {subsubsection}{\numberline {12.4.2}Finale Umsetzung}{63}{subsubsection.12.4.2}
-\contentsline {subsubsection}{\numberline {12.4.3}Klassendiagramm Localizer}{67}{subsubsection.12.4.3}
-\contentsline {section}{\numberline {13}Kommunikation (Benjamin Brandt, Christopher Althaus)}{68}{section.13}
-\contentsline {subsection}{\numberline {13.1}Google Cloud Messaging}{68}{subsection.13.1}
-\contentsline {subsubsection}{\numberline {13.1.1}Architektur}{69}{subsubsection.13.1.1}
-\contentsline {subsubsection}{\numberline {13.1.2}GCM Connection Servers (Christopher Althaus)}{69}{subsubsection.13.1.2}
-\contentsline {subsubsection}{\numberline {13.1.3}Android (Original: Benjamin Brandt, \IeC {\"U}berarbeitet: Christopher Althaus)}{69}{subsubsection.13.1.3}
-\contentsline {subsubsection}{\numberline {13.1.4}Server}{71}{subsubsection.13.1.4}
-\contentsline {section}{\numberline {14}Testing (Benjamin Brandt)}{73}{section.14}
-\contentsline {subsection}{\numberline {14.1}L\IeC {\"o}sungsans\IeC {\"a}tze}{73}{subsection.14.1}
-\contentsline {subsection}{\numberline {14.2}Durchf\IeC {\"u}hrung}{74}{subsection.14.2}
-\contentsline {section}{\numberline {15}Ausblick}{78}{section.15}
-\contentsline {section}{\numberline {16}Fazit}{78}{section.16}
+\contentsline {section}{\numberline {1}Teamorganisation}{5}{section.1}
+\contentsline {section}{\numberline {2}Motivation (Christopher Althaus)}{6}{section.2}
+\contentsline {section}{\numberline {3}System Struktur (Christopher Althaus)}{7}{section.3}
+\contentsline {section}{\numberline {4}Die Architektur der Applikation(J\IeC {\"u}rgen Hetzel)}{9}{section.4}
+\contentsline {subsection}{\numberline {4.1}Der Back Stack einer Task}{10}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Der Lebenszyklus einer Activity}{11}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Layouts}{12}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Die Android-Projektstruktur}{14}{subsection.4.4}
+\contentsline {section}{\numberline {5}Die Architektur der Applikation(J\IeC {\"u}rgen Hetzel)}{15}{section.5}
+\contentsline {subsection}{\numberline {5.1}Die Klassen des Pakets acceleration}{15}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Die Klassen des Pakets location}{16}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Die Klassen des Pakets receivers}{16}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Die Klassen des Pakets services}{17}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}Die Klassen des Pakets screens}{18}{subsection.5.5}
+\contentsline {section}{\numberline {6}RESTful WebService (Baris Akdag)}{20}{section.6}
+\contentsline {subsection}{\numberline {6.1}Kommunikation}{20}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Grundlagen}{20}{subsection.6.2}
+\contentsline {subsubsection}{\numberline {6.2.1}GET}{20}{subsubsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.2}POST}{21}{subsubsection.6.2.2}
+\contentsline {subsubsection}{\numberline {6.2.3}PUT}{21}{subsubsection.6.2.3}
+\contentsline {subsubsection}{\numberline {6.2.4}DELETE}{21}{subsubsection.6.2.4}
+\contentsline {subsection}{\numberline {6.3}Technologien}{22}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Funktionalit\IeC {\"a}ten}{23}{subsection.6.4}
+\contentsline {subsection}{\numberline {6.5}Datenbank}{26}{subsection.6.5}
+\contentsline {subsection}{\numberline {6.6}Implementierung}{27}{subsection.6.6}
+\contentsline {subsubsection}{\numberline {6.6.1}Struktur}{27}{subsubsection.6.6.1}
+\contentsline {subsubsection}{\numberline {6.6.2}Konfiguration}{27}{subsubsection.6.6.2}
+\contentsline {subsubsection}{\numberline {6.6.3}Webserver}{28}{subsubsection.6.6.3}
+\contentsline {subsubsection}{\numberline {6.6.4}WebService}{28}{subsubsection.6.6.4}
+\contentsline {subsection}{\numberline {6.7}Erdbebenerkennung}{29}{subsection.6.7}
+\contentsline {subsubsection}{\numberline {6.7.1}Unterscheidung}{29}{subsubsection.6.7.1}
+\contentsline {subsubsection}{\numberline {6.7.2}Distanzberechnung}{30}{subsubsection.6.7.2}
+\contentsline {subsubsection}{\numberline {6.7.3}Algorithmus}{30}{subsubsection.6.7.3}
+\contentsline {subsection}{\numberline {6.8}Benachrichtigung}{31}{subsection.6.8}
+\contentsline {subsection}{\numberline {6.9}Produktiveinsatz}{31}{subsection.6.9}
+\contentsline {section}{\numberline {7}User Interface (Niklas Sch\IeC {\"a}fer)}{32}{section.7}
+\contentsline {subsection}{\numberline {7.1}Info}{32}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Device Map}{33}{subsection.7.2}
+\contentsline {subsubsection}{\numberline {7.2.1}Google Map in ein Projekt integrieren}{33}{subsubsection.7.2.1}
+\contentsline {subsubsection}{\numberline {7.2.2}User Interface}{35}{subsubsection.7.2.2}
+\contentsline {subsubsection}{\numberline {7.2.3}Android Maps Extensions}{36}{subsubsection.7.2.3}
+\contentsline {subsubsection}{\numberline {7.2.4}AsyncTask Marker hinzuf\IeC {\"u}gen}{37}{subsubsection.7.2.4}
+\contentsline {subsubsection}{\numberline {7.2.5}Klassendiagramm DeviceMap}{39}{subsubsection.7.2.5}
+\contentsline {subsubsection}{\numberline {7.2.6}Zuk\IeC {\"u}nftige Implementierung}{40}{subsubsection.7.2.6}
+\contentsline {subsection}{\numberline {7.3}Settings}{40}{subsection.7.3}
+\contentsline {section}{\numberline {8}Zur\IeC {\"u}cksetzen der Einstellungen (J\IeC {\"u}rgen Hetzel)}{41}{section.8}
+\contentsline {section}{\numberline {9}Das Tablet-Layout (J\IeC {\"u}rgen Hetzel)}{43}{section.9}
+\contentsline {section}{\numberline {10}Erdbebenerkennung unter Android (Christopher Althaus)}{45}{section.10}
+\contentsline {subsection}{\numberline {10.1}Abfragen der Sensordaten unter Android}{45}{subsection.10.1}
+\contentsline {subsection}{\numberline {10.2}Erdbebenauswertung}{47}{subsection.10.2}
+\contentsline {section}{\numberline {11}Starten des Services f\IeC {\"u}r die Erdbebenerkennung (J\IeC {\"u}rgen Hetzel)}{52}{section.11}
+\contentsline {section}{\numberline {12}Lokalisierung (Niklas Sch\IeC {\"a}fer)}{53}{section.12}
+\contentsline {subsection}{\numberline {12.1}Einleitung}{53}{subsection.12.1}
+\contentsline {subsection}{\numberline {12.2}Location Provider des Android-Systems}{53}{subsection.12.2}
+\contentsline {subsubsection}{\numberline {12.2.1}PASSIVE}{53}{subsubsection.12.2.1}
+\contentsline {subsubsection}{\numberline {12.2.2}NETWORK}{54}{subsubsection.12.2.2}
+\contentsline {subsubsection}{\numberline {12.2.3}Global Positioning System}{56}{subsubsection.12.2.3}
+\contentsline {subsection}{\numberline {12.3}Positionsbestimmung in Android}{58}{subsection.12.3}
+\contentsline {subsection}{\numberline {12.4}Umsetzung der Quakedetec App}{61}{subsection.12.4}
+\contentsline {subsubsection}{\numberline {12.4.1}Erste Umsetzung und Probleme}{61}{subsubsection.12.4.1}
+\contentsline {subsubsection}{\numberline {12.4.2}Finale Umsetzung}{62}{subsubsection.12.4.2}
+\contentsline {subsubsection}{\numberline {12.4.3}Klassendiagramm Localizer}{65}{subsubsection.12.4.3}
+\contentsline {section}{\numberline {13}Kommunikation (Benjamin Brandt, Christopher Althaus)}{66}{section.13}
+\contentsline {subsection}{\numberline {13.1}Google Cloud Messaging}{66}{subsection.13.1}
+\contentsline {subsubsection}{\numberline {13.1.1}Architektur}{67}{subsubsection.13.1.1}
+\contentsline {subsubsection}{\numberline {13.1.2}GCM Connection Servers (Christopher Althaus)}{67}{subsubsection.13.1.2}
+\contentsline {subsubsection}{\numberline {13.1.3}Android (Original: Benjamin Brandt, \IeC {\"U}berarbeitet: Christopher Althaus)}{67}{subsubsection.13.1.3}
+\contentsline {subsubsection}{\numberline {13.1.4}Server}{69}{subsubsection.13.1.4}
+\contentsline {section}{\numberline {14}Testing (Benjamin Brandt)}{71}{section.14}
+\contentsline {subsection}{\numberline {14.1}L\IeC {\"o}sungsans\IeC {\"a}tze}{71}{subsection.14.1}
+\contentsline {subsection}{\numberline {14.2}Durchf\IeC {\"u}hrung}{72}{subsection.14.2}
+\contentsline {section}{\numberline {15}Ausblick}{76}{section.15}
+\contentsline {section}{\numberline {16}Fazit}{76}{section.16}
