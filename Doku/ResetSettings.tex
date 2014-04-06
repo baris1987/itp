@@ -1,0 +1,46 @@
+\section[Zurücksetzen der Einstellungen (Jürgen Hetzel)]{Zurücksetzen der Einstellungen \begin{tiny} (Jürgen
+Hetzel)\end{tiny}}
+
+Für den Fall, dass ein Benutzer ungewollt die Einstellungen veränderte, sollte die Möglichkeit vorhanden sein, die Einstellungen auf die Standard-Werte zurückzusetzen.
+Um dies zu realisieren, wird zunächst mittels Key \emph{application\textunderscore restore} auf die entsprechende Einstellung zurückgegriffen. Im Anschluß daran, wird für diese ein \emph{OnClickListener} angelegt. Für die Benutzer-Interaktion ist ein Dialog vorgesehen. Zu diesem Zweck, gibt es eine adäquate Android-Klasse, inklusive \emph{Builder}. Die benötigten \emph{Strings} werden über die zugehörige XML-Datei eingebunden.
+\begin{lstlisting}[caption={Listener und Alert Dialog für das Zurücksetzen der Einstellungen 1},label=lst:resetSettingsListener1]
+Preference restorePref = (Preference) findPreference("application_restore");
+
+restorePref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+    public boolean onPreferenceClick(Preference preference) {
+   	 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Settings.getSettingsObject());
+		
+	 alertDialogBuilder.setTitle(getResources().getString(R.string
+	    .settings_reset));			
+	 alertDialogBuilder
+	 	.setMessage(getResources().getString(R.string.settings_reset_sure))
+		.setCancelable(false)
+\end{lstlisting}
+Der Dialog enthält die Buttons \emph{OK}	 und \emph{Cancel}. Für diese wird jeweils ein \emph{onClickListener} benötigt. Innerhalb des OK-Button-Listeners wird mit Hilfe von \emph{getSettingsObject} auf die derzeitige Instanz von Settings zugegriffen und anschließend die Methode \emph{resetPrefsToDefault} aufgerufen. Diese wird in Listing \ref{lst:resetSettingsMethod} erläutert. Der Cancel-Button ist hier nicht aufgeführt, da dessen Betätigung keine zusätzliche Aktion bewirkt. Erst mit der Create-Methode der Builder-Klasse, wird tatsächlich ein Alert-Dialog mit der festgelegten Konfiguration erstellt und schließlich mit \emph{show()} angezeigt.
+ \begin{lstlisting}[caption={Listener und Alert Dialog für das Zurücksetzen der Einstellungen 2},label=lst:resetSettingsListener2]		
+		.setPositiveButton(getResources().getString(R.string.btn_ok),
+		   new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int id) 
+			{
+				isRestore = true;
+				Settings.getSettingsObject().resetPrefsToDefault();
+			}
+		});
+		
+	 AlertDialog alertDialog = alertDialogBuilder.create();
+	 alertDialog.show();
+   	 return true;
+    }
+});
+\end{lstlisting}
+
+Nachfolgend wird anfangs mittels \emph{PreferenceManager} auf die Einstellungen zugegriffen und für diese ein Editor erzeugt. Der Editor dient zur Löschung der Werte, welche jedoch erst nach \emph{commit} übertragen werden. Im Anschluß daran, werden die festgelegten Werte aus dem definierten XML-File verwendet und schließlich die App neu gestartet.
+\begin{lstlisting}[caption={Die Methode für das Zurücksetzen der Einstellungen},label=lst:resetSettingsMethod]
+public void resetPrefsToDefault()
+{
+	PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();	
+	PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
+	restartApp();
+}
+\end{lstlisting}
+
