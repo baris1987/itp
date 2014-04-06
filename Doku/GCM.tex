@@ -50,7 +50,7 @@ Geht eine GCM Nachricht vom Typ \textit{MESSAGE} ein, so wird automatisch davon 
    mNotificationManager.notify(1, mBuilder.build());     
  }
 \end{lstlisting}
-Wie im Quellcodeauszug ersichtlich, erfolgt die Alarmierung des Nutzers auf drei verschiedene Weisen. Zum einen wird eine Notification innerhalb der Taskbar angezeigt. Diese Notification enthält als Text die Nachricht, die der Server beim Auslösen des Alarms mitschickt. Dabei handelt es sich um Informationen, die das erkannte Erdbeben betreffen. Zusätzlich wird, falls der Vibrationsmotor des Handys nicht deaktiviert ist, ein Vibrationsalarm ausgelöst. Zudem wird für den Fall, dass das Gerät nicht auf lautlos geschaltet ist, ein Alarmton wiedergegeben.\\
+Wie im Quellcodeauszug ersichtlich, erfolgt die Alarmierung des Nutzers auf drei verschiedene Weisen. Zum einen wird eine Benachrichtigung innerhalb der Taskbar angezeigt. Diese Benachrichtigung enthält als Text die Nachricht, die der Server beim Auslösen des Alarms mitschickt. Dabei handelt es sich um Informationen, die das erkannte Erdbeben betreffen. Zusätzlich wird, falls der Vibrationsmotor des Handys nicht deaktiviert ist, ein Vibrationsalarm ausgelöst. Zudem wird für den Fall, dass das Gerät nicht auf lautlos geschaltet ist, ein Alarmton wiedergegeben.\\
 Zum Auslösen des Alarms wird die Klasse \textit{NotificationManger} genutzt. Diese ist innerhalb von Android für jegliche Art der Benutzerbenachrichtigung zuständig.
 
 
