@@ -43,27 +43,31 @@
 \BOOKMARK [3][-]{subsubsection.7.2.5}{Klassendiagramm DeviceMap}{subsection.7.2}% 43
 \BOOKMARK [3][-]{subsubsection.7.2.6}{Zuk\374nftige Implementierung}{subsection.7.2}% 44
 \BOOKMARK [2][-]{subsection.7.3}{Settings}{section.7}% 45
-\BOOKMARK [1][-]{section.8}{Erdbebenerkennung unter Android \(Christopher Althaus\)}{}% 46
-\BOOKMARK [2][-]{subsection.8.1}{Abfragen der Sensordaten unter Android}{section.8}% 47
-\BOOKMARK [2][-]{subsection.8.2}{Erdbebenauswertung}{section.8}% 48
-\BOOKMARK [1][-]{section.9}{Lokalisierung \(Niklas Sch\344fer\)}{}% 49
-\BOOKMARK [2][-]{subsection.9.1}{Einleitung}{section.9}% 50
-\BOOKMARK [2][-]{subsection.9.2}{Location Provider des Android-Systems}{section.9}% 51
-\BOOKMARK [3][-]{subsubsection.9.2.1}{PASSIVE}{subsection.9.2}% 52
-\BOOKMARK [3][-]{subsubsection.9.2.2}{NETWORK}{subsection.9.2}% 53
-\BOOKMARK [3][-]{subsubsection.9.2.3}{Global Positioning System}{subsection.9.2}% 54
-\BOOKMARK [2][-]{subsection.9.3}{Positionsbestimmung in Android}{section.9}% 55
-\BOOKMARK [2][-]{subsection.9.4}{Umsetzung der Quakedetec App}{section.9}% 56
-\BOOKMARK [3][-]{subsubsection.9.4.1}{Erste Umsetzung und Probleme}{subsection.9.4}% 57
-\BOOKMARK [3][-]{subsubsection.9.4.2}{Finale Umsetzung}{subsection.9.4}% 58
-\BOOKMARK [3][-]{subsubsection.9.4.3}{Klassendiagramm Localizer}{subsection.9.4}% 59
-\BOOKMARK [1][-]{section.10}{Kommunikation \(Benjamin Brandt\)}{}% 60
-\BOOKMARK [2][-]{subsection.10.1}{Google Cloud Messaging}{section.10}% 61
-\BOOKMARK [3][-]{subsubsection.10.1.1}{Architektur}{subsection.10.1}% 62
-\BOOKMARK [3][-]{subsubsection.10.1.2}{Android}{subsection.10.1}% 63
-\BOOKMARK [3][-]{subsubsection.10.1.3}{Server}{subsection.10.1}% 64
-\BOOKMARK [1][-]{section.11}{Testing \(Benjamin Brandt\)}{}% 65
-\BOOKMARK [2][-]{subsection.11.1}{L\366sungsans\344tze}{section.11}% 66
-\BOOKMARK [2][-]{subsection.11.2}{Durchf\374hrung}{section.11}% 67
-\BOOKMARK [1][-]{section.12}{Ausblick}{}% 68
-\BOOKMARK [1][-]{section.13}{Fazit}{}% 69
+\BOOKMARK [1][-]{section.8}{Zur\374cksetzen der Einstellungen \(J\374rgen Hetzel\)}{}% 46
+\BOOKMARK [1][-]{section.9}{Das Tablet-Layout \(J\374rgen Hetzel\)}{}% 47
+\BOOKMARK [1][-]{section.10}{Erdbebenerkennung unter Android \(Christopher Althaus\)}{}% 48
+\BOOKMARK [2][-]{subsection.10.1}{Abfragen der Sensordaten unter Android}{section.10}% 49
+\BOOKMARK [2][-]{subsection.10.2}{Erdbebenauswertung}{section.10}% 50
+\BOOKMARK [1][-]{section.11}{Starten des Services f\374r die Erdbebenerkennung \(J\374rgen Hetzel\)}{}% 51
+\BOOKMARK [1][-]{section.12}{Lokalisierung \(Niklas Sch\344fer\)}{}% 52
+\BOOKMARK [2][-]{subsection.12.1}{Einleitung}{section.12}% 53
+\BOOKMARK [2][-]{subsection.12.2}{Location Provider des Android-Systems}{section.12}% 54
+\BOOKMARK [3][-]{subsubsection.12.2.1}{PASSIVE}{subsection.12.2}% 55
+\BOOKMARK [3][-]{subsubsection.12.2.2}{NETWORK}{subsection.12.2}% 56
+\BOOKMARK [3][-]{subsubsection.12.2.3}{Global Positioning System}{subsection.12.2}% 57
+\BOOKMARK [2][-]{subsection.12.3}{Positionsbestimmung in Android}{section.12}% 58
+\BOOKMARK [2][-]{subsection.12.4}{Umsetzung der Quakedetec App}{section.12}% 59
+\BOOKMARK [3][-]{subsubsection.12.4.1}{Erste Umsetzung und Probleme}{subsection.12.4}% 60
+\BOOKMARK [3][-]{subsubsection.12.4.2}{Finale Umsetzung}{subsection.12.4}% 61
+\BOOKMARK [3][-]{subsubsection.12.4.3}{Klassendiagramm Localizer}{subsection.12.4}% 62
+\BOOKMARK [1][-]{section.13}{Kommunikation \(Benjamin Brandt, Christopher Althaus\)}{}% 63
+\BOOKMARK [2][-]{subsection.13.1}{Google Cloud Messaging}{section.13}% 64
+\BOOKMARK [3][-]{subsubsection.13.1.1}{Architektur}{subsection.13.1}% 65
+\BOOKMARK [3][-]{subsubsection.13.1.2}{GCM Connection Servers \(Christopher Althaus\)}{subsection.13.1}% 66
+\BOOKMARK [3][-]{subsubsection.13.1.3}{Android \(Original: Benjamin Brandt, \334berarbeitet: Christopher Althaus\)}{subsection.13.1}% 67
+\BOOKMARK [3][-]{subsubsection.13.1.4}{Server}{subsection.13.1}% 68
+\BOOKMARK [1][-]{section.14}{Testing \(Benjamin Brandt\)}{}% 69
+\BOOKMARK [2][-]{subsection.14.1}{L\366sungsans\344tze}{section.14}% 70
+\BOOKMARK [2][-]{subsection.14.2}{Durchf\374hrung}{section.14}% 71
+\BOOKMARK [1][-]{section.15}{Ausblick}{}% 72
+\BOOKMARK [1][-]{section.16}{Fazit}{}% 73

@@ -1,4 +1,4 @@
-\section[Kommunikation (Benjamin Brandt)]{Kommunikation\begin{tiny} (Benjamin Brandt)\end{tiny}}\label{sec:communication}
+\section[Kommunikation (Benjamin Brandt, Christopher Althaus)]{Kommunikation\begin{tiny} (Benjamin Brandt)\end{tiny}}\label{sec:communication}
 Die Kommunikation der App mit dem Server läuft bei der Kommunikation der App mit dem RESTful Webservice über Http Befehle und für das Senden von Alarmnachrichten an die verschiedenen Geräte  wird Google Cloud Messaging verwendet.
 \subsection{Google Cloud Messaging}
 Der Service Google Cloud Messaging (GCM) wird Entwicklern von Android Apps kostenlos von Google zur Verfügung gestellt. Er erlaubt diesen über bestehende Google Server Infrastruktur Daten an ihre Apps  und von diesen an ihren Server zu senden. Hierbei übernimmt der GCM Service alle Aufgaben die mit der Übermittlung  der Nachricht zu tun haben.\\
@@ -22,36 +22,37 @@ Die Architektur von Google Cloud Messaging  teilt sich in drei Bereiche auf. Der
 \caption{Struktur von GCM}
 \label{fig:GCMstrukutr}
 \end{figure}
+\subsubsection{GCM Connection Servers    (Christopher Althaus)}
+Die Kommunikation mit dem GCM Connection Server kann mittels den zwei Kommunikationsprotokollen HTTP und XMPP (Extensible Messaging and Presence Protocol) stattfinden. Mit Hilfe von XMPP kann eine bidirektionale Verbindung vom Client zum Server erfolgen, während mittels HTTP lediglich Daten vom Server an den Client (Android Gerät) übertragen werden können.\\
+Wie bereits beschrieben, wird sämtliche Kommunikation der App mit Hilfe von HTTP realisiert und lediglich die Alarmnachrichten sollen mittels GCM an den Client übertragen werden. Da hierfür keine bidirektionale Verbindung notwendig ist und sich die Implementierung des XMPP Protokolls sowohl Client- als auch Serverseitig wesentlich aufwändiger gestaltet als die des HTTP Protokolls, ist entschieden worden für die GCM Kommunikation das HTTP Protokoll einzusetzen. 
+\subsubsection{Android    (Original: Benjamin Brandt, Überarbeitet: Christopher Althaus)}
+Wie bereits beschrieben, liegt der Vorteil der Nutzung des GCM Services unter Android darin, dass keine zusätzliche Verbindung überwacht werden muss. Das schont zum einen die Akkulaufzeit und erspart zum anderen die Implementierung eines Dienstes, der ständig eine Verbindung mit dem Server herstellt.\\
+Geht eine Alarmnachricht unter Android ein, wird vom Google Service ein Broadcast ausgelöst. Innerhalb der App wird mittels eines \textit{Broadcast Receivers} auf solche Broadcasts gewartet. Geht beim \textit{Boradcast Receiver} eine GCM Nachricht ein, so wird ein Service aufgerufen, der diese auswertet. Grundsätzlich können die drei Nachrichtentypen \textit{SEND\_ERROR}, \textit{DELETED} und \textit{MESSAGE} auftreten. Nachrichten vom Typ \textit{MESSAGE} werden von der App weiterverarbeitet. Bei den anderen beiden Typen handelt es sich um Fehler, welche lediglich zur Fehleranalyse im Log festgehalten werden.\\
+Geht eine GCM Nachricht vom Typ \textit{MESSAGE} ein, so wird automatisch davon ausgegangen, dass es sich um eine Alarmnachricht vom Server handelt, da der GCM Service innerhalb der App lediglich hierfür benutzt wird. Als Resultat wird die Alarmierung des Nutzers gestartet. Die dazu genutzte Methode ist zum besseren Verständnis im Listing \ref{lst:GCMAlarm} aufgeführt.
+\begin{lstlisting}[caption={Senden von Nachrichten vom Server},label=lst:GCMAlarm]
+ public static void sendAlarmNotification(Context context, String msg) {
+   NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+   PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, Info.class), 0);
 
-\subsubsection{Android}
-Das Empfangen von Nachrichten in der App läuft über das Packet GcmIntentService.java hier werden die empfangenen Nachrichten nach ihrem Typ sortiert. Bei dem Messagetyp Send error wird der Fehler als solcher makiert ins Log geschrieben. Bei dem Messagetyp Deleted wird nach demselben Prinzip vorgegangen. Beim Typ Message wird die Prozedur NotificationsService.sendAlarmNotification aufgerufen. Hierdurch werden in Android die Notifications ausgelöst. Der hierzu nötige Programmcode ist unter\ref{GCMget} aufgelistet.\\
-
-\begin{lstlisting}[caption={Empfangen von GCM Nachrichten unter Android},label=lst:GCMget]
-
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        Bundle extras = intent.getExtras();
-        GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
-        String messageType = gcm.getMessageType(intent);
-
-        if (!extras.isEmpty()) {
-
-            if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-            		Log.i(TAG, "Send error: " + extras.toString());
-	            }
- 	else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-            		Log.i(TAG,  "Deleted messages on server: " + extras.toString());
-            	}
-	else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-            		NotificationsService.sendAlarmNotification(this, extras.getString("message"));
-                	Log.i(TAG, "Received: " + extras.toString());
-            	}
-        	}
-        GcmBroadcastReceiver.completeWakefulIntent(intent);
-	} 
-}
-
+   NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+     .setSmallIcon(R.drawable.icon)
+     .setContentTitle("QuakeDetec")
+     .setStyle(new NotificationCompat.BigTextStyle()
+     .bigText(msg))
+     .setContentText(msg);
+     
+   if(vibrationActivated)
+      mBuilder.setVibrate(new long[]{0,300,100,300,100,300,100,300,100,300,100});
+   if(soundActivated)
+      mBuilder.setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.alarm));
+	
+   mBuilder.setContentIntent(contentIntent);
+   mNotificationManager.notify(1, mBuilder.build());     
+ }
 \end{lstlisting}
+Wie im Quellcodeauszug ersichtlich, erfolgt die Alarmierung des Nutzers auf drei verschiedene Weisen. Zum einen wird eine Benachrichtigung innerhalb der Taskbar angezeigt. Diese Benachrichtigung enthält als Text die Nachricht, die der Server beim Auslösen des Alarms mitschickt. Dabei handelt es sich um Informationen, die das erkannte Erdbeben betreffen. Zusätzlich wird, falls der Vibrationsmotor des Handys nicht deaktiviert ist, ein Vibrationsalarm ausgelöst. Zudem wird für den Fall, dass das Gerät nicht auf lautlos geschaltet ist, ein Alarmton wiedergegeben.\\
+Zum Auslösen des Alarms wird die Klasse \textit{NotificationManger} genutzt. Diese ist innerhalb von Android für jegliche Art der Benutzerbenachrichtigung zuständig.
+
 
 \subsubsection{Server}
 Der Server sendet eine Benachrichtigung an die GCM Server diese leiten die Nachricht an die betroffenen Geräte-IDs weiter. Dies wird über einen REST-Methodenaufruf durchgeführt. Dieser wird an die Adresse https://android.googleapis.com/gcm/send gesendet, die Nachricht ist mit einem Authorisationskey ausgestattet damit nur Nachrichten vom richtigen Server gesendet werden können. Der zugehörige Programmcode ist unter \ref{ServerSeGCM} abgebildet.
